@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Image, TextInput, TouchableOpacity, View, StyleSheet} from "react-native";
 
+
 export default class quantityInput extends Component {
     state = {
         quantityText: '5',
