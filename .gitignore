@@ -86,4 +86,4 @@ lint/tmp/
 
 
 # others
-package-lock.json
+ExpressoApp/package-lock.json
