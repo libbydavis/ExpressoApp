@@ -10,8 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-firebase/app": "^12.6.1",
+    "@react-native-firebase/database": "^12.7.0",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.6",
+    "firebase": "^8.9.1",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-gesture-handler": "^1.10.3",
