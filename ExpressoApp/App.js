@@ -30,21 +30,20 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import AddMenuItemScreen from './AddMenuItemScreen';
-
+import CreateMenu from './CreateMenu';
 
 const App: () => Node = () => {
   const Stack = createStackNavigator();
 
   return (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false,}}>
-          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="CreateMenu" component={CreateMenu} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({});
 
 export default App;
