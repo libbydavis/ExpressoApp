@@ -1,22 +1,16 @@
-import React, {Component, useState} from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Button} from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Modal } from "react-native";
 import QuantityInput from './QuantityInput';
 import CustomImagePicker from "./CustomImagePicker";
-import database from '@react-native-firebase/database';
+import firebase from 'firebase';
 
 const AddMenuItemScreen = ({navigation}) => {
-    database()
-      .ref('/Users')
-      .update({
-          firstName: 'Jim',
-      })
-      .then(() => console.log('Data updated.'));
+    const [modalVisible, setModalVisible] = useState(false);
 
     return(
         <View>
             <Image source={require('./assets/ExpressoLogo.png')} style={styles.headerIcon}></Image>
             <View style={styles.mainView}>
-                <Text></Text>
                 <Text style={styles.title}>Add Item</Text>
                 <CustomImagePicker style={styles.imagePicker}/>
                 <View style={styles.rowView}>
@@ -32,7 +26,22 @@ const AddMenuItemScreen = ({navigation}) => {
                                 <QuantityInput></QuantityInput>
                             </View>
                         </View>
-                        <TouchableOpacity style={styles.expressoButton}>
+                        <Modal
+                          animationType="slide"
+                          transparent={true}
+                          visible={modalVisible}
+                          onRequestClose={() => {
+                              setModalVisible(!modalVisible);
+                          }}
+                        >
+                            <View style={styles.modalView}>
+                                <TextInput placeholder="option title"></TextInput>
+                                <TouchableOpacity style={styles.expressoButton} onPress={() => setModalVisible(!modalVisible)}>
+                                    <Text style={styles.expressoButtonText}>add</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </Modal>
+                        <TouchableOpacity style={styles.expressoButton} onPress={() => setModalVisible(true)}>
                             <Text style={styles.expressoButtonText}>add options</Text>
                         </TouchableOpacity>
                     </View>
@@ -58,6 +67,12 @@ const styles = StyleSheet.create({
         width: 200,
         height: 50,
 
+    },
+    modalView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: '#ffffff',
     },
     textInput: {
         fontFamily: 'Monserrat-Regular',

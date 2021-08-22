@@ -55,25 +55,6 @@ class App extends Component{
     }else {
       firebase.app(); // if already initialized, use that one
     }
-
-    const dbRef = firebase.database().ref();
-    dbRef.child("Users/Owner").child("Owner1").get().then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-
-    firebase.database().ref("Users/Owner/Owner2").set({
-      firstName: 'Shayla',
-      lastName: 'Craigs',
-      phone: '024756437',
-    }).then(() => {
-      console.log("owner inserted");
-    })
   }
 
   render() {
