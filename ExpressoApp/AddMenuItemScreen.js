@@ -2,15 +2,23 @@ import React, {Component, useState} from 'react';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Button} from 'react-native';
 import QuantityInput from './QuantityInput';
 import CustomImagePicker from "./CustomImagePicker";
+import database from '@react-native-firebase/database';
 
 const AddMenuItemScreen = ({navigation}) => {
+    database()
+      .ref('/Users')
+      .update({
+          firstName: 'Jim',
+      })
+      .then(() => console.log('Data updated.'));
 
     return(
         <View>
             <Image source={require('./assets/ExpressoLogo.png')} style={styles.headerIcon}></Image>
             <View style={styles.mainView}>
+                <Text></Text>
                 <Text style={styles.title}>Add Item</Text>
-                <CustomImagePicker></CustomImagePicker>
+                <CustomImagePicker style={styles.imagePicker}/>
                 <View style={styles.rowView}>
                     <View style={styles.columnView}>
                         <TextInput style={styles.textInput} placeholder="title" />
@@ -84,6 +92,9 @@ const styles = StyleSheet.create({
     },
     expressoButtonText: {
         color: '#ffffff',
+    },
+    imagePicker: {
+      backgroundColor: 'red',
     },
 })
 
