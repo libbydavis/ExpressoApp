@@ -47,11 +47,11 @@ export default class quantityInput extends Component {
         return(
             <View style={styles.quantityRow}>
                 <TouchableOpacity onPress={this.minusQuantity.bind(this)}>
-                    <Image source={require('./assets/minusButton.png')} style={styles.quantityIcon} />
+                    <Image source={require('../assets/minusButton.png')} style={styles.quantityIcon} />
                 </TouchableOpacity>
                 <TextInput placeholder={this.state.quantityPlaceholder} value={this.state.quantityText} onKeyPress={this.setKeyQuantity.bind(this)} />
                 <TouchableOpacity onPress={this.plusQuantity.bind(this)}>
-                    <Image source={require('./assets/addButton.png')} style={styles.quantityIcon} />
+                    <Image source={require('../assets/addButton.png')} style={styles.quantityIcon} />
                 </TouchableOpacity>
             </View>
         );
