@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Modal } from "react-native";
-import QuantityInput from './QuantityInput';
-import CustomImagePicker from "./CustomImagePicker";
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Modal, KeyboardAvoidingView } from "react-native";
+import QuantityInput from '../components/QuantityInput';
+import CustomImagePicker from "../components/CustomImagePicker";
 import firebase from 'firebase';
+import CheckListTask from "../components/ChecklistTask";
 
 const AddMenuItemScreen = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [checklistTask, setChecklistTask] = useState();
+
+    const handleChecklistTaskAdd = () => {
+        console.log(checklistTask);
+    }
 
     return(
         <View>
-            <Image source={require('./assets/ExpressoLogo.png')} style={styles.headerIcon}></Image>
+            <Image source={require('../assets/ExpressoLogo.png')} style={styles.headerIcon}></Image>
             <View style={styles.mainView}>
                 <Text style={styles.title}>Add Item</Text>
                 <CustomImagePicker style={styles.imagePicker}/>
@@ -36,6 +42,18 @@ const AddMenuItemScreen = ({navigation}) => {
                         >
                             <View style={styles.modalView}>
                                 <TextInput placeholder="option title"></TextInput>
+                                <View>
+                                    <View>
+                                        <CheckListTask text={'Task 1'}></CheckListTask>
+                                        <CheckListTask text={'Task 2'}></CheckListTask>
+                                    </View>
+                                    <KeyboardAvoidingView>
+                                        <TextInput placeholder="Enter option" value={checklistTask} onChangeText={text => setChecklistTask(text)}/>
+                                        <TouchableOpacity onPress={() =>handleChecklistTaskAdd()}>
+                                            <Text>+</Text>
+                                        </TouchableOpacity>
+                                    </KeyboardAvoidingView>
+                                </View>
                                 <TouchableOpacity style={styles.expressoButton} onPress={() => setModalVisible(!modalVisible)}>
                                     <Text style={styles.expressoButtonText}>add</Text>
                                 </TouchableOpacity>
@@ -66,7 +84,6 @@ const styles = StyleSheet.create({
     headerIcon: {
         width: 200,
         height: 50,
-
     },
     modalView: {
         flex: 1,
