@@ -8,9 +8,21 @@ import CheckListTask from "../components/ChecklistTask";
 const AddMenuItemScreen = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [checklistTask, setChecklistTask] = useState();
+    const [checklistItems, setChecklistItems] = useState([]);
+    const [checklistTitle, setChecklistTitle] = useState();
+    let optionChecklists = [];
 
     const handleChecklistTaskAdd = () => {
-        console.log(checklistTask);
+        setChecklistItems([...checklistItems, checklistTask]);
+        setChecklistTask(null);
+    }
+
+    const handleNewChecklist = () => {
+        setModalVisible(!modalVisible);
+        optionChecklists = [...optionChecklists, {title: checklistTitle, items: checklistItems}];
+        console.log(optionChecklists);
+        setChecklistTitle(null);
+        setChecklistItems([]);
     }
 
     return(
@@ -41,26 +53,38 @@ const AddMenuItemScreen = ({navigation}) => {
                           }}
                         >
                             <View style={styles.modalView}>
-                                <TextInput placeholder="option title"></TextInput>
+                                <TextInput style={styles.enterOptionText} value={checklistTitle} placeholder="option title" onChangeText={(text) => setChecklistTitle(text)}></TextInput>
                                 <View>
                                     <View>
-                                        <CheckListTask text={'Task 1'}></CheckListTask>
-                                        <CheckListTask text={'Task 2'}></CheckListTask>
+                                        {
+                                            checklistItems.map((item, index) => {
+                                                return <CheckListTask key={index} text={item}/>
+                                            })
+                                        }
                                     </View>
                                     <KeyboardAvoidingView>
-                                        <TextInput placeholder="Enter option" value={checklistTask} onChangeText={text => setChecklistTask(text)}/>
-                                        <TouchableOpacity onPress={() =>handleChecklistTaskAdd()}>
-                                            <Text>+</Text>
-                                        </TouchableOpacity>
+                                        <View style={styles.inputChecklist}>
+                                            <TextInput placeholder="Enter option" value={checklistTask} onChangeText={text => setChecklistTask(text)} style={styles.enterOptionText}/>
+                                            <TouchableOpacity onPress={() =>handleChecklistTaskAdd()} style={styles.expressoButton}>
+                                                <Text style={styles.expressoButtonText}>add</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </KeyboardAvoidingView>
                                 </View>
-                                <TouchableOpacity style={styles.expressoButton} onPress={() => setModalVisible(!modalVisible)}>
-                                    <Text style={styles.expressoButtonText}>add</Text>
+                                <TouchableOpacity style={styles.expressoButton} onPress={() => handleNewChecklist()}>
+                                    <Text style={styles.expressoButtonText}>add option list</Text>
                                 </TouchableOpacity>
                             </View>
                         </Modal>
+                        <View>
+                            {
+                                optionChecklists.map((item, index) => {
+                                    return <Text key={index} text={item.title}/>
+                                })
+                            }
+                        </View>
                         <TouchableOpacity style={styles.expressoButton} onPress={() => setModalVisible(true)}>
-                            <Text style={styles.expressoButtonText}>add options</Text>
+                            <Text style={styles.expressoButtonText}>add option</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -127,6 +151,18 @@ const styles = StyleSheet.create({
     },
     imagePicker: {
       backgroundColor: 'red',
+    },
+    inputChecklist: {
+      flexDirection: "row",
+    },
+    enterOptionText: {
+        borderBottomWidth: 1,
+        borderStartWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderTopWidth: 1,
+        paddingRight: 100,
+        marginRight: 15,
     },
 })
 
