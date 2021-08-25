@@ -8,11 +8,10 @@ import {
   Image,
   ScrollView,
   StatusBar,
-  Dimensions,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import database from '@react-native-firebase/database';
-import auth from '@react-native-firebase/auth';
+import {firebaseAuth, firebaseDB} from '../firebase/FirebaseConfig';
 
 /**
  *
@@ -20,34 +19,47 @@ import auth from '@react-native-firebase/auth';
  * @constructor
  */
 function RegisterUserScreen() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const [firstName, setFirstName] = useState(' ');
+  const [lastName, setLastName] = useState(' ');
+  const [password, setPassword] = useState(' ');
+  const [email, setEmail] = useState(' ');
+  const [owner, setOwner] = useState(false);
+  const [businessTitle, setBusinessTitle] = useState(' ');
+  const [businessAddress, setBusinessAddress] = useState(' ');
+  // const [initializing, setInitializing] = useState(true);
 
-  /**
-   *
-   * @param user
-   * */
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
+  // /**
+  //  *
+  //  * @param user
+  //  * */
+  // function onAuthStateChanged(user) {
+  //   setUser(user);
+  //   if (initializing) setInitializing(false);
+  // }
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
+  // useEffect(() => {
+  //   const subscriber = firebaseAuth.onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
 
   /**
    *
    * @return {boolean}
    */
   function validateInput() {
-    if (!firstName) return false;
-    if (!lastName) return false;
-    if (!password || password.length < 6) return false;
-
+    if (!firstName) {
+      return false;
+    }
+    if (!lastName) {
+      return false;
+    }
+    if (!password || password.length < 6) {
+      return false;
+    }
     if (owner) {
-      if (!businessName) return false;
+      if (!businessName) {
+        return false;
+      }
     }
 
     return true;
@@ -56,8 +68,8 @@ function RegisterUserScreen() {
   /**
    *
    */
-  async function signUpNewUser() {
-    await auth()
+  function signUpNewUser() {
+    firebaseAuth
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
           console.log('User account created & signed in!');
@@ -69,52 +81,61 @@ function RegisterUserScreen() {
           if (error.code === 'auth/invalid-email') {
             console.log('That email address is invalid!');
           }
-          console.error(error);
+          console.error(error + ' ' + email + ' ' + firstName + ' ' + lastName);
         });
   }
 
-  database()
+  firebaseDB
       .ref('/Users')
       .update({
         firstName: 'Jim',
       })
       .then(() => console.log('Data updated.'));
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [owner, setOwner] = useState(false);
-  const [businessName, setBusinessName] = useState('');
+  // const [user, setUser] = useState({
+  //   'firstName': '',
+  //   'lastName': '',
+  //   'email': '',
+  //   'password': '',
+  // });
+  // const [business, setBusiness] = useState({
+  //   'title': '',
+  //   'address': '',
+  //   'user': {
+  //     'firstName': '',
+  //     'lastName': '',
+  //     'email': '',
+  //   },
+  // });
 
   return (
     <View style={styles.mainView}>
       <Image source={require('../assets/ExpressoLogo.png')}
         style={styles.headerIcon}></Image>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
         <Text style={styles.title}>Register</Text>
         <View style={styles.rowView}>
           <View style={styles.columnView}>
 
             <TextInput style={styles.textInput} placeholder="First name"
-              onEndEditing={(text) => {
-                setFirstName(text);
+              onEndEditing={(e) => {
+                setFirstName(e.nativeEvent.text);
               }} />
 
             <TextInput style={styles.textInput} placeholder="Last name"
-              onEndEditing={(text) => {
-                setLastName(text);
+              onEndEditing={(e) => {
+                setLastName(e.nativeEvent.text);
               }}/>
 
             <TextInput style={styles.textInput} placeholder="Email"
-              onEndEditing={(text) => {
-                setEmail(text);
+              onEndEditing={(e) => {
+                setEmail(e.nativeEvent.text);
               }} />
 
             <TextInput style={styles.textInput} placeholder="Password"
               secureTextEntry={true}
-              onEndEditing={(text) => {
-                setPassword(text);
+              onEndEditing={(e) => {
+                setPassword(e.nativeEvent.text);
               }} />
 
             <BouncyCheckbox iconStyle={{borderColor: '#25a2af'}}
@@ -125,29 +146,19 @@ function RegisterUserScreen() {
               }} />
 
             { !owner ? null : (
-                <>
+                <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text></Text>
                   <TextInput style={styles.textInput}
-                    placeholder="Business Name"
-                    onEndEditing={(text) => {
-                      setBusinessName(text);
+                    placeholder="Business Title"
+                    onEndEditing={(e) => {
+                      setBusinessTitle(e.nativeEvent.text);
                     }}/>
                   <TextInput style={styles.textInput}
-                    placeholder="Business Name"
-                    onEndEditing={(text) => {
-                      setBusinessName(text);
+                    placeholder="Business Address"
+                    onEndEditing={(e) => {
+                      setBusinessAddress(e.nativeEvent.text);
                     }}/>
-                  <TextInput style={styles.textInput}
-                    placeholder="Business Name"
-                    onEndEditing={(text) => {
-                      setBusinessName(text);
-                    }}/>
-                  <TextInput style={styles.textInput}
-                    placeholder="Business Name"
-                    onEndEditing={(text) => {
-                      setBusinessName(text);
-                    }}/>
-                </>
+                </Animatable.View>
               )
             }
 
@@ -156,8 +167,11 @@ function RegisterUserScreen() {
         <View>
           <TouchableOpacity
             style={styles.expressoButton} onPress={() => {
-              if (validateInput()) {
+              const valid = validateInput();
+              if (valid) {
                 signUpNewUser();
+              } else {
+                console.log('Data is invalid');
               }
             }}>
 
@@ -174,7 +188,7 @@ const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    alignSelf: 'center',
+    // backgroundColor: '#35a2af',
   },
   headerIcon: {
     width: 200,
@@ -182,11 +196,8 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontFamily: 'Monserrat-Regular',
-    borderBottomWidth: 1,
-    borderStartWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
+    borderWidth: 1,
+    borderRadius: 10,
     paddingRight: 50,
     marginBottom: 20,
   },
@@ -213,7 +224,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
+    width: '50%',
   },
   expressoButtonText: {
     color: '#ffffff',
@@ -224,7 +236,9 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 20,
-    padding: 20,
+    // backgroundColor: '#ffffff',
+    marginBottom: 20,
+    alignItems: 'center',
   },
 });
 
