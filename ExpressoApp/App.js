@@ -31,6 +31,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import firebase from 'firebase';
 
 import AddMenuItemScreen from './screens/AddMenuItemScreen';
+import ScreenCart from "./screens/ScreenCart";
 
 const Stack = createStackNavigator();
 
@@ -61,6 +62,7 @@ class App extends Component{
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false,}}>
+          <Stack.Screen name="Cart" component={ScreenCart} />
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
         </Stack.Navigator>
       </NavigationContainer>

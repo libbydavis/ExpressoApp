@@ -1,33 +1,72 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Modal, KeyboardAvoidingView } from "react-native";
+import {
+    StyleSheet,
+    View,
+    TextInput,
+    TouchableOpacity,
+    Text,
+    Image,
+    Modal,
+    KeyboardAvoidingView,
+    Alert, FlatList,
+} from "react-native";
 import QuantityInput from '../components/QuantityInput';
 import CustomImagePicker from "../components/CustomImagePicker";
 import firebase from 'firebase';
 import CheckListTask from "../components/ChecklistTask";
+import ToastAndroid from "react-native/Libraries/Components/ToastAndroid/ToastAndroid";
 
 const AddMenuItemScreen = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [checklistTask, setChecklistTask] = useState();
     const [checklistItems, setChecklistItems] = useState([]);
     const [checklistTitle, setChecklistTitle] = useState();
-    let optionChecklists = [];
+    const [optionChecklists, setOptionChecklists] = useState([]);
 
     const handleChecklistTaskAdd = () => {
-        setChecklistItems([...checklistItems, checklistTask]);
-        setChecklistTask(null);
+        if (checklistTask != undefined) {
+            setChecklistItems([...checklistItems, checklistTask]);
+            setChecklistTask(null);
+        }
+        else {
+            ToastAndroid.show("Type an option to add to the list", ToastAndroid.SHORT);
+        }
     }
 
     const handleNewChecklist = () => {
+        if (checklistTitle != undefined && checklistItems.length > 0) {
+            setModalVisible(!modalVisible);
+            setOptionChecklists([...optionChecklists, {title: checklistTitle, items: checklistItems}]);
+            console.log(optionChecklists);
+            setChecklistTitle(null);
+            setChecklistItems([]);
+        }
+        else if (checklistTitle == undefined) {
+            Alert.alert("Enter a checklist title to continue");
+        }
+        else if (checklistItems == 0) {
+            Alert.alert("Enter at least one option to continue");
+        }
+    }
+
+    const discardNewChecklist = () => {
         setModalVisible(!modalVisible);
-        optionChecklists = [...optionChecklists, {title: checklistTitle, items: checklistItems}];
-        console.log(optionChecklists);
         setChecklistTitle(null);
         setChecklistItems([]);
     }
 
+    const handleDeleteItem = (index) => {
+        let checklistItemsCopy = [...checklistItems];
+        checklistItemsCopy.splice(index, 1);
+        setChecklistItems(checklistItemsCopy)
+        console.log(checklistItems);
+    }
+
     return(
         <View>
-            <Image source={require('../assets/ExpressoLogo.png')} style={styles.headerIcon}></Image>
+            <View style={styles.navBar}>
+                <Image source={require('../assets/ExpressoLogo.png')} style={styles.headerIcon}></Image>
+            </View>
             <View style={styles.mainView}>
                 <Text style={styles.title}>Add Item</Text>
                 <CustomImagePicker style={styles.imagePicker}/>
@@ -38,8 +77,8 @@ const AddMenuItemScreen = ({navigation}) => {
                         <TextInput style={styles.textInput} placeholder="price" keyboardType='decimal-pad' />
                     </View>
                     <View style={styles.columnView}>
-                        <View>
-                            <Text>quantity</Text>
+                        <View style={styles.quantityElements}>
+                            <Text style={styles.expressoLabel}>quantity</Text>
                             <View style={styles.rowView}>
                                 <QuantityInput></QuantityInput>
                             </View>
@@ -53,12 +92,14 @@ const AddMenuItemScreen = ({navigation}) => {
                           }}
                         >
                             <View style={styles.modalView}>
-                                <TextInput style={styles.enterOptionText} value={checklistTitle} placeholder="option title" onChangeText={(text) => setChecklistTitle(text)}></TextInput>
+                                <TextInput style={styles.enterOptionTitle} value={checklistTitle} placeholder="option title" onChangeText={(text) => setChecklistTitle(text)}></TextInput>
                                 <View>
                                     <View>
                                         {
                                             checklistItems.map((item, index) => {
-                                                return <CheckListTask key={index} text={item}/>
+                                                return <TouchableOpacity key={index} onPress={() => handleDeleteItem(index)}>
+                                                    <CheckListTask key={index} text={item}/>
+                                                </TouchableOpacity>
                                             })
                                         }
                                     </View>
@@ -71,20 +112,27 @@ const AddMenuItemScreen = ({navigation}) => {
                                         </View>
                                     </KeyboardAvoidingView>
                                 </View>
-                                <TouchableOpacity style={styles.expressoButton} onPress={() => handleNewChecklist()}>
-                                    <Text style={styles.expressoButtonText}>add option list</Text>
-                                </TouchableOpacity>
+                                <View style={styles.optionBottomButtons}>
+                                    <TouchableOpacity style={styles.expressoButton} onPress={() => handleNewChecklist()}>
+                                        <Text style={styles.expressoButtonText}>add option list</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.discardButton} onPress={() => discardNewChecklist()}>
+                                        <Text style={styles.expressoButtonText}>discard</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </Modal>
                         <View>
+                            <Text style={styles.expressoLabel}>Option Lists</Text>
                             {
                                 optionChecklists.map((item, index) => {
-                                    return <Text key={index} text={item.title}/>
+                                    return <Text key={index}>- {item.title}</Text>
+
                                 })
                             }
                         </View>
                         <TouchableOpacity style={styles.expressoButton} onPress={() => setModalVisible(true)}>
-                            <Text style={styles.expressoButtonText}>add option</Text>
+                            <Text style={styles.expressoButtonText}>add option list</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -105,9 +153,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    navBar: {
+        marginBottom: 15,
+        marginTop: 8,
+    },
     headerIcon: {
         width: 200,
         height: 50,
+        marginLeft: 15,
     },
     modalView: {
         flex: 1,
@@ -146,6 +199,14 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 10,
     },
+    discardButton: {
+        backgroundColor: 'red',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
+    },
     expressoButtonText: {
         color: '#ffffff',
     },
@@ -154,6 +215,7 @@ const styles = StyleSheet.create({
     },
     inputChecklist: {
       flexDirection: "row",
+        marginTop: 10,
     },
     enterOptionText: {
         borderBottomWidth: 1,
@@ -163,6 +225,29 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         paddingRight: 100,
         marginRight: 15,
+    },
+    enterOptionTitle: {
+        borderBottomWidth: 1,
+        borderStartWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderTopWidth: 1,
+        position: 'absolute',
+        top: 15,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    quantityElements: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    optionBottomButtons: {
+        flexDirection: "row",
+        marginTop: 10,
+    },
+    expressoLabel: {
+        fontFamily: 'Monserrat-Regular',
+        color: '#383838',
     },
 })
 

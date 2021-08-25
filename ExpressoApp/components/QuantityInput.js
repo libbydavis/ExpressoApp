@@ -37,11 +37,11 @@ const QuantityInput = () =>  {
 
     return(
         <View style={styles.quantityRow}>
-            <TouchableOpacity onPress={() => handleMinus()} style={styles.touchableIcons}>
+            <TouchableOpacity onPress={() => handleMinus()}>
                 <Image source={require('../assets/minusButton.png')} style={styles.quantityIcon} />
             </TouchableOpacity>
             <TextInput style={styles.quantityInputBox} value={quantity} onChangeText={text => handleTextQuantity(text)} keyboardType={'numeric'} />
-            <TouchableOpacity onPress={() => handlePlus()} style={styles.touchableIcons}>
+            <TouchableOpacity onPress={() => handlePlus()}>
                 <Image source={require('../assets/addButton.png')} style={styles.quantityIcon} />
             </TouchableOpacity>
         </View>
@@ -51,6 +51,7 @@ const QuantityInput = () =>  {
 const styles = StyleSheet.create({
     quantityRow: {
         flexDirection: "row",
+        marginBottom: 20,
     },
     quantityIcon: {
         width: 25,
@@ -58,9 +59,7 @@ const styles = StyleSheet.create({
     },
     quantityInputBox: {
         marginLeft: 10,
-    },
-    touchableIcons: {
-      marginTop: 10,
+        textAlignVertical: 'top',
     },
 });
 
