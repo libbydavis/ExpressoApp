@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import {firebaseAuth, firebaseDB} from '../firebase/FirebaseConfig';
+import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 
 /**
  *
@@ -26,8 +26,8 @@ function RegisterUserScreen() {
   const [owner, setOwner] = useState(false);
   const [businessTitle, setBusinessTitle] = useState(' ');
   const [businessAddress, setBusinessAddress] = useState(' ');
-  // const [initializing, setInitializing] = useState(true);
 
+  // const [initializing, setInitializing] = useState(true);
   // /**
   //  *
   //  * @param user
@@ -36,7 +36,6 @@ function RegisterUserScreen() {
   //   setUser(user);
   //   if (initializing) setInitializing(false);
   // }
-
   // useEffect(() => {
   //   const subscriber = firebaseAuth.onAuthStateChanged(onAuthStateChanged);
   //   return subscriber; // unsubscribe on unmount
@@ -134,25 +133,9 @@ function RegisterUserScreen() {
         });
   }
 
-  // const [user, setUser] = useState({
-  //   'firstName': '',
-  //   'lastName': '',
-  //   'email': '',
-  //   'password': '',
-  // });
-  // const [business, setBusiness] = useState({
-  //   'title': '',
-  //   'address': '',
-  //   'user': {
-  //     'firstName': '',
-  //     'lastName': '',
-  //     'email': '',
-  //   },
-  // });
-
   return (
     <View style={styles.mainView}>
-      <Image source={require('../assets/ExpressoLogo.png')}
+      <Image source={require('../../assets/ExpressoLogo.png')}
         style={styles.headerIcon}/>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Text style={styles.title}>Register</Text>

@@ -44,7 +44,7 @@ const QuantityInput = () => {
     <View style={styles.quantityRow}>
       <TouchableOpacity onPress={() => handleMinus()}>
         <Image
-          source={require('../assets/minusButton.png')}
+          source={require('../../assets/minusButton.png')}
           style={styles.quantityIcon}
         />
       </TouchableOpacity>
@@ -55,7 +55,7 @@ const QuantityInput = () => {
       />
       <TouchableOpacity onPress={() => handlePlus()}>
         <Image
-          source={require('../assets/addButton.png')}
+          source={require('../../assets/addButton.png')}
           style={styles.quantityIcon}
         />
       </TouchableOpacity>

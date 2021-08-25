@@ -24,6 +24,8 @@ if (!firebase.apps.length) {
   firebase.app(); // if already initialized, use that one
 }
 
+// Consts which can be used throughout the application
+// Wherever interaction with firebase is required
 const firebaseDB = firebase.database();
 const firebaseRoot = firebaseDB.ref();
 const firebaseAuth = firebase.auth();

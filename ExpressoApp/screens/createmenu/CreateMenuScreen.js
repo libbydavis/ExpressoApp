@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -6,14 +6,18 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  Button,
 } from 'react-native';
 
-const CreateMenu = ({navigation}) => {
+/**
+ *
+ * @return {JSX.Element}
+ * @constructor
+ */
+const CreateMenuScreen = () => {
   return (
     <View>
       <Image
-        source={require('./assets/ExpressoLogo.png')}
+        source={require('../../assets/ExpressoLogo.png')}
         style={styles.headerIcon}
       />
       <View style={styles.mainView}>
@@ -75,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateMenu;
+export default CreateMenuScreen;
