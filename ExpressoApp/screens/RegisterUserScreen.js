@@ -57,7 +57,7 @@ function RegisterUserScreen() {
       return false;
     }
     if (owner) {
-      if (!businessName) {
+      if (!businessTitle) {
         return false;
       }
     }
@@ -73,6 +73,10 @@ function RegisterUserScreen() {
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
           console.log('User account created & signed in!');
+          writeUserData(firebaseAuth.i);
+          if (owner) {
+            writeBusinessData(firebaseAuth.tenantId);
+          }
         })
         .catch((error) => {
           if (error.code === 'auth/email-already-in-use') {
@@ -85,12 +89,47 @@ function RegisterUserScreen() {
         });
   }
 
-  firebaseDB
-      .ref('/Users')
-      .update({
-        firstName: 'Jim',
-      })
-      .then(() => console.log('Data updated.'));
+  /**
+   *
+   * @param userId
+   */
+  function writeUserData(userId) {
+    firebaseDB.ref('users/' + userId)
+        .set({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+        })
+        .then(() => {
+          // Data saved successfully!
+          console.log('User added to users collection successfully!');
+        })
+        .catch((error) => {
+          // The write failed...
+          console.log('User could not be added to users collection.');
+        });
+  }
+
+  /**
+   *
+   * @param userId
+   */
+  function writeBusinessData(userId) {
+    firebaseDB.ref('businesses/' + userId)
+        .set({
+          owner: userId,
+          title: businessTitle,
+          address: businessAddress,
+        })
+        .then(() => {
+          // Data saved successfully!
+          console.log('Business added to businesses collection successfully!');
+        })
+        .catch((error) => {
+          // The write failed...
+          console.log('Business could not be added to businesses collection.');
+        });
+  }
 
   // const [user, setUser] = useState({
   //   'firstName': '',
@@ -165,6 +204,25 @@ function RegisterUserScreen() {
           </View>
         </View>
         <View>
+
+          {
+          //   !owner ? null : (
+          //     <Animatable.View animation="fadeInLeft" duration={500}>
+          //       <Text></Text>
+          //       <TextInput style={styles.textInput}
+          //         placeholder="Business Title"
+          //         onEndEditing={(e) => {
+          //           setBusinessTitle(e.nativeEvent.text);
+          //         }}/>
+          //       <TextInput style={styles.textInput}
+          //         placeholder="Business Address"
+          //         onEndEditing={(e) => {
+          //           setBusinessAddress(e.nativeEvent.text);
+          //         }}/>
+          //     </Animatable.View>
+          // )
+          }
+
           <TouchableOpacity
             style={styles.expressoButton} onPress={() => {
               const valid = validateInput();
