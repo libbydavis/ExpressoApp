@@ -30,6 +30,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import AddMenuItemScreen from './AddMenuItemScreen';
+import LoginScreen from './screens/login/LoginScreen';
+
 
 
 const App: () => Node = () => {
@@ -38,6 +40,7 @@ const App: () => Node = () => {
   return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false,}}>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
         </Stack.Navigator>
       </NavigationContainer>
