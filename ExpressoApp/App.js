@@ -6,8 +6,7 @@
  * @flow strict-local
  */
 
-import React, { Component } from "react";
-import type {Node} from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -30,8 +29,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import firebase from 'firebase';
 
-import AddMenuItemScreen from './AddMenuItemScreen';
+import AddMenuItemScreen from './screens/AddMenuItemScreen';
 import RegisterUserScreen from './screens/RegisterUserScreen';
+import LoginScreen from './screens/login/LoginScreen';
 import ScreenCart from "./screens/ScreenCart";
 
 const Stack = createStackNavigator();
@@ -57,21 +57,21 @@ class App extends Component{
     }else {
       firebase.app(); // if already initialized, use that one
     }
-  }
-
-  render() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false,}}>
-          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
-          <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
-          <Stack.Screen name="Cart" component={ScreenCart} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-
-};
+    render()
+    {
+      return (
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
+              <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
+              <Stack.Screen name="Cart" component={ScreenCart} />
+              <Stack.Screen name="LoginScreen" component={LoginScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+      );
+    }
+  };
+  
 
 const styles = StyleSheet.create({
 });
