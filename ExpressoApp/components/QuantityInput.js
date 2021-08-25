@@ -1,69 +1,66 @@
-import React, {Component} from "react";
-import {Image, TextInput, TouchableOpacity, View, StyleSheet} from "react-native";
+import React, {useState } from "react";
+import { Image, TextInput, TouchableOpacity, View, StyleSheet, Alert } from "react-native";
 
 
-export default class quantityInput extends Component {
-    state = {
-        quantityText: '5',
-        quantityValue: 5,
-        quantityPlaceholder: '5',
-    }
-    handleButtonQuantity(buttonType) {
-        let currentValue;
+const QuantityInput = () =>  {
+    const [quantity, setQuantity] = useState("5");
+    const [quantityNumber, setQuantityNumber] = useState(5);
+
+    const handleButtonQuantity = (buttonType) => {
         if (buttonType == true) {
-            currentValue = ++this.state.quantityValue;
+            let newQuantity = quantityNumber + 1;
+            setQuantityNumber(newQuantity);
+            setQuantity(newQuantity.toString());
         }
-        else {
-            currentValue = --this.state.quantityValue;
+        else if (quantityNumber - 1 < 0) {
+            Alert.alert("You can't have a value smaller than 0!");
         }
-        let textValue = currentValue.toString();
-
-        this.setState({
-            quantityValue: currentValue,
-            quantityText: textValue,
-        });
+        else if (quantityNumber - 1 >= 0) {
+            let newQuantity = quantityNumber - 1;
+            setQuantityNumber(newQuantity);
+            setQuantity(newQuantity.toString());
+        }
     }
 
-    minusQuantity() {
-        this.handleButtonQuantity(false);
+    const handlePlus = () => {
+        handleButtonQuantity(true);
     }
 
-    plusQuantity() {
-        this.handleButtonQuantity(true);
+    const handleMinus = () => {
+        handleButtonQuantity(false);
     }
 
-    setKeyQuantity() {
-        let textValue = "10";
-        let currentValue = textValue.valueOf();
-
-        this.setState({
-            quantityValue: currentValue,
-            quantityText: textValue,
-        });
-        console.log(this.state.quantityText);
+    const handleTextQuantity = (text) => {
+        setQuantity(text);
+        setQuantityNumber(Number(text));
     }
 
-    render() {
-        return(
-            <View style={styles.quantityRow}>
-                <TouchableOpacity onPress={this.minusQuantity.bind(this)}>
-                    <Image source={require('../assets/minusButton.png')} style={styles.quantityIcon} />
-                </TouchableOpacity>
-                <TextInput placeholder={this.state.quantityPlaceholder} value={this.state.quantityText} onKeyPress={this.setKeyQuantity.bind(this)} />
-                <TouchableOpacity onPress={this.plusQuantity.bind(this)}>
-                    <Image source={require('../assets/addButton.png')} style={styles.quantityIcon} />
-                </TouchableOpacity>
-            </View>
-        );
-    }
+    return(
+      <View style={styles.quantityRow}>
+          <TouchableOpacity onPress={() => handleMinus()}>
+              <Image source={require('../assets/minusButton.png')} style={styles.quantityIcon} />
+          </TouchableOpacity>
+          <TextInput style={styles.quantityInputBox} value={quantity} onChangeText={text => handleTextQuantity(text)} keyboardType={'numeric'} />
+          <TouchableOpacity onPress={() => handlePlus()}>
+              <Image source={require('../assets/addButton.png')} style={styles.quantityIcon} />
+          </TouchableOpacity>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
     quantityRow: {
         flexDirection: "row",
+        marginBottom: 20,
     },
     quantityIcon: {
         width: 25,
         height: 25,
     },
+    quantityInputBox: {
+        marginLeft: 10,
+        textAlignVertical: 'top',
+    },
 });
+
+export default QuantityInput;
