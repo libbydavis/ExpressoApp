@@ -32,6 +32,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AddMenuItemScreen from './AddMenuItemScreen';
 import LoginScreen from './screens/login/LoginScreen';
 
+import AddMenuItemScreen from './screens/AddMenuItemScreen';
+import RegisterUserScreen from './screens/RegisterUserScreen';
 
 
 const App: () => Node = () => {
@@ -40,7 +42,9 @@ const App: () => Node = () => {
   return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false,}}>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
         </Stack.Navigator>
       </NavigationContainer>

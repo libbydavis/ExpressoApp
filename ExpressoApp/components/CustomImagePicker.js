@@ -25,12 +25,12 @@ class CustomImagePicker extends Component {
         const {photo} = this.state;
         return (
 
-            <View style={this.props.style}>
-                {photo && (
-                    <Image source={{uri: this.state.photo.uri}} style={{width: 300, height: 300}} />
-                )}
-                <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
-            </View>
+        <View style={this.props.style}>
+            {photo && (
+                <Image source={{uri: this.state.photo.uri}} style={{width: 300, height: 300}} />
+            )}
+            <Button title="Choose Photo" onPress={this.handleChoosePhoto} />
+        </View>
         );
     }
 }
