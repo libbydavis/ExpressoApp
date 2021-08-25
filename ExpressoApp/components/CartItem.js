@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React from 'react';
+import {Text, View} from 'react-native';
 
 const CartItem = (props) => {
   return (
@@ -8,13 +8,13 @@ const CartItem = (props) => {
       <Text>{props.cost}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cartItemView: {
     flexDirection: 'row',
     backgroundColor: '#c9c9c9',
   },
-})
+});
 
 export default CartItem;

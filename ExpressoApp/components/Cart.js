@@ -4,7 +4,6 @@ import firebase from 'firebase';
 
 class Cart extends Component {
   state = {
-
 }
 }
 
