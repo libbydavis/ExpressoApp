@@ -30,7 +30,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import firebase from 'firebase';
 
-import AddMenuItemScreen from './AddMenuItemScreen';
+import CreateMenu from "./CreateMenu";
 
 const Stack = createStackNavigator();
 
@@ -61,7 +61,7 @@ class App extends Component{
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false,}}>
-          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
+          <Stack.Screen name="CreateMenu" component={CreateMenu} />
         </Stack.Navigator>
       </NavigationContainer>
     );
