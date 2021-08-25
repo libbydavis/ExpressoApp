@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -71,11 +71,11 @@ function RegisterUserScreen() {
   function signUpNewUser() {
     firebaseAuth
         .createUserWithEmailAndPassword(email, password)
-        .then(() => {
+        .then((user) => {
           console.log('User account created & signed in!');
-          writeUserData(firebaseAuth.i);
+          writeUserData(user.user.uid);
           if (owner) {
-            writeBusinessData(firebaseAuth.tenantId);
+            writeBusinessData(user.user.uid);
           }
         })
         .catch((error) => {
@@ -91,7 +91,7 @@ function RegisterUserScreen() {
 
   /**
    *
-   * @param userId
+   * @param {string}userId
    */
   function writeUserData(userId) {
     firebaseDB.ref('users/' + userId)
@@ -102,17 +102,18 @@ function RegisterUserScreen() {
         })
         .then(() => {
           // Data saved successfully!
-          console.log('User added to users collection successfully!');
+          console.log(`User ${userId} added to users collection successfully!`);
         })
         .catch((error) => {
           // The write failed...
-          console.log('User could not be added to users collection.');
+          console.log(`User ${userId} could not be added to users collection.` +
+              error.message());
         });
   }
 
   /**
    *
-   * @param userId
+   * @param {string}userId
    */
   function writeBusinessData(userId) {
     firebaseDB.ref('businesses/' + userId)
@@ -123,11 +124,13 @@ function RegisterUserScreen() {
         })
         .then(() => {
           // Data saved successfully!
-          console.log('Business added to businesses collection successfully!');
+          console.log(`Business for ${userId} added to businesses` +
+           ` collection successfully!`);
         })
         .catch((error) => {
           // The write failed...
-          console.log('Business could not be added to businesses collection.');
+          console.log(`Business for ${userId} could not be added to` +
+           ` businesses collection.` + error.message());
         });
   }
 
@@ -150,7 +153,7 @@ function RegisterUserScreen() {
   return (
     <View style={styles.mainView}>
       <Image source={require('../assets/ExpressoLogo.png')}
-        style={styles.headerIcon}></Image>
+        style={styles.headerIcon}/>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Text style={styles.title}>Register</Text>
         <View style={styles.rowView}>
@@ -186,7 +189,7 @@ function RegisterUserScreen() {
 
             { !owner ? null : (
                 <Animatable.View animation="fadeInLeft" duration={500}>
-                  <Text></Text>
+                  <Text>{}</Text>
                   <TextInput style={styles.textInput}
                     placeholder="Business Title"
                     onEndEditing={(e) => {
@@ -232,14 +235,13 @@ function RegisterUserScreen() {
                 console.log('Data is invalid');
               }
             }}>
-
             <Text style={styles.expressoButtonText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
   );
-};
+}
 
 
 const styles = StyleSheet.create({
