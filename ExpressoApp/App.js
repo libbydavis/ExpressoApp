@@ -6,8 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,20 +27,24 @@ import {
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import firebase from 'firebase';
 
-import AddMenuItemScreen from './AddMenuItemScreen';
+import AddMenuItemScreen from './screens/AddMenuItemScreen';
+import RegisterUserScreen from './screens/RegisterUserScreen';
 
+const Stack = createStackNavigator();
 
-const App: () => Node = () => {
-  const Stack = createStackNavigator();
-
-  return (
+class App extends Component {
+  render() {
+    return (
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false,}}>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
