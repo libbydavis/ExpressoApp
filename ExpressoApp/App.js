@@ -62,8 +62,9 @@ class App extends Component{
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false,}}>
-          <Stack.Screen name="Cart" component={ScreenCart} />
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
+          <Stack.Screen name="Cart" component={ScreenCart} />
+
         </Stack.Navigator>
       </NavigationContainer>
     );
