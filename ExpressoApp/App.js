@@ -12,6 +12,7 @@ import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
 import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
 import LoginScreen from './screens/login/LoginScreen';
 import CartScreen from './screens/cart/CartScreen';
+import firebase from "firebase";
 
 const Stack = createStackNavigator();
 
@@ -25,7 +26,25 @@ export default class App extends Component {
    */
   constructor() {
     super();
-
+      super();
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      let firebaseConfig = {
+        apiKey: "AIzaSyAn92Ew0Z5VJ_TgThlS_krQHUUBW8zzuOE",
+        authDomain: "expresso-418d1.firebaseapp.com",
+        databaseURL: "https://expresso-418d1-default-rtdb.firebaseio.com",
+        projectId: "expresso-418d1",
+        storageBucket: "expresso-418d1.appspot.com",
+        messagingSenderId: "723640216847",
+        appId: "1:723640216847:web:65558223bfa0ac1ac2a27a",
+        measurementId: "G-SR7PKGX02H"
+      };
+      // Initialize Firebase
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }else {
+        firebase.app(); // if already initialized, use that one
+      }
   }
 
   render() {
