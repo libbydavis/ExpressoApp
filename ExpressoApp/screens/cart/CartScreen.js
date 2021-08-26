@@ -1,21 +1,32 @@
-import React, { useState } from "react";
-import { ScrollView, Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import firebase from 'firebase';
-import CheckListTask from "../components/ChecklistTask";
-import CartItem from "../components/CartItem";
+import React, {useState} from 'react';
+import {
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+// import firebase from 'firebase';
+// import CheckListTask from '../components/ChecklistTask';
+import CartItem from './CartItem';
 
-const ScreenCart = ({navigation}) => {
+/**
+ *
+ * @return {JSX.Element}
+ * @constructor
+ */
+const CartScreen = () => {
   const [total, setTotal] = useState(0.0);
   const [cartItems, setCartItems] = useState();
 
-  return(
+  return (
     <ScrollView>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
         <View>
           {
             cartItems.map((item, index) => {
-              return <CartItem key={index} props={item}></CartItem>
+              return <CartItem key={index} props={item}></CartItem>;
             })
           }
         </View>
@@ -27,8 +38,8 @@ const ScreenCart = ({navigation}) => {
         </TouchableOpacity>
       </View>
     </ScrollView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   cartView: {
@@ -52,7 +63,7 @@ const styles = StyleSheet.create({
   payButtonText: {
     color: '#ffffff',
   },
-})
+});
 
 
-export default ScreenCart;
+export default CartScreen;

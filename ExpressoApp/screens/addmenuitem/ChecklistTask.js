@@ -1,14 +1,14 @@
-import React, {Component} from "react";
-import {TextInput, TouchableOpacity, View, StyleSheet, Text } from "react-native";
+import React from 'react';
+import {View, StyleSheet, Text} from 'react-native';
 
 const CheckListTask = (props) => {
-  return(
+  return (
     <View style={styles.checklistTask}>
       <Text style={styles.checklistText}>{props.text}</Text>
       <Text>X</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   checklistTask: {
@@ -16,12 +16,12 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     borderRadius: 10,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   checklistText: {
     color: '#383838',
     marginRight: 170,
   },
-})
+});
 
 export default CheckListTask;
