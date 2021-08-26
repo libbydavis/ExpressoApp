@@ -27,10 +27,10 @@ if (!firebase.apps.length) {
 // Consts which can be used throughout the application
 // Wherever interaction with firebase is required
 const firebaseDB = firebase.database();
-const firebaseRoot = firebaseDB.ref();
+const firebaseApp = firebase;
 const firebaseAuth = firebase.auth();
 
-export {firebaseAuth, firebaseDB, firebaseRoot};
+export {firebaseAuth, firebaseDB, firebase};
 
 // const dbRef = firebase.database().ref();
 // dbRef.child('Users/Owner').child('Owner1').get().then((snapshot) => {

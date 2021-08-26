@@ -19,7 +19,7 @@ const CreateMenuScreen = () => {
       <Image
         source={require('../../assets/ExpressoLogo.png')}
         style={styles.headerIcon}
-      />
+      ></Image>
       <View style={styles.mainView}>
         <Text style={styles.title}>Create Menu</Text>
         <Text style={styles.subtitle}>Input Menu Title</Text>

@@ -18,7 +18,7 @@ import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
  * @return {JSX.Element}
  * @constructor
  */
-function RegisterUserScreen() {
+function RegisterUserScreen({navigation}) {
   const [firstName, setFirstName] = useState(' ');
   const [lastName, setLastName] = useState(' ');
   const [password, setPassword] = useState(' ');
@@ -136,7 +136,7 @@ function RegisterUserScreen() {
   return (
     <View style={styles.mainView}>
       <Image source={require('../../assets/ExpressoLogo.png')}
-        style={styles.headerIcon}/>
+        style={styles.headerIcon}></Image>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Text style={styles.title}>Register</Text>
         <View style={styles.rowView}>
@@ -214,6 +214,7 @@ function RegisterUserScreen() {
               const valid = validateInput();
               if (valid) {
                 signUpNewUser();
+                // goToLoginIfSuccessful(() => {navigation.navigate('LoginScreen')});
               } else {
                 console.log('Data is invalid');
               }
