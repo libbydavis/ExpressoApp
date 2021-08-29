@@ -195,7 +195,7 @@ const AddMenuItemScreen = ({ navigation }) => {
         </View>
         <View>
           <TouchableOpacity style={styles.expressoButton}>
-            <Text style={styles.expressoButtonText} onPress={() => navigation.navigate('RegisterUser')}>Add Item</Text>
+            <Text style={styles.expressoButtonText} onPress={() => navigation.navigate('Cart', {items: [{title: 'bread', price: 15}, {title: 'gravy', price: 10}]})}>Add Item</Text>
           </TouchableOpacity>
         </View>
       </View>

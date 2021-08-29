@@ -15,9 +15,14 @@ import CartItem from './CartItem';
  * @return {JSX.Element}
  * @constructor
  */
-const CartScreen = () => {
+const CartScreen = ({navigation, route}) => {
   const [total, setTotal] = useState(0.0);
-  const [cartItems, setCartItems] = useState();
+
+  const calculateTotal = () => {
+    let tempTotal = 0.0
+    route.params.items.map((item) => {tempTotal = tempTotal + item.price})
+    setTotal(tempTotal)
+  }
 
   return (
     <ScrollView>
@@ -25,12 +30,15 @@ const CartScreen = () => {
         <Text style={styles.cartTitle}>Cart</Text>
         <View>
           {
-            cartItems.map((item, index) => {
-              return <CartItem key={index} props={item}></CartItem>;
+            route.params.items.map((item, index) => {
+              return <CartItem key={index} title={item.title} price={item.price}></CartItem>;
             })
           }
         </View>
         <View>
+          {
+            calculateTotal()
+          }
           <Text>Total: ${total}</Text>
         </View>
         <TouchableOpacity style={styles.payButton}>
