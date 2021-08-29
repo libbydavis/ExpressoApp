@@ -17,12 +17,30 @@ import CheckListTask from './ChecklistTask';
 import ToastAndroid
   from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
 
-const AddMenuItemScreen = () => {
+const AddMenuItemScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [checklistTask, setChecklistTask] = useState();
   const [checklistItems, setChecklistItems] = useState([]);
   const [checklistTitle, setChecklistTitle] = useState();
-  const [optionChecklists, setOptionChecklists] = useState([]);
+  const [menuItemObject, setMenuItemObject] = useState({
+    title: '',
+    description: '',
+    price: 0.0,
+    quantity: 0,
+    optionLists: [],
+  });
+
+  const setTitle = (titleText) => {
+    setMenuItemObject({...menuItemObject, ['title'] : titleText});
+  }
+
+  const setDescription = (descriptionText) => {
+    setMenuItemObject({...menuItemObject, ['description'] : descriptionText});
+  }
+
+  const setPrice = (priceText) => {
+    setMenuItemObject({...menuItemObject, ['price'] : parseFloat(priceText)});
+  }
 
   const handleChecklistTaskAdd = () => {
     if (checklistTask != undefined) {
@@ -37,12 +55,7 @@ const AddMenuItemScreen = () => {
   const handleNewChecklist = () => {
     if (checklistTitle != undefined && checklistItems.length > 0) {
       setModalVisible(!modalVisible);
-      setOptionChecklists([
-        ...optionChecklists,
-        {title: checklistTitle,
-          items: checklistItems},
-      ]);
-      console.log(optionChecklists);
+      menuItemObject.optionLists.push({ title: checklistTitle, items: checklistItems });
       setChecklistTitle(null);
       setChecklistItems([]);
     } else if (checklistTitle == undefined) {
@@ -78,16 +91,18 @@ const AddMenuItemScreen = () => {
         <CustomImagePicker style={styles.imagePicker}/>
         <View style={styles.rowView}>
           <View style={styles.columnView}>
-            <TextInput style={styles.textInput} placeholder="title" />
+            <TextInput style={styles.textInput} placeholder="title" onChangeText={(text) => setTitle(text)}/>
             <TextInput
               style={styles.textInput}
               placeholder="description"
               multiline={true}
+              onChangeText={(text) => setDescription(text)}
             />
             <TextInput
               style={styles.textInput}
               placeholder="price"
               keyboardType='decimal-pad'
+              onChangeText={(text) => setPrice(text)}
             />
           </View>
           <View style={styles.columnView}>
@@ -164,7 +179,8 @@ const AddMenuItemScreen = () => {
             <View>
               <Text style={styles.expressoLabel}>Option Lists</Text>
               {
-                optionChecklists.map((item, index) => {
+                menuItemObject.optionLists.map((item, index) => {
+                  console.log(item);
                   return <Text key={index}>- {item.title}</Text>;
                 })
               }
@@ -179,7 +195,7 @@ const AddMenuItemScreen = () => {
         </View>
         <View>
           <TouchableOpacity style={styles.expressoButton}>
-            <Text style={styles.expressoButtonText}>Add Item</Text>
+            <Text style={styles.expressoButtonText} onPress={() => navigation.navigate('RegisterUser')}>Add Item</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -217,6 +233,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     paddingRight: 50,
     marginBottom: 20,
+    maxWidth: 140,
+    minWidth: 140,
   },
   title: {
     fontFamily: 'Monserrat-Bold',
