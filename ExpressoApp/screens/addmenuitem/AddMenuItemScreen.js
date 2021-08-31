@@ -52,6 +52,15 @@ const AddMenuItemScreen = ({ navigation }) => {
     }
   };
 
+  const [total, setTotal] = useState(0.0);
+
+  const calculateTotal = () => {
+    let tempTotal = 0.0
+    let items = [{price: 50}, {price: 10}]
+    items.map((item) => {tempTotal = tempTotal + item.price})
+    setTotal(tempTotal)
+  }
+
   const handleNewChecklist = () => {
     if (checklistTitle != undefined && checklistItems.length > 0) {
       setModalVisible(!modalVisible);
@@ -78,6 +87,8 @@ const AddMenuItemScreen = ({ navigation }) => {
     console.log(checklistItems);
   };
 
+
+
   return (
     <View>
       <View style={styles.navBar}>
@@ -88,7 +99,7 @@ const AddMenuItemScreen = ({ navigation }) => {
       </View>
       <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
-        <CustomImagePicker style={styles.imagePicker}/>
+        <CustomImagePicker />
         <View style={styles.rowView}>
           <View style={styles.columnView}>
             <TextInput style={styles.textInput} placeholder="title" onChangeText={(text) => setTitle(text)}/>
@@ -195,7 +206,8 @@ const AddMenuItemScreen = ({ navigation }) => {
         </View>
         <View>
           <TouchableOpacity style={styles.expressoButton}>
-            <Text style={styles.expressoButtonText} onPress={() => navigation.navigate('Cart', {items: [{title: 'bread', price: 15}, {title: 'gravy', price: 10}]})}>Add Item</Text>
+            <Text style={styles.expressoButtonText} onPress={() => {navigation.navigate('Cart', {items: [{title: 'bread', price: 15}, {title: 'gravy', price: 10}], total: total})
+            calculateTotal()}}>Add Item</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -269,7 +281,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   imagePicker: {
-    backgroundColor: 'red',
   },
   inputChecklist: {
     flexDirection: 'row',

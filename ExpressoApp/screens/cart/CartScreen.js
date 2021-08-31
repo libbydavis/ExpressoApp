@@ -16,13 +16,6 @@ import CartItem from './CartItem';
  * @constructor
  */
 const CartScreen = ({navigation, route}) => {
-  const [total, setTotal] = useState(0.0);
-
-  const calculateTotal = () => {
-    let tempTotal = 0.0
-    route.params.items.map((item) => {tempTotal = tempTotal + item.price})
-    setTotal(tempTotal)
-  }
 
   return (
     <ScrollView>
@@ -36,10 +29,7 @@ const CartScreen = ({navigation, route}) => {
           }
         </View>
         <View>
-          {
-            calculateTotal()
-          }
-          <Text>Total: ${total}</Text>
+          <Text>Total: ${route.params.total}</Text>
         </View>
         <TouchableOpacity style={styles.payButton}>
           <Text style={styles.payButtonText}>Pay Now</Text>

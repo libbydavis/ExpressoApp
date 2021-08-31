@@ -24,12 +24,14 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   leftView: {
-    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
   },
   rightView: {
-    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
   },
 });
 
