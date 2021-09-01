@@ -10,6 +10,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
 import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
+import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
 import LoginScreen from './screens/login/LoginScreen';
 import CartScreen from './screens/cart/CartScreen';
 import {firebase} from './firebase/FirebaseConfig';
@@ -38,6 +39,7 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
