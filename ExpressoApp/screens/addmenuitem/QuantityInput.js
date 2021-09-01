@@ -9,22 +9,24 @@ import {
 } from 'react-native';
 
 
-const QuantityInput = () => {
+const QuantityInput = (props) => {
   const [quantity, setQuantity] = useState('5');
   const [quantityNumber, setQuantityNumber] = useState(5);
 
   const handleButtonQuantity = (buttonType) => {
+    let newQuantity;
     if (buttonType == true) {
-      const newQuantity = quantityNumber + 1;
+      newQuantity = quantityNumber + 1;
       setQuantityNumber(newQuantity);
       setQuantity(newQuantity.toString());
     } else if (quantityNumber - 1 < 0) {
       Alert.alert('You can\'t have a value smaller than 0!');
     } else if (quantityNumber - 1 >= 0) {
-      const newQuantity = quantityNumber - 1;
+      newQuantity = quantityNumber - 1;
       setQuantityNumber(newQuantity);
       setQuantity(newQuantity.toString());
     }
+    props.receiveValue(newQuantity);
   };
 
   const handlePlus = () => {
@@ -38,6 +40,7 @@ const QuantityInput = () => {
   const handleTextQuantity = (text) => {
     setQuantity(text);
     setQuantityNumber(Number(text));
+    props.receiveValue(Number(text));
   };
 
   return (
