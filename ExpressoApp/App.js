@@ -12,7 +12,9 @@ import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
 import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
 import LoginScreen from './screens/login/LoginScreen';
 import CartScreen from './screens/cart/CartScreen';
+import SearchScreen from "./screens/search/SearchScreen";
 import {firebase} from './firebase/FirebaseConfig';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +26,13 @@ export default class App extends Component {
    *
    * @return {JSX.Element}
    */
+
+  componentDidMount() {
+    // do stuff while splash screen is shown
+    // After having done stuff (such as async tasks) hide the splash screen
+    SplashScreen.hide();
+  }
+
   constructor() {
     super();
     // Initialize Firebase via FirebaseConfig
