@@ -9,7 +9,6 @@ import {
 // import firebase from 'firebase';
 // import CheckListTask from '../components/ChecklistTask';
 import CartItem from './CartItem';
-
 /**
  *
  * @return {JSX.Element}
