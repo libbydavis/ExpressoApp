@@ -40,7 +40,7 @@ class Search extends Component {
             console.log(data, details);
           }}
           query={{
-            key: 'AIzaSyAcWhVbag3qDcxWImFgReJSwbMUNdD6GSU',
+            key: 'key',
             language: 'en',
           }}
         />
