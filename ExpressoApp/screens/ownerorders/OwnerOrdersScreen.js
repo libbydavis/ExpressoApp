@@ -22,14 +22,14 @@ import 'firebase/auth';
  */
 function OwnerOrdersScreen({navigation}) {
   const [orderList, setOrderList] = useState([]);
-
+  const userBusinessID = 'WeBsW6eDlpZmTl9muQkgFcpv2kE2';
   const dbRef = firebaseDB.ref();
-  dbRef.child('businesses').child('awGVAfo69qcL4uBMsxBtWuL0Ml52')
+  dbRef.child('orders').orderByChild('business').equalTo(userBusinessID)
       .get().then((snapshot) => {
         if (snapshot.exists()) {
-          const orders = snapshot.val().orders;
+          const orders = snapshot.val();
           console.log(orders);
-          iterateOrders(orders);
+          // iterateOrders(orders);
         } else {
           console.log('No data available');
         }
@@ -51,21 +51,22 @@ function OwnerOrdersScreen({navigation}) {
         currentID = key;
         iterateOrders(obj[key]);
         if (items.items) {
-          orders.push(<Order props=
-            {
-              {
-                title: currentID,
-                items: items,
-              }
-            }>
-          </Order>,
+          orders.push(
+              <Order props=
+                {
+                  {
+                    title: currentID,
+                    items: items.items,
+                  }
+                }>
+              </Order>,
           );
         }
         items.items = [];
       }
     });
   };
-  console.log(orders);
+
   // setOrderList(orders);
   // const createOrders = (orders) => {
   //   for (const property in orders) {

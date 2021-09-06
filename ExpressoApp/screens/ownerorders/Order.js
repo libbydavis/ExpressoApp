@@ -11,20 +11,20 @@ import {
   Alert,
 } from 'react-native';
 
-function Order({props: props}) {
-  const itemList = [];
+function Order({menuItems, transactionID}) {
+  const menuItemList = [];
 
-  if (props.items > 0) {
-    for (const item in props.items) {
-      itemList.push(<Text>{item.title} x {item.quantity}</Text>);
-    }
+  if (menuItems > 0) {
+    menuItems.forEach((menuItem) => {
+      menuItemList.push(<Text>${menuItem.title} x ${menuItem.quantity}</Text>);
+    });
   }
 
   return (
     <View style={styles.order}>
-      <Text style={styles.title}>{props.title}</Text>
-      {itemList}
-      <Text style={styles.time}>{props.time}</Text>
+      <Text style={styles.title}>{transactionID}</Text>
+      {menuItemList}
+      <Text style={styles.time}>{}</Text>
     </View>
   );
 };
