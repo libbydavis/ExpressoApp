@@ -102,7 +102,7 @@ const AddMenuItemScreen = ({ navigation }) => {
       </View>
       <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
-        <CustomImagePicker receiveImage={receiveImage}/>
+        <CustomImagePicker receiveImage={receiveImage} width={200} height={180}/>
         <View style={styles.rowView}>
           <View style={styles.columnView}>
             <TextInput style={styles.textInput} placeholder="title" onChangeText={(text) => setTitle(text)}/>

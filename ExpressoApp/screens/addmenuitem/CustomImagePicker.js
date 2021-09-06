@@ -12,6 +12,8 @@ class CustomImagePicker extends Component {
 
     this.state = {
       photo: this.uploadImageUri,
+      width: this.props.width,
+      height: this.props.height
     };
 
     this.handleChoosePhoto = () => {
@@ -45,7 +47,7 @@ class CustomImagePicker extends Component {
           <TouchableOpacity onPress={this.handleChoosePhoto}>
             <Image
               source={{uri: this.state.photo}}
-              style={styles.image}
+              style={[styles.image, { width: this.state.width, height: this.state.height }]}
             />
           </TouchableOpacity>
         )}
@@ -56,8 +58,6 @@ class CustomImagePicker extends Component {
 
 const styles = StyleSheet.create({
   image: {
-    width: 200,
-    height: 180,
     resizeMode: 'contain',
     alignSelf: 'center',
   },
