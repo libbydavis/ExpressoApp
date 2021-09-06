@@ -6,8 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-// import firebase from 'firebase';
-// import CheckListTask from '../components/ChecklistTask';
 import CartItem from './CartItem';
 import Cart from "./Cart";
 /**

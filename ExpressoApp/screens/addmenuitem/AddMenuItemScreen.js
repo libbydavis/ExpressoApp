@@ -16,6 +16,7 @@ import CustomImagePicker from './CustomImagePicker';
 import CheckListTask from './ChecklistTask';
 import ToastAndroid
   from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
+import AddToCartButton from "../cart/AddToCartButton";
 
 const AddMenuItemScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -207,6 +208,7 @@ const AddMenuItemScreen = ({ navigation }) => {
           </View>
         </View>
         <View>
+          <AddToCartButton item={{title: 'bread', price: 10}}></AddToCartButton>
           <TouchableOpacity style={styles.expressoButton}>
             <Text style={styles.expressoButtonText} onPress={() => {navigation.navigate('Cart', {items: [{image: menuItemObject.image, title: 'bread', price: 15}, {image: menuItemObject.image, title: 'gravy', price: 10}]})}}>Add Item</Text>
           </TouchableOpacity>
