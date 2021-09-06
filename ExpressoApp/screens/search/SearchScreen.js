@@ -1,5 +1,6 @@
-import React, {useState, useRef} from 'react';
-import {StyleSheet, View, TextInput, Image} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import {StyleSheet, View, TextInput, Image, ImageBackground, FlatList, Text} from 'react-native';
+import {firebaseDB} from '../../firebase/FirebaseConfig';
 
 /**
  *
@@ -7,58 +8,144 @@ import {StyleSheet, View, TextInput, Image} from 'react-native';
  * @constructor
  */
 const SearchScreen = () => {
-  const [inputValue, setValue] = useState('');
-  const input = useRef();
+  const [search, setSearch] = useState('');
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+  const [masterDataSource, setMasterDataSource] = useState([]);
+
+  useEffect(() => {
+    firebaseDB.ref('businesses/').on('value', (snapshot)=>{
+      var business = [];
+      snapshot.forEach((child)=>{
+        business.push({
+              key: child.key,
+              title: child.val().title,
+              address: child.val().address
+            })
+      })
+      setFilteredDataSource(business);
+      setMasterDataSource(business);
+    })
+  }, []);
+
+  const searchFilterFunction = (text) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource
+      // Update FilteredDataSource
+      const newData = masterDataSource.filter(
+          function (item) {
+            const itemData = item.title
+                ? item.title.toUpperCase()
+                : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+          });
+      setFilteredDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(masterDataSource);
+      setSearch(text);
+    }
+  };
+
+  const ItemView = ({item}) => {
+    return (
+        // Flat List Item
+        <Text
+            style={styles.itemStyle}
+            onPress={() => getItem(item)}>
+          {item.title}
+        </Text>
+    );
+  };
+
+  const ItemSeparatorView = () => {
+    return (
+        // Flat List Item Separator
+        <View
+            style={{
+              height: 0.5,
+              width: '100%',
+              backgroundColor: 'rgba(37, 162, 175,.2)',
+            }}
+        />
+    );
+  };
+
+  const getItem = (item) => {
+    // Function for click on an item
+    alert('Id : ' + item.key + '\nTitle : ' + item.title + '\nAddress : ' + item.address);
+  };
+
   return (
     <View>
-      <Image
-        source={require('../../assets/ExpressoLogo.png')}
-        style={styles.headerIcon}
-      />
-      <View style={styles.searchView}>
+      <View style={styles.headerView}>
         <Image
-          source={require('../../assets/magnifyingGlass.png')}
-          style={styles.searchIcon}
+          source={require('../../assets/ExpressoLogo.png')}
+          style={styles.logoIcon}
         />
-        <TextInput
-          ref={input}
-          style={styles.textInput}
-          value = {inputValue}
-          onChangeText={setValue}
-          autoCapitalize="none"
-          placeholder = "find your favourite restaurant..."
+        <Image
+            source={require('../../assets/profileIcon.png')}
+            style={styles.profileIcon}
         />
       </View>
+      <View style={styles.searchView}>
+        <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
+          <View style={styles.overlay}>
+          <Image
+            source={require('../../assets/magnifyingGlass.png')}
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => searchFilterFunction(text)}
+            value={search}
+            autoCapitalize="none"
+            placeholder = "find your favourite restaurant..."
+            underlineColorAndroid="transparent"
+          />
+          </View>
+        </ImageBackground>
+      </View>
+      <FlatList
+          data={filteredDataSource}
+          ItemSeparatorComponent={ItemSeparatorView}
+          renderItem={ItemView}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  mainView: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  headerView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   searchView: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#25a2af',
-    height: 150,
+    height: 175,
   },
-  headerIcon: {
+  logoIcon: {
     width: 200,
     height: 50,
+    marginTop: 5,
+    marginBottom: 20,
   },
   searchIcon: {
-    width: 30,
-    height: 30,
-    margin: 5,
+    width: 40,
+    height: 40,
+    margin: 2,
   },
-  modalView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
+  profileIcon: {
+    width: 40,
+    height: 40,
+    margin: 15,
   },
   textInput: {
     fontFamily: 'Monserrat-Regular',
@@ -66,15 +153,26 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
     backgroundColor: '#ffffff',
-  },
-  title: {
-    fontFamily: 'Monserrat-Bold',
     color: '#25a2af',
-    fontSize: 35,
-    margin: 10,
+  },
+  backgroundImage : {
+    flex: 1,
+    height: 175,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(37, 162, 175,.5)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  itemStyle: {
+    padding: 15,
+    flex: 1,
+    fontFamily: 'Monserrat-Regular',
+    backgroundColor: '#ffffff',
   },
 });
-
 
 export default SearchScreen;
 
