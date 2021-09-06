@@ -27,8 +27,6 @@ const LoginScreen = ({navigation}) => {
 
       <View style={styles.signUpContainer}>
         <Text style={styles.text}>Don&apos;t have an account?</Text>
-        {/* Note: Change navigation from "AddMenuItem"
-         to the sign up screen name */}
         <Text style={styles.signUpText}
           onPress={() => navigation.navigate('RegisterUser')}>
         Sign up here</Text>

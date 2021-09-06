@@ -13,6 +13,8 @@ import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
 import LoginScreen from './screens/login/LoginScreen';
 import CartScreen from './screens/cart/CartScreen';
 import SearchScreen from "./screens/search/SearchScreen";
+import CreateStorePageScreen from './screens/createstorepage/CreateStorePageScreen';
+
 import {firebase} from './firebase/FirebaseConfig';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -47,6 +49,7 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
