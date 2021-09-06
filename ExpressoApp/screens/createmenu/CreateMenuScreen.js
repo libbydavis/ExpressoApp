@@ -5,19 +5,26 @@ import {
     TextInput,
     TouchableOpacity,
     Text,
-    Image,
+    Image, ToastAndroid,
 } from 'react-native';
+import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
+import firebase from "firebase";
+import User from "firebase.User";
 
-const CreateMenuScreen = ({ navigation }) => {
+const CreateMenuScreen = ({navigation}) => {
     const [menuObject, setMenuObject] = useState({
         title: '',
         menuItems: [],
     })
 
     const setTitle = (title) => {
-        setMenuObject({...menuObject, ['title'] : title});
-        console.log(menuObject)
-    }
+        if (title == null) {
+            <ToastAndroid>Please input title!</ToastAndroid>
+        } else {
+            setMenuObject({...menuObject, ['title']: title});
+            console.log(menuObject);
+        }
+    };
 
     return (
         <View>
@@ -32,7 +39,7 @@ const CreateMenuScreen = ({ navigation }) => {
                     placeholder="MenuView Title"
                     onChangeText={(text) => setTitle(text)}
                 </TextInput>
-                <TouchableOpacity style={styles.expressoButton}>
+                <TouchableOpacity style={styles.expressoButton} /*onPress(() => {navigation.navigate()}) */>
                     <Text style={styles.expressoButtonText}>Add MenuView</Text>
                 </TouchableOpacity>
             </View>
