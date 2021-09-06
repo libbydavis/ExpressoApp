@@ -1,14 +1,16 @@
-import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, Image} from 'react-native';
 
 const CartItem = (props) => {
   return (
     <View style={styles.cartItemView}>
-      <View style={styles.leftView}>
+      <View style={styles.leftDiv}>
+        <Image source={{uri: props.image}} style={styles.image}></Image>
         <Text>{props.title}</Text>
+        <Text style={styles.price}>${props.price}</Text>
       </View>
-      <View style={styles.rightView}>
-        <Text>${props.price}</Text>
+      <View style={styles.rightDiv}>
+        <Text style={styles.x} onPress={props.onpress}>X</Text>
       </View>
     </View>
   );
@@ -19,19 +21,34 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#c9c9c9',
     margin: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
     borderRadius: 10,
+    alignItems: 'center',
     justifyContent: 'space-between',
+    width: 250,
+  },
+  leftDiv: {
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
     alignItems: 'center',
   },
-  leftView: {
-    alignSelf: 'flex-start',
+  rightDiv: {
+    justifyContent: 'flex-end',
+    paddingRight: 10,
   },
-  rightView: {
-    alignSelf: 'flex-end',
+  price: {
+    marginLeft: 10,
+  },
+  x: {
+    color: 'red',
+    padding: 10,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
 

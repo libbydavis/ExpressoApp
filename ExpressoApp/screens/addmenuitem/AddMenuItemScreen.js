@@ -63,15 +63,6 @@ const AddMenuItemScreen = ({ navigation }) => {
     }
   };
 
-  const [total, setTotal] = useState(0.0);
-
-  const calculateTotal = () => {
-    let tempTotal = 0.0
-    let items = [{price: 50}, {price: 10}]
-    items.map((item) => {tempTotal = tempTotal + item.price})
-    setTotal(tempTotal)
-  }
-
   const handleNewChecklist = () => {
     if (checklistTitle != undefined && checklistItems.length > 0) {
       setModalVisible(!modalVisible);
@@ -217,8 +208,7 @@ const AddMenuItemScreen = ({ navigation }) => {
         </View>
         <View>
           <TouchableOpacity style={styles.expressoButton}>
-            <Text style={styles.expressoButtonText} onPress={() => {navigation.navigate('Cart', {items: [{title: 'bread', price: 15}, {title: 'gravy', price: 10}], total: total})
-            calculateTotal()}}>Add Item</Text>
+            <Text style={styles.expressoButtonText} onPress={() => {navigation.navigate('Cart', {items: [{image: menuItemObject.image, title: 'bread', price: 15}, {image: menuItemObject.image, title: 'gravy', price: 10}]})}}>Add Item</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -9,26 +9,47 @@ import {
 // import firebase from 'firebase';
 // import CheckListTask from '../components/ChecklistTask';
 import CartItem from './CartItem';
+import Cart from "./Cart";
 /**
  *
  * @return {JSX.Element}
  * @constructor
  */
 const CartScreen = ({navigation, route}) => {
+  const [total, setTotal] = useState(0.0);
+  const [items, setItems] = useState(route.params.items);
+
+  const receiveTotal = (value) => {
+    setTotal(value);
+  };
+
+  const deleteCartItem = (index, price) => {
+    recalculateTotal(price);
+    const copyCartItems = [...items];
+    copyCartItems.splice(index, 1);
+    setItems(copyCartItems);
+  }
+
+  const recalculateTotal = (price) => {
+    let tempTotal = total;
+    tempTotal -= price;
+    setTotal(tempTotal);
+  }
 
   return (
     <ScrollView>
+      <Cart items={items} receiveTotal={receiveTotal}></Cart>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
         <View>
           {
-            route.params.items.map((item, index) => {
-              return <CartItem key={index} title={item.title} price={item.price}></CartItem>;
+            items.map((item, index) => {
+                return <CartItem key={index} image={item.image} title={item.title} price={item.price} onpress={() => deleteCartItem(index, item.price)}></CartItem>
             })
           }
         </View>
         <View>
-          <Text>Total: ${route.params.total}</Text>
+          <Text>Total: ${total}</Text>
         </View>
         <TouchableOpacity style={styles.payButton}>
           <Text style={styles.payButtonText}>Pay Now</Text>
