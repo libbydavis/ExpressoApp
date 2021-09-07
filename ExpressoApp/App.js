@@ -13,6 +13,7 @@ import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
 import LoginScreen from './screens/login/LoginScreen';
 import CartScreen from './screens/cart/CartScreen';
 import firebase from 'firebase';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ export default class App extends Component {
     super();
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    SplashScreen.hide();
     const firebaseConfig = {
       apiKey: 'AIzaSyAn92Ew0Z5VJ_TgThlS_krQHUUBW8zzuOE',
       authDomain: 'expresso-418d1.firebaseapp.com',
