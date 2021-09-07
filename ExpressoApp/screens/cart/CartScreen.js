@@ -6,27 +6,43 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-// import firebase from 'firebase';
-// import CheckListTask from '../components/ChecklistTask';
 import CartItem from './CartItem';
-
+import Cart from "./Cart";
 /**
  *
  * @return {JSX.Element}
  * @constructor
  */
-const CartScreen = () => {
+const CartScreen = ({navigation, route}) => {
   const [total, setTotal] = useState(0.0);
-  const [cartItems, setCartItems] = useState();
+  const [items, setItems] = useState(route.params.items);
+
+  const receiveTotal = (value) => {
+    setTotal(value);
+  };
+
+  const deleteCartItem = (index, price) => {
+    recalculateTotal(price);
+    const copyCartItems = [...items];
+    copyCartItems.splice(index, 1);
+    setItems(copyCartItems);
+  }
+
+  const recalculateTotal = (price) => {
+    let tempTotal = total;
+    tempTotal -= price;
+    setTotal(tempTotal);
+  }
 
   return (
     <ScrollView>
+      <Cart items={items} receiveTotal={receiveTotal}></Cart>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
         <View>
           {
-            cartItems.map((item, index) => {
-              return <CartItem key={index} props={item}></CartItem>;
+            items.map((item, index) => {
+                return <CartItem key={index} image={item.image} title={item.title} price={item.price} onpress={() => deleteCartItem(index, item.price)}></CartItem>
             })
           }
         </View>
