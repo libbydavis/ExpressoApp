@@ -14,18 +14,26 @@ class AddToCartButton extends Component {
 
         while (item === false) {
             try {
-                let itemsArray = this.props.item;
+                let itemsArray = [this.props.item];
+                let total = 0.0;
                 if (tryItems === false) {
                     let storedItems = await AsyncStorage.getItem('@items');
                     if (storedItems != null) {
                         const currentValue = JSON.parse(storedItems)
                         itemsArray = [...currentValue, this.props.item];
                     }
+                    total = await AsyncStorage.getItem('@total');
+                    if (total != null) {
+                        total = parseFloat(total);
+                        total += this.props.item.price;
+                    }
                 }
 
                 item = true;
                 const jsonValue = JSON.stringify(itemsArray);
                 await AsyncStorage.setItem('@items', jsonValue);
+                //const jsonTotal = JSON.stringify(total);
+                //await AsyncStorage.setItem('@total', jsonTotal);
             } catch (e) {
                 // saving error
                 tryItems = true;

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import CartItem from './CartItem';
 import Cart from "./Cart";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 /**
  *
  * @return {JSX.Element}
@@ -15,10 +16,14 @@ import Cart from "./Cart";
  */
 const CartScreen = ({navigation, route}) => {
   const [total, setTotal] = useState(0.0);
-  const [items, setItems] = useState(route.params.items);
+  const [items, setItems] = useState();
 
   const receiveTotal = (value) => {
     setTotal(value);
+  };
+
+  const receiveItems = (item) => {
+    setItems(item);
   };
 
   const deleteCartItem = (index, price) => {
@@ -36,7 +41,7 @@ const CartScreen = ({navigation, route}) => {
 
   return (
     <ScrollView>
-      <Cart items={items} receiveTotal={receiveTotal}></Cart>
+      <Cart items={items} receiveTotal={receiveTotal} receiveItems={receiveItems}></Cart>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
         <View>
