@@ -15,7 +15,7 @@ class AddToCartButton extends Component {
         while (item === false) {
             try {
                 let itemsArray = [this.props.item];
-                let total = 0.0;
+                let total = this.props.item.price;
                 if (tryItems === false) {
                     let storedItems = await AsyncStorage.getItem('@items');
                     if (storedItems != null) {
@@ -28,12 +28,11 @@ class AddToCartButton extends Component {
                         total += this.props.item.price;
                     }
                 }
-
                 item = true;
                 const jsonValue = JSON.stringify(itemsArray);
                 await AsyncStorage.setItem('@items', jsonValue);
-                //const jsonTotal = JSON.stringify(total);
-                //await AsyncStorage.setItem('@total', jsonTotal);
+                const jsonTotal = JSON.stringify(total);
+                await AsyncStorage.setItem('@total', jsonTotal);
             } catch (e) {
                 // saving error
                 tryItems = true;
@@ -41,26 +40,6 @@ class AddToCartButton extends Component {
             }
         }
     }
-
-    /*
-    async getItem() {
-
-        try {
-            await AsyncStorage.getItem('@items')
-                .then((item) => {
-                    if (item) {
-                        console.log(item)
-                    }
-                });
-            //const asyncb = await AsyncStorage.getItem('@items');
-            //console.log(JSON.parse(asyncb));
-        } catch(e) {
-            // read error
-            console.log(e)
-        }
-    }
-
-     */
 
     render() {
         return (

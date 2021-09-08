@@ -26,34 +26,14 @@ const CartScreen = ({navigation, route}) => {
     setItems(item);
   };
 
-  const deleteCartItem = (index, price) => {
-    recalculateTotal(price);
-    const copyCartItems = [...items];
-    copyCartItems.splice(index, 1);
-    setItems(copyCartItems);
-  }
 
-  const recalculateTotal = (price) => {
-    let tempTotal = total;
-    tempTotal -= price;
-    setTotal(tempTotal);
-  }
+
 
   return (
     <ScrollView>
-      <Cart items={items} receiveTotal={receiveTotal} receiveItems={receiveItems}></Cart>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
-        <View>
-          {
-            items.map((item, index) => {
-                return <CartItem key={index} image={item.image} title={item.title} price={item.price} onpress={() => deleteCartItem(index, item.price)}></CartItem>
-            })
-          }
-        </View>
-        <View>
-          <Text>Total: ${total}</Text>
-        </View>
+        <Cart></Cart>
         <TouchableOpacity style={styles.payButton}>
           <Text style={styles.payButtonText}>Pay Now</Text>
         </TouchableOpacity>
