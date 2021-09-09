@@ -4,12 +4,18 @@ import {
   View,
   Text,
   Image,
-  ScrollView, TouchableOpacity,
+  ScrollView,
+  TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import Order from './Order';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import * as Animatable from 'react-native-animatable';
 import 'firebase/auth';
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 /**
  *
@@ -20,6 +26,13 @@ function OwnerOrdersScreen({navigation}) {
   const [orderList, setOrderList] = useState('');
   const userBusinessID = 'WeBsW6eDlpZmTl9muQkgFcpv2kE2'; // get this from firebase user's auth.id
   const dbRef = firebaseDB.ref();
+
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setOrderList('');
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   useEffect(() => {
     dbRef.child('Orders')
@@ -62,7 +75,7 @@ function OwnerOrdersScreen({navigation}) {
 
             orders.push(
                 // eslint-disable-next-line max-len
-                <Order Key={currentID} props={props}/>,
+                <Order Key={key} props={props}/>,
             );
           }
           menuItems = [];
@@ -82,7 +95,13 @@ function OwnerOrdersScreen({navigation}) {
           style={styles.headerIcon}
         />
       </TouchableOpacity>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
         <Text style={styles.mainTitle}>Orders</Text>
         <Animatable.View animation="fadeInLeft" duration={500} style={styles.orders}>
           { // If the orderList has objects then return the list of Orders else show nothing
@@ -102,7 +121,9 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontFamily: 'Monserrat-Regular',
-    fontSize: 36,
+    color: '#25a2af',
+    fontSize: 35,
+    margin: 10,
   },
   scrollView: {
     marginHorizontal: 20,

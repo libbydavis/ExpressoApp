@@ -13,10 +13,10 @@ function Order({props}, {key}) {
   const transactionID = props.transactionID;
   const orderTime = props.orderTime;
 
-  menuItems.forEach((menuItem) => {
+  menuItems.forEach((menuItem, index) => {
     if (menuItem.title != 'business') {
       menuItemList.push(
-          <Text>
+          <Text key={index}>
             {menuItem.title} x {menuItem.quantity}
           </Text>,
       );
@@ -38,10 +38,10 @@ export default Order;
 const styles = StyleSheet.create({
   order: {
     borderRadius: 10,
-    borderWidth: 1,
     padding: 10,
     margin: 10,
     flexGrow: 2,
+    backgroundColor: '#c9c9c9',
   },
   title: {
     fontSize: 20,
