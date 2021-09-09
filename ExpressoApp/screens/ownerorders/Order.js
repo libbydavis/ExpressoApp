@@ -1,30 +1,34 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
-  TextInput,
-  TouchableOpacity,
   Text,
-  Image,
-  Modal,
-  KeyboardAvoidingView,
-  Alert,
 } from 'react-native';
+import {nextTick} from 'yarn/lib/cli';
 
-function Order({menuItems, transactionID}) {
+// eslint-disable-next-line react/prop-types
+function Order({props}, {key}) {
   const menuItemList = [];
+  const menuItems = props.menuItems;
+  const transactionID = props.transactionID;
+  const orderTime = props.orderTime;
 
-  if (menuItems > 0) {
-    menuItems.forEach((menuItem) => {
-      menuItemList.push(<Text>${menuItem.title} x ${menuItem.quantity}</Text>);
-    });
-  }
+  menuItems.forEach((menuItem) => {
+    if (menuItem.title != 'business') {
+      menuItemList.push(
+          <Text>
+            {menuItem.title} x {menuItem.quantity}
+          </Text>,
+      );
+    }
+  });
+
 
   return (
-    <View style={styles.order}>
+    <View key={key} style={styles.order}>
       <Text style={styles.title}>{transactionID}</Text>
       {menuItemList}
-      <Text style={styles.time}>{}</Text>
+      <Text style={styles.time}>{orderTime}</Text>
     </View>
   );
 };
@@ -37,7 +41,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     margin: 10,
-    flexGrow: 1,
+    flexGrow: 2,
   },
   title: {
     fontSize: 20,

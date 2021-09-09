@@ -1,18 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
-  TouchableOpacity,
   Text,
   Image,
-  Modal,
-  ScrollView,
-  PlatformConstants,
+  ScrollView, TouchableOpacity,
 } from 'react-native';
 import Order from './Order';
-import {firebaseDB, firebaseAuth} from '../../firebase/FirebaseConfig';
-import firebase from 'firebase';
-import {ref} from '@react-native-firebase/database';
+import {firebaseDB} from '../../firebase/FirebaseConfig';
+import * as Animatable from 'react-native-animatable';
 import 'firebase/auth';
 
 /**
@@ -21,88 +17,77 @@ import 'firebase/auth';
  * @constructor
  */
 function OwnerOrdersScreen({navigation}) {
-  const [orderList, setOrderList] = useState([]);
-  const userBusinessID = 'WeBsW6eDlpZmTl9muQkgFcpv2kE2';
+  const [orderList, setOrderList] = useState('');
+  const userBusinessID = 'WeBsW6eDlpZmTl9muQkgFcpv2kE2'; // get this from firebase user's auth.id
   const dbRef = firebaseDB.ref();
-  dbRef.child('orders').orderByChild('business').equalTo(userBusinessID)
-      .get().then((snapshot) => {
-        if (snapshot.exists()) {
-          const orders = snapshot.val();
-          console.log(orders);
-          // iterateOrders(orders);
+
+  useEffect(() => {
+    dbRef.child('Orders')
+        .orderByChild('business')
+        .equalTo(userBusinessID)
+        .get().then((snapshot) => {
+          if (snapshot.exists()) {
+            if (!orderList) {
+              setOrderList(iterateOrders(snapshot.val()));
+            }
+          } else {
+            console.log('No data available');
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+
+    let currentID = '';
+    let menuItems = [];
+    let orderTime = '';
+    const orders = [];
+    const iterateOrders = (obj) => {
+      Object.keys(obj).forEach((key) => {
+        if (typeof obj[key] != 'object') {
+          if (key === 'orderTime') {
+            orderTime = obj[key];
+          } else {
+            menuItems.push({title: key, quantity: obj[key]});
+          }
         } else {
-          console.log('No data available');
+          currentID = key;
+          iterateOrders(obj[key]);
+
+          if (menuItems) {
+            const props = {
+              transactionID: currentID,
+              menuItems: menuItems,
+              orderTime: orderTime,
+            };
+
+            orders.push(
+                // eslint-disable-next-line max-len
+                <Order Key={currentID} props={props}/>,
+            );
+          }
+          menuItems = [];
+          orderTime = '';
         }
-      }).catch((error) => {
-        console.error(error);
       });
-
-  // https://stackoverflow.com/questions/8085004/iterate-through-nested-javascript-objects
-  let currentID;
-  const orders = [];
-  const items = {items: []};
-  const iterateOrders = (obj) => {
-    Object.keys(obj).forEach((key) => {
-      // console.log(`key: ${key}, value: ${obj[key]}`);
-
-      if (typeof obj[key] != 'object') {
-        items.items.push({title: key, quantity: obj[key]});
-      } else {
-        currentID = key;
-        iterateOrders(obj[key]);
-        if (items.items) {
-          orders.push(
-              <Order props=
-                {
-                  {
-                    title: currentID,
-                    items: items.items,
-                  }
-                }>
-              </Order>,
-          );
-        }
-        items.items = [];
-      }
-    });
-  };
-
-  // setOrderList(orders);
-  // const createOrders = (orders) => {
-  //   for (const property in orders) {
-  //     orderList.push(<Order key={index} props=
-  //       {
-  //         {
-  //           title: property,
-  //           items: [
-  //             {
-  //               title: orders[property].property, quantity: orders[property].property[i],
-  //             },
-  //             {
-  //               title: 'Fries', quantity: Math.round((Math.random() * 2 )+ 1),
-  //             },
-  //           ],
-  //           time: '11:' + Math.round((Math.random() * 2 )+ 10) + 'pm',
-  //         }
-  //       }>
-  //     </Order>,
-  //     );
-  //   }
-  // };
+      return orders;
+    };
+  });
 
   return (
     <View style={styles.mainView}>
-      <View style={styles.navBar}>
+      <TouchableOpacity style={styles.navBar}
+        onPress={() => navigation.navigate('SearchScreen')}>
         <Image
           source={require('../../assets/ExpressoLogo.png')}
           style={styles.headerIcon}
         />
-      </View>
+      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.mainTitle}>Current Orders</Text>
-        <View style={styles.orders}>
-          { orderList }
-        </View>
+        <Text style={styles.mainTitle}>Orders</Text>
+        <Animatable.View animation="fadeInLeft" duration={500} style={styles.orders}>
+          { // If the orderList has objects then return the list of Orders else show nothing
+            orderList ? orderList : <Text>There are no orders at the moment!</Text>}
+        </Animatable.View>
       </ScrollView>
     </View>
   );
@@ -134,6 +119,7 @@ const styles = StyleSheet.create({
   navBar: {
     marginBottom: 15,
     marginTop: 8,
+    alignSelf: 'flex-start',
   },
   headerIcon: {
     width: 200,
