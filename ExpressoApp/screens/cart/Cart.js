@@ -14,34 +14,9 @@ class Cart extends Component {
 
   }
 
-  /*
-  function firstFunction(_callback){
-  // do some asynchronous work
-  // and when the asynchronous stuff is complete
-  _callback();
-}
-
-  function secondFunction(){
-  // call first function and pass in a callback function which
-  // first function runs when it has completed
-  firstFunction(function() {
-    console.log('huzzah, I\'m done!');
-  });
-
-   */
-
   componentDidMount() {
     this.getItemsFromStorage();
     this.getTotalFromStorage();
-    /*
-    let itemsFromStore = getItemsFromStorage();
-    let totalFromStore = getTotalFromStorage();
-    this.setState((state, props) => ({
-      items: itemsFromStore,
-      total: totalFromStore
-    }));
-
-     */
   }
 
   getItemsFromStorage = async () => {

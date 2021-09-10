@@ -4,33 +4,27 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
+  TouchableOpacity, Image,
 } from 'react-native';
-import CartItem from './CartItem';
 import Cart from "./Cart";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 /**
  *
  * @return {JSX.Element}
  * @constructor
  */
-const CartScreen = ({navigation, route}) => {
-  const [total, setTotal] = useState(0.0);
-  const [items, setItems] = useState();
-
-  const receiveTotal = (value) => {
-    setTotal(value);
-  };
-
-  const receiveItems = (item) => {
-    setItems(item);
-  };
-
-
-
+const CartScreen = ({navigation}) => {
 
   return (
     <ScrollView>
+      <View style={styles.navBar}>
+        <Image
+            source={require('../../assets/ExpressoLogo.png')}
+            style={styles.headerIcon}
+        />
+        <TouchableOpacity onPress={navigation.navigate('Cart')}>
+          <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
+        </TouchableOpacity>
+      </View>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
         <Cart></Cart>
@@ -43,6 +37,23 @@ const CartScreen = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
+  navBar: {
+    marginBottom: 15,
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerIcon: {
+    width: 200,
+    height: 50,
+    marginLeft: 15,
+  },
+  cartIcon: {
+    width: 40,
+    height: 40,
+    marginTop: 8,
+    marginRight: 10,
+  },
   cartView: {
     justifyContent: 'center',
     alignItems: 'center',
