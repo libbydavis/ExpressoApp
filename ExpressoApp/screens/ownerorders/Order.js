@@ -5,10 +5,12 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {nextTick} from 'yarn/lib/cli';
 
 // eslint-disable-next-line react/prop-types
 function Order({props}, {key}) {
+  const navigation = useNavigation();
   const menuItemList = [];
   const menuItems = props.menuItems;
   const transactionID = props.transactionID;
@@ -23,15 +25,18 @@ function Order({props}, {key}) {
       );
     }
   });
-
+  // onPress={()=>{
+  // navigation.navigate('OrderScreen', {this.component});
 
   return (
-    <TouchableOpacity key={key} style={styles.order} onPress={()=>{}}>
+    <TouchableOpacity key={key} style={styles.order} onPress={()=>{
+      navigation.navigate('OrderScreen', props={menuItems: menuItemList, transactionID: transactionID, orderTime: orderTime});
+    }}>
       <Text style={styles.title}>ID: {transactionID}</Text>
       <View style={styles.orderTitle}>
         {menuItemList}
       </View>
-      <Text style={styles.time}>ORDER TIME: {orderTime}</Text>
+      <Text style={styles.time}>Time: {orderTime}</Text>
     </TouchableOpacity>
   );
 };
@@ -44,9 +49,8 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 7,
     flexGrow: 2,
-    backgroundColor: '#25a2afDD',
+    backgroundColor: '#29b79c',
     width: '100%',
-    alignItems: 'center',
   },
   title: {
     fontSize: 24,
@@ -57,11 +61,10 @@ const styles = StyleSheet.create({
   list: {
     color: '#ffffff',
     textAlign: 'left',
-  },
-  orderTitle: {
-    color: '#ffffff',
+    fontSize: 18,
   },
   time: {
+    fontSize: 18,
     color: 'green',
   },
 });
