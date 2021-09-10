@@ -36,7 +36,7 @@ function OwnerOrdersScreen({navigation}) {
   }, []);
 
   function createOrderId() {
-    const orderID = 'XXD123';
+    const orderID = 'XXD128';
 
     dbRef.child('Orders').get().then((snapshot) => {
       if (snapshot.exists()) {
@@ -129,7 +129,8 @@ function OwnerOrdersScreen({navigation}) {
       </View>
 
 
-      <Animatable.View animation="fadeInLeft" duration={500} style={styles.orders}>
+      <Animatable.View animation="fadeInLeft"
+        duration={500} style={styles.orders}>
         {
             // If the orderList has objects then
             // return the list of Orders else show nothing
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
   scrollView: {
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     // backgroundColor: '#ffffff',
     marginBottom: 30,
     paddingBottom: 100,
