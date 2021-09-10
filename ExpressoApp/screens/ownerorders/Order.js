@@ -1,8 +1,9 @@
 import React from 'react';
 import {
   StyleSheet,
-  View,
+  TouchableOpacity,
   Text,
+  View,
 } from 'react-native';
 import {nextTick} from 'yarn/lib/cli';
 
@@ -16,7 +17,7 @@ function Order({props}, {key}) {
   menuItems.forEach((menuItem, index) => {
     if (menuItem.title != 'business') {
       menuItemList.push(
-          <Text key={index}>
+          <Text key={index} style={styles.list}>
             {menuItem.title} x {menuItem.quantity}
           </Text>,
       );
@@ -25,11 +26,13 @@ function Order({props}, {key}) {
 
 
   return (
-    <View key={key} style={styles.order}>
-      <Text style={styles.title}>{transactionID}</Text>
-      {menuItemList}
-      <Text style={styles.time}>{orderTime}</Text>
-    </View>
+    <TouchableOpacity key={key} style={styles.order} onPress={()=>{}}>
+      <Text style={styles.title}>ID: {transactionID}</Text>
+      <View style={styles.orderTitle}>
+        {menuItemList}
+      </View>
+      <Text style={styles.time}>ORDER TIME: {orderTime}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -39,16 +42,27 @@ const styles = StyleSheet.create({
   order: {
     borderRadius: 10,
     padding: 10,
-    margin: 10,
+    margin: 7,
     flexGrow: 2,
-    backgroundColor: '#c9c9c9',
+    backgroundColor: '#25a2afDD',
+    width: '100%',
+    alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#ffffff',
+    borderRadius: 10,
+  },
+  list: {
+    color: '#ffffff',
+    textAlign: 'left',
+  },
+  orderTitle: {
+    color: '#ffffff',
   },
   time: {
-    color: 'red',
+    color: 'green',
   },
 });
 

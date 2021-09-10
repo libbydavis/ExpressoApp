@@ -23,6 +23,7 @@ const wait = (timeout) => {
  * @constructor
  */
 function OwnerOrdersScreen({navigation}) {
+  const [returnedOrderID, setReturnedOrderID] = useState('');
   const [orderList, setOrderList] = useState('');
   const userBusinessID = 'WeBsW6eDlpZmTl9muQkgFcpv2kE2'; // get this from firebase user's auth.id
   const dbRef = firebaseDB.ref();
@@ -34,7 +35,28 @@ function OwnerOrdersScreen({navigation}) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  function createOrderId() {
+    const orderID = 'XXD123';
+
+    dbRef.child('Orders').get().then((snapshot) => {
+      if (snapshot.exists()) {
+        setReturnedOrderID(snapshot.val().key);
+      } else {
+        console.log('No data available');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+    setReturnedOrderID(orderID);
+    return orderID;
+  }
+
   useEffect(() => {
+    // if (returnedOrderID) {
+    //   setReturnedOrderID();
+    // }
+
     dbRef.child('Orders')
         .orderByChild('business')
         .equalTo(userBusinessID)
@@ -87,7 +109,13 @@ function OwnerOrdersScreen({navigation}) {
   });
 
   return (
-    <View style={styles.mainView}>
+    <ScrollView contentContainerStyle={styles.scrollView}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
       <TouchableOpacity style={styles.navBar}
         onPress={() => navigation.navigate('SearchScreen')}>
         <Image
@@ -95,20 +123,49 @@ function OwnerOrdersScreen({navigation}) {
           style={styles.headerIcon}
         />
       </TouchableOpacity>
-      <ScrollView contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }>
+
+      <View>
         <Text style={styles.mainTitle}>Orders</Text>
-        <Animatable.View animation="fadeInLeft" duration={500} style={styles.orders}>
-          { // If the orderList has objects then return the list of Orders else show nothing
-            orderList ? orderList : <Text>There are no orders at the moment!</Text>}
-        </Animatable.View>
-      </ScrollView>
-    </View>
+      </View>
+
+
+      <Animatable.View animation="fadeInLeft" duration={500} style={styles.orders}>
+        {
+            // If the orderList has objects then
+            // return the list of Orders else show nothing
+            orderList ? orderList :
+                <View>
+                  <Text>There are no orders at the moment!</Text>
+                  <Text>Check back later.</Text>
+                </View>
+        }
+      </Animatable.View>
+
+      <TouchableOpacity style={styles.expressoButton} onPress={()=>{
+        createOrderId();
+        firebaseDB.ref('Orders/' + createOrderId())
+            .set({
+              Burger: 12,
+              Fries: 12,
+              Soda: 12,
+              Hotdog: 12,
+              business: 'WeBsW6eDlpZmTl9muQkgFcpv2kE2',
+              orderTime: 1535,
+            })
+            .then(() => {
+              // Data saved successfully!
+              console.log(`Order was added.`);
+            })
+            .catch((error) => {
+              // The write failed...
+              console.log(`Order was not added.` +
+                    error.message());
+            });
+      }}>
+        <Text style={styles.expressoButtonText}>Add new Order</Text>
+      </TouchableOpacity>
+      <Text style={styles.title}>{returnedOrderID}</Text>
+    </ScrollView>
   );
 };
 
@@ -123,10 +180,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Monserrat-Regular',
     color: '#25a2af',
     fontSize: 35,
-    margin: 10,
   },
   scrollView: {
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     // backgroundColor: '#ffffff',
     marginBottom: 30,
     paddingBottom: 100,
@@ -145,7 +201,6 @@ const styles = StyleSheet.create({
   headerIcon: {
     width: 200,
     height: 50,
-    marginLeft: 15,
   },
   modalView: {
     flex: 1,
