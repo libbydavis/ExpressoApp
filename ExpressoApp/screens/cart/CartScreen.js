@@ -21,7 +21,7 @@ const CartScreen = ({navigation}) => {
             source={require('../../assets/ExpressoLogo.png')}
             style={styles.headerIcon}
         />
-        <TouchableOpacity onPress={navigation.navigate('Cart')}>
+        <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
           <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
         </TouchableOpacity>
       </View>

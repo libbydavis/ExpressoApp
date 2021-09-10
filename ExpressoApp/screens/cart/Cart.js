@@ -54,6 +54,22 @@ class Cart extends Component {
     const copyCartItems = [...this.state.items];
     copyCartItems.splice(index, 1);
     this.setState({...this.state.total, ['items'] : copyCartItems});
+    this.deleteFromStorage(index);
+  }
+
+  deleteFromStorage = async (index) => {
+      try {
+          await AsyncStorage.getItem('@items')
+              .then(async (items) => {
+                  if (items) {
+                      let updatedItems = JSON.parse(items);
+                      updatedItems.splice(index, 1);
+                      await AsyncStorage.setItem('@items', JSON.stringify(updatedItems));
+                  }
+              });
+      } catch (e) {
+          console.log(e);
+      }
   }
 
   recalculateTotal = (price) => {
@@ -65,7 +81,6 @@ class Cart extends Component {
   render() {
 
     return (
-
         <View style={styles.cartView}>
           <View>
             {
