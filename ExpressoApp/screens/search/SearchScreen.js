@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {StyleSheet, View, TextInput, Image, ImageBackground, FlatList, Text, Picker} from 'react-native';
+import {StyleSheet, View, TextInput, Image, ImageBackground, FlatList, Text, Picker, ScrollView} from 'react-native';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -132,13 +132,13 @@ const SearchScreen = () => {
           </View>
         </ImageBackground>
       </View>
-    <View>
+    <ScrollView>
       <FlatList
           data={filteredDataSource}
           ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
       />
-    </View>
+    </ScrollView>
     </View>
   );
 };
