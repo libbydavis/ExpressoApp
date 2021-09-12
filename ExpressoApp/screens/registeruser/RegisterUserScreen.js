@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,11 +8,17 @@ import {
   Image,
   ScrollView,
   StatusBar,
+  LogBox,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {PLACES_API_KEY} from '@env';
 
+LogBox.ignoreLogs([
+  'VirtualizedLists should never be nested', // TODO: Remove when fixed
+])
 /**
  *
  * @return {JSX.Element}
@@ -137,7 +143,7 @@ function RegisterUserScreen({navigation}) {
     <View style={styles.mainView}>
       <Image source={require('../../assets/ExpressoLogo.png')}
         style={styles.headerIcon}></Image>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView} nestedScrollEnabled={true} keyboardShouldPersistTaps={'handled'}>
         <Text style={styles.title}>Register</Text>
         <View style={styles.rowView}>
           <View style={styles.columnView}>
@@ -178,15 +184,29 @@ function RegisterUserScreen({navigation}) {
                     onEndEditing={(e) => {
                       setBusinessTitle(e.nativeEvent.text);
                     }}/>
-                  <TextInput style={styles.textInput}
-                    placeholder="Business Address"
-                    onEndEditing={(e) => {
-                      setBusinessAddress(e.nativeEvent.text);
-                    }}/>
+                  <GooglePlacesAutocomplete
+                      placeholder='Business Address'
+                      onPress={(data, details) => {
+                        setBusinessAddress(details.description)
+                        console.log(businessAddress)
+                      }}
+                      query={{
+                        key: PLACES_API_KEY,
+                        language: 'en',
+                        components: 'country:nz',
+                      }}
+                      textInputProps={{
+                        fontFamily: 'Monserrat-Regular',
+                        foregroundColor: 'black',
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        paddingRight: 20,
+                        marginBottom: 20,
+                      }}
+                  />
                 </Animatable.View>
               )
             }
-
           </View>
         </View>
         <View>
@@ -208,7 +228,6 @@ function RegisterUserScreen({navigation}) {
           //     </Animatable.View>
           // )
           }
-
           <TouchableOpacity
             style={styles.expressoButton} onPress={() => {
               const valid = validateInput();
