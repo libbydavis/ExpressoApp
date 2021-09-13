@@ -99,6 +99,9 @@ const AddMenuItemScreen = ({ navigation }) => {
           source={require('../../assets/ExpressoLogo.png')}
           style={styles.headerIcon}
         />
+        <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
+          <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
+        </TouchableOpacity>
       </View>
       <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
@@ -208,9 +211,8 @@ const AddMenuItemScreen = ({ navigation }) => {
           </View>
         </View>
         <View>
-          <AddToCartButton item={{title: 'bread', price: 10}}></AddToCartButton>
           <TouchableOpacity style={styles.expressoButton}>
-            <Text style={styles.expressoButtonText} onPress={() => {navigation.navigate('Cart', {items: [{image: menuItemObject.image, title: 'bread', price: 15}, {image: menuItemObject.image, title: 'gravy', price: 10}]})}}>Add Item</Text>
+            <Text style={styles.expressoButtonText}>Add Item</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -227,11 +229,19 @@ const styles = StyleSheet.create({
   navBar: {
     marginBottom: 15,
     marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   headerIcon: {
     width: 200,
     height: 50,
     marginLeft: 15,
+  },
+  cartIcon: {
+    width: 40,
+    height: 40,
+    marginTop: 8,
+    marginRight: 10,
   },
   modalView: {
     flex: 1,

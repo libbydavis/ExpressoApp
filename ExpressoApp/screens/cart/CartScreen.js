@@ -4,51 +4,30 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
+  TouchableOpacity, Image,
 } from 'react-native';
-import CartItem from './CartItem';
 import Cart from "./Cart";
 /**
  *
  * @return {JSX.Element}
  * @constructor
  */
-const CartScreen = ({navigation, route}) => {
-  const [total, setTotal] = useState(0.0);
-  const [items, setItems] = useState(route.params.items);
-
-  const receiveTotal = (value) => {
-    setTotal(value);
-  };
-
-  const deleteCartItem = (index, price) => {
-    recalculateTotal(price);
-    const copyCartItems = [...items];
-    copyCartItems.splice(index, 1);
-    setItems(copyCartItems);
-  }
-
-  const recalculateTotal = (price) => {
-    let tempTotal = total;
-    tempTotal -= price;
-    setTotal(tempTotal);
-  }
+const CartScreen = ({navigation}) => {
 
   return (
     <ScrollView>
-      <Cart items={items} receiveTotal={receiveTotal}></Cart>
+      <View style={styles.navBar}>
+        <Image
+            source={require('../../assets/ExpressoLogo.png')}
+            style={styles.headerIcon}
+        />
+        <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
+          <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
+        </TouchableOpacity>
+      </View>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
-        <View>
-          {
-            items.map((item, index) => {
-                return <CartItem key={index} image={item.image} title={item.title} price={item.price} onpress={() => deleteCartItem(index, item.price)}></CartItem>
-            })
-          }
-        </View>
-        <View>
-          <Text>Total: ${total}</Text>
-        </View>
+        <Cart></Cart>
         <TouchableOpacity style={styles.payButton}>
           <Text style={styles.payButtonText}>Pay Now</Text>
         </TouchableOpacity>
@@ -58,6 +37,23 @@ const CartScreen = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
+  navBar: {
+    marginBottom: 15,
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerIcon: {
+    width: 200,
+    height: 50,
+    marginLeft: 15,
+  },
+  cartIcon: {
+    width: 40,
+    height: 40,
+    marginTop: 8,
+    marginRight: 10,
+  },
   cartView: {
     justifyContent: 'center',
     alignItems: 'center',
