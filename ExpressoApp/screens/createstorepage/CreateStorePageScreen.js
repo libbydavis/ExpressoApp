@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, FlatList, Text, Modal, TextInput} from "react-native";
+import CustomImagePicker from '../addmenuitem/CustomImagePicker';
 
-const StorePageData = [
-    {
+const CreateStorePageScreen = ( {navigation} ) => {
+    const [storeData, setStoreData] = useState([ {
         id: 1,
         storeName: "",
         storeAddress: "",
         storePhoneNum: "",
-    }
-];
-
-
-const CreateStorePageScreen = ( {navigation} ) => {
-    const [storeData, setStoreData] = useState(StorePageData);
+        coverImage: "",
+    }]);
     const [isRender, setisRender] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [inputStoreName, setInputStoreName] = useState();
     const [inputStoreAddress, setInputStoreAddress] = useState();
     const [inputStorePhoneNum, setInputStorePhoneNum] = useState();
+    const [inputCoverImage, setInputCoverImage] = useState();
     const [changeStoreData, setChangeStoreData] = useState();
 
     const onPressEditButton = (item) => {
@@ -25,6 +23,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
         setInputStoreName(item.storeName);
         setInputStoreAddress(item.storeAddress);
         setInputStorePhoneNum(item.storePhoneNum);
+        setInputCoverImage(item.coverImage);
         setChangeStoreData(item.id);
     }
 
@@ -41,10 +40,17 @@ const CreateStorePageScreen = ( {navigation} ) => {
                     <Text style={styles.storeAddressText}>{item.storeAddress}</Text>
                     <Text style={styles.storePhoneNumText}>{item.storePhoneNum}</Text>
                 </View>
+                <View style={styles.storeCoverImageContainer}>
+                     <CustomImagePicker receiveImage={receiveImage} width={450} height={190}>{item.coverImage}</CustomImagePicker>
+                </View>
             </View>
         )
     }
 
+    const receiveImage = (image) => {
+        setInputCoverImage({...inputCoverImage, ['image'] : image});
+    }
+    
 
     const handleChangeStoreData = (changeStoreData) => {
         const newData = storeData.map(item => {
@@ -52,6 +58,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
                 item.storeName = inputStoreName;
                 item.storeAddress = inputStoreAddress;
                 item.storePhoneNum = inputStorePhoneNum;
+                item.coverImage = inputCoverImage;
                 return item;
             } 
             return item;
@@ -75,7 +82,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
                 />
             </View>
             <FlatList  
-                data={StorePageData}
+                data={storeData}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 extraData={isRender}
@@ -105,7 +112,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
                         <TouchableOpacity style={styles.saveStoreDetailsButton}>
                             <Text style={styles.modalButtonText} onPress={() => onPressSaveChanges()}>
                                 Save Changes
-                            </Text> 
+                            </Text>  
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.cancelStoreDetailsButton}>
@@ -137,7 +144,7 @@ const styles = StyleSheet.create({
     },
     createStorePageButton: {
         backgroundColor: '#25a2af',
-        padding: 12,
+        padding: 8,
         borderRadius: 10,
         marginTop: 10,
         marginBottom: 10,
@@ -148,8 +155,14 @@ const styles = StyleSheet.create({
     storeDetails: {
         padding: 20,
         marginVertical: 5,
-        marginHorizontal: 16,
-        
+        marginHorizontal: 16
+    },
+    storeCoverImageContainer: {
+        flex: 1,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        height: '50%',
+
     },
     storeNameText: {
         fontSize: 35,

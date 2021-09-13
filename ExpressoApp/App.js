@@ -11,6 +11,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
 import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
 import LoginScreen from './screens/login/LoginScreen';
+import CreateStorePageScreen from './screens/createstorepage/CreateStorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
 import firebase from 'firebase';
 import SplashScreen from 'react-native-splash-screen';
@@ -53,10 +54,11 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="Cart" component={CartScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
