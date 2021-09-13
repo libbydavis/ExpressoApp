@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Text, TouchableOpacity, StyleSheet} from "react-native";
+import {Text, TouchableOpacity, StyleSheet, View} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -14,37 +14,40 @@ class AddToCartButton extends Component {
 
         while (item === false) {
             try {
-                let itemsArray = this.props.item;
+                let itemsArray = [this.props.item];
+                let total = this.props.item.price;
                 if (tryItems === false) {
                     let storedItems = await AsyncStorage.getItem('@items');
                     if (storedItems != null) {
-                        itemsArray = [...storedItems, this.props.item];
+                        const currentValue = JSON.parse(storedItems)
+                        itemsArray = [...currentValue, this.props.item];
+                    }
+                    total = await AsyncStorage.getItem('@total');
+                    if (total != null) {
+                        total = parseFloat(total);
+                        total += this.props.item.price;
                     }
                 }
                 item = true;
-                console.log(itemsArray)
                 const jsonValue = JSON.stringify(itemsArray);
-                console.log(jsonValue)
-                await AsyncStorage.setItem('testItems', jsonValue);
+                await AsyncStorage.setItem('@items', jsonValue);
+                const jsonTotal = JSON.stringify(total);
+                await AsyncStorage.setItem('@total', jsonTotal);
             } catch (e) {
                 // saving error
                 tryItems = true;
                 console.log(e)
             }
         }
-        try {
-            let asyncb = await AsyncStorage.getItem('@testItems');
-            console.log(asyncb);
-        } catch(e) {
-            // read error
-        }
     }
 
     render() {
         return (
-            <TouchableOpacity style={styles.button} onPress={() => this.handleAddToCart()}>
-                <Text style={styles.buttonText}>Add To Cart</Text>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity style={styles.button} onPress={() => this.handleAddToCart()}>
+                    <Text style={styles.buttonText}>Add To Cart</Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 }

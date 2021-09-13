@@ -1,30 +1,78 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
-  View,
-  TextInput,
   TouchableOpacity,
   Text,
-  Image,
-  Modal,
-  KeyboardAvoidingView,
+  View,
   Alert,
+  Image,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {firebaseDB} from '../../firebase/FirebaseConfig';
+import '../../assets/orderTick.png';
+import '../../assets/orderTickFilled.png';
 
-function Order({menuItems, transactionID}) {
+// eslint-disable-next-line react/prop-types
+function Order({props}, {key}) {
+  const navigation = useNavigation();
   const menuItemList = [];
+  const menuItems = props.menuItems;
+  const transactionID = props.transactionID;
+  const orderTime = props.orderTime;
+  const ref = firebaseDB.ref();
 
-  if (menuItems > 0) {
-    menuItems.forEach((menuItem) => {
-      menuItemList.push(<Text>${menuItem.title} x ${menuItem.quantity}</Text>);
-    });
-  }
+  menuItems.forEach((menuItem, index) => {
+    if (menuItem.title != 'business') {
+      menuItemList.push(
+          <Text key={index} style={styles.list}>
+            {menuItem.title} x {menuItem.quantity}
+          </Text>,
+      );
+    }
+  });
+
+  const createCompleteOrderAlert = () =>
+    Alert.alert(
+        'Complete and Remove Order',
+        `Are you sure order ${transactionID} is complete?`,
+        [{
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'Complete',
+          onPress: () => {
+            deleteOrder();
+          },
+        },
+        ],
+    );
+
+  const deleteOrder = () => {
+    ref.child('Orders/' + transactionID).remove()
+        .then(()=>{
+          console.log('removed ' + transactionID );
+        }).catch((error) => {
+          console.error('Something went wrong '+error);
+        });
+  };
 
   return (
     <View style={styles.order}>
-      <Text style={styles.title}>{transactionID}</Text>
-      {menuItemList}
-      <Text style={styles.time}>{}</Text>
+      <View style={styles.column}>
+        <Text style={styles.title}>ID: {transactionID}</Text>
+        {menuItemList}
+        <Text style={styles.list}>Time: {orderTime}</Text>
+      </View>
+      <TouchableOpacity style={styles.tickButton} onPress={() => {
+        createCompleteOrderAlert();
+      }}>
+        <Image
+          source={require('../../assets/orderTick.png')}
+          style={styles.tick}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -34,17 +82,35 @@ export default Order;
 const styles = StyleSheet.create({
   order: {
     borderRadius: 10,
-    borderWidth: 1,
     padding: 10,
-    margin: 10,
-    flexGrow: 1,
+    margin: 7,
+    flexGrow: 2,
+    backgroundColor: '#29b79c',
+    width: '100%',
+    flexDirection: 'row',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#ffffff',
+    borderRadius: 10,
   },
-  time: {
-    color: 'red',
+  list: {
+    color: '#ffffff',
+    textAlign: 'left',
+    fontSize: 18,
+  },
+  tickButton: {
+    flex: 1,
+    alignSelf: 'flex-end',
+  },
+  tick: {
+    width: 40,
+    height: 40,
+    alignSelf: 'flex-end',
+  },
+  column: {
+    flexDirection: 'column',
   },
 });
 
