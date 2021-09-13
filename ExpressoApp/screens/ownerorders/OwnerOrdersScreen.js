@@ -1,19 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
-  TouchableOpacity,
   Text,
   Image,
-  Modal,
   ScrollView,
-  PlatformConstants,
+  TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import Order from './Order';
-import {firebaseDB, firebaseAuth} from '../../firebase/FirebaseConfig';
-import firebase from 'firebase';
-import {ref} from '@react-native-firebase/database';
+import {firebaseDB} from '../../firebase/FirebaseConfig';
+import * as Animatable from 'react-native-animatable';
 import 'firebase/auth';
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 /**
  *
@@ -21,90 +23,150 @@ import 'firebase/auth';
  * @constructor
  */
 function OwnerOrdersScreen({navigation}) {
-  const [orderList, setOrderList] = useState([]);
-  const userBusinessID = 'WeBsW6eDlpZmTl9muQkgFcpv2kE2';
+  const [returnedOrderID, setReturnedOrderID] = useState('');
+  const [orderList, setOrderList] = useState('');
+  const userBusinessID = 'WeBsW6eDlpZmTl9muQkgFcpv2kE2'; // get this from firebase user's auth.id
   const dbRef = firebaseDB.ref();
-  dbRef.child('orders').orderByChild('business').equalTo(userBusinessID)
-      .get().then((snapshot) => {
-        if (snapshot.exists()) {
-          const orders = snapshot.val();
-          console.log(orders);
-          // iterateOrders(orders);
-        } else {
-          console.log('No data available');
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
 
-  // https://stackoverflow.com/questions/8085004/iterate-through-nested-javascript-objects
-  let currentID;
-  const orders = [];
-  const items = {items: []};
-  const iterateOrders = (obj) => {
-    Object.keys(obj).forEach((key) => {
-      // console.log(`key: ${key}, value: ${obj[key]}`);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setOrderList('');
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
-      if (typeof obj[key] != 'object') {
-        items.items.push({title: key, quantity: obj[key]});
+  function createOrderId() {
+    const orderID = 'XXD128';
+
+    dbRef.child('Orders').get().then((snapshot) => {
+      if (snapshot.exists()) {
+        setReturnedOrderID(snapshot.val().key);
       } else {
-        currentID = key;
-        iterateOrders(obj[key]);
-        if (items.items) {
-          orders.push(
-              <Order props=
-                {
-                  {
-                    title: currentID,
-                    items: items.items,
-                  }
-                }>
-              </Order>,
-          );
-        }
-        items.items = [];
+        console.log('No data available');
       }
+    }).catch((error) => {
+      console.error(error);
     });
-  };
 
-  // setOrderList(orders);
-  // const createOrders = (orders) => {
-  //   for (const property in orders) {
-  //     orderList.push(<Order key={index} props=
-  //       {
-  //         {
-  //           title: property,
-  //           items: [
-  //             {
-  //               title: orders[property].property, quantity: orders[property].property[i],
-  //             },
-  //             {
-  //               title: 'Fries', quantity: Math.round((Math.random() * 2 )+ 1),
-  //             },
-  //           ],
-  //           time: '11:' + Math.round((Math.random() * 2 )+ 10) + 'pm',
-  //         }
-  //       }>
-  //     </Order>,
-  //     );
-  //   }
-  // };
+    setReturnedOrderID(orderID);
+    return orderID;
+  }
+
+  useEffect(() => {
+    // if (returnedOrderID) {
+    //   setReturnedOrderID();
+    // }
+
+    dbRef.child('Orders')
+        .orderByChild('business')
+        .equalTo(userBusinessID)
+        .get().then((snapshot) => {
+          if (snapshot.exists()) {
+            if (!orderList) {
+              setOrderList(iterateOrders(snapshot.val()));
+            }
+          } else {
+            console.log('No data available');
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+
+    let currentID = '';
+    let menuItems = [];
+    let orderTime = '';
+    const orders = [];
+    const iterateOrders = (obj) => {
+      Object.keys(obj).forEach((key) => {
+        if (typeof obj[key] != 'object') {
+          if (key === 'orderTime') {
+            orderTime = obj[key];
+          } else {
+            menuItems.push({title: key, quantity: obj[key]});
+          }
+        } else {
+          currentID = key;
+          iterateOrders(obj[key]);
+
+          if (menuItems) {
+            const props = {
+              transactionID: currentID,
+              menuItems: menuItems,
+              orderTime: orderTime,
+            };
+
+            orders.push(
+                // eslint-disable-next-line max-len
+                <Order Key={currentID} props={props} />,
+            );
+          }
+          menuItems = [];
+          orderTime = '';
+        }
+      });
+      return orders;
+    };
+  });
 
   return (
-    <View style={styles.mainView}>
-      <View style={styles.navBar}>
+    <ScrollView contentContainerStyle={styles.scrollView}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
+      <TouchableOpacity style={styles.navBar}
+        onPress={() => navigation.navigate('SearchScreen')}>
         <Image
           source={require('../../assets/ExpressoLogo.png')}
           style={styles.headerIcon}
         />
+      </TouchableOpacity>
+
+      <View>
+        <Text style={styles.mainTitle}>Orders</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.mainTitle}>Current Orders</Text>
-        <View style={styles.orders}>
-          { orderList }
-        </View>
-      </ScrollView>
-    </View>
+
+
+      <Animatable.View animation="fadeInLeft"
+        duration={500} style={styles.orders}>
+        {
+            // If the orderList has objects then
+            // return the list of Orders else show nothing
+            orderList ? orderList :
+                <View>
+                  <Text>There are no orders at the moment!</Text>
+                  <Text>Check back later.</Text>
+                </View>
+        }
+      </Animatable.View>
+
+      <TouchableOpacity style={styles.expressoButton} onPress={()=>{
+        createOrderId();
+        firebaseDB.ref('Orders/' + createOrderId())
+            .set({
+              Burger: 12,
+              Fries: 12,
+              Soda: 12,
+              Hotdog: 12,
+              business: 'WeBsW6eDlpZmTl9muQkgFcpv2kE2',
+              orderTime: 1535,
+            })
+            .then(() => {
+              // Data saved successfully!
+              console.log(`Order was added.`);
+            })
+            .catch((error) => {
+              // The write failed...
+              console.log(`Order was not added.` +
+                    error.message());
+            });
+      }}>
+        <Text style={styles.expressoButtonText}>Add new Order</Text>
+      </TouchableOpacity>
+      <Text style={styles.title}>{returnedOrderID}</Text>
+    </ScrollView>
   );
 };
 
@@ -117,7 +179,8 @@ const styles = StyleSheet.create({
   },
   mainTitle: {
     fontFamily: 'Monserrat-Regular',
-    fontSize: 36,
+    color: '#25a2af',
+    fontSize: 35,
   },
   scrollView: {
     marginHorizontal: 20,
@@ -134,11 +197,11 @@ const styles = StyleSheet.create({
   navBar: {
     marginBottom: 15,
     marginTop: 8,
+    alignSelf: 'flex-start',
   },
   headerIcon: {
     width: 200,
     height: 50,
-    marginLeft: 15,
   },
   modalView: {
     flex: 1,
