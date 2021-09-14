@@ -87,3 +87,4 @@ lint/tmp/
 
 # others
 /package-lock.json
+.env
