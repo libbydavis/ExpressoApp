@@ -8,8 +8,8 @@ class Cart extends Component {
     super(props);
 
     this.state = {
-      items: [],
-      total: 0.0
+        items: [],
+        total: 0.0,
     };
 
   }
@@ -47,6 +47,7 @@ class Cart extends Component {
           console.log(e);
       }
       this.setState({...this.state, ['total']: tempTotal});
+      this.props.receiveValue(tempTotal);
   }
 
   deleteCartItem = (index, price) => {
@@ -76,6 +77,14 @@ class Cart extends Component {
     let tempTotal = this.state.total;
     tempTotal -= price;
     this.setState({...this.state.items, ['total'] : tempTotal});
+    console.log(tempTotal)
+    this.setNewTotalStorage(tempTotal).then(r => {
+        this.props.receiveValue(tempTotal);
+    });
+  }
+
+  setNewTotalStorage = async (newPrice) => {
+      await AsyncStorage.setItem('@total', JSON.stringify(newPrice));
   }
 
   render() {

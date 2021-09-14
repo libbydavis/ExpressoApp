@@ -7,12 +7,19 @@ import {
   TouchableOpacity, Image,
 } from 'react-native';
 import Cart from "./Cart";
+import AddToCartButton from "./AddToCartButton";
+import PaymentButton from "./PaymentButton";
 /**
  *
  * @return {JSX.Element}
  * @constructor
  */
 const CartScreen = ({navigation}) => {
+  const [amount, setAmount] = useState();
+
+  const receiveAmount = (value) => {
+    setAmount(value);
+  };
 
   return (
     <ScrollView>
@@ -27,10 +34,8 @@ const CartScreen = ({navigation}) => {
       </View>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
-        <Cart></Cart>
-        <TouchableOpacity style={styles.payButton}>
-          <Text style={styles.payButtonText}>Pay Now</Text>
-        </TouchableOpacity>
+        <Cart receiveValue={receiveAmount}></Cart>
+        <PaymentButton amount={amount}></PaymentButton>
       </View>
     </ScrollView>
   );
@@ -63,17 +68,6 @@ const styles = StyleSheet.create({
     color: '#25a2af',
     fontSize: 35,
     margin: 10,
-  },
-  payButton: {
-    backgroundColor: '#25a2af',
-    borderRadius: 10,
-    padding: 10,
-    paddingRight: 50,
-    paddingLeft: 50,
-    marginTop: 15,
-  },
-  payButtonText: {
-    color: '#ffffff',
   },
 });
 
