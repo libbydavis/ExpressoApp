@@ -8,7 +8,7 @@ import {
   Image,
   Modal,
   KeyboardAvoidingView,
-  Alert,
+  Alert
 } from 'react-native';
 
 import QuantityInput from './QuantityInput';
@@ -16,7 +16,6 @@ import CustomImagePicker from './CustomImagePicker';
 import CheckListTask from './ChecklistTask';
 import ToastAndroid
   from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
-import AddToCartButton from "../cart/AddToCartButton";
 
 const AddMenuItemScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -89,7 +88,6 @@ const AddMenuItemScreen = ({ navigation }) => {
     setChecklistItems(checklistItemsCopy);
     console.log(checklistItems);
   };
-
 
 
   return (
