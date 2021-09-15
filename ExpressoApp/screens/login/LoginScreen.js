@@ -1,9 +1,36 @@
 import React from 'react';
+import { useState } from "react";
 import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text} from 'react-native';
+import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 // import '@react-navigation/native';
 
 
 const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const userLogin = () => {
+    firebaseAuth
+      .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          console.log("User has successfully signed in!");
+          navigation.navigate('AddMenuItem');
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-exists') {
+            console.log('This email address already exists!');
+          }
+          console.error(error);
+        });
+  }
+
+  const logout = () => {
+    firebaseAuth
+      .signOut()
+      .then(() => console.log('User has logged out!'));
+  }
+
+
   return (
     <View style={styles.mainContainer}>
       <Image
@@ -12,23 +39,26 @@ const LoginScreen = ({navigation}) => {
       >
       </Image>
       <View>
-        <TextInput style={styles.inputContainer}
-          placeholder="Username" />
+        <TextInput 
+          style={styles.inputContainer}
+          onChangeText={(email) => setEmail(email)}
+          placeholder="Email" />
       </View>
 
       <View>
-        <TextInput style={styles.inputContainer}
-          placeholder="Password" secureTextEntry={true} />
+        <TextInput 
+          style={styles.inputContainer}
+          onChangeText={(password) => setPassword(password)}
+          placeholder="Password" secureTextEntry={true}
+        />
       </View>
 
       <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
       </TouchableOpacity>
 
       <View style={styles.signUpContainer}>
-        <Text style={styles.text}>Don&apos;t have an account?</Text>
-        {/* Note: Change navigation from "AddMenuItem"
-         to the sign up screen name */}
+        <Text style={styles.text}>Don&apos;t have an account? </Text>
         <Text style={styles.signUpText}
           onPress={() => navigation.navigate('RegisterUser')}>
         Sign up here</Text>

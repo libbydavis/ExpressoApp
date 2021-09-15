@@ -16,13 +16,43 @@ import CustomImagePicker from './CustomImagePicker';
 import CheckListTask from './ChecklistTask';
 import ToastAndroid
   from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
+import AddToCartButton from "../cart/AddToCartButton";
 
-const AddMenuItemScreen = () => {
+const AddMenuItemScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [checklistTask, setChecklistTask] = useState();
   const [checklistItems, setChecklistItems] = useState([]);
   const [checklistTitle, setChecklistTitle] = useState();
-  const [optionChecklists, setOptionChecklists] = useState([]);
+
+  const [menuItemObject, setMenuItemObject] = useState({
+    title: '',
+    image: '',
+    description: '',
+    price: 0.0,
+    quantity: 5,
+    optionLists: [],
+  });
+
+  const receiveQuantity = (value) => {
+    setMenuItemObject({...menuItemObject, ['quantity'] : value});
+  };
+
+  const receiveImage = (image) => {
+    setMenuItemObject({...menuItemObject, ['image'] : image});
+  }
+
+  const setTitle = (titleText) => {
+    setMenuItemObject({...menuItemObject, ['title'] : titleText});
+    console.log(menuItemObject)
+  }
+
+  const setDescription = (descriptionText) => {
+    setMenuItemObject({...menuItemObject, ['description'] : descriptionText});
+  }
+
+  const setPrice = (priceText) => {
+    setMenuItemObject({...menuItemObject, ['price'] : parseFloat(priceText)});
+  }
 
   const handleChecklistTaskAdd = () => {
     if (checklistTask != undefined) {
@@ -37,12 +67,7 @@ const AddMenuItemScreen = () => {
   const handleNewChecklist = () => {
     if (checklistTitle != undefined && checklistItems.length > 0) {
       setModalVisible(!modalVisible);
-      setOptionChecklists([
-        ...optionChecklists,
-        {title: checklistTitle,
-          items: checklistItems},
-      ]);
-      console.log(optionChecklists);
+      menuItemObject.optionLists.push({ title: checklistTitle, items: checklistItems });
       setChecklistTitle(null);
       setChecklistItems([]);
     } else if (checklistTitle == undefined) {
@@ -65,6 +90,8 @@ const AddMenuItemScreen = () => {
     console.log(checklistItems);
   };
 
+
+
   return (
     <View>
       <View style={styles.navBar}>
@@ -72,29 +99,34 @@ const AddMenuItemScreen = () => {
           source={require('../../assets/ExpressoLogo.png')}
           style={styles.headerIcon}
         />
+        <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
+          <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
+        </TouchableOpacity>
       </View>
       <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
-        <CustomImagePicker style={styles.imagePicker}/>
+        <CustomImagePicker receiveImage={receiveImage} width={200} height={180}/>
         <View style={styles.rowView}>
           <View style={styles.columnView}>
-            <TextInput style={styles.textInput} placeholder="title" />
+            <TextInput style={styles.textInput} placeholder="title" onChangeText={(text) => setTitle(text)}/>
             <TextInput
               style={styles.textInput}
               placeholder="description"
               multiline={true}
+              onChangeText={(text) => setDescription(text)}
             />
             <TextInput
               style={styles.textInput}
               placeholder="price"
               keyboardType='decimal-pad'
+              onChangeText={(text) => setPrice(text)}
             />
           </View>
           <View style={styles.columnView}>
             <View style={styles.quantityElements}>
               <Text style={styles.expressoLabel}>quantity</Text>
               <View style={styles.rowView}>
-                <QuantityInput></QuantityInput>
+                <QuantityInput receiveValue={receiveQuantity}></QuantityInput>
               </View>
             </View>
             <Modal
@@ -164,7 +196,8 @@ const AddMenuItemScreen = () => {
             <View>
               <Text style={styles.expressoLabel}>Option Lists</Text>
               {
-                optionChecklists.map((item, index) => {
+                menuItemObject.optionLists.map((item, index) => {
+                  console.log(item);
                   return <Text key={index}>- {item.title}</Text>;
                 })
               }
@@ -196,11 +229,19 @@ const styles = StyleSheet.create({
   navBar: {
     marginBottom: 15,
     marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   headerIcon: {
     width: 200,
     height: 50,
     marginLeft: 15,
+  },
+  cartIcon: {
+    width: 40,
+    height: 40,
+    marginTop: 8,
+    marginRight: 10,
   },
   modalView: {
     flex: 1,
@@ -217,6 +258,8 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     paddingRight: 50,
     marginBottom: 20,
+    maxWidth: 140,
+    minWidth: 140,
   },
   title: {
     fontFamily: 'Monserrat-Bold',
@@ -251,7 +294,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   imagePicker: {
-    backgroundColor: 'red',
   },
   inputChecklist: {
     flexDirection: 'row',

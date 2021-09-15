@@ -4,35 +4,30 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
+  TouchableOpacity, Image,
 } from 'react-native';
-// import firebase from 'firebase';
-// import CheckListTask from '../components/ChecklistTask';
-import CartItem from './CartItem';
-
+import Cart from "./Cart";
 /**
  *
  * @return {JSX.Element}
  * @constructor
  */
-const CartScreen = () => {
-  const [total, setTotal] = useState(0.0);
-  const [cartItems, setCartItems] = useState();
+const CartScreen = ({navigation}) => {
 
   return (
     <ScrollView>
+      <View style={styles.navBar}>
+        <Image
+            source={require('../../assets/ExpressoLogo.png')}
+            style={styles.headerIcon}
+        />
+        <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
+          <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
+        </TouchableOpacity>
+      </View>
       <View style={styles.cartView}>
         <Text style={styles.cartTitle}>Cart</Text>
-        <View>
-          {
-            cartItems.map((item, index) => {
-              return <CartItem key={index} props={item}></CartItem>;
-            })
-          }
-        </View>
-        <View>
-          <Text>Total: ${total}</Text>
-        </View>
+        <Cart></Cart>
         <TouchableOpacity style={styles.payButton}>
           <Text style={styles.payButtonText}>Pay Now</Text>
         </TouchableOpacity>
@@ -42,6 +37,23 @@ const CartScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  navBar: {
+    marginBottom: 15,
+    marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerIcon: {
+    width: 200,
+    height: 50,
+    marginLeft: 15,
+  },
+  cartIcon: {
+    width: 40,
+    height: 40,
+    marginTop: 8,
+    marginRight: 10,
+  },
   cartView: {
     justifyContent: 'center',
     alignItems: 'center',
