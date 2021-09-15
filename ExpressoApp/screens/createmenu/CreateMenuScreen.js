@@ -5,9 +5,10 @@ import {
     TextInput,
     TouchableOpacity,
     Text,
-    Image, ToastAndroid,
+    Image,
+    ToastAndroid,
 } from 'react-native';
-import { firebase, firebaseDB } from "../../firebase/FirebaseConfig";
+import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 
 /**
  *
@@ -15,7 +16,7 @@ import { firebase, firebaseDB } from "../../firebase/FirebaseConfig";
  * @constructor
  */
 
-export const CreateMenuScreen = ({ navigation }) => {
+export const CreateMenuScreen = ({navigation}) => {
     const user = firebase.auth().currentUser;
     const uid = user.uid;
     const dbRef = firebaseDB.ref();
@@ -25,13 +26,14 @@ export const CreateMenuScreen = ({ navigation }) => {
         business: uid
     });
 
+    //TODO - Set up access rules and iterator details for Menu in firestore
     const onClickSubmitMenu = async () => {
         // Ensure the user has input a title
         if (menuObject.title !== null) {
             await dbRef.child("Menus").push().set({
-              'title': menuObject.title,
-              'menuItems': menuObject.menuItems,
-              'business': menuObject.business
+                'title': menuObject.title,
+                'menuItems': menuObject.menuItems,
+                'business': menuObject.business
             });
 
 //            navigation.navigate(''); - Send user to store page to see new blank menu
@@ -41,7 +43,7 @@ export const CreateMenuScreen = ({ navigation }) => {
     }
 
     const setTitle = (titleText) => {
-        setMenuObject({...menuObject, ['title'] : titleText});
+        setMenuObject({...menuObject, ['title']: titleText});
         console.log(menuObject)
     }
 
@@ -62,7 +64,7 @@ export const CreateMenuScreen = ({ navigation }) => {
                     <Text
                         style={styles.expressoButtonText}
                         onPress={() => onClickSubmitMenu()}>
-                      Add Menu</Text>
+                        Add Menu</Text>
                 </TouchableOpacity>
             </View>
         </View>
