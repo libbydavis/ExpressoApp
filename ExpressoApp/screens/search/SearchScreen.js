@@ -7,9 +7,8 @@ import {
   ImageBackground,
   FlatList,
   Text,
-  Picker,
   ScrollView,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -72,11 +71,10 @@ const SearchScreen = () => {
   const ItemView = ({item}) => {
     return (
         // Flat List Item
-        <View  style={styles.itemStyle} >
+        <TouchableOpacity  style={styles.itemStyle}  onPress={() => getItem(item)}>
           <Image style={styles.imageThumbnail} source={require('../../assets/thumbnail.png')} />
-          <Text style={styles.itemText} onPress={() => getItem(item)}>{item.title}</Text>
-        </View>
-
+          <Text style={styles.itemText} >{item.title}</Text>
+        </TouchableOpacity>
     );
   };
 
