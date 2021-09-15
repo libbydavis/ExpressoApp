@@ -23,16 +23,16 @@ export const CreateMenuScreen = ({ navigation }) => {
     const [menuObject, setMenuObject] = useState({
         title: '',
         menuItems: [],
-        owner: uid
+        business: uid
     });
 
     const onClickSubmitMenu = async () => {
         // Ensure the user has input a title
         if (menuObject.title !== null) {
-            await dbRef.child("Menus" + menuID).push().set({
+            await dbRef.child("Menus").child(menuID).push().set({
               'title': menuObject.title,
               'menuItems': menuObject.menuItems,
-              'owner': uid
+              'business': menuObject.business
             });
 
 //            navigation.navigate(''); - Send user to store page to see new blank menu
