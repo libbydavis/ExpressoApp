@@ -10,41 +10,44 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 
-export const MenuView = ({navigation}) => {
+export const StoreView = ({ navigation }) => { // Change to StorePage
     const [returnedMenuID, setReturnedMenuID] = useState('');
-    const [ItemList, setItemList] = useState('');
+    const [menuList, setMenuList] = useState('');
     const user = firebase.auth().currentUser;
     const uid = user.uid;
     const dbRef = firebaseDB.ref();
-    const menuID = props.menuID;
 
     useEffect(() => {
         dbRef.child('Menus')
             .orderByChild('business')
             .equalTo(uid)
-            .equalTo(menuID)
             .get().then((snapshot) => {
             if (snapshot.exists()) {
-                if (!itemList) {
-                    //    setItemList
-                    // iterate through menu items
-                } else {
-
+                if (!menuList) {
+//                    setMenuList(); TODO initialise list of menus, iterate through
+                } else {          // TODO possibilities and add to list
+                    console.log('No data available')
                 }
             }
-        }).catch(error => {
+        }).catch((error) => {
             console.error(error);
         })
+
+        // TODO iterate through list of menus to display relevant ones
+//        let currentID = '';
+//        let menuItems = [];
+//        const menus = [];
+        const iterateMenus = (obj) => {
+
+        }
     })
-};
 
+    return (
+        <></>
+    )
+}
 
-
-
-
-
-
-
+export default StoreView;
 
 const styles = StyleSheet.create({
     mainView: {
@@ -165,3 +168,4 @@ const styles = StyleSheet.create({
         color: '#383838',
     },
 });
+
