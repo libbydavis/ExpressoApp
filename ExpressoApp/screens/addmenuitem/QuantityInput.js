@@ -10,8 +10,8 @@ import {
 
 
 const QuantityInput = (props) => {
-  const [quantity, setQuantity] = useState('5');
-  const [quantityNumber, setQuantityNumber] = useState(5);
+  const [quantity, setQuantity] = useState('' + props.initialQuantity);
+  const [quantityNumber, setQuantityNumber] = useState(props.initialQuantity);
 
   const handleButtonQuantity = (buttonType) => {
     let newQuantity;

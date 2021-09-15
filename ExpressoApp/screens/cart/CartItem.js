@@ -1,15 +1,22 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
+import QuantityInput from "../addmenuitem/QuantityInput";
 
 const CartItem = (props) => {
+  const receiveQuantity = (value) => {
+    props.receiveQuantity(value)
+  };
+
   return (
     <View style={styles.cartItemView}>
+
       <View style={styles.leftDiv}>
         <Image source={{uri: props.image}} style={styles.image}></Image>
         <Text>{props.title}</Text>
-        <Text style={styles.price}>${props.price}</Text>
       </View>
       <View style={styles.rightDiv}>
+        <QuantityInput receiveValue={receiveQuantity} initialQuantity={props.quantity}></QuantityInput>
+        <Text style={styles.price}>${props.price}</Text>
         <Text style={styles.x} onPress={props.onpress}>X</Text>
       </View>
     </View>
@@ -24,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: 250,
+    width: 300,
   },
   leftDiv: {
     justifyContent: 'flex-start',
@@ -34,6 +41,8 @@ const styles = StyleSheet.create({
   rightDiv: {
     justifyContent: 'flex-end',
     paddingRight: 10,
+    flexDirection: 'row',
+    marginTop: 30
   },
   price: {
     marginLeft: 10,
@@ -41,6 +50,7 @@ const styles = StyleSheet.create({
   x: {
     color: 'red',
     padding: 10,
+    marginLeft: 10
   },
   image: {
     width: 80,

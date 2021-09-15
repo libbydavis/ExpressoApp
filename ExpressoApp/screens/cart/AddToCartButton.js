@@ -1,11 +1,18 @@
 import React, {Component} from "react";
-import {Text, TouchableOpacity, StyleSheet, View} from "react-native";
+import {Text, TouchableOpacity, StyleSheet, View, Modal, Alert} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 class AddToCartButton extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            title: props.item.title,
+            price: props.item.price,
+            quantity: props.item.quantity,
+            totalPrice: props.item.price * props.item.quantity
+        }
     }
 
     async handleAddToCart() {
@@ -14,18 +21,18 @@ class AddToCartButton extends Component {
 
         while (item === false) {
             try {
-                let itemsArray = [this.props.item];
-                let total = this.props.item.price;
+                let itemsArray = [this.state];
+                let total = this.state.totalPrice;
                 if (tryItems === false) {
                     let storedItems = await AsyncStorage.getItem('@items');
                     if (storedItems != null) {
                         const currentValue = JSON.parse(storedItems)
-                        itemsArray = [...currentValue, this.props.item];
+                        itemsArray = [...currentValue, this.state];
                     }
                     total = await AsyncStorage.getItem('@total');
                     if (total != null) {
                         total = parseFloat(total);
-                        total += this.props.item.price;
+                        total += this.state.totalPrice;
                     }
                 }
                 item = true;
@@ -33,12 +40,19 @@ class AddToCartButton extends Component {
                 await AsyncStorage.setItem('@items', jsonValue);
                 const jsonTotal = JSON.stringify(total);
                 await AsyncStorage.setItem('@total', jsonTotal);
+
+                this.notifyAdd()
             } catch (e) {
                 // saving error
                 tryItems = true;
                 console.log(e)
             }
         }
+    }
+
+    notifyAdd() {
+        let title = this.props.item.title;
+        Alert.alert("Item added!", title + " has been added to cart")
     }
 
     render() {

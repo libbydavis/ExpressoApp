@@ -124,7 +124,7 @@ const AddMenuItemScreen = ({ navigation }) => {
             <View style={styles.quantityElements}>
               <Text style={styles.expressoLabel}>quantity</Text>
               <View style={styles.rowView}>
-                <QuantityInput receiveValue={receiveQuantity}></QuantityInput>
+                <QuantityInput receiveValue={receiveQuantity} initialQuantity={5}></QuantityInput>
               </View>
             </View>
             <Modal

@@ -87,6 +87,43 @@ class Cart extends Component {
       await AsyncStorage.setItem('@total', JSON.stringify(newPrice));
   }
 
+  replaceItemsInStorage = async () => {
+      await AsyncStorage.setItem('@items', JSON.stringify(this.state.items));
+  }
+
+  setNewQuantity = (value, index) => {
+      if (value == 0) {
+          this.deleteCartItem(index, this.state.items[index].price)
+      }
+      else {
+          let itemsCopy = [...this.state.items];
+          let itemCheck = itemsCopy[index];
+          itemCheck.quantity = value;
+
+          //minus current total
+          let totalCheck = this.state.total;
+          totalCheck -= itemCheck.totalPrice;
+
+          //set new total
+          itemCheck.totalPrice = itemCheck.price * value;
+          totalCheck += itemCheck.totalPrice;
+          this.setState({...this.state.items, ['total']: totalCheck});
+
+          //replace item with modified item
+          itemsCopy.splice(index, 1);
+          itemsCopy = [...itemsCopy, itemCheck];
+          this.setState({...this.state.total, ['items']: itemsCopy});
+
+          //set into storage
+          this.setNewTotalStorage(totalCheck).then(r => {
+              this.replaceItemsInStorage().then(r => {
+                  this.props.receiveValue(totalCheck);
+              })
+          });
+      }
+
+  }
+
   render() {
 
     return (
@@ -94,7 +131,7 @@ class Cart extends Component {
           <View>
             {
               this.state.items.map((item, index) => {
-                return <CartItem key={index} image={item.image} title={item.title} price={item.price} onpress={() => this.deleteCartItem(index, item.price)}></CartItem>
+                return <CartItem key={index} image={item.image} title={item.title} price={item.price} quantity={item.quantity} receiveQuantity={(value) => this.setNewQuantity(value, index)} onpress={() => this.deleteCartItem(index, item.totalPrice)}></CartItem>
               })
             }
           </View>
