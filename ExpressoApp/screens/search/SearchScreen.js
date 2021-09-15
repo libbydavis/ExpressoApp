@@ -121,6 +121,7 @@ const SearchScreen = () => {
               setItems={setItems}
               style={styles.dropDownPicker}
               dropDownStyle={styles.dropDownItem}
+              dropDownContainerStyle={{width: 100}}
               textStyle={{fontSize: 12}}
               labelStyle={{fontSize: 12, fontWeight: "bold"}}
               maxHeight={75}
