@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 250,
     padding: 10,
-    borderRadius: 25,
+    borderRadius: 10,
     marginTop: 20,
   },
   loginButton: {
@@ -99,10 +99,10 @@ const styles = StyleSheet.create({
     width: 250,
     height: 50,
     padding: 10,
-    borderRadius: 25,
+    borderRadius: 10,
     marginTop: 20,
     marginBottom: 20,
-    backgroundColor: '#6495ed',
+    backgroundColor: '#25a2af',
   },
   loginText: {
     color: '#ffffff',
