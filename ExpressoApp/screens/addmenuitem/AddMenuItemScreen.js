@@ -99,7 +99,7 @@ const AddMenuItemScreen = ({ navigation }) => {
           source={require('../../assets/ExpressoLogo.png')}
           style={styles.headerIcon}
         />
-        <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
+        <TouchableOpacity onPress={() => {navigation.navigate('CreateMenu')}}>
           <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
         </TouchableOpacity>
       </View>
