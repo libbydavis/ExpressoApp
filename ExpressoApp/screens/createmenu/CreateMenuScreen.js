@@ -18,7 +18,6 @@ import { firebase, firebaseDB } from "../../firebase/FirebaseConfig";
 export const CreateMenuScreen = ({ navigation }) => {
     const user = firebase.auth().currentUser;
     const uid = user.uid;
-    const menuID = 'ABC123'; // need to create randomised menuID
     const dbRef = firebaseDB.ref();
     const [menuObject, setMenuObject] = useState({
         title: '',
@@ -29,7 +28,7 @@ export const CreateMenuScreen = ({ navigation }) => {
     const onClickSubmitMenu = async () => {
         // Ensure the user has input a title
         if (menuObject.title !== null) {
-            await dbRef.child("Menus").child(menuID).push().set({
+            await dbRef.child("Menus").push().set({
               'title': menuObject.title,
               'menuItems': menuObject.menuItems,
               'business': menuObject.business
