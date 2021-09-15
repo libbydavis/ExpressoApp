@@ -20,11 +20,12 @@ export const MenuView = ({navigation}) => {
     useEffect(() => {
         dbRef.child('Menus')
             .orderByChild('business')
+            .equalTo(uid)
             .get().then((snapshot) => {
             if (snapshot.exists()) {
                 if (!menuList) {
-                    setMenuList(snapshot.val().key);
-                } else {
+//                    setMenuList(); TODO init list of menus, iterate through possibilities
+                } else {        // TODO and add to list
                     console.log('No data available')
                 }
             }
@@ -32,6 +33,7 @@ export const MenuView = ({navigation}) => {
             console.error(error);
         })
 
+        //iterate through list of menus
         let currentID = '';
         let menuItems = [];
         const menus = [];
