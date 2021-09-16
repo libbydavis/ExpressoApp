@@ -28,8 +28,19 @@ function OwnerOrdersScreen({navigation}) {
     const [userBusinessID, setUserBusinessID] = useState(firebaseAuth.currentUser.uid); // get this from firebase user's auth.id
     const [errorText, setErrorText] = useState('');
     const dbRef = firebaseDB.ref();
-
+    const rightNow = new Date();
     const [refreshing, setRefreshing] = React.useState(false);
+    const [orderId, setOrderId] = useState(() => getInitialOrderId());
+
+    function getInitialOrderId() {
+        let initialId = 500;
+        //get from firebase once
+        return initialId;
+    }
+
+    function setNextOrderId() {
+        setOrderId(prevOrderId => prevOrderId + 1);
+    }
 
     const onRefresh = React.useCallback(() => {
         setOrderList('');
@@ -62,7 +73,7 @@ function OwnerOrdersScreen({navigation}) {
 
         dbRef.child('orders')
             .orderByChild('business')
-            .equalTo(userBusinessID)
+            .equalTo(firebaseAuth.currentUser.uid)
             .get().then((snapshot) => {
             if (snapshot.exists()) {
                 if (!orderList) {
@@ -93,13 +104,15 @@ function OwnerOrdersScreen({navigation}) {
                     iterateOrders(obj[key]);
 
                     if (menuItems) {
-                        const props = {
-                            transactionID: currentID,
+                        const order = {
+                            orderId: orderId,
+                            objectId: key,
                             menuItems: menuItems,
                             orderTime: orderTime,
                         };
 
-                        orders.push(<Order key={currentID} props={props}/>);
+                        orders.push(<Order key={currentID} order={order}/>);
+                        setNextOrderId();
                     }
                     menuItems = [];
                     orderTime = '';
@@ -151,8 +164,8 @@ function OwnerOrdersScreen({navigation}) {
                         Fries: 12,
                         Soda: 12,
                         Hotdog: 12,
-                        business: userBusinessID,
-                        orderTime: 1535,
+                        business: firebaseAuth.currentUser.uid,
+                        orderTime: rightNow.toLocaleTimeString('en-US'),
                     })
                     .then(() => {
                         // Data saved successfully!

@@ -15,7 +15,7 @@ const LoginScreen = ({navigation}) => {
             .signInWithEmailAndPassword(email, password)
             .then(() => {
                 console.log("User has successfully signed in!");
-                navigation.navigate('OwnerOrdersScreen');
+                navigation.navigate('OrdersScreen');
             })
             .catch(error => {
                 if (error.code === 'auth/email-already-exists') {
@@ -23,13 +23,13 @@ const LoginScreen = ({navigation}) => {
                 }
                 console.error(error);
             });
-    }
+    };
 
     const logout = () => {
         firebaseAuth
             .signOut()
             .then(() => console.log('User has logged out!'));
-    }
+    };
 
 
     return (

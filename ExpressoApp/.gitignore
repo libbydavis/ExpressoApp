@@ -60,3 +60,4 @@ buck-out/
 
 #other
 package-lock.json
+/.env
