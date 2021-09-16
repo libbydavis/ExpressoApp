@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   checklistText: {
     color: '#383838',
-    marginRight: 170,
   },
 });
 
