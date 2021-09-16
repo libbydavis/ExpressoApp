@@ -121,11 +121,11 @@ const SearchScreen = () => {
               setItems={setItems}
               style={styles.dropDownPicker}
               dropDownStyle={styles.dropDownItem}
-              dropDownContainerStyle={{width: 100}}
+              dropDownContainerStyle={{width: 95}}
+              containerStyle={{width: 95}}
               textStyle={{fontSize: 12}}
               labelStyle={{fontSize: 12, fontWeight: "bold"}}
               maxHeight={75}
-              maxWidth={75}
           />
           </View>
         </ImageBackground>
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#25a2af',
     height: 190,
+    width: '100%',
   },
   logoIcon: {
     width: 200,
@@ -166,7 +167,6 @@ const styles = StyleSheet.create({
   searchIcon: {
     width: 40,
     height: 40,
-    margin: 2,
   },
   profileIcon: {
     width: 40,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontFamily: 'Monserrat-Regular',
-    margin: 20,
+    margin: 10,
     borderRadius: 10,
     padding: 5,
     backgroundColor: '#ffffff',
@@ -184,12 +184,13 @@ const styles = StyleSheet.create({
   backgroundImage : {
     flex: 1,
     height: 190,
+    width: '100%',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(37, 162, 175,.5)',
     flexDirection: 'row',
-    //justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   itemStyle: {
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
   dropDownPicker: {
     fontFamily: 'Monserrat-Regular',
     backgroundColor: '#fafafa',
-    width: 100,
+    width: 95,
     height: 40,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
