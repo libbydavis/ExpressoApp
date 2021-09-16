@@ -6,14 +6,12 @@ import {
     TouchableOpacity,
     Text,
     Image,
-    ToastAndroid, FlatList,
+    ToastAndroid, FlatList, TouchableOpacityComponent,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native";
 
-export const MenuView = ({menuID}, {navigation}) => { // pass menuID to ensure this accesses the correct menu
-    const [returnedMenuID, setReturnedMenuID] = useState('');
-    const [ItemList, setItemList] = useState('');
+export const MenuView = ({ menuID }) => { // pass menuID to ensure this accesses the correct menu
     const user = firebase.auth().currentUser;
     const uid = user.uid;
     const dbRef = firebaseDB.ref();
@@ -25,29 +23,26 @@ export const MenuView = ({menuID}, {navigation}) => { // pass menuID to ensure t
     }
 
     useEffect(() => {
-        dbRef.child('Menus')
-/*            .orderByChild('business') Not required given that menuID is known
-            .equalTo(uid)*/
-            .child(menuID)
+        dbRef.child(`Menus`)
+            /*            .orderByChild('business') Not required given that menuID is known
+                        .equalTo(uid)*/
+            .child(String(menuID))
             .get().then((snapshot) => {
             if (snapshot.exists()) {
-                if (!snapshot.child('menuItems')){
+                if (!snapshot.child(`menuItems`)) {
                     console.log("No items in menu")
-                }
-                if (!menuItems) {
+                } else {
                     let menuItems = snapshot.child(menuItems);
-                    menuItems.forEach(function(snapshot) {
+                    menuItems.forEach(function (snapshot) {
                         menuItemList.push({
-                            title: snapshot.val('title'),
-                            image: snapshot.val('image'),
-                            description: snapshot.val('description'),
-                            price: snapshot.val('price'),
-                            quantity: snapshot.val('quantity'),
-                            optionLists: snapshot.val('optionLists')
+                            title: snapshot.val(`title`),
+                            image: snapshot.val(`image`),
+                            description: snapshot.val(`description`),
+                            price: snapshot.val(`price`),
+                            quantity: snapshot.val(`quantity`),
+                            optionLists: snapshot.val(`optionLists`)
                         });
                     })
-                } else {
-                    console.log("No items to display");
                 }
             } else {
                 console.error("No menu detected");
@@ -56,39 +51,39 @@ export const MenuView = ({menuID}, {navigation}) => { // pass menuID to ensure t
             console.error(error);
         });
 
-            // This section may not be required
-            /*let currentID = '';
-        let menuItem = '';
-        const iterateItems = (snap) => {
-            let menuItems = [];
-            Object.keys(snap).forEach((key) => {
-                if (typeof snap[key] != 'object') {
-                    if (key === 'menuItem') {
-                        menuItem = snap[key];
-                        menuItems.push(snap.val(key));
-                    } else {
+        // This section is not be required
+        /*let currentID = '';
+    let menuItem = '';
+    const iterateItems = (snap) => {
+        let menuItems = [];
+        Object.keys(snap).forEach((key) => {
+            if (typeof snap[key] != 'object') {
+                if (key === 'menuItem') {
+                    menuItem = snap[key];
+                    menuItems.push(snap.val(key));
+                } else {
 
-                    }
-/!*                } else {
-                    currentID = key;
-                    iterateItems(snap[key]);
-
-                    // setting these to props for export
-                    if (menuItems) {
-                        const props = {
-                  /!*          title = '',
-                            image: '',
-                            description: '',
-                            price: ,
-                            quantity: ,
-                            optionLists:
-*!/
-                        }
-                    }*!/
                 }
-            })
-            return menuItems;
-        }*/
+/!*                } else {
+                currentID = key;
+                iterateItems(snap[key]);
+
+                // setting these to props for export
+                if (menuItems) {
+                    const props = {
+              /!*          title = '',
+                        image: '',
+                        description: '',
+                        price: ,
+                        quantity: ,
+                        optionLists:
+*!/
+                    }
+                }*!/
+            }
+        })
+        return menuItems;
+    }*/
 // TODO Menu items contain:
         //     title: '',
         //     image: '',
@@ -125,14 +120,14 @@ export const MenuView = ({menuID}, {navigation}) => { // pass menuID to ensure t
 
     return (
         <View>
-            <View style = {styles.navBar}>
+            <View style={styles.navBar}>
                 <Image
-                    source = {require('../../assets/ExpressoLogo.png')}
+                    source={require('../../assets/ExpressoLogo.png')}
                     style={styles.headerIcon}
                 />
             </View>
-            <View style = {styles.mainView}>
-                <Text style = {mainTitle}>
+            <View style={styles.mainView}>
+                <Text style={styles.mainTitle}>
                     Menu Title
                 </Text>
             </View>
@@ -142,6 +137,11 @@ export const MenuView = ({menuID}, {navigation}) => { // pass menuID to ensure t
                     ItemSeparatorComponent={ItemSeparatorView}
                     renderItem={ItemView}
                 />
+                <TouchableOpacity style={styles.expressoButton} onPress{() => {
+
+                }}>
+                    <Text style = {styles.expressoButtonText}>Add new item</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     )

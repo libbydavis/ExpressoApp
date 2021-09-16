@@ -66,7 +66,7 @@ export default class App extends Component {
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
           <Stack.Screen name="Cart" component={CartScreen} />
           <Stack.Screen name="CreateMenu" component={CreateMenuScreen} />
-          <Stack.Screen name={MenuView} component={MenuView};
+          <Stack.Screen name="MenuView" component={MenuView} />
         </Stack.Navigator>
       </NavigationContainer>
     );

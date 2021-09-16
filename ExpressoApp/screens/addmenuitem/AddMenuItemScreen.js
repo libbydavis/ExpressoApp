@@ -91,7 +91,7 @@ const AddMenuItemScreen = ({ navigation }) => {
   };
 
 
-
+// TODO: Change CreateMenu to Cart on L102
   return (
     <View>
       <View style={styles.navBar}>
@@ -99,7 +99,7 @@ const AddMenuItemScreen = ({ navigation }) => {
           source={require('../../assets/ExpressoLogo.png')}
           style={styles.headerIcon}
         />
-        <TouchableOpacity onPress={() => {navigation.navigate('CreateMenu')}}> // TODO: change this back to cart
+        <TouchableOpacity onPress={() => {navigation.navigate('CreateMenu')}}>
           <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
         </TouchableOpacity>
       </View>

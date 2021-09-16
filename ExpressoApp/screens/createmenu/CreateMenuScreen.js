@@ -31,14 +31,14 @@ export const CreateMenuScreen = ({navigation}) => {
     const onClickSubmitMenu = async () => {
         // Ensure the user has input a title
         if (menuObject.title !== null) {
-            await dbRef.child("Menus").push().set({
+            let menuRef = dbRef.child("Menus").push()
+            await menuRef.set({
                 'title': menuObject.title,
                 'menuItems': menuObject.menuItems,
                 'business': menuObject.business
             });
-            navigation.navigate('MenuView')
+            navigation.navigate('MenuView', (menuRef.key));
 
-//            navigation.navigate(''); - Send user to store page to see new blank menu
         } else {
             ToastAndroid("You must input a title!");
         }
