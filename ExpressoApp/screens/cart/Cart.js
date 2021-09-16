@@ -110,8 +110,7 @@ class Cart extends Component {
           this.setState({...this.state.items, ['total']: totalCheck});
 
           //replace item with modified item
-          itemsCopy.splice(index, 1);
-          itemsCopy = [...itemsCopy, itemCheck];
+          let newArray = [...itemsCopy.slice(0, index), itemCheck, ...itemsCopy.slice(index)];
           this.setState({...this.state.total, ['items']: itemsCopy});
 
           //set into storage

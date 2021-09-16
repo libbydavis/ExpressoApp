@@ -15,7 +15,9 @@ const CartItem = (props) => {
         <Text>{props.title}</Text>
       </View>
       <View style={styles.rightDiv}>
-        <QuantityInput receiveValue={receiveQuantity} initialQuantity={props.quantity}></QuantityInput>
+        <View style={styles.quantityStyle}>
+          <QuantityInput receiveValue={receiveQuantity} initialQuantity={props.quantity}></QuantityInput>
+        </View>
         <Text style={styles.price}>${props.price}</Text>
         <Text style={styles.x} onPress={props.onpress}>X</Text>
       </View>
@@ -29,9 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#c9c9c9',
     margin: 10,
     borderRadius: 10,
-    alignItems: 'center',
     justifyContent: 'space-between',
-    width: 300,
   },
   leftDiv: {
     justifyContent: 'flex-start',
@@ -41,8 +41,11 @@ const styles = StyleSheet.create({
   rightDiv: {
     justifyContent: 'flex-end',
     paddingRight: 10,
+    alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 30
+  },
+  quantityStyle: {
+    marginTop: 25,
   },
   price: {
     marginLeft: 10,
