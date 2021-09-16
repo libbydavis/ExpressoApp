@@ -17,6 +17,7 @@ import firebase from 'firebase';
 import SplashScreen from 'react-native-splash-screen';
 import OwnerOrdersScreen from './screens/ownerorders/OwnerOrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
+import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 
 const Stack = createStackNavigator();
 
@@ -61,6 +62,7 @@ export default class App extends Component {
           <Stack.Screen name="OwnerOrdersScreen" component={OwnerOrdersScreen}/>
           <Stack.Screen name='SearchScreen' component={SearchScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
+          <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
           <Stack.Screen name="Cart" component={CartScreen} />
         </Stack.Navigator>
       </NavigationContainer>
