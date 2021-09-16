@@ -97,7 +97,7 @@ function OwnerOrdersScreen({navigation}) {
 
             orders.push(
                 // eslint-disable-next-line max-len
-                <Order Key={currentID} props={props} />,
+                <Order Key={currentID} props={props}/>,
             );
           }
           menuItems = [];

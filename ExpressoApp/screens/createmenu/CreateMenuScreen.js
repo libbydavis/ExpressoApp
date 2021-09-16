@@ -9,6 +9,7 @@ import {
     ToastAndroid,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import MenuView from "../menu/MenuView";
 
 /**
  *
@@ -35,6 +36,7 @@ export const CreateMenuScreen = ({navigation}) => {
                 'menuItems': menuObject.menuItems,
                 'business': menuObject.business
             });
+            navigation.navigate('MenuView')
 
 //            navigation.navigate(''); - Send user to store page to see new blank menu
         } else {
@@ -52,7 +54,7 @@ export const CreateMenuScreen = ({navigation}) => {
             <Image
                 source={require('../../assets/ExpressoLogo.png')}
                 style={styles.headerIcon}
-            ></Image>
+            />
             <View style={styles.mainView}>
                 <Text style={styles.title}>Create Menu</Text>
                 <Text style={styles.subtitle}>Input Menu Title</Text>

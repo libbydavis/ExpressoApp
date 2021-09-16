@@ -6,45 +6,152 @@ import {
     TouchableOpacity,
     Text,
     Image,
-    ToastAndroid,
+    ToastAndroid, FlatList,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import {ScrollView} from "react-native";
 
-export const MenuView = ({navigation}) => {
+export const MenuView = ({menuID}, {navigation}) => { // pass menuID to ensure this accesses the correct menu
     const [returnedMenuID, setReturnedMenuID] = useState('');
     const [ItemList, setItemList] = useState('');
     const user = firebase.auth().currentUser;
     const uid = user.uid;
     const dbRef = firebaseDB.ref();
-    const menuID = props.menuID;
+    let menuItemList = []
+    const [currentItemID, setCurrentItemID] = useState(null); // may not be required
+
+    const unsetCurrentItem = () => {
+        setCurrentItemID(null);
+    }
 
     useEffect(() => {
         dbRef.child('Menus')
-            .orderByChild('business')
-            .equalTo(uid)
-            .equalTo(menuID)
+/*            .orderByChild('business') Not required given that menuID is known
+            .equalTo(uid)*/
+            .child(menuID)
             .get().then((snapshot) => {
             if (snapshot.exists()) {
-                if (!itemList) {
-                    //    setItemList
-                    // iterate through menu items
-                } else {
-
+                if (!snapshot.child('menuItems')){
+                    console.log("No items in menu")
                 }
+                if (!menuItems) {
+                    let menuItems = snapshot.child(menuItems);
+                    menuItems.forEach(function(snapshot) {
+                        menuItemList.push({
+                            title: snapshot.val('title'),
+                            image: snapshot.val('image'),
+                            description: snapshot.val('description'),
+                            price: snapshot.val('price'),
+                            quantity: snapshot.val('quantity'),
+                            optionLists: snapshot.val('optionLists')
+                        });
+                    })
+                } else {
+                    console.log("No items to display");
+                }
+            } else {
+                console.error("No menu detected");
             }
         }).catch(error => {
             console.error(error);
-        })
+        });
+
+            // This section may not be required
+            /*let currentID = '';
+        let menuItem = '';
+        const iterateItems = (snap) => {
+            let menuItems = [];
+            Object.keys(snap).forEach((key) => {
+                if (typeof snap[key] != 'object') {
+                    if (key === 'menuItem') {
+                        menuItem = snap[key];
+                        menuItems.push(snap.val(key));
+                    } else {
+
+                    }
+/!*                } else {
+                    currentID = key;
+                    iterateItems(snap[key]);
+
+                    // setting these to props for export
+                    if (menuItems) {
+                        const props = {
+                  /!*          title = '',
+                            image: '',
+                            description: '',
+                            price: ,
+                            quantity: ,
+                            optionLists:
+*!/
+                        }
+                    }*!/
+                }
+            })
+            return menuItems;
+        }*/
+// TODO Menu items contain:
+        //     title: '',
+        //     image: '',
+        //     description: '',
+        //     price: 0.0,
+        //     quantity: 5,
+        //     optionLists: [],
+
     })
+
+    const ItemView = ({item}) => {
+        return (
+            // Flat List Item
+            <Text
+                style={styles.itemStyle}
+                onPress={() => getItem(item)}>
+                {item.title}
+            </Text>
+        );
+    };
+
+    const ItemSeparatorView = () => {
+        return (
+            // Flat List Item Separator
+            <View
+                style={{
+                    height: 0.5,
+                    width: '100%',
+                    backgroundColor: 'rgba(37, 162, 175,.2)',
+                }}
+            />
+        );
+    };
+
+    return (
+        <View>
+            <View style = {styles.navBar}>
+                <Image
+                    source = {require('../../assets/ExpressoLogo.png')}
+                    style={styles.headerIcon}
+                />
+            </View>
+            <View style = {styles.mainView}>
+                <Text style = {mainTitle}>
+                    Menu Title
+                </Text>
+            </View>
+            <ScrollView>
+                <FlatList
+                    data={menuItemList}
+                    ItemSeparatorComponent={ItemSeparatorView}
+                    renderItem={ItemView}
+                />
+            </ScrollView>
+        </View>
+    )
 };
 
+// Iterate through selected menu
 
+// Display items in menu
 
-
-
-
-
-
+// "Add New Item to Menu" button, push menu id to that
 
 const styles = StyleSheet.create({
     mainView: {
@@ -63,7 +170,7 @@ const styles = StyleSheet.create({
         paddingBottom: 100,
         alignItems: 'center',
     },
-    orders: {
+    menuItems: {
         justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -107,6 +214,12 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         marginLeft: 10,
         marginRight: 10,
+    },
+    itemStyle: {
+        padding: 15,
+        flex: 1,
+        fontFamily: 'Monserrat-Regular',
+        backgroundColor: '#ffffff',
     },
     expressoButton: {
         backgroundColor: '#25a2af',
@@ -165,3 +278,6 @@ const styles = StyleSheet.create({
         color: '#383838',
     },
 });
+
+export default MenuView;
+
