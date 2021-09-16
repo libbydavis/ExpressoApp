@@ -17,9 +17,12 @@ import DropDownPicker from "react-native-dropdown-picker";
  * @return {JSX.Element}
  * @constructor
  */
-const editDayHours = ({day}) => {
+const editDayHours = (props) => {
     const [openingOpen, setOpeningOpen] = useState(false);
     const [openingValue, setOpeningValue] = useState();
+    const [closingOpen, setClosingOpen] = useState(false);
+    const [closingValue, setClosingValue] = useState();
+
     const [items, setItems] = useState([
         {label: 'closed', value: 'closed'},
         {label: '00:00', value: '00:00'},
@@ -71,8 +74,6 @@ const editDayHours = ({day}) => {
         {label: '23:00', value: '23:00'},
         {label: '23:30', value: '23:30'},
     ]);
-    const [closingOpen, setClosingOpen] = useState(false);
-    const [closingValue, setClosingValue] = useState();
 
     const onOpeningOpen = useCallback(() => {
         setClosingOpen(false);
@@ -84,7 +85,7 @@ const editDayHours = ({day}) => {
 
     return (
         <View style={styles.dayView}>
-            <Text style={styles.day}>{day} :</Text>
+            <Text style={styles.day}>{props.day}:</Text>
             <DropDownPicker
                 open={openingOpen}
                 onOpen={onOpeningOpen}
@@ -93,6 +94,7 @@ const editDayHours = ({day}) => {
                 setOpen={setOpeningOpen}
                 setValue={setOpeningValue}
                 setItems={setItems}
+                onChangeValue={props.openSet}
                 style={styles.dropDownPicker}
                 dropDownStyle={styles.dropDownItem}
                 dropDownContainerStyle={{width: 100,position: 'absolute',}}
@@ -113,6 +115,7 @@ const editDayHours = ({day}) => {
                 setOpen={setClosingOpen}
                 setValue={setClosingValue}
                 setItems={setItems}
+                onChangeValue={props.closeSet}
                 style={styles.dropDownPicker}
                 dropDownStyle={styles.dropDownItem}
                 dropDownContainerStyle={{width: 100}}

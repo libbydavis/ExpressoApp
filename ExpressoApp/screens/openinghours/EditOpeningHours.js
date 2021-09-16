@@ -2,16 +2,13 @@ import React, {useState, useRef, useEffect} from 'react';
 import {
     StyleSheet,
     View,
-    TextInput,
     Image,
-    ImageBackground,
-    FlatList,
     Text,
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-import DropDownPicker from "react-native-dropdown-picker";
 import EditDayHours from "./EditDayHours";
+import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 
 /**
  *
@@ -19,6 +16,99 @@ import EditDayHours from "./EditDayHours";
  * @constructor
  */
 const editOpeningHours = () => {
+    const user = firebase.auth().currentUser;
+    const uid = user.uid;
+    const [monday, setMonday] = useState({
+        day: 'Monday',
+        open: '',
+        close: ''
+    })
+    const [tuesday, setTuesday] = useState({
+        day: 'Tuesday',
+        open: '',
+        close: ''
+    })
+    const [wednesday, setWednesday] = useState({
+        day: 'Wednesday',
+        open: '',
+        close: ''
+    })
+    const [thursday, setThursday] = useState({
+        day: 'Thursday',
+        open: '',
+        close: ''
+    })
+    const [friday, setFriday] = useState({
+        day: 'Friday',
+        open: '',
+        close: ''
+    })
+    const [saturday, setSaturday] = useState({
+        day: 'Saturday',
+        open: '',
+        close: ''
+    })
+    const [sunday, setSunday] = useState({
+        day: 'Sunday',
+        open: '',
+        close: ''
+    })
+
+    const writeOpeningHours = () => {
+        writeDayHours(monday)
+        writeDayHours(tuesday)
+        writeDayHours(wednesday)
+        writeDayHours(thursday)
+        writeDayHours(friday)
+        writeDayHours(saturday)
+        writeDayHours(sunday)
+    }
+
+    const writeDayHours = (day) => {
+        if (validateDay(day)) {
+            firebaseDB.ref('businesses/' + uid + '/openingHours')
+                .update({
+                    [day.day]: writeDay(day)
+                })
+                .then(() => {
+                    // Data saved successfully!
+                    console.log(`Opening hours for business ${uid} added to business collection successfully!`);
+                })
+                .catch((error) => {
+                    // The write failed...
+                    console.log(`Opening hours for business ${uid} could not be added to the business collection.` +
+                        error.message());
+                });
+        }
+        else {
+            console.log(day.day + ' hours not added to collection')
+        }
+    }
+
+    const writeDay = (day) => {
+        if (day.open == 'closed' || day.close == 'closed') {
+            return ('closed')
+        }
+        else {
+            return (day.open + ' to ' + day.close)
+        }
+    }
+
+    const validateDay = (day) => {
+        if (day.open == 'closed' || day.close == 'closed')
+        {
+            return true
+        }
+        else if (day.open == '' || day.close == '') {
+            console.log('unchanged timings')
+            return false
+        }
+        else if (day.close <= day.open) {
+            console.log('store can\'t close before or when it opens!')
+            return false
+        }
+        return true
+    }
 
     return (
         <View style={styles.mainView}>
@@ -36,14 +126,42 @@ const editOpeningHours = () => {
                 <Text style={styles.title}>Edit Opening Hours</Text>
             </View>
             <ScrollView contentContainerStyle={styles.scrollView}>
-                <EditDayHours day={'MON'}></EditDayHours>
-                <EditDayHours day={'TUE'}></EditDayHours>
-                <EditDayHours day={'WED'}></EditDayHours>
-                <EditDayHours day={'THU'}></EditDayHours>
-                <EditDayHours day={'FRI'}></EditDayHours>
-                <EditDayHours day={'SAT'}></EditDayHours>
-                <EditDayHours day={'SUN'}></EditDayHours>
-                <TouchableOpacity style={styles.expressoButton}>
+                <EditDayHours
+                    day={'MON'}
+                    openSet={(openingValue)=> setMonday({...monday, open : openingValue})}
+                    closeSet={(closingValue)=> setMonday({...monday, close : closingValue})}
+                />
+                <EditDayHours
+                    day={'TUE'}
+                    openSet={(openingValue)=> setTuesday({...tuesday, open : openingValue})}
+                    closeSet={(closingValue)=> setTuesday({...tuesday, close : closingValue})}
+                />
+                <EditDayHours
+                    day={'WED'}
+                    openSet={(openingValue)=> setWednesday({...wednesday, open : openingValue})}
+                    closeSet={(closingValue)=> setWednesday({...wednesday, close : closingValue})}
+                />
+                <EditDayHours
+                    day={'THU'}
+                    openSet={(openingValue)=> setThursday({...thursday, open : openingValue})}
+                    closeSet={(closingValue)=> setThursday({...thursday, close : closingValue})}
+                />
+                <EditDayHours
+                    day={'FRI'}
+                    openSet={(openingValue)=> setFriday({...friday, open : openingValue})}
+                    closeSet={(closingValue)=> setFriday({...friday, close : closingValue})}
+                />
+                <EditDayHours
+                    day={'SAT'}
+                    openSet={(openingValue)=> setSaturday({...saturday, open : openingValue})}
+                    closeSet={(closingValue)=> setSaturday({...saturday, close : closingValue})}
+                />
+                <EditDayHours
+                    day={'SUN'}
+                    openSet={(openingValue)=> setSunday({...sunday, open : openingValue})}
+                    closeSet={(closingValue)=> setSunday({...sunday, close : closingValue})}
+                />
+                <TouchableOpacity style={styles.expressoButton} onPress={writeOpeningHours}>
                     <Text style={styles.expressoButtonText}>Save</Text>
                 </TouchableOpacity>
             </ScrollView>
