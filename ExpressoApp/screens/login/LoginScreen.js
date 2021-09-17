@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text} from 'react-native';
+import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Alert} from 'react-native';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 // import '@react-navigation/native';
 
@@ -17,7 +17,20 @@ const LoginScreen = ({navigation}) => {
           navigation.navigate('AddMenuItem');
         })
         .catch(error => {
-          if (error.code === 'auth/email-already-exists') {
+            Alert.alert(
+              "Error:",
+              "Invalid input. Please try again.",
+              [
+                  {
+                      text: "Cancel",
+                  },
+                  {
+                      text: "OK",
+                  },
+              ]
+          );
+          if (error.code === 'auth/email-already-exists') 
+          {
             console.log('This email address already exists!');
           }
           console.error(error);
