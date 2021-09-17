@@ -176,11 +176,15 @@ const OrdersScreen = (props) => {
             orderId: orderId,
             menuItems,
             business: firebaseAuth.currentUser.uid,
-            orderTime: rightNow.toLocaleString('en-US'),
-        }).then(() => {
-            console.log('addOrderToDatabase resolve');
-            setNextOrderId();
-        }).catch((error) => {
+            orderTime:
+                rightNow.toLocaleString('en-US'),
+        })
+
+
+            .then(() => {
+                console.log('addOrderToDatabase resolve');
+                setNextOrderId();
+            }).catch((error) => {
             console.log('Was not added' + error.message);
         });
     }
