@@ -7,8 +7,6 @@ import {
     TouchableOpacity,
     View,
     ScrollView,
-    ToastAndroid,
-    Button
 } from 'react-native';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import Order from './Order';
@@ -25,20 +23,23 @@ const OrdersScreen = (props) => {
     const [orderId, setOrderId] = useState(() => getInitialOrderId());
 
     useEffect(() => {
+        setOrdersFromFirebase();
     }, []);
 
+    //get
     function getInitialOrderId() {
         let initialId = 500;
         //get from firebase once
         return initialId;
     }
 
+    //Increment orderID
     function setNextOrderId() {
         setOrderId(prevOrderId => prevOrderId + 1);
     }
 
+    //get initial orders[] from Firebase
     function getInitialOrdersFromFirebase() {
-
         let orders = [];
         firebaseDB.ref().child('orders')
             .orderByChild('business')
@@ -48,18 +49,17 @@ const OrdersScreen = (props) => {
                 orders = iterateOrders(snapshot.val());
                 if (typeof orders !== 'undefined') {
                     return (orders);
-                } else {
-                    return ([]);
                 }
             } else {
                 console.log('No data available');
+                return orders;
             }
         }).catch((error) => {
             console.error(error);
         });
     }
 
-
+    //Sets orderList as latest firebase orders
     function setOrdersFromFirebase() {
         let orders = [];
         firebaseDB.ref().child('orders')
@@ -70,97 +70,111 @@ const OrdersScreen = (props) => {
                 orders = iterateOrders(snapshot.val());
                 if (typeof orders !== 'undefined') {
                     setOrderList(orders);
-                } else {
-                    setOrderList([]);
                 }
             } else {
                 console.log('No data available');
+                setOrderList(orders);
             }
         }).catch((error) => {
             console.error(error);
         });
     }
 
-
-    const iterateOrders = (obj) => {
+    //Loops through JSON objects and returns an array of objects (orders)
+    const iterateOrders = (snapshot) => {
+        //Mutable variables used to temporarily store incoming details
         let objectID = '';
         let orderID = '';
         let business = '';
         let orderTime = '';
+        let customer = '';
         let menuItems = [];
         let orders = [];
+        console.log('iterateOrders');
 
-        Object.keys(obj).forEach((key) => {
+        //incoming parameter snapshot is snapshot of orders from /orders for this user
+        Object.keys(snapshot).forEach((key) => {
+            //push id of one order (starts with '-Masjdassd' something long and wild)
+            objectID = key;
+            console.log(key + ' : ' + snapshot[key]);
 
-                console.log(key + ' : ' + obj[key]);
-
-                if (typeof obj[key] != 'object') {
-                    if (key === 'orderTime') {
-                        orderTime = obj[key];
-                    } else if (key === 'orderId') {
-                        orderID = obj[key];
-                    } else if (key === 'business') {
-                        business = obj[key];
-                    }
+            //Save orderDetails (The details of one order)
+            let orderDetails = snapshot[key];
+            Object.keys(orderDetails).forEach((orderKey) => {
+                //Save details that are stored
+                console.log('second loop');
+                console.log(orderKey + ' : ' + orderDetails[orderKey]);
+                if (typeof orderDetails[orderKey] === 'object') {
+                    //orderDetails contains menuItems which is another object so we save and loop the menuItemsObject
+                    let menuItemsObject = orderDetails[orderKey];
+                    Object.keys(menuItemsObject).forEach((menuItemsKey) => {
+                        //Push menuItems to the menuItems[]
+                        console.log(menuItemsKey + ' : ' + menuItemsObject[menuItemsKey]);
+                        menuItems.push({title: menuItemsKey, quantity: menuItemsObject[menuItemsKey]});
+                    });
                 } else {
-                    if (key === 'menuItems') {
-                        Object.keys(obj).forEach((key) => (menuItems.push({title: key, quantity: obj[key]})));
+                    //Non objects are our other key values, orderTime, orderID, and Business(userid)
+                    if (orderKey === 'orderTime') {
+                        orderTime = orderDetails[orderKey];
+                        orderTime = orderTime.slice(11, 16);
+                    } else if (orderKey === 'orderId') {
+                        orderID = orderDetails[orderKey];
+                    } else if (orderKey === 'business') {
+                        business = orderDetails[orderKey];
+                    } else if (orderKey === 'customer') {
+                        customer = orderDetails[orderKey];
                     }
-                    objectID = key;
-
-                    if (menuItems.length > 0) {
-                        // console.log('objectID: ' + objectID);
-                        // console.log('orderID: ' + orderID);
-                        // console.log('key: ' + key);
-                        let order = {
-                            orderId: orderID,
-                            menuItems: menuItems,
-                            business: firebaseAuth.currentUser.uid,
-                            objectId: objectID,
-                            orderTime: orderTime,
-                        };
-                        orders.push(order);
-                        menuItems = [];
-                        orderTime = '';
-                        objectID = '';
-                        orderID = '';
-                    } else console.log(`Menu Items: ${menuItems}\n objectID: ${objectID}\n orderID:  ${orderID}`);
                 }
+            });
+
+            //Given we found menuItems while looping, add the order to the orders[]
+            if (menuItems.length > 0) {
+                let order = {
+                    customer: customer,
+                    orderId: orderID,
+                    menuItems: menuItems,
+                    business: firebaseAuth.currentUser.uid,
+                    objectId: objectID,
+                    orderTime: orderTime,
+                };
+                orders.push(order);
             }
-        );
+            //End of snapshot loop, reset tempVariables and loop again.
+            console.log(`Menu Items: ${menuItems}\n objectID: ${objectID}\n orderID:  ${orderID}`);
+            menuItems = [];
+            orderTime = '';
+            objectID = '';
+            orderID = '';
+            business = '';
+            customer = '';
+        });
         console.log(orders);
         return orders;
     };
 
-//Refresh Control
+//Refresh Control - refreshing is set as true when refreshing false when it stops
+// The refresh setsOrderList as the latest firebase orders
     const [refreshing, setRefreshing] = React.useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setOrdersFromFirebase();
-        if (orderList) {
-            console.log('!orderlist 112');
-            wait(2000).then(() => setRefreshing(false));
-        } else {
-            ToastAndroid.show('No new orders', ToastAndroid.SHORT);
-            wait(1000).then(() => setRefreshing(false));
-        }
-        if (!refreshing) {
-            console.log('!refreshing 119');
-            wait(2000).then(() => setRefreshing(false));
-        }
+        wait(2000).then(() => setRefreshing(false));
+
     }, []);
 
-    // const shouldResetOrderList = refreshing && orderList.length > 0;
-    // useEffect(() => {
-    //     console.log('test length: ' + orderList.length);
-    //     if (shouldResetOrderList) setRefreshing(false);
-    // }, [shouldResetOrderList]);
+// const shouldResetOrderList = refreshing && orderList.length > 0;
+// useEffect(() => {
+//     console.log('test length: ' + orderList.length);
+//     if (shouldResetOrderList) setRefreshing(false);
+// }, [shouldResetOrderList]);
 
+//TEST FUNCTION: Adds a generic order to firebase
     function addOrderToDatabase() {
-        let myMenuItems = {burger: 2, Coke: 3};
+        let menuItems = {burger: 2, Coke: 3}; //replace with the input order when using elsewhere
         firebaseDB.ref('orders/').push({
+            customer: 'Christian', //replace with current user's firstname when using elsewhere
             orderId: orderId,
-            myMenuItems,
+            menuItems,
             business: firebaseAuth.currentUser.uid,
             orderTime: rightNow.toLocaleString('en-US'),
         }).then(() => {
@@ -171,6 +185,7 @@ const OrdersScreen = (props) => {
         });
     }
 
+//Return rendered OrdersScreen component
     return (
         <ScrollView contentContainerStyle={styles.scrollView}
                     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
@@ -179,13 +194,14 @@ const OrdersScreen = (props) => {
             </TouchableOpacity>
 
             <View>
-                <Text style={styles.mainTitle}>Orders</Text>
+                <Text style={styles.title}>Orders</Text>
             </View>
             <>
                 {
+                    //Displays user's orderList or default text
                     typeof orderList !== 'undefined' && orderList.length > 0 ?
                         orderList.map((order, index) => {
-                            return (<Order key={index} order={order}></Order>)
+                            return <Order key={index} order={order}/>;
                         }) : () => {
                             return (<Text>No orders at the moment!</Text>)
                         }
@@ -193,7 +209,7 @@ const OrdersScreen = (props) => {
             </>
 
             <TouchableOpacity style={styles.expressoButton} onPress={addOrderToDatabase}>
-                <Text>Add New Order</Text>
+                <Text style={styles.expressoButtonText}>Add New Order</Text>
             </TouchableOpacity>
 
         </ScrollView>
@@ -202,15 +218,11 @@ const OrdersScreen = (props) => {
 
 export default OrdersScreen;
 
+//Custom Styles
 const styles = StyleSheet.create({
     mainView: {
         justifyContent: 'flex-start',
         alignItems: 'center',
-    },
-    mainTitle: {
-        fontFamily: 'Monserrat-Regular',
-        color: '#25a2af',
-        fontSize: 35,
     },
     scrollView: {
         marginHorizontal: 20,
@@ -233,36 +245,11 @@ const styles = StyleSheet.create({
         width: 200,
         height: 50,
     },
-    modalView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-    },
-    textInput: {
-        fontFamily: 'Monserrat-Regular',
-        borderBottomWidth: 1,
-        borderStartWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderTopWidth: 1,
-        paddingRight: 50,
-        marginBottom: 20,
-    },
     title: {
         fontFamily: 'Monserrat-Bold',
         color: '#25a2af',
         fontSize: 35,
         margin: 10,
-    },
-    rowView: {
-        flexDirection: 'row',
-        marginTop: 20,
-    },
-    columnView: {
-        flexDirection: 'column',
-        marginLeft: 10,
-        marginRight: 10,
     },
     expressoButton: {
         backgroundColor: '#25a2af',
@@ -270,54 +257,8 @@ const styles = StyleSheet.create({
         padding: 10,
         marginTop: 10,
     },
-    discardButton: {
-        backgroundColor: 'red',
-        borderRadius: 10,
-        padding: 10,
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10,
-    },
     expressoButtonText: {
         color: '#ffffff',
     },
-    imagePicker: {
-        backgroundColor: '#FF0000',
-    },
-    inputChecklist: {
-        flexDirection: 'row',
-        marginTop: 10,
-    },
-    enterOptionText: {
-        borderBottomWidth: 1,
-        borderStartWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderTopWidth: 1,
-        paddingRight: 100,
-        marginRight: 15,
-    },
-    enterOptionTitle: {
-        borderBottomWidth: 1,
-        borderStartWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderTopWidth: 1,
-        position: 'absolute',
-        top: 15,
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    quantityElements: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    optionBottomButtons: {
-        flexDirection: 'row',
-        marginTop: 10,
-    },
-    expressoLabel: {
-        fontFamily: 'Monserrat-Regular',
-        color: '#383838',
-    },
+
 });

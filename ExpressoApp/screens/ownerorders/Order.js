@@ -6,20 +6,20 @@ import {
     View,
     Alert,
     Image,
+    ToastAndroid
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import '../../assets/orderTick.png';
 import '../../assets/orderTickFilled.png';
 
 // eslint-disable-next-line react/prop-types
 function Order(props) {
-    const navigation = useNavigation();
     const menuItemList = [];
     const menuItems = props.order.menuItems;
     const orderId = props.order.orderId;
     const orderTime = props.order.orderTime;
     const objectId = props.order.objectId;
+    const customer = props.order.customer;
     const ref = firebaseDB.ref();
 
     if (menuItems.length > 0) {
@@ -34,7 +34,7 @@ function Order(props) {
         });
     }
 
-    const createCompleteOrderAlert = () =>
+    const completeOrder = () =>
         Alert.alert(
             'Complete and Remove Order',
             `Are you sure order ${orderId} is complete?`,
@@ -53,30 +53,25 @@ function Order(props) {
         );
 
     const deleteOrder = () => {
-        ref.child('Orders/' + objectId).remove()
+        ref.child('orders/' + objectId).remove()
             .then(() => {
-                console.log('removed ' + objectId);
+                ToastAndroid.show('Order completed!', ToastAndroid.SHORT);
             }).catch((error) => {
-            console.error('Something went wrong ' + error);
+            console.log(error.message);
+            ToastAndroid.show('Order could not be completed', ToastAndroid.SHORT);
         });
     };
 
     return (
-
         <View style={styles.order}>
-            {
-                () => {
-                    console.log('objectID internal: ' + objectId);
-                    console.log('orderID internal: ' + orderId);
-                }
-            }
             <View style={styles.column}>
                 <Text style={styles.title}>ID: {orderId}</Text>
                 {menuItemList}
+                <Text style={styles.list}>Customer: {customer}</Text>
                 <Text style={styles.list}>Time: {orderTime}</Text>
             </View>
             <TouchableOpacity style={styles.tickButton} onPress={() => {
-                createCompleteOrderAlert();
+                completeOrder();
             }}>
                 <Image
                     source={require('../../assets/orderTick.png')}
@@ -84,11 +79,8 @@ function Order(props) {
                 />
             </TouchableOpacity>
         </View>
-    )
-        ;
-};
-
-export default Order;
+    );
+}
 
 const styles = StyleSheet.create({
     order: {
@@ -125,4 +117,4 @@ const styles = StyleSheet.create({
     },
 });
 
-
+export default Order;
