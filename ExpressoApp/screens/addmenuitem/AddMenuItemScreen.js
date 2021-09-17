@@ -8,7 +8,7 @@ import {
   Image,
   Modal,
   KeyboardAvoidingView,
-  Alert,
+  Alert
 } from 'react-native';
 
 import QuantityInput from './QuantityInput';
@@ -16,7 +16,6 @@ import CustomImagePicker from './CustomImagePicker';
 import CheckListTask from './ChecklistTask';
 import ToastAndroid
   from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
-import AddToCartButton from "../cart/AddToCartButton";
 
 const AddMenuItemScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -91,7 +90,6 @@ const AddMenuItemScreen = ({ navigation }) => {
   };
 
 
-
   return (
     <View>
       <View style={styles.navBar}>
@@ -126,7 +124,7 @@ const AddMenuItemScreen = ({ navigation }) => {
             <View style={styles.quantityElements}>
               <Text style={styles.expressoLabel}>quantity</Text>
               <View style={styles.rowView}>
-                <QuantityInput receiveValue={receiveQuantity}></QuantityInput>
+                <QuantityInput receiveValue={receiveQuantity} initialQuantity={5}></QuantityInput>
               </View>
             </View>
             <Modal

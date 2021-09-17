@@ -194,6 +194,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.3.1')
     implementation 'com.google.firebase:firebase-analytics'
 
+    implementation "com.braintreepayments.api:braintree:3.+"
+    implementation "com.braintreepayments.api:data-collector:3.+"
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
