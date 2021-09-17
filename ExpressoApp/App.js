@@ -10,6 +10,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
 import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
+import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
 import LoginScreen from './screens/login/LoginScreen';
 import CreateStorePageScreen from './screens/createstorepage/CreateStorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
@@ -57,7 +58,8 @@ export default class App extends Component {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="LoginScreen" component={LoginScreen}/> 
-          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>     
+          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>  
+          <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />   
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="OwnerOrdersScreen" component={OwnerOrdersScreen}/>
           <Stack.Screen name='SearchScreen' component={SearchScreen}/>
