@@ -10,89 +10,29 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native";
+import {image, title} from "yarn/lib/cli";
+import MenuItem from "./MenuItem";
 
-export const MenuView = ({ route, navigation }) => { // pass menuID to ensure this accesses the correct menu
+export const MenuView = ({route, navigation}) => { // pass menuID to ensure this accesses the correct menu
     const menuID = route.params;
     const currentMenuID = menuID["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     let menuItemList = []
-    const [currentItemID, setCurrentItemID] = useState(null); // may not be required
-
-    const unsetCurrentItem = () => {
-        setCurrentItemID(null);
-    }
 
     useEffect(() => {
-        dbRef.child(currentMenuID + '/')
-            .once("value").then((snapshot) => {
-            console.log(snapshot.numChildren());
-            if (snapshot.exists()) {
-                if (!snapshot.child(`menuItems`)) {
-                    console.log("No items in menu")
-                } else {
-                    let menuItems = snapshot.child(`menuItems`);
-                    menuItems.forEach(function (snapshot) {
-                        menuItemList.push({
-                            title: snapshot.val(`title`),
-                            image: snapshot.val(`image`),
-                            description: snapshot.val(`description`),
-                            price: snapshot.val(`price`),
-                            quantity: snapshot.val(`quantity`),
-                            optionLists: snapshot.val(`optionLists`)
-                        });
-                    })
-                }
-            } else {
-                console.error("No menu detected");
-            }
-        }).catch(error => {
-            console.error(error);
-        });
-
-        // This section is not to be required
-
-        /*let currentID = '';
-    let menuItem = '';
-    const iterateItems = (snap) => {
-        let menuItems = [];
-        Object.keys(snap).forEach((key) => {
-            if (typeof snap[key] != 'object') {
-                if (key === 'menuItem') {
-                    menuItem = snap[key];
-                    menuItems.push(snap.val(key));
-                } else {
-
-                }
-/!*                } else {
-                currentID = key;
-                iterateItems(snap[key]);
-
-                // setting these to props for export
-                if (menuItems) {
-                    const props = {
-              /!*          title = '',
-                        image: '',
-                        description: '',
-                        price: ,
-                        quantity: ,
-                        optionLists:
-*!/
-                    }
-                }*!/
-            }
+        dbRef.child(currentMenuID + `/menuItems`).on('value', (snapshot) => {
+            snapshot.forEach((child) => {
+                menuItemList.push({
+                    title: child.val().title,
+                    image: child.val().image,
+                    description: child.val().description,
+                    price: child.val().price,
+                    quantity: child.val().quantity,
+                    optionLists: child.val().optionLists
+                });
+                menuItemList.toString();
+            })
         })
-        return menuItems;
-    }*/
-// TODO Menu items contain:
-        //     title: '',
-        //     image: '',
-        //     description: '',
-        //     price: 0.0,
-        //     quantity: 5,
-        //     optionLists: [],
-
-        // End of disregarding section
-
     })
 
     const ItemView = ({item}) => {
@@ -104,6 +44,11 @@ export const MenuView = ({ route, navigation }) => { // pass menuID to ensure th
                 {item.title}
             </Text>
         );
+    };
+
+    const getItem = (item) => {
+        // Function for click on an item
+        alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
 
     const ItemSeparatorView = () => {
@@ -132,17 +77,22 @@ export const MenuView = ({ route, navigation }) => { // pass menuID to ensure th
                     Menu Title
                 </Text>
             </View>
-            <ScrollView>
-
+            <View style={styles.menuItems}>
+                <FlatList
+                    data={menuItemList}
+                    ItemSeparatorComponent={ItemSeparatorView}
+                    renderItem={ItemView}
+                />
                 <TouchableOpacity
                     style={styles.expressoButton}
-                    onPress = {() => navigation.navigate("AddMenuItem", currentMenuID)}>
-                    <Text style = {styles.expressoButtonText}>Add new item</Text>
+                    onPress={() => navigation.navigate("AddMenuItem", currentMenuID)}>
+                    <Text style={styles.expressoButtonText}>Add new item</Text>
                 </TouchableOpacity>
-            </ScrollView>
+            </View>
         </View>
     )
 };
+
 
 // Iterate through selected menu
 

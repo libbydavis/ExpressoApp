@@ -93,8 +93,7 @@ const AddMenuItemScreen = ({ route,navigation }) => {
     console.log(checklistItems);
   };
 
-  const onClickAddItem = () => { // use menuID within this to include menuID in ref directory
-    console.log(menuID);
+  const onClickAddItem = () => {
     let menuRef = dbRef.child(`Menus/` + menuID + `/menuItems`).push();
     menuRef.set({
       'title': menuItemObject.title,
@@ -104,7 +103,7 @@ const AddMenuItemScreen = ({ route,navigation }) => {
       'quantity': menuItemObject.quantity,
       'optionLists': menuItemObject.optionLists
     });
-    console.log(menuItemObject.title + " pushed successfully.");
+    console.log(menuItemObject.title + " pushed to the menu.");
     navigation.goBack();
   }
 
