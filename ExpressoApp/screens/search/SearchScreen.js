@@ -1,5 +1,15 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {StyleSheet, View, TextInput, Image, ImageBackground, FlatList, Text, Picker, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  ImageBackground,
+  FlatList,
+  Text,
+  ScrollView,
+  TouchableOpacity
+} from 'react-native';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -61,26 +71,13 @@ const SearchScreen = () => {
   const ItemView = ({item}) => {
     return (
         // Flat List Item
-        <Text
-            style={styles.itemStyle}
-            onPress={() => getItem(item)}>
-          {item.title}
-        </Text>
+        <TouchableOpacity  style={styles.itemStyle}  onPress={() => getItem(item)}>
+          <Image style={styles.imageThumbnail} source={require('../../assets/thumbnail.png')} />
+          <Text style={styles.itemText} >{item.title}</Text>
+        </TouchableOpacity>
     );
   };
 
-  const ItemSeparatorView = () => {
-    return (
-        // Flat List Item Separator
-        <View
-            style={{
-              height: 0.5,
-              width: '100%',
-              backgroundColor: 'rgba(37, 162, 175,.2)',
-            }}
-        />
-    );
-  };
 
   const getItem = (item) => {
     // Function for click on an item
@@ -124,10 +121,11 @@ const SearchScreen = () => {
               setItems={setItems}
               style={styles.dropDownPicker}
               dropDownStyle={styles.dropDownItem}
+              dropDownContainerStyle={{width: 95}}
+              containerStyle={{width: 95}}
               textStyle={{fontSize: 12}}
               labelStyle={{fontSize: 12, fontWeight: "bold"}}
               maxHeight={75}
-              maxWidth={75}
           />
           </View>
         </ImageBackground>
@@ -135,8 +133,9 @@ const SearchScreen = () => {
     <ScrollView>
       <FlatList
           data={filteredDataSource}
-          ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
+          numColumns={2}
+          keyExtractor={(item, index) => index}
       />
     </ScrollView>
     </View>
@@ -157,6 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#25a2af',
     height: 190,
+    width: '100%',
   },
   logoIcon: {
     width: 200,
@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
   searchIcon: {
     width: 40,
     height: 40,
-    margin: 2,
   },
   profileIcon: {
     width: 40,
@@ -176,7 +175,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontFamily: 'Monserrat-Regular',
-    margin: 20,
+    margin: 10,
     borderRadius: 10,
     padding: 5,
     backgroundColor: '#ffffff',
@@ -185,24 +184,27 @@ const styles = StyleSheet.create({
   backgroundImage : {
     flex: 1,
     height: 190,
+    width: '100%',
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(37, 162, 175,.5)',
     flexDirection: 'row',
-    //justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   itemStyle: {
-    padding: 15,
     flex: 1,
-    fontFamily: 'Monserrat-Regular',
     backgroundColor: '#ffffff',
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
   },
   dropDownPicker: {
     fontFamily: 'Monserrat-Regular',
     backgroundColor: '#fafafa',
-    width: 100,
+    width: 95,
     height: 40,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -217,6 +219,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafafa',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+  },
+  imageThumbnail: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 160,
+    borderRadius: 10,
+  },
+  itemText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontFamily: 'Monserrat-Regular',
   }
 });
 
