@@ -11,10 +11,10 @@ import {
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native";
 
-export const MenuView = ({ menuID }) => { // pass menuID to ensure this accesses the correct menu
-    const user = firebase.auth().currentUser;
-    const uid = user.uid;
-    const dbRef = firebaseDB.ref();
+export const MenuView = ({ route, navigation }) => { // pass menuID to ensure this accesses the correct menu
+    const menuID = route.params;
+    const currentMenuID = menuID["menuID"];
+    const dbRef = firebaseDB.ref("Menus/");
     let menuItemList = []
     const [currentItemID, setCurrentItemID] = useState(null); // may not be required
 
@@ -23,16 +23,14 @@ export const MenuView = ({ menuID }) => { // pass menuID to ensure this accesses
     }
 
     useEffect(() => {
-        dbRef.child(`Menus`)
-            /*            .orderByChild('business') Not required given that menuID is known
-                        .equalTo(uid)*/
-            .child(String(menuID))
-            .get().then((snapshot) => {
+        dbRef.child(currentMenuID + '/')
+            .once("value").then((snapshot) => {
+            console.log(snapshot.numChildren());
             if (snapshot.exists()) {
                 if (!snapshot.child(`menuItems`)) {
                     console.log("No items in menu")
                 } else {
-                    let menuItems = snapshot.child(menuItems);
+                    let menuItems = snapshot.child(`menuItems`);
                     menuItems.forEach(function (snapshot) {
                         menuItemList.push({
                             title: snapshot.val(`title`),
@@ -51,7 +49,8 @@ export const MenuView = ({ menuID }) => { // pass menuID to ensure this accesses
             console.error(error);
         });
 
-        // This section is not be required
+        // This section is not to be required
+
         /*let currentID = '';
     let menuItem = '';
     const iterateItems = (snap) => {
@@ -91,6 +90,8 @@ export const MenuView = ({ menuID }) => { // pass menuID to ensure this accesses
         //     price: 0.0,
         //     quantity: 5,
         //     optionLists: [],
+
+        // End of disregarding section
 
     })
 
@@ -132,14 +133,10 @@ export const MenuView = ({ menuID }) => { // pass menuID to ensure this accesses
                 </Text>
             </View>
             <ScrollView>
-                <FlatList
-                    data={menuItemList}
-                    ItemSeparatorComponent={ItemSeparatorView}
-                    renderItem={ItemView}
-                />
-                <TouchableOpacity style={styles.expressoButton} onPress{() => {
 
-                }}>
+                <TouchableOpacity
+                    style={styles.expressoButton}
+                    onPress = {() => navigation.navigate("AddMenuItem", currentMenuID)}>
                     <Text style = {styles.expressoButtonText}>Add new item</Text>
                 </TouchableOpacity>
             </ScrollView>

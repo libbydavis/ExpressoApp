@@ -17,12 +17,15 @@ import CheckListTask from './ChecklistTask';
 import ToastAndroid
   from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
 import AddToCartButton from "../cart/AddToCartButton";
+import {firebaseDB} from "../../firebase/FirebaseConfig";
 
-const AddMenuItemScreen = ({ navigation }) => {
+const AddMenuItemScreen = ({ route,navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [checklistTask, setChecklistTask] = useState();
   const [checklistItems, setChecklistItems] = useState([]);
   const [checklistTitle, setChecklistTitle] = useState();
+  const dbRef = firebaseDB.ref();
+  const menuID = route.params;
 
   const [menuItemObject, setMenuItemObject] = useState({
     title: '',
@@ -89,6 +92,20 @@ const AddMenuItemScreen = ({ navigation }) => {
     setChecklistItems(checklistItemsCopy);
     console.log(checklistItems);
   };
+
+  const onClickAddItem = () => { // use menuID within this to include menuID in ref directory
+    console.log(menuID);
+    let menuRef = dbRef.child(`Menus/` + menuID + `/menuItems`).push();
+    menuRef.set({
+      'title': menuItemObject.title,
+      'image': menuItemObject.image,
+      'price': menuItemObject.price,
+      'quantity': menuItemObject.quantity,
+      'optionLists': menuItemObject.optionLists
+    });
+    console.log(menuItemObject.title + " pushed successfully.");
+    navigation.goBack();
+  }
 
 
 // TODO: Change CreateMenu to Cart on L102
@@ -212,7 +229,9 @@ const AddMenuItemScreen = ({ navigation }) => {
         </View>
         <View>
           <TouchableOpacity style={styles.expressoButton}>
-            <Text style={styles.expressoButtonText}>Add Item</Text>
+            <Text
+                style={styles.expressoButtonText}
+                onPress={() => onClickAddItem()}>Add Item</Text>
           </TouchableOpacity>
         </View>
       </View>

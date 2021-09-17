@@ -14,7 +14,7 @@ const LoginScreen = ({navigation}) => {
       .signInWithEmailAndPassword(email, password)
         .then(() => {
           console.log("User has successfully signed in!");
-          navigation.navigate('AddMenuItem');
+          navigation.navigate('CreateMenu');
         })
         .catch(error => {
           if (error.code === 'auth/email-already-exists') {
@@ -39,14 +39,14 @@ const LoginScreen = ({navigation}) => {
       >
       </Image>
       <View>
-        <TextInput 
+        <TextInput
           style={styles.inputContainer}
           onChangeText={(email) => setEmail(email)}
           placeholder="Email" />
       </View>
 
       <View>
-        <TextInput 
+        <TextInput
           style={styles.inputContainer}
           onChangeText={(password) => setPassword(password)}
           placeholder="Password" secureTextEntry={true}

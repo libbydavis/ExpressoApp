@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import MenuView from "../menu/MenuView";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useNavigation} from "@react-navigation/native";
 
 /**
  *
@@ -17,7 +19,7 @@ import MenuView from "../menu/MenuView";
  * @constructor
  */
 
-export const CreateMenuScreen = ({navigation}) => {
+export const CreateMenuScreen = ({route, navigation}) => {
     const user = firebase.auth().currentUser;
     const uid = user.uid;
     const dbRef = firebaseDB.ref();
@@ -27,7 +29,6 @@ export const CreateMenuScreen = ({navigation}) => {
         business: uid
     });
 
-    //TODO - Set up access rules and iterator details for Menu in firestore
     const onClickSubmitMenu = async () => {
         // Ensure the user has input a title
         if (menuObject.title !== null) {
@@ -37,8 +38,19 @@ export const CreateMenuScreen = ({navigation}) => {
                 'menuItems': menuObject.menuItems,
                 'business': menuObject.business
             });
-            navigation.navigate('MenuView', (menuRef.key));
-
+            let menuID = menuRef.key.toString();
+            console.log(menuID);
+           /* try {
+                await AsyncStorage.setItem(
+                    'currentMenuID',
+                    menuID
+                );
+            } catch (error) {
+                console.error(error)
+            }*/
+            navigation.navigate('MenuView', {
+                menuID: menuID,
+            });
         } else {
             ToastAndroid("You must input a title!");
         }
