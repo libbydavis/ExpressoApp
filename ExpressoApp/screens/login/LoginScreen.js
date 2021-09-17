@@ -16,7 +16,7 @@ const LoginScreen = ({navigation}) => {
       .signInWithEmailAndPassword(email, password)
         .then(() => {
           console.log("User has successfully signed in!");
-          navigation.navigate('CreateMenu');
+          navigation.navigate('SearchScreen');
         })
         .catch(error => {
             Alert.alert(
@@ -31,7 +31,7 @@ const LoginScreen = ({navigation}) => {
                   },
               ]
           );
-          if (error.code === 'auth/email-already-exists') 
+          if (error.code === 'auth/email-already-exists')
           {
             console.log('This email address already exists!');
           }

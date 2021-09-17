@@ -10,8 +10,6 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import MenuScreen from "../menu/MenuScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {useNavigation} from "@react-navigation/native";
 
 /**
  *

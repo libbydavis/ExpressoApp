@@ -18,7 +18,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
  * @return {JSX.Element}
  * @constructor
  */
-const SearchScreen = () => {
+const SearchScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -82,6 +82,7 @@ const SearchScreen = () => {
   const getItem = (item) => {
     // Function for click on an item
     alert('Id : ' + item.key + '\nTitle : ' + item.title + '\nAddress : ' + item.address);
+    navigation.navigate('MenuScreen')
   };
 
   return (
