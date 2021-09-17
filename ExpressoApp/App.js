@@ -18,6 +18,7 @@ import firebase from 'firebase';
 import SplashScreen from 'react-native-splash-screen';
 import OwnerOrdersScreen from './screens/ownerorders/OwnerOrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
+import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 
 const Stack = createStackNavigator();
 
@@ -31,12 +32,11 @@ export default class App extends Component {
    */
   constructor() {
     super();
-    super();
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     SplashScreen.hide();
     const firebaseConfig = {
-      apiKey: 'AIzaSyAn92Ew0Z5VJ_TgThlS_krQHUUBW8zzuOE',
+      apiKey: 'AIzaSyDFDrnM-_MnV2Zg-wgY3Vgn5J9LmwdMvZc',
       authDomain: 'expresso-418d1.firebaseapp.com',
       databaseURL: 'https://expresso-418d1-default-rtdb.firebaseio.com',
       projectId: 'expresso-418d1',
@@ -64,10 +64,10 @@ export default class App extends Component {
           <Stack.Screen name="OwnerOrdersScreen" component={OwnerOrdersScreen}/>
           <Stack.Screen name='SearchScreen' component={SearchScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
+          <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
           <Stack.Screen name="Cart" component={CartScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
-
