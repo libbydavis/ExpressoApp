@@ -1,56 +1,115 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, FlatList, Text, Modal, TextInput} from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, FlatList, Text, Modal, TextInput, KeyboardAvoidingView, Alert} from "react-native";
 import CustomImagePicker from '../addmenuitem/CustomImagePicker';
+import {firebaseDB} from '../../firebase/FirebaseConfig';
 
 const CreateStorePageScreen = ( {navigation} ) => {
-    const [storeData, setStoreData] = useState([ {
+    const [storeData, setStoreData] = useState([{
         id: 1,
         storeName: "",
         storeAddress: "",
         storePhoneNum: "",
         coverImage: "",
+        itemName: "",
+        itemPrice: "",
+        itemCoverImage: "",
     }]);
     const [isRender, setisRender] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
+    const [openEditStoreModal, setOpenEditStoreModal] = useState(false);
     const [inputStoreName, setInputStoreName] = useState();
     const [inputStoreAddress, setInputStoreAddress] = useState();
     const [inputStorePhoneNum, setInputStorePhoneNum] = useState();
     const [inputCoverImage, setInputCoverImage] = useState();
+
+    const [inputItemName, setInputItemName] = useState();
+    const [inputItemPrice, setInputItemPrice] = useState();
+    const [inputItemCoverImage, setInputItemCoverImage] = useState();
     const [changeStoreData, setChangeStoreData] = useState();
 
-    const onPressEditButton = (item) => {
-        setOpenModal(true);
+    const onPressEditStoreButton = (item) => {
+        setOpenEditStoreModal(true);
         setInputStoreName(item.storeName);
         setInputStoreAddress(item.storeAddress);
         setInputStorePhoneNum(item.storePhoneNum);
         setInputCoverImage(item.coverImage);
+        setInputItemCoverImage(item.inputItemCoverImage);
         setChangeStoreData(item.id);
     }
 
+    const onPressSubmitPageButton = (storeData) => {
+        firebaseDB.ref('storepage/')
+        .set({
+            storeName: storeData.storeName,
+            storeAddress: storeData.storeAddress,
+            storePhoneNum: storeData.storePhoneNum,
+            //coverImage: coverImage,
+        })
+        .then(() => {
+            console.log("User successfully stored");
+            Alert.alert(
+                "Success:",
+                "User successfully added!",
+                [
+                    {
+                        text: "Cancel",
+                    },
+                    {
+                        text: "OK",
+                    },
+                ]
+            )
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }
+    
+
     const renderItem = ({ item }) => {
         return (
-            <View>
-                <TouchableOpacity style={styles.createStorePageButton}  onPress={() => onPressEditButton(item)}>
-                    <Text style={styles.modalButtonText}>
-                        Edit
-                    </Text> 
-                </TouchableOpacity>
-                <View styles={styles.storeDetails}>
-                    <Text style={styles.storeNameText}>{item.storeName}</Text>
-                    <Text style={styles.storeAddressText}>{item.storeAddress}</Text>
-                    <Text style={styles.storePhoneNumText}>{item.storePhoneNum}</Text>
+            <KeyboardAvoidingView behavior="height">
+                <View>
+                    <TouchableOpacity style={styles.editStorePageButton}>
+                        <Text style={styles.modalButtonText} onPress={() => onPressEditStoreButton(item)}>
+                            Edit Store
+                        </Text> 
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.addMenuButton}>
+                        <Text style={styles.modalButtonText} onPress={() => onPressSubmitPageButton(item)}>
+                            Submit
+                        </Text> 
+                    </TouchableOpacity>
+                    <View styles={styles.storeDetails}>
+                        <Text style={styles.storeNameText}>{item.storeName}</Text>
+                        <Text style={styles.storeAddressText}>{item.storeAddress}</Text>
+                        <Text style={styles.storePhoneNumText}>{item.storePhoneNum}</Text>
+                    </View>
+                    <View style={styles.storeImageContainer}>
+                        <CustomImagePicker receiveImage={receiveImage} width={450} height={190}>{item.coverImage}</CustomImagePicker>
+                    </View>
+                    <View style={styles.itemImageContainerLeft}>
+                        <CustomImagePicker receiveImage={receiveImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
+                    </View>
+                    <View styles={styles.itemContainer}>
+                        <TextInput style={styles.itemNameTextLeft} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
+                        <TextInput style={styles.itemPriceTextLeft} placeholder={"Price"} onChangeText={(item) => setInputItemPrice(item)}/>
+                    </View>
+                    <View style={styles.itemImageContainerRight}>
+                        <CustomImagePicker receiveImage={receiveImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
+                    </View>
+                    <View styles={styles.itemContainer}>
+                        <TextInput style={styles.itemNameTextRight} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
+                        <TextInput style={styles.itemPriceTextRight} placeholder={"Price"} onChangeText={(item) => setInputItemPrice(item)}/>
+                    </View>
                 </View>
-                <View style={styles.storeCoverImageContainer}>
-                     <CustomImagePicker receiveImage={receiveImage} width={450} height={190}>{item.coverImage}</CustomImagePicker>
-                </View>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 
     const receiveImage = (image) => {
         setInputCoverImage({...inputCoverImage, ['image'] : image});
     }
-    
+
 
     const handleChangeStoreData = (changeStoreData) => {
         const newData = storeData.map(item => {
@@ -59,51 +118,58 @@ const CreateStorePageScreen = ( {navigation} ) => {
                 item.storeAddress = inputStoreAddress;
                 item.storePhoneNum = inputStorePhoneNum;
                 item.coverImage = inputCoverImage;
+                item.itemName = inputItemName;
+                item.itemPrice = inputItemPrice;
+                item.itemCoverImage = inputItemCoverImage;
                 return item;
-            } 
+            }
             return item;
         })
         setStoreData(newData);
         setisRender(!isRender);
+        console.log(newData);
     }
 
     const onPressSaveChanges = () => {
         handleChangeStoreData(changeStoreData);
-        setOpenModal(false);
+        setOpenEditStoreModal(false);
     }
 
-   
     return (
         <View>
-            <View style={styles.navBar}>
+            <View style={styles.header}>
                 <Image
                     source={require('../../assets/ExpressoLogo.png')}
                     style={styles.headerIcon}
                 />
+                    <Image
+                    source={require('../../assets/profileIcon.png')}
+                    style={styles.profileIcon}
+                />
             </View>
-            <FlatList  
+            <FlatList
                 data={storeData}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 extraData={isRender}
             />
-            <Modal visible={openModal} onRequestClose={() => setOpenModal(false)} animationType='slide'>
+            <Modal visible={openEditStoreModal} onRequestClose={() => setOpenEditStoreModal(false)} animationType='slide'>
                 <View style={styles.modalView}>
                     <Text style={styles.text}>Edit Store Details: </Text>
                     <TextInput
-                        style={styles.textInput}
+                        style={styles.modalTextInput}
                         onChangeText={(text) => setInputStoreName(text)}
                         placeholder='Store name'
                         maxLength={70}
                     />
                     <TextInput
-                        style={styles.textInput}
+                        style={styles.modalTextInput}
                         onChangeText={(text) => setInputStoreAddress(text)}
                         placeholder='Store address'
                         maxLength={70}
                     />
                     <TextInput
-                        style={styles.textInput}
+                        style={styles.modalTextInput}
                         onChangeText={(text) => setInputStorePhoneNum(text)}
                         placeholder='Store phone number'
                         maxLength={70}
@@ -112,57 +178,92 @@ const CreateStorePageScreen = ( {navigation} ) => {
                         <TouchableOpacity style={styles.saveStoreDetailsButton}>
                             <Text style={styles.modalButtonText} onPress={() => onPressSaveChanges()}>
                                 Save Changes
-                            </Text>  
+                            </Text>
                         </TouchableOpacity>
-
                         <TouchableOpacity style={styles.cancelStoreDetailsButton}>
-                            <Text style={styles.modalButtonText} onPress={() => setOpenModal(false)}>
+                            <Text style={styles.modalButtonText} onPress={() => setOpenEditStoreModal(false)}>
                                 Cancel
                             </Text>
-                        </TouchableOpacity>    
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
-           
         </View>
-    
     );
 };
 
 const styles = StyleSheet.create({
-    navBar: {
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         marginBottom: 15,
         marginTop: 8,
     },
     headerIcon: {
         width: 200,
         height: 50,
-        marginLeft: 15,
+    },
+    profileIcon: {
+        width: 50,
+        height: 50,
+        marginRight: 10,
+        marginTop: 5,
     },
     container: {
         flex: 1,
     },
-    createStorePageButton: {
+    editStorePageButton: {
+        flexDirection: 'row',
         backgroundColor: '#25a2af',
         padding: 8,
         borderRadius: 10,
         marginTop: 10,
         marginBottom: 10,
-        width: '50%',
-        marginVertical: 10,
-        marginLeft: 100,
+        marginLeft: 70,
+        width: '25%',
     },
-    storeDetails: {
-        padding: 20,
-        marginVertical: 5,
-        marginHorizontal: 16
+    addMenuButton: {
+        flexDirection: 'row',
+        backgroundColor: '#25a2af',
+        padding: 8,
+        borderRadius: 10,
+        marginTop: -45,
+        marginLeft: 225,
+        width: '25%',
     },
-    storeCoverImageContainer: {
+    itemContainer: {
+        borderColor: '#ffffff',
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 10,
+        margin: 10,
+        width: 100,
+    },
+    storeImageContainer: {
         flex: 1,
         resizeMode: 'contain',
         alignSelf: 'center',
         height: '50%',
-
+    },
+    itemImageContainerLeft: {
+        flex: 1,
+        resizeMode: 'contain',
+        justifyContent: 'space-between',
+        alignSelf: 'flex-start',
+        height: '25%',
+        width: '25%',
+        marginLeft: 60,
+        marginTop: 15,
+    },
+    itemImageContainerRight: {
+        flex: 1,
+        resizeMode: 'contain',
+        justifyContent: 'space-between',
+        alignSelf: 'flex-start',
+        height: '25%',
+        width: '25%',
+        marginLeft: 240,
+        marginTop: -190,
     },
     storeNameText: {
         fontSize: 35,
@@ -188,13 +289,56 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         textAlign: 'center',
     },
+    itemNameTextLeft: {
+        fontSize: 15,
+        fontFamily: 'Monserrat-Bold',
+        color: '#000000',
+        marginVertical: 5,
+        textAlign: 'center',
+        flexDirection: 'row',
+        marginLeft: 25,
+        marginTop: -10,
+        width: 90,
+    },
+    itemPriceTextLeft: {
+        fontSize: 15,
+        fontFamily: 'Monserrat-Bold',
+        color: '#000000',
+        marginVertical: 5,
+        textAlign: 'center',
+        flexDirection: 'row',
+        marginLeft: 130,
+        marginTop: -53,
+        width: 45,
+    },
+    itemNameTextRight: {
+        fontSize: 15,
+        fontFamily: 'Monserrat-Bold',
+        color: '#000000',
+        textAlign: 'center',
+        flexDirection: 'row',
+        marginLeft: 205,
+        marginTop: -12,
+        width: 100,
+    },
+    itemPriceTextRight: {
+        fontSize: 15,
+        fontFamily: 'Monserrat-Bold',
+        color: '#000000',
+        marginVertical: 5,
+        textAlign: 'center',
+        flexDirection: 'row',
+        marginLeft: 315,
+        marginTop: -50,
+        width: 45,
+    },
     text: {
         fontFamily: 'Monserrat-Bold',
         fontSize: 25,
         color: '#25a2af',
         marginVertical: 25,
     },
-    textInput: {
+    modalTextInput: {
         width: '80%',
         height: 60,
         borderColor: 'black',
@@ -211,6 +355,11 @@ const styles = StyleSheet.create({
         width: '50%',
         marginVertical: 30,
         marginLeft: 50,
+    },
+    storeDetails: {
+        padding: 20,
+        marginVertical: 5,
+        marginHorizontal: 16
     },
     saveStoreDetailsButton: {
         backgroundColor: '#25a2af',

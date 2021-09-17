@@ -1,6 +1,7 @@
 import React from 'react';
+
 import {useState} from "react";
-import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard} from 'react-native';
+import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard, Alert} from 'react-native';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import {keyboard} from "yarn/lib/cli";
 // import '@react-navigation/native';
@@ -10,20 +11,33 @@ const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const userLogin = () => {
-        firebaseAuth
-            .signInWithEmailAndPassword(email, password)
-            .then(() => {
-                console.log("User has successfully signed in!");
-                navigation.navigate('OrdersScreen');
-            })
-            .catch(error => {
-                if (error.code === 'auth/email-already-exists') {
-                    console.log('This email address already exists!');
-                }
-                console.error(error);
-            });
-    };
+  const userLogin = () => {
+    firebaseAuth
+      .signInWithEmailAndPassword(email, password)
+        .then(() => {
+          console.log("User has successfully signed in!");
+          navigation.navigate('CreateMenu');
+        })
+        .catch(error => {
+            Alert.alert(
+              "Error:",
+              "Invalid input. Please try again.",
+              [
+                  {
+                      text: "Cancel",
+                  },
+                  {
+                      text: "OK",
+                  },
+              ]
+          );
+          if (error.code === 'auth/email-already-exists') 
+          {
+            console.log('This email address already exists!');
+          }
+          console.error(error);
+        });
+  }
 
     const logout = () => {
         firebaseAuth
@@ -32,49 +46,40 @@ const LoginScreen = ({navigation}) => {
     };
 
 
-    return (
-        <View style={styles.mainContainer}>
-            <Image
-                source={require('../../assets/ExpressoLogo.png')}
-                style={styles.headerIcon}
-            >
-            </Image>
-            <View>
-                <TextInput
-                    style={styles.inputContainer}
-                    onEndEditing={(e) => {
-                        let email = e.nativeEvent.text.trim();
-                        setEmail(email);
-                    }}
-                    placeholder="Email"
-                    placeholderTextColor={'#40404040'}
-                />
-            </View>
+  return (
+    <View style={styles.mainContainer}>
+      <Image
+        source={require('../../assets/ExpressoLogo.png')}
+        style={styles.headerIcon}
+      >
+      </Image>
+      <View>
+        <TextInput
+          style={styles.inputContainer}
+          onChangeText={(email) => setEmail(email)}
+          placeholder="Email" />
+      </View>
 
-            <View>
-                <TextInput
-                    style={styles.inputContainer}
-                    onChangeText={(password) => setPassword(password)}
-                    placeholder="Password" secureTextEntry={true}
-                    placeholderTextColor={'#40404040'}
-                />
-            </View>
+      <View>
+        <TextInput
+          style={styles.inputContainer}
+          onChangeText={(password) => setPassword(password)}
+          placeholder="Password" secureTextEntry={true}
+        />
+      </View>
 
-            <TouchableOpacity style={styles.loginButton}>
-                <Text style={styles.loginText} onPress={() => {
-                    userLogin();
-                    Keyboard.dismiss();
-                }}>LOGIN</Text>
-            </TouchableOpacity>
+      <TouchableOpacity style={styles.loginButton}>
+        <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
+      </TouchableOpacity>
 
-            <View style={styles.signUpContainer}>
-                <Text style={styles.text}>Don&apos;t have an account? </Text>
-                <Text style={styles.signUpText}
-                      onPress={() => navigation.navigate('RegisterUser')}>
-                    Sign up here</Text>
-            </View>
-        </View>
-    );
+      <View style={styles.signUpContainer}>
+        <Text style={styles.text}>Don&apos;t have an account? </Text>
+        <Text style={styles.signUpText}
+          onPress={() => navigation.navigate('RegisterUser')}>
+        Sign up here</Text>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -94,43 +99,42 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 30,
 
-    },
-    inputContainer: {
-        borderColor: 'black',
-        borderWidth: 1,
-        width: 250,
-        padding: 10,
-        borderRadius: 25,
-        marginTop: 20,
-        color: '#000',
-    },
-    loginButton: {
-        borderColor: 'black',
-        borderWidth: 1,
-        width: 250,
-        height: 50,
-        padding: 10,
-        borderRadius: 25,
-        marginTop: 20,
-        marginBottom: 20,
-        backgroundColor: '#6495ed',
-    },
-    loginText: {
-        color: '#ffffff',
-        textAlign: 'center',
-        fontSize: 15,
-    },
-    text: {
-        fontSize: 15,
-    },
-    signUpText: {
-        color: '#6495ed',
-        fontSize: 15,
-        fontWeight: '800',
-    },
-    signUpContainer: {
-        flexDirection: 'row',
-    },
+  },
+  inputContainer: {
+    borderColor: 'black',
+    borderWidth: 1,
+    width: 250,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  loginButton: {
+    borderColor: 'black',
+    borderWidth: 1,
+    width: 250,
+    height: 50,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: '#25a2af',
+  },
+  loginText: {
+    color: '#ffffff',
+    textAlign: 'center',
+    fontSize: 15,
+  },
+  text: {
+    fontSize: 15,
+  },
+  signUpText: {
+    color: '#6495ed',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  signUpContainer: {
+    flexDirection: 'row',
+  },
 
 });
 

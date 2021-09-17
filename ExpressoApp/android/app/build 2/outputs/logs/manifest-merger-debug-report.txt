@@ -1,0 +1,614 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:1-25:12
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:1-25:12
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:1-25:12
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:1-25:12
+MERGED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:1-25:12
+MERGED from [com.facebook.flipper:flipper:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ce1147b3e4e04fe87f556bced63a10fa/jetified-flipper-0.75.1/AndroidManifest.xml:8:1-18:12
+MERGED from [com.facebook.flipper:flipper-network-plugin:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7ce3eef7cc3fa00f9f6b76aceacbc7bf/jetified-flipper-network-plugin-0.75.1/AndroidManifest.xml:8:1-15:12
+MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7b7651dc6816d8a0525410fe4a9b548a/jetified-flipper-fresco-plugin-0.75.1/AndroidManifest.xml:8:1-15:12
+MERGED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
+MERGED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-29:12
+MERGED from [:react-native-gesture-handler] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
+MERGED from [:react-native-safe-area-context] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-screens] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [com.facebook.react:react-native:0.64.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/211c4d7460bebcded6694ba81e5368cf/jetified-react-native-0.64.2/AndroidManifest.xml:2:1-13:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/43e60f9ff187f5de382de8b2419c0c31/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-analytics:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b1b178f23a1aba7663cf7cc6a2eb935f/jetified-firebase-analytics-19.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [org.webkit:android-jsc:r245459] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a5ff9fe82e90bb1a6e8936b6ed02d165/jetified-android-jsc-r245459/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:15:1-38:12
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:17:1-36:12
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c57a056c41626be6707695757c1c5190/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:15:1-26:12
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0c376eec2c82157063abd64bfb7cf22d/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:2:1-24:12
+MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:15:1-40:12
+MERGED from [com.facebook.fresco:flipper:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/98247344757dbdb2ee4fe5d2f1380bb8/jetified-flipper-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:stetho:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/210aa63f4acef578dac28d11ff172a01/jetified-stetho-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:fresco:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc7a54ca1fa4d213f0c25059136e8ad0/jetified-fresco-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:drawee:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/71a3fd36b86fe1f0458d102c712b9f74/jetified-drawee-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:nativeimagefilters:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/15da19e39be67e018b2b8a2ce221bca7/jetified-nativeimagefilters-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:memory-type-native:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd87c4ee4545371c709b40d87237acfd/jetified-memory-type-native-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:memory-type-java:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/68f5fa0d3e53940844b2f8088fca4367/jetified-memory-type-java-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-native:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c32cf95a1a170b1a8b08577260388870/jetified-imagepipeline-native-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:soloader:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f994d3ff96b9d8496d0f224ff21970d/jetified-soloader-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.10.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c7593993fa8ef1311e64cbd7e4702b9e/jetified-soloader-0.10.1/AndroidManifest.xml:2:1-13:12
+MERGED from [com.google.android.material:material:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c4f164e6311e6235632873f3c928d514/material-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ae1b2855b0c2c0b48dde672012ba9332/appcompat-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f6cdeacda910eb92fbdcd94c4e9ed043/sqlite-framework-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7664aabab73fe827385c360fc9a172ee/jetified-imagepipeline-okhttp3-2.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:memory-type-ashmem:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/43a0145635c3ae6d802ee572ca903800/jetified-memory-type-ashmem-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/897a45ba7026759458f58b3eee822339/jetified-imagepipeline-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ef2154232cc634ea13b4adae19fcab7a/jetified-nativeimagetranscoder-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/64bc812bf90ec47dd4f452e13de212d2/jetified-imagepipeline-base-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a369089eb4410d9afd8661e1c60777a4/jetified-appcompat-resources-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b23242df18161113563f0278e893b4d8/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4d7703a2e6f837179a3ea70d2ff0eda0/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4b30a73422429339aeeb7a02a5f9e95b/jetified-play-services-auth-api-phone-17.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-auth-base:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd434fa0873835dd450729cf38cce869/jetified-play-services-auth-base-17.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-database-collection:18.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6888e439e372270a6499f599b99defee/jetified-firebase-database-collection-18.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:17:1-46:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc6213cef56ceaa2e6d9cf6d784f3029/jetified-play-services-measurement-sdk-19.0.0/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:17:1-31:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9b3888c412d4244a7026bb26f23e3e8b/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-measurement-base:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0be4aeefaa1a0373d2f3dfd5dcb04bd9/jetified-play-services-measurement-base-19.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4c2bb24368b7d5567612bcd0e8849d6b/jetified-play-services-stats-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f809eaac3443e000ba3ed4fd7ae3b54f/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.firebase:firebase-installations-interop:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f75a0a6f9361a898994a613c6caab56f/jetified-firebase-installations-interop-17.0.0/AndroidManifest.xml:15:1-23:12
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/1db50e6d1ab0a7f1c8df9b16abc5826e/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a0b6f37d0c1f8a3730ab994f67e14d6e/jetified-viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.2.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7621a416f8e1e36cfcdf867c10a52d56/fragment-1.2.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/3e17a49f65bdaba7b99d798198610624/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/2e551a15ca8c06ffcef27e1c66837591/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9ed9fe58b8a5ad9e87c279c74ba1a45d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/af5679c295209f42d0b9930a9a5f7ad3/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/973616bdf0ef1e31c3280c00ff314b37/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c5ed3f81fd2cceceeac3a37a9c36ccb5/jetified-activity-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/fbd4704a6393ad28d96a9fd2928dc459/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f01c94f47c696813b1a0da1d17a35297/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/3ddc05cb9ca5256d40588d2f08eb9b14/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/5875bf17ac693c11e5734e244b97d667/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/47641c1038212c127f26e98ebaa64661/core-1.3.1/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b5f2cc4f444e217459566ae77a541ce0/exifinterface-1.3.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6e6ebe821b676f859131f6e2293b8bba/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/756f66f0421929830f0b1f58cbabec72/sqlite-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-components:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/48c68678fb2fdd1ecc0031ea410801a1/jetified-firebase-components-17.0.0/AndroidManifest.xml:15:1-23:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f1358187ccdd23dcdb55c0beaaaa5f2/versionedparcelable-1.1.0/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/65e4c55a1ee922cd08679a217f8bd4cb/jetified-lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/879c77e7aa2f77ea25d7d8407f48b6e4/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6c0a03256290bb4894a5226cdbc784d9/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0363115fa9cfb7b38a81e6f2f847cfba/lifecycle-runtime-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4b79d2c604bb63198d8b4947a92bef58/jetified-savedstate-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0cf56f848314283f58e19650c67868da/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d2541eccc6a67a0db81ffe614f638ab8/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4dabc74add2c0321df4ec2504d8fc1e6/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0ec425d10e9cd0a7d1f8766215060f6c/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/246bb74f21f794f562408437838876d0/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd15801355aaaa58cad706d065af2d99/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.fresco:fbcore:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/2cf8801f6c95f5c1a6813081d88347ab/jetified-fbcore-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:ui-common:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6945c5ffd2598af04fbec38cf9dac32f/jetified-ui-common-2.2.0/AndroidManifest.xml:2:1-9:12
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:2:1-13:12
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:2:1-13:12
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:2:1-13:12
+	package
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:2:3-28
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:2:3-28
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:1-25:12
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:1-25:12
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:4:5-67
+MERGED from [com.facebook.flipper:flipper:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ce1147b3e4e04fe87f556bced63a10fa/jetified-flipper-0.75.1/AndroidManifest.xml:15:5-67
+MERGED from [com.facebook.flipper:flipper:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ce1147b3e4e04fe87f556bced63a10fa/jetified-flipper-0.75.1/AndroidManifest.xml:15:5-67
+MERGED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-67
+MERGED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:26:5-67
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:26:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:11:5-67
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:23:5-67
+	android:name
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:4:22-64
+application
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:6:5-24:19
+MERGED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:6:5-24:19
+MERGED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:6:5-24:19
+MERGED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-27:19
+MERGED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-27:19
+MERGED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [com.facebook.react:react-native:0.64.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/211c4d7460bebcded6694ba81e5368cf/jetified-react-native-0.64.2/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.react:react-native:0.64.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/211c4d7460bebcded6694ba81e5368cf/jetified-react-native-0.64.2/AndroidManifest.xml:11:5-20
+MERGED from [com.google.firebase:firebase-analytics:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b1b178f23a1aba7663cf7cc6a2eb935f/jetified-firebase-analytics-19.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-analytics:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b1b178f23a1aba7663cf7cc6a2eb935f/jetified-firebase-analytics-19.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c57a056c41626be6707695757c1c5190/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:24:5-20
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c57a056c41626be6707695757c1c5190/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:24:5-20
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0c376eec2c82157063abd64bfb7cf22d/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0c376eec2c82157063abd64bfb7cf22d/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:14:5-22:19
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:14:5-22:19
+MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:25:5-38:19
+MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:25:5-38:19
+MERGED from [com.facebook.soloader:soloader:0.10.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c7593993fa8ef1311e64cbd7e4702b9e/jetified-soloader-0.10.1/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.10.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c7593993fa8ef1311e64cbd7e4702b9e/jetified-soloader-0.10.1/AndroidManifest.xml:11:5-20
+MERGED from [com.google.android.material:material:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c4f164e6311e6235632873f3c928d514/material-1.1.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c4f164e6311e6235632873f3c928d514/material-1.1.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:28:5-44:19
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:28:5-44:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc6213cef56ceaa2e6d9cf6d784f3029/jetified-play-services-measurement-sdk-19.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc6213cef56ceaa2e6d9cf6d784f3029/jetified-play-services-measurement-sdk-19.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:28:5-29:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:28:5-29:19
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9b3888c412d4244a7026bb26f23e3e8b/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9b3888c412d4244a7026bb26f23e3e8b/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0be4aeefaa1a0373d2f3dfd5dcb04bd9/jetified-play-services-measurement-base-19.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0be4aeefaa1a0373d2f3dfd5dcb04bd9/jetified-play-services-measurement-base-19.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4c2bb24368b7d5567612bcd0e8849d6b/jetified-play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4c2bb24368b7d5567612bcd0e8849d6b/jetified-play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f809eaac3443e000ba3ed4fd7ae3b54f/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f809eaac3443e000ba3ed4fd7ae3b54f/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/1db50e6d1ab0a7f1c8df9b16abc5826e/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/1db50e6d1ab0a7f1c8df9b16abc5826e/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.core:core:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/47641c1038212c127f26e98ebaa64661/core-1.3.1/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/47641c1038212c127f26e98ebaa64661/core-1.3.1/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f1358187ccdd23dcdb55c0beaaaa5f2/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f1358187ccdd23dcdb55c0beaaaa5f2/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/47641c1038212c127f26e98ebaa64661/core-1.3.1/AndroidManifest.xml:24:18-86
+	android:label
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:8:7-39
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:8:7-39
+	tools:ignore
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:10:9-48
+	android:roundIcon
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:10:7-52
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:10:7-52
+	tools:targetApi
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:9:9-29
+	android:icon
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:9:7-41
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:9:7-41
+	android:allowBackup
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:11:7-34
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:11:7-34
+	android:theme
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:12:7-38
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:12:7-38
+	android:usesCleartextTraffic
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:8:9-44
+	android:name
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:7:7-38
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:7:7-38
+activity#com.expressoapp.MainActivity
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:13:7-23:18
+	android:label
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:15:9-41
+	android:launchMode
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:17:9-40
+	android:windowSoftInputMode
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:18:9-51
+	android:configChanges
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:16:9-86
+	android:name
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:14:9-37
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:19:9-22:25
+action#android.intent.action.MAIN
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:20:13-65
+	android:name
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:20:21-62
+category#android.intent.category.LAUNCHER
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:21:13-73
+	android:name
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml:21:23-70
+uses-sdk
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml
+MERGED from [com.facebook.flipper:flipper:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ce1147b3e4e04fe87f556bced63a10fa/jetified-flipper-0.75.1/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ce1147b3e4e04fe87f556bced63a10fa/jetified-flipper-0.75.1/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-network-plugin:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7ce3eef7cc3fa00f9f6b76aceacbc7bf/jetified-flipper-network-plugin-0.75.1/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-network-plugin:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7ce3eef7cc3fa00f9f6b76aceacbc7bf/jetified-flipper-network-plugin-0.75.1/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7b7651dc6816d8a0525410fe4a9b548a/jetified-flipper-fresco-plugin-0.75.1/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7b7651dc6816d8a0525410fe4a9b548a/jetified-flipper-fresco-plugin-0.75.1/AndroidManifest.xml:11:5-13:41
+MERGED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-gesture-handler] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-gesture-handler] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-safe-area-context] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-safe-area-context] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-screens] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-screens] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.64.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/211c4d7460bebcded6694ba81e5368cf/jetified-react-native-0.64.2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.64.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/211c4d7460bebcded6694ba81e5368cf/jetified-react-native-0.64.2/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/43e60f9ff187f5de382de8b2419c0c31/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/43e60f9ff187f5de382de8b2419c0c31/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b1b178f23a1aba7663cf7cc6a2eb935f/jetified-firebase-analytics-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-analytics:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b1b178f23a1aba7663cf7cc6a2eb935f/jetified-firebase-analytics-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [org.webkit:android-jsc:r245459] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a5ff9fe82e90bb1a6e8936b6ed02d165/jetified-android-jsc-r245459/AndroidManifest.xml:7:5-9:41
+MERGED from [org.webkit:android-jsc:r245459] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a5ff9fe82e90bb1a6e8936b6ed02d165/jetified-android-jsc-r245459/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c57a056c41626be6707695757c1c5190/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c57a056c41626be6707695757c1c5190/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0c376eec2c82157063abd64bfb7cf22d/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.2] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0c376eec2c82157063abd64bfb7cf22d/jetified-firebase-auth-interop-19.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.facebook.fresco:flipper:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/98247344757dbdb2ee4fe5d2f1380bb8/jetified-flipper-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:flipper:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/98247344757dbdb2ee4fe5d2f1380bb8/jetified-flipper-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:stetho:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/210aa63f4acef578dac28d11ff172a01/jetified-stetho-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:stetho:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/210aa63f4acef578dac28d11ff172a01/jetified-stetho-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc7a54ca1fa4d213f0c25059136e8ad0/jetified-fresco-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc7a54ca1fa4d213f0c25059136e8ad0/jetified-fresco-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/71a3fd36b86fe1f0458d102c712b9f74/jetified-drawee-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/71a3fd36b86fe1f0458d102c712b9f74/jetified-drawee-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagefilters:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/15da19e39be67e018b2b8a2ce221bca7/jetified-nativeimagefilters-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagefilters:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/15da19e39be67e018b2b8a2ce221bca7/jetified-nativeimagefilters-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-native:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd87c4ee4545371c709b40d87237acfd/jetified-memory-type-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-native:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd87c4ee4545371c709b40d87237acfd/jetified-memory-type-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-java:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/68f5fa0d3e53940844b2f8088fca4367/jetified-memory-type-java-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-java:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/68f5fa0d3e53940844b2f8088fca4367/jetified-memory-type-java-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-native:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c32cf95a1a170b1a8b08577260388870/jetified-imagepipeline-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-native:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c32cf95a1a170b1a8b08577260388870/jetified-imagepipeline-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:soloader:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f994d3ff96b9d8496d0f224ff21970d/jetified-soloader-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:soloader:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f994d3ff96b9d8496d0f224ff21970d/jetified-soloader-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.10.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c7593993fa8ef1311e64cbd7e4702b9e/jetified-soloader-0.10.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.10.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c7593993fa8ef1311e64cbd7e4702b9e/jetified-soloader-0.10.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.material:material:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c4f164e6311e6235632873f3c928d514/material-1.1.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c4f164e6311e6235632873f3c928d514/material-1.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ae1b2855b0c2c0b48dde672012ba9332/appcompat-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ae1b2855b0c2c0b48dde672012ba9332/appcompat-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f6cdeacda910eb92fbdcd94c4e9ed043/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f6cdeacda910eb92fbdcd94c4e9ed043/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7664aabab73fe827385c360fc9a172ee/jetified-imagepipeline-okhttp3-2.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7664aabab73fe827385c360fc9a172ee/jetified-imagepipeline-okhttp3-2.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-ashmem:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/43a0145635c3ae6d802ee572ca903800/jetified-memory-type-ashmem-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-ashmem:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/43a0145635c3ae6d802ee572ca903800/jetified-memory-type-ashmem-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/897a45ba7026759458f58b3eee822339/jetified-imagepipeline-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/897a45ba7026759458f58b3eee822339/jetified-imagepipeline-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ef2154232cc634ea13b4adae19fcab7a/jetified-nativeimagetranscoder-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ef2154232cc634ea13b4adae19fcab7a/jetified-nativeimagetranscoder-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/64bc812bf90ec47dd4f452e13de212d2/jetified-imagepipeline-base-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/64bc812bf90ec47dd4f452e13de212d2/jetified-imagepipeline-base-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a369089eb4410d9afd8661e1c60777a4/jetified-appcompat-resources-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a369089eb4410d9afd8661e1c60777a4/jetified-appcompat-resources-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b23242df18161113563f0278e893b4d8/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b23242df18161113563f0278e893b4d8/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4d7703a2e6f837179a3ea70d2ff0eda0/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4d7703a2e6f837179a3ea70d2ff0eda0/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4b30a73422429339aeeb7a02a5f9e95b/jetified-play-services-auth-api-phone-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4b30a73422429339aeeb7a02a5f9e95b/jetified-play-services-auth-api-phone-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd434fa0873835dd450729cf38cce869/jetified-play-services-auth-base-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd434fa0873835dd450729cf38cce869/jetified-play-services-auth-base-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-database-collection:18.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6888e439e372270a6499f599b99defee/jetified-firebase-database-collection-18.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6888e439e372270a6499f599b99defee/jetified-firebase-database-collection-18.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc6213cef56ceaa2e6d9cf6d784f3029/jetified-play-services-measurement-sdk-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/dc6213cef56ceaa2e6d9cf6d784f3029/jetified-play-services-measurement-sdk-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9b3888c412d4244a7026bb26f23e3e8b/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9b3888c412d4244a7026bb26f23e3e8b/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0be4aeefaa1a0373d2f3dfd5dcb04bd9/jetified-play-services-measurement-base-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0be4aeefaa1a0373d2f3dfd5dcb04bd9/jetified-play-services-measurement-base-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4c2bb24368b7d5567612bcd0e8849d6b/jetified-play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4c2bb24368b7d5567612bcd0e8849d6b/jetified-play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f809eaac3443e000ba3ed4fd7ae3b54f/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f809eaac3443e000ba3ed4fd7ae3b54f/jetified-firebase-measurement-connector-19.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-installations-interop:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f75a0a6f9361a898994a613c6caab56f/jetified-firebase-installations-interop-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-installations-interop:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f75a0a6f9361a898994a613c6caab56f/jetified-firebase-installations-interop-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/1db50e6d1ab0a7f1c8df9b16abc5826e/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/1db50e6d1ab0a7f1c8df9b16abc5826e/jetified-play-services-tasks-17.2.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a0b6f37d0c1f8a3730ab994f67e14d6e/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/a0b6f37d0c1f8a3730ab994f67e14d6e/jetified-viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7621a416f8e1e36cfcdf867c10a52d56/fragment-1.2.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/7621a416f8e1e36cfcdf867c10a52d56/fragment-1.2.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/3e17a49f65bdaba7b99d798198610624/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/3e17a49f65bdaba7b99d798198610624/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/2e551a15ca8c06ffcef27e1c66837591/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/2e551a15ca8c06ffcef27e1c66837591/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9ed9fe58b8a5ad9e87c279c74ba1a45d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9ed9fe58b8a5ad9e87c279c74ba1a45d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/af5679c295209f42d0b9930a9a5f7ad3/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/af5679c295209f42d0b9930a9a5f7ad3/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/973616bdf0ef1e31c3280c00ff314b37/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/973616bdf0ef1e31c3280c00ff314b37/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c5ed3f81fd2cceceeac3a37a9c36ccb5/jetified-activity-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/c5ed3f81fd2cceceeac3a37a9c36ccb5/jetified-activity-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/fbd4704a6393ad28d96a9fd2928dc459/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/fbd4704a6393ad28d96a9fd2928dc459/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f01c94f47c696813b1a0da1d17a35297/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/f01c94f47c696813b1a0da1d17a35297/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/3ddc05cb9ca5256d40588d2f08eb9b14/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/3ddc05cb9ca5256d40588d2f08eb9b14/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/5875bf17ac693c11e5734e244b97d667/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/5875bf17ac693c11e5734e244b97d667/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/47641c1038212c127f26e98ebaa64661/core-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/47641c1038212c127f26e98ebaa64661/core-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b5f2cc4f444e217459566ae77a541ce0/exifinterface-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b5f2cc4f444e217459566ae77a541ce0/exifinterface-1.3.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6e6ebe821b676f859131f6e2293b8bba/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6e6ebe821b676f859131f6e2293b8bba/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/756f66f0421929830f0b1f58cbabec72/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/756f66f0421929830f0b1f58cbabec72/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-components:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/48c68678fb2fdd1ecc0031ea410801a1/jetified-firebase-components-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-components:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/48c68678fb2fdd1ecc0031ea410801a1/jetified-firebase-components-17.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f1358187ccdd23dcdb55c0beaaaa5f2/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6f1358187ccdd23dcdb55c0beaaaa5f2/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/65e4c55a1ee922cd08679a217f8bd4cb/jetified-lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/65e4c55a1ee922cd08679a217f8bd4cb/jetified-lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/879c77e7aa2f77ea25d7d8407f48b6e4/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/879c77e7aa2f77ea25d7d8407f48b6e4/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6c0a03256290bb4894a5226cdbc784d9/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6c0a03256290bb4894a5226cdbc784d9/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0363115fa9cfb7b38a81e6f2f847cfba/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0363115fa9cfb7b38a81e6f2f847cfba/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4b79d2c604bb63198d8b4947a92bef58/jetified-savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4b79d2c604bb63198d8b4947a92bef58/jetified-savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0cf56f848314283f58e19650c67868da/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0cf56f848314283f58e19650c67868da/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d2541eccc6a67a0db81ffe614f638ab8/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d2541eccc6a67a0db81ffe614f638ab8/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4dabc74add2c0321df4ec2504d8fc1e6/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/4dabc74add2c0321df4ec2504d8fc1e6/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0ec425d10e9cd0a7d1f8766215060f6c/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0ec425d10e9cd0a7d1f8766215060f6c/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/246bb74f21f794f562408437838876d0/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/246bb74f21f794f562408437838876d0/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd15801355aaaa58cad706d065af2d99/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bd15801355aaaa58cad706d065af2d99/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fresco:fbcore:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/2cf8801f6c95f5c1a6813081d88347ab/jetified-fbcore-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/2cf8801f6c95f5c1a6813081d88347ab/jetified-fbcore-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:ui-common:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6945c5ffd2598af04fbec38cf9dac32f/jetified-ui-common-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:ui-common:2.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/6945c5ffd2598af04fbec38cf9dac32f/jetified-ui-common-2.2.0/AndroidManifest.xml:5:5-7:41
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml
+INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:5:5-77
+	android:name
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:5:22-75
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:11:9-86
+	android:name
+		ADDED from /Users/petescandle/Documents/SDP/ExpressoApp/android/app/src/debug/AndroidManifest.xml:11:19-83
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [com.facebook.flipper:flipper:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ce1147b3e4e04fe87f556bced63a10fa/jetified-flipper-0.75.1/AndroidManifest.xml:16:5-76
+	android:name
+		ADDED from [com.facebook.flipper:flipper:0.75.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/ce1147b3e4e04fe87f556bced63a10fa/jetified-flipper-0.75.1/AndroidManifest.xml:16:22-73
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:25:5-68
+	android:name
+		ADDED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-65
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-79
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:25:5-79
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/df053a28aee75d7438a4902b5ba199f9/jetified-play-services-measurement-sdk-api-19.0.0/AndroidManifest.xml:24:5-79
+	android:name
+		ADDED from [:react-native-firebase_database] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/database/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:22-76
+meta-data#app_data_collection_default_enabled
+ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-14:36
+	android:value
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-33
+	android:name
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-63
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:9-20:19
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:15:9-21:19
+MERGED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:15:9-21:19
+MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:33:9-37:35
+MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:33:9-37:35
+	android:exported
+		ADDED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:31:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:37:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:35:13-43
+	android:name
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:18-89
+meta-data#com.google.firebase.components:io.invertase.firebase.app.ReactNativeFirebaseAppRegistrar
+ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-19:85
+	android:value
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-82
+	android:name
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-120
+provider#io.invertase.firebase.app.ReactNativeFirebaseAppInitProvider
+ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-26:38
+	android:authorities
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-86
+	android:exported
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-37
+	android:initOrder
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:13-35
+	android:name
+		ADDED from [:react-native-firebase_app] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/@react-native-firebase/app/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-88
+provider#com.imagepicker.ImagePickerProvider
+ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+	android:grantUriPermissions
+		ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+	android:authorities
+		ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-71
+	android:exported
+		ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-63
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-19:70
+	android:resource
+		ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
+	android:name
+		ADDED from [:react-native-image-picker] /Users/petescandle/Documents/SDP/ExpressoApp/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-67
+meta-data#com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar
+ADDED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:32:13-34:85
+	android:value
+		ADDED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:34:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-database:20.0.1] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/9d6d634274ff04c6f96f58aa3e47f188/jetified-firebase-database-20.0.1/AndroidManifest.xml:33:17-109
+meta-data#com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
+ADDED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:30:13-32:85
+	android:value
+		ADDED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:32:17-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement-api:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/d042d3488c390a31f33a1a2c8a8cc08c/jetified-play-services-measurement-api-19.0.0/AndroidManifest.xml:31:17-139
+meta-data#com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar
+ADDED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:18:13-20:85
+	android:value
+		ADDED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:20:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-installations:17.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/bfaa8387d061af9163bf78fbdd75ee7b/jetified-firebase-installations-17.0.0/AndroidManifest.xml:19:17-127
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:26:9-31:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:28:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:30:13-37
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:29:13-43
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:31:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/cf44503f512bd01edbb9a42565c54f02/jetified-firebase-common-20.0.0/AndroidManifest.xml:27:13-77
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:33:9-37:51
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:35:13-36
+	android:visibleToInstantApps
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:37:13-48
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:19.2.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/e592dcb5d78b81f339f88c9c32d0e5e6/jetified-play-services-auth-19.2.0/AndroidManifest.xml:34:13-89
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/8ba120df78ef70b0b73857e5c07fa3e3/jetified-play-services-base-17.5.0/AndroidManifest.xml:24:13-79
+uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/b0d219e6680731073a32ccb9388938b4/jetified-play-services-measurement-impl-19.0.0/AndroidManifest.xml:26:5-110
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:26:22-107
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:29:9-33:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:31:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:30:13-85
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:35:9-38:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:38:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:36:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:39:9-43:72
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:41:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:42:13-37
+	android:permission
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:43:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:19.0.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/95626a9b22373dd37b0d72d87ab96148/jetified-play-services-measurement-19.0.0/AndroidManifest.xml:40:13-87
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:17.5.0] /Users/petescandle/.gradle/caches/transforms-2/files-2.1/0a06b30f5a999f7a20e7f2a44087cb71/jetified-play-services-basement-17.5.0/AndroidManifest.xml:24:13-58

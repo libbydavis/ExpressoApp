@@ -1,15 +1,24 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
+import QuantityInput from "../addmenuitem/QuantityInput";
 
 const CartItem = (props) => {
+  const receiveQuantity = (value) => {
+    props.receiveQuantity(value)
+  };
+
   return (
     <View style={styles.cartItemView}>
+
       <View style={styles.leftDiv}>
         <Image source={{uri: props.image}} style={styles.image}></Image>
         <Text>{props.title}</Text>
-        <Text style={styles.price}>${props.price}</Text>
       </View>
       <View style={styles.rightDiv}>
+        <View style={styles.quantityStyle}>
+          <QuantityInput receiveValue={receiveQuantity} initialQuantity={props.quantity}></QuantityInput>
+        </View>
+        <Text style={styles.price}>${props.price}</Text>
         <Text style={styles.x} onPress={props.onpress}>X</Text>
       </View>
     </View>
@@ -22,9 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#c9c9c9',
     margin: 10,
     borderRadius: 10,
-    alignItems: 'center',
     justifyContent: 'space-between',
-    width: 250,
   },
   leftDiv: {
     justifyContent: 'flex-start',
@@ -34,6 +41,11 @@ const styles = StyleSheet.create({
   rightDiv: {
     justifyContent: 'flex-end',
     paddingRight: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  quantityStyle: {
+    marginTop: 25,
   },
   price: {
     marginLeft: 10,
@@ -41,6 +53,7 @@ const styles = StyleSheet.create({
   x: {
     color: 'red',
     padding: 10,
+    marginLeft: 10
   },
   image: {
     width: 80,
