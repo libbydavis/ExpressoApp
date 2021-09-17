@@ -9,20 +9,18 @@ import {
     ToastAndroid, FlatList, TouchableOpacityComponent,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
-import {ScrollView} from "react-native";
-import {image, title} from "yarn/lib/cli";
-import MenuItem from "./MenuItem";
 
-export const MenuView = ({route, navigation}) => { // pass menuID to ensure this accesses the correct menu
+export const MenuScreen = ({route, navigation}) => { // pass menuID to ensure this accesses the correct menu
     const menuID = route.params;
     const currentMenuID = menuID["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
-    let menuItemList = []
+    const [menuItemList, setMenuItemList] = useState([]);
 
     useEffect(() => {
         dbRef.child(currentMenuID + `/menuItems`).on('value', (snapshot) => {
+            let itemList = [];
             snapshot.forEach((child) => {
-                menuItemList.push({
+                itemList.push({
                     title: child.val().title,
                     image: child.val().image,
                     description: child.val().description,
@@ -30,14 +28,14 @@ export const MenuView = ({route, navigation}) => { // pass menuID to ensure this
                     quantity: child.val().quantity,
                     optionLists: child.val().optionLists
                 });
-                menuItemList.toString();
+                setMenuItemList(itemList);
             })
         })
-    })
+    }, [])
 
-    const ItemView = ({item}) => {
+    const ItemView = ({item}) => {    // View items in the FlatList
         return (
-            // Flat List Item
+
             <Text
                 style={styles.itemStyle}
                 onPress={() => getItem(item)}>
@@ -47,13 +45,12 @@ export const MenuView = ({route, navigation}) => { // pass menuID to ensure this
     };
 
     const getItem = (item) => {
-        // Function for click on an item
+        // Function to click on an item in the FlatList below
         alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
 
-    const ItemSeparatorView = () => {
+    const ItemSeparatorView = () => { // Separator for FlatList used in render
         return (
-            // Flat List Item Separator
             <View
                 style={{
                     height: 0.5,
@@ -83,12 +80,12 @@ export const MenuView = ({route, navigation}) => { // pass menuID to ensure this
                     ItemSeparatorComponent={ItemSeparatorView}
                     renderItem={ItemView}
                 />
-                <TouchableOpacity
-                    style={styles.expressoButton}
-                    onPress={() => navigation.navigate("AddMenuItem", currentMenuID)}>
-                    <Text style={styles.expressoButtonText}>Add new item</Text>
-                </TouchableOpacity>
             </View>
+            <TouchableOpacity
+                style={styles.expressoButton}
+                onPress={() => navigation.navigate("AddMenuItem", currentMenuID)}>
+                <Text style={styles.expressoButtonText}>Add new item</Text>
+            </TouchableOpacity>
         </View>
     )
 };
@@ -226,5 +223,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MenuView;
+export default MenuScreen;
 

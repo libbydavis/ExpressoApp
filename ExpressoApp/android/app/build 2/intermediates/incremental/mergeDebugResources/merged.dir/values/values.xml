@@ -6471,7 +6471,7 @@
         </attr>
 
     </declare-styleable>
-    <declare-styleable name="MenuView">
+    <declare-styleable name="MenuScreen">
         <!-- Default appearance of menu item text. -->
         <attr name="android:itemTextAppearance"/>
         <!-- Default horizontal divider between rows of menu items. -->

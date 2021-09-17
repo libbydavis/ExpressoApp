@@ -9,7 +9,7 @@ import {
     ToastAndroid,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
-import MenuView from "../menu/MenuView";
+import MenuScreen from "../menu/MenuScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useNavigation} from "@react-navigation/native";
 
@@ -48,7 +48,7 @@ export const CreateMenuScreen = ({route, navigation}) => {
             } catch (error) {
                 console.error(error)
             }*/
-            navigation.navigate('MenuView', {
+            navigation.navigate('MenuScreen', {
                 menuID: menuID,
             });
         } else {
