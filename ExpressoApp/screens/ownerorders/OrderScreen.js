@@ -7,22 +7,22 @@ function OrderScreen({props}) {
   const navigation = useNavigation();
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
 
-      <TouchableOpacity style={styles.navBar}
-        onPress={() => navigation.navigate('SearchScreen')}>
-        <Image
-          source={require('../../assets/ExpressoLogo.png')}
-          style={styles.headerIcon}
-        />
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.navBar}
+                          onPress={() => navigation.navigate('SearchScreen')}>
+          <Image
+              source={require('../../assets/ExpressoLogo.png')}
+              style={styles.headerIcon}
+          />
+        </TouchableOpacity>
 
-      <Text style={styles.mainTitle}>Orders</Text>
-      { // List of Text components
-        props.menuItems
-      }
+        <Text style={styles.mainTitle}>Orders</Text>
+        { // List of Text components
+          props.menuItems
+        }
 
-    </ScrollView>
+      </ScrollView>
   );
 }
 
@@ -44,4 +44,5 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     paddingBottom: 100,
     alignItems: 'center',
-  }});
+  }
+});
