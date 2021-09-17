@@ -1,13 +1,15 @@
 import React from 'react';
-import { useState } from "react";
-import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Alert} from 'react-native';
+
+import {useState} from "react";
+import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard, Alert} from 'react-native';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
+import {keyboard} from "yarn/lib/cli";
 // import '@react-navigation/native';
 
 
 const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
   const userLogin = () => {
     firebaseAuth
@@ -37,65 +39,74 @@ const LoginScreen = ({navigation}) => {
         });
   }
 
-  const logout = () => {
-    firebaseAuth
-      .signOut()
-      .then(() => console.log('User has logged out!'));
-  }
+    const logout = () => {
+        firebaseAuth
+            .signOut()
+            .then(() => console.log('User has logged out!'));
+    };
 
 
-  return (
-    <View style={styles.mainContainer}>
-      <Image
-        source={require('../../assets/ExpressoLogo.png')}
-        style={styles.headerIcon}
-      >
-      </Image>
-      <View>
-        <TextInput 
-          style={styles.inputContainer}
-          onChangeText={(email) => setEmail(email)}
-          placeholder="Email" />
-      </View>
+    return (
+        <View style={styles.mainContainer}>
+            <Image
+                source={require('../../assets/ExpressoLogo.png')}
+                style={styles.headerIcon}
+            >
+            </Image>
+            <View>
+                <TextInput
+                    style={styles.inputContainer}
+                    onEndEditing={(e) => {
+                        let email = e.nativeEvent.text.trim();
+                        setEmail(email);
+                    }}
+                    placeholder="Email"
+                    placeholderTextColor={'#40404040'}
+                />
+            </View>
 
-      <View>
-        <TextInput 
-          style={styles.inputContainer}
-          onChangeText={(password) => setPassword(password)}
-          placeholder="Password" secureTextEntry={true}
-        />
-      </View>
+            <View>
+                <TextInput
+                    style={styles.inputContainer}
+                    onChangeText={(password) => setPassword(password)}
+                    placeholder="Password" secureTextEntry={true}
+                    placeholderTextColor={'#40404040'}
+                />
+            </View>
 
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
-      </TouchableOpacity>
+            <TouchableOpacity style={styles.loginButton}>
+                <Text style={styles.loginText} onPress={() => {
+                    userLogin();
+                    Keyboard.dismiss();
+                }}>LOGIN</Text>
+            </TouchableOpacity>
 
-      <View style={styles.signUpContainer}>
-        <Text style={styles.text}>Don&apos;t have an account? </Text>
-        <Text style={styles.signUpText}
-          onPress={() => navigation.navigate('RegisterUser')}>
-        Sign up here</Text>
-      </View>
-    </View>
-  );
+            <View style={styles.signUpContainer}>
+                <Text style={styles.text}>Don&apos;t have an account? </Text>
+                <Text style={styles.signUpText}
+                      onPress={() => navigation.navigate('RegisterUser')}>
+                    Sign up here</Text>
+            </View>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
 
-  mainContainer: {
-    flex: 1,
-    width: null,
-    height: null,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 150,
+    mainContainer: {
+        flex: 1,
+        width: null,
+        height: null,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 150,
 
-  },
-  headerIcon: {
-    width: 200,
-    height: 50,
-    marginTop: 100,
-    marginBottom: 30,
+    },
+    headerIcon: {
+        width: 200,
+        height: 50,
+        marginTop: 100,
+        marginBottom: 30,
 
   },
   inputContainer: {
