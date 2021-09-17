@@ -109,7 +109,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
     const receiveImage = (image) => {
         setInputCoverImage({...inputCoverImage, ['image'] : image});
     }
-    
+
 
     const handleChangeStoreData = (changeStoreData) => {
         const newData = storeData.map(item => {
@@ -122,7 +122,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
                 item.itemPrice = inputItemPrice;
                 item.itemCoverImage = inputItemCoverImage;
                 return item;
-            } 
+            }
             return item;
         })
         setStoreData(newData);
@@ -135,7 +135,6 @@ const CreateStorePageScreen = ( {navigation} ) => {
         setOpenEditStoreModal(false);
     }
 
-   
     return (
         <View>
             <View style={styles.header}>
@@ -148,7 +147,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
                     style={styles.profileIcon}
                 />
             </View>
-            <FlatList  
+            <FlatList
                 data={storeData}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
@@ -179,13 +178,13 @@ const CreateStorePageScreen = ( {navigation} ) => {
                         <TouchableOpacity style={styles.saveStoreDetailsButton}>
                             <Text style={styles.modalButtonText} onPress={() => onPressSaveChanges()}>
                                 Save Changes
-                            </Text>  
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cancelStoreDetailsButton}>
                             <Text style={styles.modalButtonText} onPress={() => setOpenEditStoreModal(false)}>
                                 Cancel
                             </Text>
-                        </TouchableOpacity>    
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>

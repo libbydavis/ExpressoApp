@@ -16,7 +16,7 @@ const LoginScreen = ({navigation}) => {
       .signInWithEmailAndPassword(email, password)
         .then(() => {
           console.log("User has successfully signed in!");
-          navigation.navigate('AddMenuItem');
+          navigation.navigate('CreateMenu');
         })
         .catch(error => {
             Alert.alert(
@@ -46,49 +46,40 @@ const LoginScreen = ({navigation}) => {
     };
 
 
-    return (
-        <View style={styles.mainContainer}>
-            <Image
-                source={require('../../assets/ExpressoLogo.png')}
-                style={styles.headerIcon}
-            >
-            </Image>
-            <View>
-                <TextInput
-                    style={styles.inputContainer}
-                    onEndEditing={(e) => {
-                        let email = e.nativeEvent.text.trim();
-                        setEmail(email);
-                    }}
-                    placeholder="Email"
-                    placeholderTextColor={'#40404040'}
-                />
-            </View>
+  return (
+    <View style={styles.mainContainer}>
+      <Image
+        source={require('../../assets/ExpressoLogo.png')}
+        style={styles.headerIcon}
+      >
+      </Image>
+      <View>
+        <TextInput
+          style={styles.inputContainer}
+          onChangeText={(email) => setEmail(email)}
+          placeholder="Email" />
+      </View>
 
-            <View>
-                <TextInput
-                    style={styles.inputContainer}
-                    onChangeText={(password) => setPassword(password)}
-                    placeholder="Password" secureTextEntry={true}
-                    placeholderTextColor={'#40404040'}
-                />
-            </View>
+      <View>
+        <TextInput
+          style={styles.inputContainer}
+          onChangeText={(password) => setPassword(password)}
+          placeholder="Password" secureTextEntry={true}
+        />
+      </View>
 
-            <TouchableOpacity style={styles.loginButton}>
-                <Text style={styles.loginText} onPress={() => {
-                    userLogin();
-                    Keyboard.dismiss();
-                }}>LOGIN</Text>
-            </TouchableOpacity>
+      <TouchableOpacity style={styles.loginButton}>
+        <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
+      </TouchableOpacity>
 
-            <View style={styles.signUpContainer}>
-                <Text style={styles.text}>Don&apos;t have an account? </Text>
-                <Text style={styles.signUpText}
-                      onPress={() => navigation.navigate('RegisterUser')}>
-                    Sign up here</Text>
-            </View>
-        </View>
-    );
+      <View style={styles.signUpContainer}>
+        <Text style={styles.text}>Don&apos;t have an account? </Text>
+        <Text style={styles.signUpText}
+          onPress={() => navigation.navigate('RegisterUser')}>
+        Sign up here</Text>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
