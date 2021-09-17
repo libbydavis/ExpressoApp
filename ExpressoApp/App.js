@@ -19,6 +19,9 @@ import SplashScreen from 'react-native-splash-screen';
 import OwnerOrdersScreen from './screens/ownerorders/OwnerOrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
 import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
+import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
+import MenuScreen from "./screens/menu/MenuScreen";
+
 
 const Stack = createStackNavigator();
 
@@ -66,6 +69,7 @@ export default class App extends Component {
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
           <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
           <Stack.Screen name="Cart" component={CartScreen} />
+          <Stack.Screen name="MenuScreen" component={MenuScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

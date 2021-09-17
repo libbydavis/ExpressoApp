@@ -1,30 +1,65 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     View,
     TextInput,
     TouchableOpacity,
     Text,
-    Image, ToastAndroid,
+    Image,
+    ToastAndroid,
 } from 'react-native';
-import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
-import firebase from "firebase";
-import User from "firebase.User";
+import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import MenuScreen from "../menu/MenuScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useNavigation} from "@react-navigation/native";
 
-const CreateMenuScreen = ({navigation}) => {
+/**
+ *
+ * @return {JSX.Element}
+ * @constructor
+ */
+
+export const CreateMenuScreen = ({route, navigation}) => {
+    const user = firebase.auth().currentUser;
+    const uid = user.uid;
+    const dbRef = firebaseDB.ref();
     const [menuObject, setMenuObject] = useState({
         title: '',
         menuItems: [],
-    })
+        business: uid
+    });
 
-    const setTitle = (title) => {
-        if (title == null) {
-            <ToastAndroid>Please input title!</ToastAndroid>
+    const onClickSubmitMenu = async () => {
+        // Ensure the user has input a title
+        if (menuObject.title !== null) {
+            let menuRef = dbRef.child("Menus").push()
+            await menuRef.set({
+                'title': menuObject.title,
+                'menuItems': menuObject.menuItems,
+                'business': menuObject.business
+            });
+            let menuID = menuRef.key.toString();
+            console.log(menuID);
+           /* try {
+                await AsyncStorage.setItem(
+                    'currentMenuID',
+                    menuID
+                );
+            } catch (error) {
+                console.error(error)
+            }*/
+            navigation.navigate('MenuScreen', {
+                menuID: menuID,
+            });
         } else {
-            setMenuObject({...menuObject, ['title']: title});
-            console.log(menuObject);
+            ToastAndroid("You must input a title!");
         }
-    };
+    }
+
+    const setTitle = (titleText) => {
+        setMenuObject({...menuObject, ['title']: titleText});
+        console.log(menuObject)
+    }
 
     return (
         <View>
@@ -32,15 +67,18 @@ const CreateMenuScreen = ({navigation}) => {
                 source={require('../../assets/ExpressoLogo.png')}
                 style={styles.headerIcon}
             />
-            <View style={styles.columnView}>
-                <Text style={styles.title}>Create MenuView</Text>
-                <TextInput>
+            <View style={styles.mainView}>
+                <Text style={styles.title}>Create Menu</Text>
+                <Text style={styles.subtitle}>Input Menu Title</Text>
+                <TextInput
                     style={styles.textInput}
-                    placeholder="MenuView Title"
-                    onChangeText={(text) => setTitle(text)}
-                </TextInput>
-                <TouchableOpacity style={styles.expressoButton} /*onPress(() => {navigation.navigate()}) */>
-                    <Text style={styles.expressoButtonText}>Add MenuView</Text>
+                    placeholder="Menu Title"
+                    onChangeText={(text) => setTitle(text)}/>
+                <TouchableOpacity style={styles.expressoButton}>
+                    <Text
+                        style={styles.expressoButtonText}
+                        onPress={() => onClickSubmitMenu()}>
+                        Add Menu</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -51,14 +89,6 @@ const styles = StyleSheet.create({
     headerIcon: {
         width: 200,
         height: 50,
-    },
-    inputContainer: {
-        borderColor: 'black',
-        borderWidth: 1,
-        width: 250,
-        padding: 10,
-        borderRadius: 25,
-        marginTop: 20,
     },
     textInput: {
         fontFamily: 'Monserrat-Regular',
