@@ -99,6 +99,7 @@ const AddMenuItemScreen = ({ route,navigation }) => {
     menuRef.set({
       'title': menuItemObject.title,
       'image': menuItemObject.image,
+      'description': menuItemObject.description,
       'price': menuItemObject.price,
       'quantity': menuItemObject.quantity,
       'optionLists': menuItemObject.optionLists
@@ -108,7 +109,6 @@ const AddMenuItemScreen = ({ route,navigation }) => {
   }
 
 
-// TODO: Change CreateMenu to Cart on L102
   return (
     <View>
       <View style={styles.navBar}>
@@ -116,7 +116,7 @@ const AddMenuItemScreen = ({ route,navigation }) => {
           source={require('../../assets/ExpressoLogo.png')}
           style={styles.headerIcon}
         />
-        <TouchableOpacity onPress={() => {navigation.navigate('CreateMenu')}}>
+        <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
           <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
         </TouchableOpacity>
       </View>
