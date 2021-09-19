@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, FlatList, Text, Modal, TextInput, KeyboardAvoidingView, Alert} from "react-native";
 import CustomImagePicker from '../addmenuitem/CustomImagePicker';
-import {firebaseDB} from '../../firebase/FirebaseConfig';
+import {firebase, firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 
 const CreateStorePageScreen = ( {navigation} ) => {
+
+    const user = firebaseAuth.currentUser;
+    const userID = user.uid;
+
     const [storeData, setStoreData] = useState([{
         id: 1,
         storeName: "",
         storeAddress: "",
         storePhoneNum: "",
-        coverImage: "",
-        itemName: "",
-        itemPrice: "",
-        itemCoverImage: "",
+        //coverImage: "",
+        //itemName: "",
+        //itemPrice: "",
+       // itemCoverImage: "",
     }]);
     const [isRender, setisRender] = useState(false);
     const [openEditStoreModal, setOpenEditStoreModal] = useState(false);
@@ -26,33 +30,33 @@ const CreateStorePageScreen = ( {navigation} ) => {
     const [inputItemCoverImage, setInputItemCoverImage] = useState();
     const [changeStoreData, setChangeStoreData] = useState();
 
+
+
+
     const onPressEditStoreButton = (item) => {
         setOpenEditStoreModal(true);
         setInputStoreName(item.storeName);
         setInputStoreAddress(item.storeAddress);
         setInputStorePhoneNum(item.storePhoneNum);
-        setInputCoverImage(item.coverImage);
-        setInputItemCoverImage(item.inputItemCoverImage);
+       // setInputCoverImage(item.coverImage);
+       // setInputItemCoverImage(item.inputItemCoverImage);
         setChangeStoreData(item.id);
     }
 
-    const onPressSubmitPageButton = (storeData) => {
-        firebaseDB.ref('storepage/')
+    const onPressSubmitPageButton = () => {
+        firebaseDB.ref('storepage/' + userID)
         .set({
-            storeName: storeData.storeName,
-            storeAddress: storeData.storeAddress,
-            storePhoneNum: storeData.storePhoneNum,
+            storeName: storeData[0].storeName,
+            storeAddress: storeData[0].storeAddress,
+            storePhoneNum: storeData[0].storePhoneNum,
             //coverImage: coverImage,
         })
         .then(() => {
-            console.log("User successfully stored");
+            console.log("Store details successfully stored");
             Alert.alert(
                 "Success:",
-                "User successfully added!",
+                "Your store details has been successfully added!",
                 [
-                    {
-                        text: "Cancel",
-                    },
                     {
                         text: "OK",
                     },

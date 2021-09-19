@@ -16,7 +16,7 @@ const LoginScreen = ({navigation}) => {
       .signInWithEmailAndPassword(email, password)
         .then(() => {
           console.log("User has successfully signed in!");
-          navigation.navigate('CreateMenu');
+          navigation.navigate('CreateStorePageScreen');
         })
         .catch(error => {
             Alert.alert(
