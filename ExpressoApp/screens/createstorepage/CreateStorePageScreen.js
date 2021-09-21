@@ -31,8 +31,6 @@ const CreateStorePageScreen = ( {navigation} ) => {
     const [changeStoreData, setChangeStoreData] = useState();
 
 
-
-
     const onPressEditStoreButton = (item) => {
         setOpenEditStoreModal(true);
         setInputStoreName(item.storeName);
@@ -66,6 +64,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
         .catch((error) => {
             console.error(error);
         });
+        navigation.navigate('StorePageScreen', storeData[0]);
     }
     
 

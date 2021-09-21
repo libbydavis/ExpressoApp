@@ -24,9 +24,6 @@ const LoginScreen = ({navigation}) => {
               "Invalid input. Please try again.",
               [
                   {
-                      text: "Cancel",
-                  },
-                  {
                       text: "OK",
                   },
               ]
