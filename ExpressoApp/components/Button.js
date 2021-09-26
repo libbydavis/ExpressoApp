@@ -22,7 +22,9 @@ class ExpressoButton extends React.Component {
 
   OnPressHandler = () => {
     try{
-      this.onPress()?.();
+      this.onPress ?
+        this.onPress()?.() :
+          console.warn('Implement onPress prop');
     }
     catch(error){
       console.warn('Caught an error in ExpressoButton');
