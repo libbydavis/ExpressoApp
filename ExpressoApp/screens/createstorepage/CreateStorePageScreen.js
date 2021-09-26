@@ -13,10 +13,10 @@ const CreateStorePageScreen = ( {navigation} ) => {
         storeName: "",
         storeAddress: "",
         storePhoneNum: "",
-        //coverImage: "",
-        //itemName: "",
-        //itemPrice: "",
-       // itemCoverImage: "",
+        coverImage: "",
+        itemName: "",
+        itemPrice: "",
+        itemCoverImage: "",
     }]);
     const [isRender, setisRender] = useState(false);
     const [openEditStoreModal, setOpenEditStoreModal] = useState(false);
@@ -36,8 +36,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
         setInputStoreName(item.storeName);
         setInputStoreAddress(item.storeAddress);
         setInputStorePhoneNum(item.storePhoneNum);
-       // setInputCoverImage(item.coverImage);
-       // setInputItemCoverImage(item.inputItemCoverImage);
+     
         setChangeStoreData(item.id);
     }
 
@@ -47,7 +46,10 @@ const CreateStorePageScreen = ( {navigation} ) => {
             storeName: storeData[0].storeName,
             storeAddress: storeData[0].storeAddress,
             storePhoneNum: storeData[0].storePhoneNum,
-            //coverImage: coverImage,
+            coverImage: storeData[0].coverImage,
+            itemName: storeData[0].itemName,
+            itemPrice: storeData[0].itemPrice,
+            itemCoverImage : storeData[0].itemCoverImage,
         })
         .then(() => {
             console.log("Store details successfully stored");
@@ -88,17 +90,17 @@ const CreateStorePageScreen = ( {navigation} ) => {
                         <Text style={styles.storePhoneNumText}>{item.storePhoneNum}</Text>
                     </View>
                     <View style={styles.storeImageContainer}>
-                        <CustomImagePicker receiveImage={receiveImage} width={450} height={190}>{item.coverImage}</CustomImagePicker>
+                        <CustomImagePicker receiveImage={receiveImage} width={450} height={200}>{item.coverImage}</CustomImagePicker>
                     </View>
                     <View style={styles.itemImageContainerLeft}>
-                        <CustomImagePicker receiveImage={receiveImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
+                        <CustomImagePicker receiveImage={receiveItemImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
                     </View>
                     <View styles={styles.itemContainer}>
                         <TextInput style={styles.itemNameTextLeft} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
                         <TextInput style={styles.itemPriceTextLeft} placeholder={"Price"} onChangeText={(item) => setInputItemPrice(item)}/>
                     </View>
                     <View style={styles.itemImageContainerRight}>
-                        <CustomImagePicker receiveImage={receiveImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
+                        <CustomImagePicker receiveImage={receiveItemImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
                     </View>
                     <View styles={styles.itemContainer}>
                         <TextInput style={styles.itemNameTextRight} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
@@ -112,6 +114,11 @@ const CreateStorePageScreen = ( {navigation} ) => {
     const receiveImage = (image) => {
         setInputCoverImage({...inputCoverImage, ['image'] : image});
     }
+
+    const receiveItemImage = (image) => {
+        setInputItemCoverImage({...inputItemCoverImage, ['image'] : image});
+    }
+
 
 
     const handleChangeStoreData = (changeStoreData) => {
@@ -132,6 +139,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
         setisRender(!isRender);
         console.log(newData);
     }
+    
 
     const onPressSaveChanges = () => {
         handleChangeStoreData(changeStoreData);
@@ -246,7 +254,6 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'contain',
         alignSelf: 'center',
-        height: '50%',
     },
     itemImageContainerLeft: {
         flex: 1,
