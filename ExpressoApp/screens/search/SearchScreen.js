@@ -18,8 +18,9 @@ import DropDownPicker from 'react-native-dropdown-picker';
  * @return {JSX.Element}
  * @constructor
  */
-const SearchScreen = ({navigation}) => {
+const SearchScreen = () => {
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('A-Z');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [open, setOpen] = useState(false);
@@ -34,12 +35,11 @@ const SearchScreen = ({navigation}) => {
       var business = [];
       snapshot.forEach((child)=>{
         business.push({
-              key: child.key,
               title: child.val().title,
               address: child.val().address
             })
       })
-      setFilteredDataSource(business);
+      setSortedFilteredData(business, sort);
       setMasterDataSource(business);
     })
   }, []);
@@ -58,12 +58,12 @@ const SearchScreen = ({navigation}) => {
             const textData = text.toUpperCase();
             return itemData.indexOf(textData) > -1;
           });
-      setFilteredDataSource(newData);
+      setSortedFilteredData(newData, sort);
       setSearch(text);
     } else {
       // Inserted text is blank
       // Update FilteredDataSource with masterDataSource
-      setFilteredDataSource(masterDataSource);
+      setSortedFilteredData(masterDataSource, sort);
       setSearch(text);
     }
   };
@@ -78,12 +78,24 @@ const SearchScreen = ({navigation}) => {
     );
   };
 
-
   const getItem = (item) => {
     // Function for click on an item
     alert('Id : ' + item.key + '\nTitle : ' + item.title + '\nAddress : ' + item.address);
-    navigation.navigate('MenuScreen', "-MjfOssFsJiWGPKYUlLz")
   };
+
+  const setSortedFilteredData = (data, sortInput) => {
+    if (sortInput == 'A-Z') {
+      setFilteredDataSource(data.sort((a, b) => (a.title > b.title) ? 1 : -1))
+    }
+    else if (sortInput == 'Z-A') {
+      setFilteredDataSource(data.sort((a, b) => (a.title < b.title) ? 1 : -1))
+    }
+  }
+
+  const updateSort= (sortInput) => {
+    setSort(sortInput)
+    setSortedFilteredData(filteredDataSource, sortInput)
+  }
 
   return (
     <View style={styles.mainView}>
@@ -130,6 +142,15 @@ const SearchScreen = ({navigation}) => {
           />
           </View>
         </ImageBackground>
+      </View>
+      <View style={styles.sort}>
+        <Text style={styles.sortText} >Sort By:</Text>
+        <TouchableOpacity  onPress={() => updateSort('A-Z')}>
+          <Text style={styles.sortText} >[ A-Z ]</Text>
+        </TouchableOpacity>
+        <TouchableOpacity  onPress={() => updateSort('Z-A')}>
+          <Text style={styles.sortText} >[ Z-A ]</Text>
+        </TouchableOpacity>
       </View>
     <ScrollView>
       <FlatList
@@ -233,6 +254,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontFamily: 'Monserrat-Regular',
+  },
+  sort: {
+    flexDirection: 'row',
+    margin: 5,
+  },
+  sortText: {
+    fontFamily: 'Monserrat-Regular',
+    color: '#25a2af',
+    fontWeight: 'bold',
+    padding: 5,
   }
 });
 
