@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { RadioButton } from 'react-native-paper';
 
 /**
  *
@@ -144,13 +145,22 @@ const SearchScreen = () => {
         </ImageBackground>
       </View>
       <View style={styles.sort}>
-        <Text style={styles.sortText} >Sort By:</Text>
-        <TouchableOpacity  onPress={() => updateSort('A-Z')}>
-          <Text style={styles.sortText} >[ A-Z ]</Text>
-        </TouchableOpacity>
-        <TouchableOpacity  onPress={() => updateSort('Z-A')}>
-          <Text style={styles.sortText} >[ Z-A ]</Text>
-        </TouchableOpacity>
+        <Text style={styles.sortText} >Sort By:   </Text>
+        <RadioButton
+            value='A-Z'
+            color={'#25a2af'}
+            status={ sort === 'A-Z' ? 'checked' : 'unchecked' }
+            onPress={() => updateSort('A-Z')}
+            text='A-Z'
+        />
+        <Text style={styles.sortText} >A-Z   </Text>
+        <RadioButton
+            value='Z-A'
+            color={'#25a2af'}
+            status={ sort === 'Z-A' ? 'checked' : 'unchecked' }
+            onPress={() => updateSort('Z-A')}
+        />
+        <Text style={styles.sortText} >Z-A   </Text>
       </View>
     <ScrollView>
       <FlatList
@@ -257,14 +267,15 @@ const styles = StyleSheet.create({
   },
   sort: {
     flexDirection: 'row',
+    alignItems: 'center',
     margin: 5,
   },
   sortText: {
     fontFamily: 'Monserrat-Regular',
-    color: '#25a2af',
+    color: '#444',
     fontWeight: 'bold',
     padding: 5,
-  }
+  },
 });
 
 export default SearchScreen;
