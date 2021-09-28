@@ -130,12 +130,12 @@ class Cart extends Component {
           <View>
             {
               this.state.items.map((item, index) => {
-                return <CartItem key={index} image={item.image} title={item.title} price={item.price} quantity={item.quantity} receiveQuantity={(value) => this.setNewQuantity(value, index)} onpress={() => this.deleteCartItem(index, item.totalPrice)}></CartItem>
+                return <CartItem key={index} cartItem={{image: item.image, title: item.title, price: item.price, quantity: item.quantity, notes: item.notes, options: item.options}} receiveQuantity={(value) => this.setNewQuantity(value, index)} onpress={() => this.deleteCartItem(index, item.totalPrice)}></CartItem>
               })
             }
           </View>
           <View>
-            <Text>Total: ${this.state.total}</Text>
+            <Text>Total: ${this.state.total.toFixed(2)}</Text>
           </View>
         </View>
 
