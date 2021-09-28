@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, FlatList, Text, Modal, TextInput, KeyboardAvoidingView, Alert} from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, 
+    ScrollView, FlatList, Text, Modal, TextInput, KeyboardAvoidingView, Alert} from "react-native";
 import CustomImagePicker from '../addmenuitem/CustomImagePicker';
 import {firebase, firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 
@@ -73,40 +74,50 @@ const CreateStorePageScreen = ( {navigation} ) => {
     const renderItem = ({ item }) => {
         return (
             <KeyboardAvoidingView behavior="height">
-                <View>
+                <ScrollView>
                     <TouchableOpacity style={styles.editStorePageButton}>
-                        <Text style={styles.modalButtonText} onPress={() => onPressEditStoreButton(item)}>
+                        <Text style={styles.buttonText} onPress={() => onPressEditStoreButton(item)}>
                             Edit Store
                         </Text> 
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.addMenuButton}>
-                        <Text style={styles.modalButtonText} onPress={() => onPressSubmitPageButton(item)}>
+                    <TouchableOpacity style={styles.submitButton}>
+                        <Text style={styles.buttonText} onPress={() => onPressSubmitPageButton(item)}>
                             Submit
                         </Text> 
                     </TouchableOpacity>
                     <View styles={styles.storeDetails}>
-                        <Text style={styles.storeNameText}>{item.storeName}</Text>
-                        <Text style={styles.storeAddressText}>{item.storeAddress}</Text>
-                        <Text style={styles.storePhoneNumText}>{item.storePhoneNum}</Text>
+                        <Text style={[styles.storeText, {fontSize: 35}]}>{item.storeName}</Text>
+                        <Text style={[styles.storeText, {fontSize: 25}]}>{item.storeAddress}</Text>
+                        <Text style={[styles.storeText, {fontSize: 20}]}>{item.storePhoneNum}</Text>
                     </View>
                     <View style={styles.storeImageContainer}>
-                        <CustomImagePicker receiveImage={receiveImage} width={450} height={200}>{item.coverImage}</CustomImagePicker>
+                        <CustomImagePicker receiveImage={receiveImage} width={450} height={190}>{item.coverImage}</CustomImagePicker>
                     </View>
-                    <View style={styles.itemImageContainerLeft}>
+                    <TouchableOpacity style={[styles.storeButton, {marginLeft: 70, marginTop: 5}]}>
+                        <Text style={styles.buttonText}>
+                            Contact
+                        </Text> 
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.storeButton, {marginLeft: 225, marginTop: -35}]}>
+                        <Text style={styles.buttonText}>
+                            Menu
+                        </Text> 
+                    </TouchableOpacity>
+                    <View style={[styles.itemImageContainer, {marginLeft: 60, marginTop: 15}]}>
                         <CustomImagePicker receiveImage={receiveItemImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
                     </View>
                     <View styles={styles.itemContainer}>
-                        <TextInput style={styles.itemNameTextLeft} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
-                        <TextInput style={styles.itemPriceTextLeft} placeholder={"Price"} onChangeText={(item) => setInputItemPrice(item)}/>
+                        <TextInput style={[styles.itemNameText, {marginLeft: 25}]} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
+                        <TextInput style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"} onChangeText={(item) => setInputItemPrice(item)}/>
                     </View>
-                    <View style={styles.itemImageContainerRight}>
+                    <View style={[styles.itemImageContainer, {marginLeft: 240, marginTop: -195}]}>
                         <CustomImagePicker receiveImage={receiveItemImage} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
                     </View>
                     <View styles={styles.itemContainer}>
-                        <TextInput style={styles.itemNameTextRight} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
-                        <TextInput style={styles.itemPriceTextRight} placeholder={"Price"} onChangeText={(item) => setInputItemPrice(item)}/>
+                        <TextInput style={[styles.itemNameText, {marginLeft: 205}]} placeholder={"Name"} onChangeText={(item) => setInputItemName(item)}/>
+                        <TextInput style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"} onChangeText={(item) => setInputItemPrice(item)}/>
                     </View>
-                </View>
+                </ScrollView>
             </KeyboardAvoidingView>
         )
     }
@@ -118,8 +129,6 @@ const CreateStorePageScreen = ( {navigation} ) => {
     const receiveItemImage = (image) => {
         setInputItemCoverImage({...inputItemCoverImage, ['image'] : image});
     }
-
-
 
     const handleChangeStoreData = (changeStoreData) => {
         const newData = storeData.map(item => {
@@ -186,13 +195,13 @@ const CreateStorePageScreen = ( {navigation} ) => {
                         maxLength={70}
                     />
                     <View styles={styles.modalButton}>
-                        <TouchableOpacity style={styles.saveStoreDetailsButton}>
-                            <Text style={styles.modalButtonText} onPress={() => onPressSaveChanges()}>
+                        <TouchableOpacity style={[styles.storeDetailsButton, {backgroundColor: '#25a2af'}]}>
+                            <Text style={styles.buttonText} onPress={() => onPressSaveChanges()}>
                                 Save Changes
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.cancelStoreDetailsButton}>
-                            <Text style={styles.modalButtonText} onPress={() => setOpenEditStoreModal(false)}>
+                        <TouchableOpacity style={[styles.storeDetailsButton, {backgroundColor: 'red'}]}>
+                            <Text style={styles.buttonText} onPress={() => setOpenEditStoreModal(false)}>
                                 Cancel
                             </Text>
                         </TouchableOpacity>
@@ -220,9 +229,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginTop: 5,
     },
-    container: {
-        flex: 1,
-    },
     editStorePageButton: {
         flexDirection: 'row',
         backgroundColor: '#25a2af',
@@ -233,7 +239,7 @@ const styles = StyleSheet.create({
         marginLeft: 70,
         width: '25%',
     },
-    addMenuButton: {
+    submitButton: {
         flexDirection: 'row',
         backgroundColor: '#25a2af',
         padding: 8,
@@ -247,35 +253,24 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        margin: 10,
+        marginTop: 20,
         width: 100,
     },
     storeImageContainer: {
         flex: 1,
         resizeMode: 'contain',
         alignSelf: 'center',
+        marginTop: 10,
     },
-    itemImageContainerLeft: {
+    itemImageContainer: {
         flex: 1,
         resizeMode: 'contain',
         justifyContent: 'space-between',
         alignSelf: 'flex-start',
         height: '25%',
         width: '25%',
-        marginLeft: 60,
-        marginTop: 15,
     },
-    itemImageContainerRight: {
-        flex: 1,
-        resizeMode: 'contain',
-        justifyContent: 'space-between',
-        alignSelf: 'flex-start',
-        height: '25%',
-        width: '25%',
-        marginLeft: 240,
-        marginTop: -190,
-    },
-    storeNameText: {
+    storeText: {
         fontSize: 35,
         fontWeight: 'bold',
         fontFamily: 'Monserrat-Bold',
@@ -283,63 +278,24 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         textAlign: 'center',
     },
-    storeAddressText: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        fontFamily: 'Monserrat-Bold',
-        color: '#25a2af',
-        marginVertical: 5,
-        textAlign: 'center',
-    },
-    storePhoneNumText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        fontFamily: 'Monserrat-Bold',
-        color: '#25a2af',
-        marginVertical: 5,
-        textAlign: 'center',
-    },
-    itemNameTextLeft: {
+    itemNameText: {
         fontSize: 15,
         fontFamily: 'Monserrat-Bold',
         color: '#000000',
         marginVertical: 5,
         textAlign: 'center',
         flexDirection: 'row',
-        marginLeft: 25,
         marginTop: -10,
         width: 90,
     },
-    itemPriceTextLeft: {
+    itemPriceText: {
         fontSize: 15,
         fontFamily: 'Monserrat-Bold',
         color: '#000000',
         marginVertical: 5,
         textAlign: 'center',
         flexDirection: 'row',
-        marginLeft: 130,
-        marginTop: -53,
-        width: 45,
-    },
-    itemNameTextRight: {
-        fontSize: 15,
-        fontFamily: 'Monserrat-Bold',
-        color: '#000000',
-        textAlign: 'center',
-        flexDirection: 'row',
-        marginLeft: 205,
-        marginTop: -12,
-        width: 100,
-    },
-    itemPriceTextRight: {
-        fontSize: 15,
-        fontFamily: 'Monserrat-Bold',
-        color: '#000000',
-        marginVertical: 5,
-        textAlign: 'center',
-        flexDirection: 'row',
-        marginLeft: 315,
-        marginTop: -50,
+        marginTop: -53, 
         width: 45,
     },
     text: {
@@ -371,25 +327,26 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         marginHorizontal: 16
     },
-    saveStoreDetailsButton: {
-        backgroundColor: '#25a2af',
-        padding: 12,
-        borderRadius: 10,
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    cancelStoreDetailsButton: {
-        backgroundColor: 'red',
+    storeDetailsButton: {
         padding: 12,
         borderRadius: 10,
         marginBottom: 20,
      },
-    modalButtonText: {
+    buttonText: {
         color: '#ffffff',
-        fontSize: 14,
-        textTransform: 'uppercase',
+        fontSize: 15,
         textAlign: 'center',
+        textTransform: 'uppercase',
     },
+    storeButton: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: '#25a2af',
+        padding: 8,
+        borderRadius: 10,
+        width: '25%',
+    },
+
 });
 
 export default CreateStorePageScreen;

@@ -21,9 +21,9 @@ const StorePageScreen = ( {navigation, route} ) => {
                 />
             </View>
             <View styles={styles.storeDetails}>
-                <Text style={styles.storeNameText}>{storeName}</Text>
-                <Text style={styles.storeAddressText}>{storeAddress}</Text>
-                <Text style={styles.storePhoneNumText}>{storePhoneNum}</Text>
+                <Text style={[styles.storeText, {fontSize: 35}]}>{storeName}</Text>
+                <Text style={[styles.storeText, {fontSize: 25}]}>{storeAddress}</Text>
+                <Text style={[styles.storeText, {fontSize: 20}]}>{storePhoneNum}</Text>
             </View>
             <View style={styles.storeImageContainer}>
                 <Image 
@@ -31,35 +31,35 @@ const StorePageScreen = ( {navigation, route} ) => {
                     source={coverImage.image && {uri: coverImage.image}}
                 />  
             </View>
-            <TouchableOpacity style={styles.contactButton}>
-                    <Text style={styles.buttonText}>
-                        Contact
-                    </Text> 
+            <TouchableOpacity style={[styles.button, {marginLeft: 70, marginTop: 15}]}>
+                <Text style={styles.buttonText}>
+                    Contact
+                </Text> 
             </TouchableOpacity>
-            <TouchableOpacity style={styles.menuButton}>
-                    <Text style={styles.buttonText}>
-                        Menu
-                    </Text> 
+            <TouchableOpacity style={[styles.button, {marginLeft: 225, marginTop: -40}]}>
+                <Text style={styles.buttonText}>
+                    Menu
+                </Text> 
             </TouchableOpacity>
-            <View style={styles.itemImageContainerLeft}>
+            <View style={[styles.itemImageContainer, {marginLeft: 30, marginTop: 20}]}>
                 <Image
                     style={styles.storeItemImage}
                     source={itemCoverImage.image && {uri: itemCoverImage.image}}
                 />
             </View>
             <View styles={styles.itemContainer}>
-                <Text style={styles.itemNameTextLeft} placeholder={"Name"}>{itemName}</Text>
-                <Text style={styles.itemPriceTextLeft} placeholder={"Price"}>{itemPrice}</Text>
+                <Text style={[styles.itemNameText, {marginLeft: 35}]} placeholder={"Name"}>{itemName}</Text>
+                <Text style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"}>{itemPrice}</Text>
             </View>
-            <View style={styles.itemImageContainerRight}>
+            <View style={[styles.itemImageContainer, {marginLeft: 210, marginTop: -190}]}>
                 <Image
                     style={styles.storeItemImage}
                     source={itemCoverImage.image && {uri: itemCoverImage.image}}
                 />
             </View>
             <View styles={styles.itemContainer}>
-                <Text style={styles.itemNameTextRight} placeholder={"Name"}>{itemName}</Text>
-                <Text style={styles.itemPriceTextRight} placeholder={"Price"}>{itemPrice}</Text>
+                <Text style={[styles.itemNameText, {marginLeft: 220}]} placeholder={"Name"}>{itemName}</Text>
+                <Text style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"}>{itemPrice}</Text>
             </View>
         </ScrollView>
     );
@@ -93,33 +93,18 @@ const styles = StyleSheet.create({
         height: 150,
         marginTop: 10,
     },
-    container: {
-        flex: 1,
-    },
-    contactButton: {
+    button: {
         flexDirection: 'row',
         justifyContent: 'center',
         backgroundColor: '#25a2af',
         padding: 8,
         borderRadius: 10,
-        marginTop: 15,
-        marginLeft: 70,
-        width: '25%',
-    },
-    menuButton: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: '#25a2af',
-        padding: 8,
-        borderRadius: 10,
-        marginTop: -37,
-        marginLeft: 225,
         width: '25%',
     },
     buttonText: {
         textAlign: 'center',
         color: '#ffffff',
-        fontSize: 16,
+        fontSize: 15,
         textTransform: 'uppercase',
     },
     itemContainer: {
@@ -136,27 +121,15 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         height: '50%',
     },
-    itemImageContainerLeft: {
+    itemImageContainer: {
         flex: 1,
         resizeMode: 'contain',
         justifyContent: 'space-between',
         alignSelf: 'flex-start',
         height: '25%',
         width: '25%',
-        marginTop: 30,
-        marginLeft: 20,
     },
-    itemImageContainerRight: {
-        flex: 1,
-        resizeMode: 'contain',
-        justifyContent: 'space-between',
-        alignSelf: 'flex-start',
-        height: '25%',
-        width: '25%',
-        marginLeft: 210,
-        marginTop: -190,
-    },
-    storeNameText: {
+    storeText: {
         fontSize: 35,
         fontWeight: 'bold',
         fontFamily: 'Monserrat-Bold',
@@ -164,47 +137,24 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         textAlign: 'center',
     },
-    itemNameTextLeft: {
+    itemNameText: {
         fontSize: 15,
         fontFamily: 'Monserrat-Bold',
         color: '#000000',
         marginVertical: 5,
         textAlign: 'center',
         flexDirection: 'row',
-        marginLeft: 35,
-        marginTop: 5,
+        marginTop: 5, 
         width: 60,
     },
-    itemPriceTextLeft: {
+    itemPriceText: {
         fontSize: 15,
         fontFamily: 'Monserrat-Bold',
         color: '#000000',
         marginVertical: 5,
         textAlign: 'center',
         flexDirection: 'row',
-        marginLeft: 130,
         marginTop: -25,
-        width: 45,
-    },
-    itemNameTextRight: {
-        fontSize: 15,
-        fontFamily: 'Monserrat-Bold',
-        color: '#000000',
-        textAlign: 'center',
-        flexDirection: 'row',
-        marginLeft: 220,
-        marginTop: 5,
-        width: 50,
-    },
-    itemPriceTextRight: {
-        fontSize: 15,
-        fontFamily: 'Monserrat-Bold',
-        color: '#000000',
-        marginVertical: 5,
-        textAlign: 'center',
-        flexDirection: 'row',
-        marginLeft: 315,
-        marginTop: -20,
         width: 45,
     },
     text: {
@@ -221,55 +171,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginVertical: 15,
     },
-    modalView: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modalButton: {
-        width: '50%',
-        marginVertical: 30,
-        marginLeft: 50,
-    },
     storeDetails: {
         padding: 20,
         marginVertical: 5,
         marginHorizontal: 16
-    },
-    storeAddressText: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        fontFamily: 'Monserrat-Bold',
-        color: '#25a2af',
-        marginVertical: 5,
-        textAlign: 'center',
-    },
-    storePhoneNumText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        fontFamily: 'Monserrat-Bold',
-        color: '#25a2af',
-        marginVertical: 5,
-        textAlign: 'center',
-    },
-    saveStoreDetailsButton: {
-        backgroundColor: '#25a2af',
-        padding: 12,
-        borderRadius: 10,
-        marginTop: 20,
-        marginBottom: 20,
-    },
-    cancelStoreDetailsButton: {
-        backgroundColor: 'red',
-        padding: 12,
-        borderRadius: 10,
-        marginBottom: 20,
-     },
-    modalButtonText: {
-        textAlign: 'center',
-        color: '#ffffff',
-        fontSize: 14,
-        textTransform: 'uppercase',
     },
 });
 
