@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, FlatList, Text, Modal, TextInput, KeyboardAvoidingView, Alert} from "react-native";
-import CustomImagePicker from '../addmenuitem/CustomImagePicker';
+import CustomImagePicker from '../../components/CustomImagePicker';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 
 const CreateStorePageScreen = ( {navigation} ) => {
@@ -63,7 +63,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
             console.error(error);
         });
     }
-    
+
 
     const renderItem = ({ item }) => {
         return (
@@ -72,12 +72,12 @@ const CreateStorePageScreen = ( {navigation} ) => {
                     <TouchableOpacity style={styles.editStorePageButton}>
                         <Text style={styles.modalButtonText} onPress={() => onPressEditStoreButton(item)}>
                             Edit Store
-                        </Text> 
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.addMenuButton}>
                         <Text style={styles.modalButtonText} onPress={() => onPressSubmitPageButton(item)}>
                             Submit
-                        </Text> 
+                        </Text>
                     </TouchableOpacity>
                     <View styles={styles.storeDetails}>
                         <Text style={styles.storeNameText}>{item.storeName}</Text>

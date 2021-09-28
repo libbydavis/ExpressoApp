@@ -1,7 +1,8 @@
 import React, {Component, useState} from "react";
 import {Text, View, StyleSheet, Image, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
-import AddToCartButton from "../cart/AddToCartButton";
-import QuantityInput from "../addmenuitem/QuantityInput";
+import AddToCartButton from "../../components/AddToCartButton";
+import QuantityInput from "../../components/QuantityInput";
+import Header from "../../components/Header";
 
 //TODO: options lists
 //TODO: make nav bar into it's own component
@@ -19,15 +20,7 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <View style={styles.navBar}>
-                <Image
-                    source={require('../../assets/ExpressoLogo.png')}
-                    style={styles.headerIcon}
-                />
-                <TouchableOpacity onPress={() => {navigation.navigate('Cart')}}>
-                    <Image source={require('../../assets/carticon.png')} style={styles.cartIcon}/>
-                </TouchableOpacity>
-            </View>
+            <Header></Header>
             <TouchableWithoutFeedback onPress={() => navigation.navigate('AddMenuItem')}>
                 <Text style={styles.backButtonText}>Back To Menu</Text>
             </TouchableWithoutFeedback>
@@ -47,23 +40,6 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
 }
 
 const styles = StyleSheet.create({
-    navBar: {
-        marginBottom: 15,
-        marginTop: 8,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    headerIcon: {
-        width: 200,
-        height: 50,
-        marginLeft: 15,
-    },
-    cartIcon: {
-        width: 40,
-        height: 40,
-        marginTop: 8,
-        marginRight: 10,
-    },
     pageView: {
         alignItems: 'center',
         marginTop: 15
