@@ -4,9 +4,9 @@ import { View, Image, StyleSheet, Text, ScrollView, TouchableOpacity, KeyboardAv
 
 const StorePageScreen = ( {navigation, route} ) => {
     const {storeName, storeAddress, storePhoneNum, 
-            coverImage, itemName, itemPrice, itemCoverImage} = route.params;
+            coverImage, itemNameFirst, itemPriceFirst,itemCoverImageFirst,
+             itemNameSecond, itemPriceSecond, itemCoverImageSecond} = route.params;
     console.log(coverImage.image);
-    console.log(storeName);
     
     return (
         <ScrollView>
@@ -36,7 +36,7 @@ const StorePageScreen = ( {navigation, route} ) => {
                     Contact
                 </Text> 
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, {marginLeft: 225, marginTop: -40}]}>
+            <TouchableOpacity style={[styles.button, {marginLeft: 225, marginTop: -35}]}>
                 <Text style={styles.buttonText}>
                     Menu
                 </Text> 
@@ -44,22 +44,22 @@ const StorePageScreen = ( {navigation, route} ) => {
             <View style={[styles.itemImageContainer, {marginLeft: 30, marginTop: 20}]}>
                 <Image
                     style={styles.storeItemImage}
-                    source={itemCoverImage.image && {uri: itemCoverImage.image}}
+                    source={itemCoverImageFirst.image && {uri: itemCoverImageFirst.image}}
                 />
             </View>
             <View styles={styles.itemContainer}>
-                <Text style={[styles.itemNameText, {marginLeft: 35}]} placeholder={"Name"}>{itemName}</Text>
-                <Text style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"}>{itemPrice}</Text>
+                <Text style={[styles.itemNameText, {marginLeft: 35}]} placeholder={"Name"}>{itemNameFirst}</Text>
+                <Text style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"}>{itemPriceFirst}</Text>
             </View>
             <View style={[styles.itemImageContainer, {marginLeft: 210, marginTop: -190}]}>
                 <Image
                     style={styles.storeItemImage}
-                    source={itemCoverImage.image && {uri: itemCoverImage.image}}
+                    source={itemCoverImageSecond.image && {uri: itemCoverImageSecond.image}}
                 />
             </View>
             <View styles={styles.itemContainer}>
-                <Text style={[styles.itemNameText, {marginLeft: 220}]} placeholder={"Name"}>{itemName}</Text>
-                <Text style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"}>{itemPrice}</Text>
+                <Text style={[styles.itemNameText, {marginLeft: 220}]} placeholder={"Name"}>{itemNameSecond}</Text>
+                <Text style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"}>{itemPriceSecond}</Text>
             </View>
         </ScrollView>
     );
