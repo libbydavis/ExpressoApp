@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, 
-    ScrollView, FlatList, Text, Modal, TextInput, KeyboardAvoidingView, Alert} from "react-native";
+           FlatList, Text, Modal, TextInput, Alert} from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomImagePicker from '../addmenuitem/CustomImagePicker';
 import {firebase, firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 
@@ -85,52 +86,50 @@ const CreateStorePageScreen = ( {navigation} ) => {
 
     const renderItem = ({ item }) => {
         return (
-            <KeyboardAvoidingView behavior="height">
-                <ScrollView>
-                   <TouchableOpacity style={[styles.storeButton, {marginLeft: 70, marginTop: 5}]}>
-                        <Text style={styles.buttonText} onPress={() => onPressEditStoreButton(item)}>
-                            Edit Store
-                        </Text> 
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.storeButton, {marginLeft: 225, marginTop: -35}]}>
-                        <Text style={styles.buttonText} onPress={() => onPressSubmitPageButton(item)}>
-                            Submit
-                        </Text> 
-                    </TouchableOpacity>
-                    <View styles={styles.storeDetails}>
-                        <Text style={[styles.storeText, {fontSize: 35}]}>{item.storeName}</Text>
-                        <Text style={[styles.storeText, {fontSize: 25}]}>{item.storeAddress}</Text>
-                        <Text style={[styles.storeText, {fontSize: 20}]}>{item.storePhoneNum}</Text>
-                    </View>
-                    <View style={styles.storeImageContainer}>
-                        <CustomImagePicker receiveImage={receiveImage} width={450} height={190}>{item.coverImage}</CustomImagePicker>
-                    </View>
-                    <TouchableOpacity style={[styles.storeButton, {marginLeft: 70, marginTop: 5}]}>
-                        <Text style={styles.buttonText}>
-                            Contact
-                        </Text> 
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.storeButton, {marginLeft: 225, marginTop: -35}]}>
-                        <Text style={styles.buttonText}>
-                            Menu
-                        </Text> 
-                    </TouchableOpacity>
-                    <View style={[styles.itemImageContainer, {marginLeft: 60, marginTop: 15}]}>
-                        <CustomImagePicker receiveImage={receiveItemImageFirst} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
-                    </View>
-                    <View styles={styles.itemContainer}>
-                        <TextInput style={[styles.itemNameText, {marginLeft: 25}]} placeholder={"Name"} onChangeText={(item) => setInputItemNameFirst(item)}/>
-                        <TextInput style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"} onChangeText={(item) => setInputItemPriceFirst(item)}/>
-                    </View>
-                    <View style={[styles.itemImageContainer, {marginLeft: 240, marginTop: -195}]}>
-                        <CustomImagePicker receiveImage={receiveItemImageSecond} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
-                    </View>
-                    <View styles={styles.itemContainer}>
-                        <TextInput style={[styles.itemNameText, {marginLeft: 205}]} placeholder={"Name"} onChangeText={(item) => setInputItemNameSecond(item)}/>
-                        <TextInput style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"} onChangeText={(item) => setInputItemPriceSecond(item)}/>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
+            <KeyboardAwareScrollView>
+                <TouchableOpacity style={[styles.storeButton, {marginLeft: 70, marginTop: 5}]}>
+                    <Text style={styles.buttonText} onPress={() => onPressEditStoreButton(item)}>
+                        Edit Store
+                    </Text> 
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.storeButton, {marginLeft: 225, marginTop: -35}]}>
+                    <Text style={styles.buttonText} onPress={() => onPressSubmitPageButton(item)}>
+                        Submit
+                    </Text> 
+                </TouchableOpacity>
+                <View styles={styles.storeDetails}>
+                    <Text style={[styles.storeText, {fontSize: 35}]}>{item.storeName}</Text>
+                    <Text style={[styles.storeText, {fontSize: 25}]}>{item.storeAddress}</Text>
+                    <Text style={[styles.storeText, {fontSize: 20}]}>{item.storePhoneNum}</Text>
+                </View>
+                <View style={styles.storeImageContainer}>
+                    <CustomImagePicker receiveImage={receiveImage} width={450} height={190}>{item.coverImage}</CustomImagePicker>
+                </View>
+                <TouchableOpacity style={[styles.storeButton, {marginLeft: 70, marginTop: 5}]}>
+                    <Text style={styles.buttonText}>
+                        Contact
+                    </Text> 
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.storeButton, {marginLeft: 225, marginTop: -35}]}>
+                    <Text style={styles.buttonText}>
+                        Menu
+                    </Text> 
+                </TouchableOpacity>
+                <View style={[styles.itemImageContainer, {marginLeft: 60, marginTop: 15}]}>
+                    <CustomImagePicker receiveImage={receiveItemImageFirst} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
+                </View>
+                <View styles={styles.itemContainer}>
+                    <TextInput style={[styles.itemNameText, {marginLeft: 25}]} placeholder={"Name"} onChangeText={(item) => setInputItemNameFirst(item)}/>
+                    <TextInput style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"} onChangeText={(item) => setInputItemPriceFirst(item)}/>
+                </View>
+                <View style={[styles.itemImageContainer, {marginLeft: 240, marginTop: -195}]}>
+                    <CustomImagePicker receiveImage={receiveItemImageSecond} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
+                </View>
+                <View styles={styles.itemContainer}>
+                    <TextInput style={[styles.itemNameText, {marginLeft: 205}]} placeholder={"Name"} onChangeText={(item) => setInputItemNameSecond(item)}/>
+                    <TextInput style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"} onChangeText={(item) => setInputItemPriceSecond(item)}/>
+                </View>
+            </KeyboardAwareScrollView> 
         )
     }
 
