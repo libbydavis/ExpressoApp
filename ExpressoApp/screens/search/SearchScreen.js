@@ -82,7 +82,7 @@ const SearchScreen = ({navigation}) => {
   const getItem = (item) => {
     // Function for click on an item
     alert('Id : ' + item.key + '\nTitle : ' + item.title + '\nAddress : ' + item.address);
-    navigation.navigate('MenuScreen')
+    navigation.navigate('MenuScreen', "-MjfOssFsJiWGPKYUlLz")
   };
 
   return (
