@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
-import QuantityInput from "./QuantityInput";
+import QuantityInput from "../addmenuitem/QuantityInput";
 
 const CartItem = (props) => {
   const receiveQuantity = (value) => {

@@ -1,7 +1,7 @@
 import React, {Component, useState} from "react";
 import { ScrollView, Text, View, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CartItem from "../../components/CartItem";
+import CartItem from "./CartItem";
 
 class Cart extends Component {
   constructor(props) {
