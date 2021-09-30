@@ -16,6 +16,8 @@ import CustomImagePicker from './CustomImagePicker';
 import CheckListTask from './ChecklistTask';
 import ToastAndroid from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
 import {firebaseDB} from "../../firebase/FirebaseConfig";
+import CreateOptionListModal from "./CreateOptionListModal";
+import ExpressoButton from "../../customComponents/ExpressoButton";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -33,6 +35,14 @@ const AddMenuItemScreen = ({route, navigation}) => {
         quantity: 5,
         optionLists: [],
     });
+
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    }
+
+    const saveChecklist = (checklist) => {
+        menuItemObject.optionLists.push({title: checklist.title, items: checklist.items});
+    }
 
     const receiveQuantity = (value) => {
         setMenuItemObject({...menuItemObject, ['quantity']: value});
@@ -54,42 +64,6 @@ const AddMenuItemScreen = ({route, navigation}) => {
     const setPrice = (priceText) => {
         setMenuItemObject({...menuItemObject, ['price']: parseFloat(priceText)});
     }
-
-    const handleChecklistTaskAdd = () => {
-        if (checklistTask != undefined) {
-            setChecklistItems([...checklistItems, checklistTask]);
-            setChecklistTask(null);
-        } else {
-            ToastAndroid.show('Type an option to add to the list',
-                ToastAndroid.SHORT);
-        }
-    };
-
-    const handleNewChecklist = () => {
-        if (checklistTitle != undefined && checklistItems.length > 0) {
-            setModalVisible(!modalVisible);
-            menuItemObject.optionLists.push({title: checklistTitle, items: checklistItems});
-            setChecklistTitle(null);
-            setChecklistItems([]);
-        } else if (checklistTitle == undefined) {
-            Alert.alert('Enter a checklist title to continue');
-        } else if (checklistItems == 0) {
-            Alert.alert('Enter at least one option to continue');
-        }
-    };
-
-    const discardNewChecklist = () => {
-        setModalVisible(!modalVisible);
-        setChecklistTitle(null);
-        setChecklistItems([]);
-    };
-
-    const handleDeleteItem = (index) => {
-        const checklistItemsCopy = [...checklistItems];
-        checklistItemsCopy.splice(index, 1);
-        setChecklistItems(checklistItemsCopy);
-        console.log(checklistItems);
-    };
 
     const onClickAddItem = () => {
         let menuRef = dbRef.child(`Menus/${menuID}/menuItems`).push();
@@ -117,6 +91,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.mainView}>
+          <ExpressoButton title={"click"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price:10, optionLists: [{title: 'meat', options:['lamb', 'beef', 'pork']}, {title: 'bread', options:['gluten-free', 'white']}]})}></ExpressoButton>
         <Text style={styles.title}>Add Item</Text>
         <CustomImagePicker receiveImage={receiveImage} width={200} height={180}/>
         <View style={styles.rowView}>
@@ -142,70 +117,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
                 <QuantityInput receiveValue={receiveQuantity} initialQuantity={5}></QuantityInput>
               </View>
             </View>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <View style={styles.modalView}>
-                <TextInput
-                  style={styles.enterOptionTitle}
-                  value={checklistTitle}
-                  placeholder="option title"
-                  onChangeText={(text) => setChecklistTitle(text)}/>
-                <View>
-                  <View>
-                    {
-                      checklistItems.map((item, index) => {
-                        return (
-                          <TouchableOpacity
-                            key={index}
-                            onPress={() => handleDeleteItem(index)}
-                          >
-                            <CheckListTask key={index} text={item}/>
-                          </TouchableOpacity>
-                        );
-                      })
-                    }
-                  </View>
-                  <KeyboardAvoidingView>
-                    <View style={styles.inputChecklist}>
-                      <TextInput
-                        placeholder="Enter option"
-                        value={checklistTask}
-                        onChangeText={(text) => setChecklistTask(text)}
-                        style={styles.enterOptionText}
-                      />
-                      <TouchableOpacity
-                        onPress={() =>handleChecklistTaskAdd()}
-                        style={styles.expressoButton}
-                      >
-                        <Text style={styles.expressoButtonText}>add</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </KeyboardAvoidingView>
-                </View>
-                <View style={styles.optionBottomButtons}>
-                  <TouchableOpacity
-                    style={styles.expressoButton}
-                    onPress={() => handleNewChecklist()}
-                  >
-                    <Text style={styles.expressoButtonText}>
-                        add option list
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.discardButton}
-                    onPress={() => discardNewChecklist()}
-                  >
-                    <Text style={styles.expressoButtonText}>discard</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Modal>
+              <CreateOptionListModal saveChecklist={saveChecklist} seeModal={modalVisible} toggle={toggleModal}></CreateOptionListModal>
             <View>
               <Text style={styles.expressoLabel}>Option Lists</Text>
               {

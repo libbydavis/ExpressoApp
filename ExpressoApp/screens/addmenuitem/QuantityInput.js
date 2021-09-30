@@ -10,21 +10,22 @@ import {
 
 
 const QuantityInput = (props) => {
-  const [quantity, setQuantity] = useState('' + props.initialQuantity);
-  const [quantityNumber, setQuantityNumber] = useState(props.initialQuantity);
+  const setInitialQuantity = (initial) => {
+    return initial? initial : 0;
+  }
+
+  const [quantity, setQuantityNumber] = useState(() => setInitialQuantity(props.initialQuantity));
 
   const handleButtonQuantity = (buttonType) => {
     let newQuantity;
     if (buttonType == true) {
-      newQuantity = quantityNumber + 1;
+      newQuantity = quantity + 1;
       setQuantityNumber(newQuantity);
-      setQuantity(newQuantity.toString());
-    } else if (quantityNumber - 1 < 0) {
+    } else if (quantity - 1 < 0) {
       Alert.alert('You can\'t have a value smaller than 0!');
-    } else if (quantityNumber - 1 >= 0) {
-      newQuantity = quantityNumber - 1;
+    } else if (quantity - 1 >= 0) {
+      newQuantity = quantity - 1;
       setQuantityNumber(newQuantity);
-      setQuantity(newQuantity.toString());
     }
     props.receiveValue(newQuantity);
   };
@@ -38,31 +39,30 @@ const QuantityInput = (props) => {
   };
 
   const handleTextQuantity = (text) => {
-    setQuantity(text);
     setQuantityNumber(Number(text));
     props.receiveValue(Number(text));
   };
 
   return (
-    <View style={styles.quantityRow}>
-      <TouchableOpacity onPress={() => handleMinus()}>
-        <Image
-          source={require('../../assets/minusButton.png')}
-          style={styles.quantityIcon}
+      <View style={styles.quantityRow}>
+        <TouchableOpacity onPress={() => handleMinus()}>
+          <Image
+              source={require('../../assets/minusButton.png')}
+              style={styles.quantityIcon}
+          />
+        </TouchableOpacity>
+        <TextInput
+            style={styles.quantityInputBox} value={quantity.toString()}
+            onChangeText={(text) => handleTextQuantity(text)}
+            keyboardType={'numeric'}
         />
-      </TouchableOpacity>
-      <TextInput
-        style={styles.quantityInputBox} value={quantity}
-        onChangeText={(text) => handleTextQuantity(text)}
-        keyboardType={'numeric'}
-      />
-      <TouchableOpacity onPress={() => handlePlus()}>
-        <Image
-          source={require('../../assets/addButton.png')}
-          style={styles.quantityIcon}
-        />
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity onPress={() => handlePlus()}>
+          <Image
+              source={require('../../assets/addButton.png')}
+              style={styles.quantityIcon}
+          />
+        </TouchableOpacity>
+      </View>
   );
 };
 
