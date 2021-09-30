@@ -67,6 +67,7 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
                                                                        text={innerItem}
                                                                        style={styles.checkItem}
                                                                        key={innerIndex}
+                                                                       textStyle={styles.checkboxText}
                                                                        onPress={(isChecked) => toggleOptions(innerItem, item.title, isChecked)}/>
                                             })
                                         }
@@ -137,8 +138,11 @@ const styles = StyleSheet.create({
     },
     checklist: {
         marginRight: 25
+    },
+    checkboxText: {
+        color: 'black',
+        textDecorationLine: 'none'
     }
-
 })
 
 export default ReviewMenuItemScreen;
