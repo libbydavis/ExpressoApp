@@ -80,6 +80,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
   return (
     <View>
         <Header></Header>
+        <Button title={"click"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price:10, optionLists: [{title: 'meat', options:['lamb', 'beef', 'pork']}, {title: 'bread', options:['gluten-free', 'white']}]})}></Button>
       <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
         <CustomImagePicker receiveImage={receiveImage} width={200} height={180}/>

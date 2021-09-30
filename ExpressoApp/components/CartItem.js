@@ -11,14 +11,16 @@ const CartItem = (props) => {
     <View style={styles.cartItemView}>
 
       <View style={styles.leftDiv}>
-        <Image source={{uri: props.image}} style={styles.image}></Image>
-        <Text>{props.title}</Text>
+        <Image source={{uri: props.cartItem.image}} style={styles.image}></Image>
+        <Text>{props.cartItem.title}</Text>
       </View>
       <View style={styles.rightDiv}>
         <View style={styles.quantityStyle}>
-          <QuantityInput receiveValue={receiveQuantity} initialQuantity={props.quantity}></QuantityInput>
+          <QuantityInput receiveValue={receiveQuantity} initialQuantity={props.cartItem.quantity}></QuantityInput>
         </View>
-        <Text style={styles.price}>${props.price}</Text>
+        <Text style={styles.price}>${props.cartItem.price}</Text>
+        <Text>{props.cartItem.notes}</Text>
+        <Text>{props.cartItem.options}</Text>
         <Text style={styles.x} onPress={props.onpress}>X</Text>
       </View>
     </View>
