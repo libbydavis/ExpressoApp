@@ -11,14 +11,11 @@ class AddToCartButton extends Component {
             title: props.item.title,
             price: props.item.price,
             quantity: props.item.quantity,
-            totalPrice: props.item.currentPrice,
-            notes: props.item.notes,
-            options: props.item.options
+            totalPrice: props.item.price * props.item.quantity
         }
     }
 
     async handleAddToCart() {
-        console.log(this.state)
         let item = false;
         let tryItems = false;
 
