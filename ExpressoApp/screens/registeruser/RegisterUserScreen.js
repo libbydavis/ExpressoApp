@@ -281,9 +281,10 @@ function RegisterUserScreen({navigation}) {
                                             fontFamily: 'Monserrat-Regular',
                                             foregroundColor: 'black',
                                             borderWidth: 1,
-                                            borderRadius: 10,
+                                            borderRadius: 25,
                                             paddingRight: 20,
                                             marginBottom: 20,
+                                            width: 250,
                                         }}
                                     />
                                 </Animatable.View>
