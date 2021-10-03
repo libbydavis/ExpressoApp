@@ -38,20 +38,64 @@ const SearchScreen = () => {
   useEffect(() => {
     firebaseDB.ref('businesses/').on('value', (snapshot)=>{
       var business = [];
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 50000000,
+        maximumAge: 0
+      };
+      const long = 0;
+      const lat = 0;
+      const geoError = (err) => {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      }
+
       snapshot.forEach((child)=>{
         business.push({
               title: child.val().title,
               address: child.val().address,
-              averagePrice: child.val().averagePrice
+              averagePrice: child.val().averagePrice,
+              latitude: child.val().latitude,
+              longitude: child.val().longitude
             })
       })
+      Geolocation.watchPosition()
+      Geolocation.getCurrentPosition(info => {
+            console.log(info)
+            business.forEach((item)=> {
+              item.distance = getDistance(item.latitude, item.longitude, info.coords.latitude, info.coords.longitude);
+              console.log(item.title + ': ' +item.distance +'\n' +item.latitude +',' +item.longitude)
+        })
+          }, err => geoError(err), options
+      );
 
-      Geolocation.getCurrentPosition(info => console.log(info));
       setSortedFilteredData(business, sort);
       setMasterDataSource(business);
     })
   }, []);
 
+  const getDistance = (lat, long, userLat, userLong) => {
+
+    if (lat==null || long==null) {
+      return 10000000000;
+    }
+
+    const R = 6371e3; // metres
+    const φ1 = lat * Math.PI/180; // φ, λ in radians
+    const φ2 = userLat * Math.PI/180;
+    const Δφ = (userLat-lat) * Math.PI/180;
+    const Δλ = (userLong-long) * Math.PI/180;
+
+    const a =
+        Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ/2) * Math.sin(Δλ/2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    const distance = (R * c)/1000; // in kilometres
+
+    return distance;
+  }
 
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
@@ -89,7 +133,7 @@ const SearchScreen = () => {
 
   const getItem = (item) => {
     // Function for click on an item
-    alert('Title : ' + item.title + '\nAddress : ' + item.address + '\nAverage Price: ' + item.averagePrice);
+    alert('Title : ' + item.title + '\nAddress : ' + item.address + '\nAverage Price: ' + item.averagePrice + '\nDistance: ' + item.distance + ' km');
   };
 
   const setSortedFilteredData = (data, sortInput) => {
@@ -101,6 +145,9 @@ const SearchScreen = () => {
     }
     else if (sortInput == 'Cheapest') {
       setFilteredDataSource(data.sort((a, b) => (a.averagePrice > b.averagePrice) ? 1 : -1))
+    }
+    else if (sortInput == 'Nearest') {
+      setFilteredDataSource(data.sort((a, b) => (a.distance > b.distance) ? 1 : -1))
     }
   }
 
@@ -161,28 +208,35 @@ const SearchScreen = () => {
         </ImageBackground>
       </View>
       <View style={styles.sort}>
-        <Text style={styles.sortText} >Sort:   </Text>
+        <Text style={styles.sortText} >Sort: </Text>
         <RadioButton
             value='A-Z'
             color={'#25a2af'}
             status={ sort === 'A-Z' ? 'checked' : 'unchecked' }
             onPress={() => updateSort('A-Z')}
         />
-        <Text style={styles.sortText} >A-Z   </Text>
+        <Text style={styles.sortText} >A-Z </Text>
         <RadioButton
             value='Z-A'
             color={'#25a2af'}
             status={ sort === 'Z-A' ? 'checked' : 'unchecked' }
             onPress={() => updateSort('Z-A')}
         />
-        <Text style={styles.sortText} >Z-A   </Text>
+        <Text style={styles.sortText} >Z-A </Text>
         <RadioButton
             value='Cheapest'
             color={'#25a2af'}
             status={ sort === 'Cheapest' ? 'checked' : 'unchecked' }
             onPress={() => updateSort('Cheapest')}
         />
-        <Text style={styles.sortText} >Cheapest   </Text>
+        <Text style={styles.sortText} >Cheapest </Text>
+        <RadioButton
+            value='Nearest'
+            color={'#25a2af'}
+            status={ sort === 'Nearest' ? 'checked' : 'unchecked' }
+            onPress={() => updateSort('Nearest')}
+        />
+        <Text style={styles.sortText} >Nearest </Text>
       </View>
     <ScrollView>
       <FlatList
@@ -291,12 +345,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: 5,
+    width: '100%',
   },
   sortText: {
     fontFamily: 'Monserrat-Regular',
     color: '#444',
     fontWeight: 'bold',
-    padding: 5,
+    padding: 1,
   },
 });
 
