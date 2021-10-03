@@ -102,6 +102,10 @@ const SearchScreen = () => {
     setSortedFilteredData(filteredDataSource, sortInput)
   }
 
+  const updateSearch = () => {
+    searchFilterFunction(search)
+  }
+
   return (
     <View style={styles.mainView}>
       <View style={styles.headerView}>
@@ -124,7 +128,7 @@ const SearchScreen = () => {
           />
           <TextInput
             style={styles.textInput}
-            onChangeText={(text) => searchFilterFunction(text)}
+            onChangeText={searchFilterFunction}
             value={search}
             autoCapitalize="none"
             placeholder = "find your favourite restaurant..."
@@ -137,6 +141,7 @@ const SearchScreen = () => {
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
+              onChangeValue={updateSearch}
               style={styles.dropDownPicker}
               dropDownStyle={styles.dropDownItem}
               dropDownContainerStyle={{width: 95}}
