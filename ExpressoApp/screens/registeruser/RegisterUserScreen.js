@@ -15,7 +15,10 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import validator from 'validator';
-import {PLACES_API_KEY} from '@env';
+import {PLACES_API_KEY, GEOCODING_API_KEY} from '@env';
+import Geocoder from 'react-native-geocoding';
+
+Geocoder.init(GEOCODING_API_KEY);
 
 LogBox.ignoreLogs([
     'VirtualizedLists should never be nested', // TODO: Remove when fixed
@@ -34,6 +37,8 @@ function RegisterUserScreen({navigation}) {
     const [owner, setOwner] = useState(false);
     const [businessTitle, setBusinessTitle] = useState(' ');
     const [businessAddress, setBusinessAddress] = useState(' ');
+    const [latitude, setLatitude] = useState(' ');
+    const [longitude, setLongitude] = useState(' ');
     const [isFirstName, setIsFirstName] = useState(true);
     const [isLastName, setIsLastName] = useState(true);
     const [isPassword, setIsPassword] = useState(true);
@@ -134,6 +139,8 @@ function RegisterUserScreen({navigation}) {
                 owner: userId,
                 title: businessTitle,
                 address: businessAddress,
+                latitude: latitude,
+                longitude: longitude,
             })
             .then(() => {
                 // Data saved successfully!
@@ -252,6 +259,16 @@ function RegisterUserScreen({navigation}) {
                                         placeholder='Business Address'
                                         placeholderTextColor={'#40404040'}
                                         onPress={(data, details) => {
+                                            console.log(details)
+                                            Geocoder.from(details.description)
+                                                .then(json => {
+                                                    var location = json.results[0].geometry.location;
+                                                    setLatitude(location.lat)
+                                                    setLongitude(location.lng)
+                                                    console.log(location);
+                                                })
+                                                .catch(error => console.warn(error));
+
                                             setBusinessAddress(details.description)
                                             console.log(businessAddress)
                                         }}
