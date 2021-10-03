@@ -69,7 +69,6 @@ const QuantityInput = (props) => {
 const styles = StyleSheet.create({
   quantityRow: {
     flexDirection: 'row',
-    marginBottom: 20,
   },
   quantityIcon: {
     width: 25,

@@ -8,16 +8,20 @@ class AddToCartButton extends Component {
         super(props);
 
         this.state = {
-            title: props.item.title,
-            price: props.item.price,
-            quantity: props.item.quantity,
-            totalPrice: props.item.currentPrice,
-            notes: props.item.notes,
-            options: props.item.options
+            title: props.title,
+            price: props.price,
         }
     }
 
+    updateItem() {
+        let updatedItem = this.props.onClick();
+        console.log(updatedItem)
+        this.setState({...this.state, ['quantity']: updatedItem.quantity, ['totalPrice']: updatedItem.currentPrice, ['notes']: updatedItem.notes, ['options']: updatedItem.options});
+    }
+
     async handleAddToCart() {
+        this.updateItem()
+
         let item = false;
         let tryItems = false;
 
@@ -53,7 +57,7 @@ class AddToCartButton extends Component {
     }
 
     notifyAdd() {
-        let title = this.props.item.title;
+        let title = this.state.title;
         Alert.alert("Item added!", title + " has been added to cart")
     }
 

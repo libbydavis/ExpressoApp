@@ -1,4 +1,4 @@
-import React, {Component, useState} from "react";
+import React, {Component, useCallback, useEffect, useMemo, useState} from "react";
 import {Text, View, StyleSheet, Image, TouchableOpacity, TouchableWithoutFeedback, TextInput} from "react-native";
 import AddToCartButton from "../../components/AddToCartButton";
 import QuantityInput from "../../components/QuantityInput";
@@ -19,10 +19,10 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     })
 
     const receiveQuantity = (value) => {
-        setCartItem({...this.state, ['quantity']: value});
         let newPrice = UNIT_PRICE * value;
-        setCartItem({...cartItem, ['currentPrice']: newPrice});
+        setCartItem({...cartItem, ['quantity']: value, ['currentPrice']: newPrice});
     }
+
 
     const setNotes = (notes) => {
         setCartItem({...cartItem, ['notes']: notes});
@@ -40,6 +40,11 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
             setCartItem({...cartItem, ['options']: optionsCopy});
         }
     }
+
+    const getCartItem = () => {
+        return cartItem;
+    }
+
 
     return (
         <View>
@@ -79,7 +84,8 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
                     </View>
                     <Text style={styles.price}>$ {cartItem.currentPrice}</Text>
                     <TextInput onChangeText={(text) => setNotes(text)} placeholder={"additional notes"} style={styles.notesBox} multiline={true}/>
-                    <AddToCartButton item={cartItem}></AddToCartButton>
+
+                    <AddToCartButton onClick={getCartItem} title={cartItem.title} price={cartItem.price}></AddToCartButton>
                 </View>
             </View>
         </View>
