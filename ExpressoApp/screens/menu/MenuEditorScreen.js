@@ -9,9 +9,9 @@ import {
     ToastAndroid, FlatList, TouchableOpacityComponent,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import {ScrollView} from "react-native-gesture-handler";
 
-export const MenuScreen = ({navigation, route}) => {
-    // pass menuID to ensure this accesses the correct menu
+export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ensure this accesses the correct menu
     const menuID = route.params;
     const currentMenuID = menuID["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
@@ -28,15 +28,14 @@ export const MenuScreen = ({navigation, route}) => {
                     price: child.val().price,
                     quantity: child.val().quantity,
                     optionLists: child.val().optionLists,
-                    menuSection: child.val().menuSection // Can use this to order items within a section
+                    itemCategory: child.val().itemCategory // Can use this to order items within a section
                 });
                 setMenuItemList(itemList);
             })
         })
     }, [])
 
-    const ItemView = ({item}) => {
-        // View specification for menu items
+    const ItemView = ({item}) => {    // View specification for menu items
         return (
             <TouchableOpacity  style={styles.itemStyle}  onPress={() => getItem(item)}>
                 <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')} />
@@ -50,8 +49,7 @@ export const MenuScreen = ({navigation, route}) => {
         alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
 
-    const ItemSeparatorView = () => {
-        // Separator for FlatList used in rendering
+    const ItemSeparatorView = () => { // Separator for FlatList used in rendering
         return (
             <View
                 style={{
@@ -76,16 +74,28 @@ export const MenuScreen = ({navigation, route}) => {
                     Menu Title
                 </Text>
             </View>
-            <View style={styles.menuItems}>
+            <ScrollView style={styles.menuItems}>
                 <FlatList
                     data={menuItemList}
                     ItemSeparatorComponent={ItemSeparatorView}
                     renderItem={ItemView}
                 />
-            </View>
+            </ScrollView>
+            <TouchableOpacity
+                style={styles.expressoButton}
+                onPress={() => navigation.navigate("AddMenuItem", currentMenuID)}>
+                <Text style={styles.expressoButtonText}>Add new item</Text>
+            </TouchableOpacity>
         </View>
     )
 };
+
+
+// Iterate through selected menu
+
+// Display items in menu
+
+// "Add New Item to Menu" button, push menu id to that
 
 const styles = StyleSheet.create({
     mainView: {
@@ -221,5 +231,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MenuScreen;
+export default MenuEditorScreen;
 
