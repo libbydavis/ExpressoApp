@@ -37,7 +37,8 @@ const SearchScreen = () => {
       snapshot.forEach((child)=>{
         business.push({
               title: child.val().title,
-              address: child.val().address
+              address: child.val().address,
+              averagePrice: child.val().averagePrice
             })
       })
       setSortedFilteredData(business, sort);
@@ -81,7 +82,7 @@ const SearchScreen = () => {
 
   const getItem = (item) => {
     // Function for click on an item
-    alert('Id : ' + item.key + '\nTitle : ' + item.title + '\nAddress : ' + item.address);
+    alert('Title : ' + item.title + '\nAddress : ' + item.address + '\nAverage Price: ' + item.averagePrice);
   };
 
   const setSortedFilteredData = (data, sortInput) => {
@@ -90,6 +91,9 @@ const SearchScreen = () => {
     }
     else if (sortInput == 'Z-A') {
       setFilteredDataSource(data.sort((a, b) => (a.title < b.title) ? 1 : -1))
+    }
+    else if (sortInput == 'Cheapest') {
+      setFilteredDataSource(data.sort((a, b) => (a.averagePrice > b.averagePrice) ? 1 : -1))
     }
   }
 
@@ -145,13 +149,12 @@ const SearchScreen = () => {
         </ImageBackground>
       </View>
       <View style={styles.sort}>
-        <Text style={styles.sortText} >Sort By:   </Text>
+        <Text style={styles.sortText} >Sort:   </Text>
         <RadioButton
             value='A-Z'
             color={'#25a2af'}
             status={ sort === 'A-Z' ? 'checked' : 'unchecked' }
             onPress={() => updateSort('A-Z')}
-            text='A-Z'
         />
         <Text style={styles.sortText} >A-Z   </Text>
         <RadioButton
@@ -161,6 +164,13 @@ const SearchScreen = () => {
             onPress={() => updateSort('Z-A')}
         />
         <Text style={styles.sortText} >Z-A   </Text>
+        <RadioButton
+            value='Cheapest'
+            color={'#25a2af'}
+            status={ sort === 'Cheapest' ? 'checked' : 'unchecked' }
+            onPress={() => updateSort('Cheapest')}
+        />
+        <Text style={styles.sortText} >Cheapest   </Text>
       </View>
     <ScrollView>
       <FlatList
