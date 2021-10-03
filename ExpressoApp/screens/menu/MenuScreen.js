@@ -12,13 +12,16 @@ import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 
 export const MenuScreen = ({navigation, route}) => {
     // pass menuID to ensure this accesses the correct menu
-    const menuID = route.params;
-    const currentMenuID = menuID["menuID"];
+    const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [menuItemList, setMenuItemList] = useState([]);
+    const [menuTitle, setMenuTitle] = useState('Menu');
 
     useEffect(() => {
-        dbRef.child(currentMenuID + `/menuItems`).on('value', (snapshot) => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title)
+        })
+        dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             let itemList = [];
             snapshot.forEach((child) => {
                 itemList.push({
@@ -28,7 +31,7 @@ export const MenuScreen = ({navigation, route}) => {
                     price: child.val().price,
                     quantity: child.val().quantity,
                     optionLists: child.val().optionLists,
-                    menuSection: child.val().menuSection // Can use this to order items within a section
+                    itemCategory: child.val().itemCategory // TODO: Implement categories / sections
                 });
                 setMenuItemList(itemList);
             })
@@ -38,9 +41,9 @@ export const MenuScreen = ({navigation, route}) => {
     const ItemView = ({item}) => {
         // View specification for menu items
         return (
-            <TouchableOpacity  style={styles.itemStyle}  onPress={() => getItem(item)}>
-                <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')} />
-                <Text style={styles.itemText} >{item.title}</Text>
+            <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
+                <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')}/>
+                <Text style={styles.itemText}>{item.title}</Text>
             </TouchableOpacity>
         );
     };
@@ -73,7 +76,7 @@ export const MenuScreen = ({navigation, route}) => {
             </View>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
-                    Menu Title
+                    {menuTitle}
                 </Text>
             </View>
             <View style={styles.menuItems}>

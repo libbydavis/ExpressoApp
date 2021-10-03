@@ -12,13 +12,16 @@ import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native-gesture-handler";
 
 export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ensure this accesses the correct menu
-    const menuID = route.params;
-    const currentMenuID = menuID["menuID"];
+    const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [menuItemList, setMenuItemList] = useState([]);
+    const [menuTitle, setMenuTitle] = useState('Menu');
 
     useEffect(() => {
-        dbRef.child(currentMenuID + `/menuItems`).on('value', (snapshot) => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title)
+        })
+        dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             let itemList = [];
             snapshot.forEach((child) => {
                 itemList.push({
@@ -28,7 +31,7 @@ export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ens
                     price: child.val().price,
                     quantity: child.val().quantity,
                     optionLists: child.val().optionLists,
-                    itemCategory: child.val().itemCategory // Can use this to order items within a section
+                    itemCategory: child.val().itemCategory // TODO: Implement categories / sections
                 });
                 setMenuItemList(itemList);
             })
