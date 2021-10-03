@@ -8,11 +8,15 @@ import {
   FlatList,
   Text,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  PermissionsAndroid
 } from 'react-native';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { RadioButton } from 'react-native-paper';
+import RNLocation from 'react-native-location';
+import Geolocation from '@react-native-community/geolocation';
+
 
 /**
  *
@@ -41,10 +45,13 @@ const SearchScreen = () => {
               averagePrice: child.val().averagePrice
             })
       })
+
+      Geolocation.getCurrentPosition(info => console.log(info));
       setSortedFilteredData(business, sort);
       setMasterDataSource(business);
     })
   }, []);
+
 
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
