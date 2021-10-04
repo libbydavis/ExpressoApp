@@ -12,7 +12,7 @@ import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import MenuCategories from "./MenuCategories";
 
 export const MenuScreen = ({navigation, route}) => {
-    // pass menuID to ensure this accesses the correct menu
+    // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [allCategories, setAllCategories] = useState([]);
@@ -28,8 +28,8 @@ export const MenuScreen = ({navigation, route}) => {
     });
     useEffect(() => {
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
+            let itemList = [];
             snapshot.forEach((child) => {
-                let itemList = [];
                 itemList.push({
                     title: child.val().title,
                     image: child.val().image,
@@ -39,10 +39,12 @@ export const MenuScreen = ({navigation, route}) => {
                     optionLists: child.val().optionLists,
                     itemCategory: child.val().itemCategory
                 });
-                setMenuItemList(itemList);
-                setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
             });
+            setMenuItemList(itemList);
+            setDisplayedItems(menuItemList);
+            setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
         });
+
     }, []);
 
     const filterItems = ( category ) => {
@@ -51,7 +53,7 @@ export const MenuScreen = ({navigation, route}) => {
             setDisplayedItems(menuItemList);
             return;
         }
-        const itemsToDisplay = items.filter((item) => item.itemCategory == category);
+        const itemsToDisplay = menuItemList.filter((item) => item.itemCategory === category);
         setDisplayedItems(itemsToDisplay);
     }
 
@@ -91,16 +93,16 @@ export const MenuScreen = ({navigation, route}) => {
                     style={styles.headerIcon}
                 />
             </View>
-            <MenuCategories
-                categories={allCategories}
-                activeCategory={activeCategory}
-                filterItems={filterItems}
-                />
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
                 </Text>
             </View>
+            <MenuCategories
+                categories={allCategories}
+                activeCategory={activeCategory}
+                filterItems={filterItems}
+                />
             <View style={styles.menuItems}>
                 <FlatList
                     data={menuItemList}

@@ -13,18 +13,20 @@ import {ScrollView} from "react-native-gesture-handler";
 import MenuCategories from "./MenuCategories";
 
 export const MenuEditorScreen = ({navigation, route}) => {
-    // pass menuID to ensure this accesses the correct menu
+    // pass menuID in the form (MenuEditor, { menuID: id_here }) to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [menuItemList, setMenuItemList] = useState([]);
     const [menuTitle, setMenuTitle] = useState('Menu');
 
     useEffect(() => {
+        // useEffect hook to ensure title is correct
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
             setMenuTitle(snapshot.val().title);
         });
     });
     useEffect(() => {
+        // useEffect hook to ensure menu items are up to date when loading page
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             let itemList = [];
             snapshot.forEach((child) => {
@@ -42,7 +44,8 @@ export const MenuEditorScreen = ({navigation, route}) => {
         });
     }, []);
 
-    const ItemView = ({item}) => {    // View specification for menu items
+    const ItemView = ({item}) => {
+        // View specification for menu items
         return (
             <TouchableOpacity  style={styles.itemStyle}  onPress={() => getItem(item)}>
                 <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')} />
@@ -56,7 +59,8 @@ export const MenuEditorScreen = ({navigation, route}) => {
         alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
 
-    const ItemSeparatorView = () => { // Separator for FlatList used when rendering
+    const ItemSeparatorView = () => {
+        // Separator for FlatList used when rendering
         return (
             <View
                 style={{
