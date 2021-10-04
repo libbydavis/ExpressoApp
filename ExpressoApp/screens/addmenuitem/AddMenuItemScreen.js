@@ -32,6 +32,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
         price: 0.0,
         quantity: 5,
         optionLists: [],
+        itemCategory: []
     });
 
     const receiveQuantity = (value) => {
@@ -53,6 +54,10 @@ const AddMenuItemScreen = ({route, navigation}) => {
 
     const setPrice = (priceText) => {
         setMenuItemObject({...menuItemObject, ['price']: parseFloat(priceText)});
+    }
+
+    const setCategory = (category) => { // TODO Implement this below
+        setMenuItemObject({... menuItemObject, ['itemCategory']: category});
     }
 
     const handleChecklistTaskAdd = () => {

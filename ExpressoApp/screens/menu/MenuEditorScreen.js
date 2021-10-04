@@ -10,8 +10,10 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native-gesture-handler";
+import MenuCategories from "./MenuCategories";
 
-export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ensure this accesses the correct menu
+export const MenuEditorScreen = ({navigation, route}) => {
+    // pass menuID to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [menuItemList, setMenuItemList] = useState([]);
@@ -19,8 +21,10 @@ export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ens
 
     useEffect(() => {
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title)
-        })
+            setMenuTitle(snapshot.val().title);
+        });
+    });
+    useEffect(() => {
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             let itemList = [];
             snapshot.forEach((child) => {
@@ -34,9 +38,9 @@ export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ens
                     itemCategory: child.val().itemCategory // TODO: Implement categories / sections
                 });
                 setMenuItemList(itemList);
-            })
-        })
-    }, [])
+            });
+        });
+    }, []);
 
     const ItemView = ({item}) => {    // View specification for menu items
         return (
@@ -52,7 +56,7 @@ export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ens
         alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
 
-    const ItemSeparatorView = () => { // Separator for FlatList used in rendering
+    const ItemSeparatorView = () => { // Separator for FlatList used when rendering
         return (
             <View
                 style={{
@@ -74,7 +78,7 @@ export const MenuEditorScreen = ({navigation, route}) => { // pass menuID to ens
             </View>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
-                    Menu Title
+                    {menuTitle}
                 </Text>
             </View>
             <ScrollView style={styles.menuItems}>

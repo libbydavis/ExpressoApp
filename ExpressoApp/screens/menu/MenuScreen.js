@@ -9,21 +9,27 @@ import {
     ToastAndroid, FlatList, TouchableOpacityComponent,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import MenuCategories from "./MenuCategories";
 
 export const MenuScreen = ({navigation, route}) => {
     // pass menuID to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
+    const [allCategories, setAllCategories] = useState([]);
+    const [activeCategory, setActiveCategory] = useState('');
     const [menuItemList, setMenuItemList] = useState([]);
     const [menuTitle, setMenuTitle] = useState('Menu');
+    const [displayedItems, setDisplayedItems] = useState([]);
 
     useEffect(() => {
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title)
-        })
+            setMenuTitle(snapshot.val().title);
+        });
+    });
+    useEffect(() => {
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
-            let itemList = [];
             snapshot.forEach((child) => {
+                let itemList = [];
                 itemList.push({
                     title: child.val().title,
                     image: child.val().image,
@@ -31,12 +37,23 @@ export const MenuScreen = ({navigation, route}) => {
                     price: child.val().price,
                     quantity: child.val().quantity,
                     optionLists: child.val().optionLists,
-                    itemCategory: child.val().itemCategory // TODO: Implement categories / sections
+                    itemCategory: child.val().itemCategory
                 });
                 setMenuItemList(itemList);
-            })
-        })
-    }, [])
+                setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
+            });
+        });
+    }, []);
+
+    const filterItems = ( category ) => {
+        setActiveCategory(category);
+        if (category === "all") {
+            setDisplayedItems(menuItemList);
+            return;
+        }
+        const itemsToDisplay = items.filter((item) => item.itemCategory == category);
+        setDisplayedItems(itemsToDisplay);
+    }
 
     const ItemView = ({item}) => {
         // View specification for menu items
@@ -74,6 +91,11 @@ export const MenuScreen = ({navigation, route}) => {
                     style={styles.headerIcon}
                 />
             </View>
+            <MenuCategories
+                categories={allCategories}
+                activeCategory={activeCategory}
+                filterItems={filterItems}
+                />
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
