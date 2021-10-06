@@ -3,6 +3,7 @@ import {View} from "react-native";
 import Button from "./Button";
 import notifee from '@notifee/react-native';
 
+
 class NotifyOrderReadyButton extends React.Component {
     constructor(props) {
         super(props);
@@ -10,6 +11,31 @@ class NotifyOrderReadyButton extends React.Component {
             orderNo: 0
         }
 
+    }
+
+    initialise() {
+        // Node.js
+        var admin = require('firebase-admin');
+
+        // Initialize Firebase
+        admin.initializeApp({
+            credential: admin.credential.applicationDefault(),
+            databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
+        });
+
+        async function sendMessage() {
+            // Fetch the tokens from an external datastore (e.g. database)
+            const tokens = await getTokensFromDatastore();
+
+            // Send a message to devices with the registered tokens
+            await admin.messaging().sendMulticast({
+                tokens, // ['token_1', 'token_2', ...]
+                data: { hello: 'world!' },
+            });
+        }
+
+        // Send messages to our users
+        sendMessage();
     }
 
     async notifyCustomer() {

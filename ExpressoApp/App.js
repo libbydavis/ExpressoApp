@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
@@ -20,9 +20,22 @@ import SearchScreen from './screens/search/SearchScreen';
 import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
 import MenuScreen from "./screens/menu/MenuScreen";
+import messaging from '@react-native-firebase/messaging';
+import {Alert} from "react-native";
 
 
 const Stack = createStackNavigator();
+
+async function onAppBootstrap() {
+  // Register the device with FCM
+  await messaging().registerDeviceForRemoteMessages();
+
+  // Get the token
+  const token = await messaging().getToken();
+
+  // Save the token
+  await postToApi('/users/1234/tokens', { token });
+}
 
 /**
  *
@@ -53,6 +66,16 @@ export default class App extends Component {
     } else {
       firebase.app(); // if already initialized, use that one
     }
+    onAppBootstrap().then(r => console.log(r));
+
+    useEffect(() => {
+      const unsubscribe = messaging().onMessage(async remoteMessage => {
+        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        //trigger local notification here
+      });
+
+      return unsubscribe;
+    }, []);
   }
 
   render() {
