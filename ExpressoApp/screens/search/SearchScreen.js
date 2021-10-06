@@ -9,14 +9,12 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  PermissionsAndroid
 } from 'react-native';
 import {firebaseDB} from '../../firebase/FirebaseConfig';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { RadioButton } from 'react-native-paper';
-import RNLocation from 'react-native-location';
 import Geolocation from '@react-native-community/geolocation';
-
+import Header from '../../components/Header';
 
 /**
  *
@@ -43,8 +41,6 @@ const SearchScreen = () => {
         timeout: 50000000,
         maximumAge: 0
       };
-      const long = 0;
-      const lat = 0;
       const geoError = (err) => {
         console.warn(`ERROR(${err.code}): ${err.message}`);
       }
@@ -162,17 +158,7 @@ const SearchScreen = () => {
 
   return (
     <View style={styles.mainView}>
-      <View style={styles.headerView}>
-        <Image
-          source={require('../../assets/ExpressoLogo.png')}
-          style={styles.logoIcon}
-        />
-        <Image
-            source={require('../../assets/profileIcon.png')}
-            style={styles.profileIcon}
-        />
-      </View>
-
+      <Header/>
       <View style={styles.searchView}>
         <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
           <View style={styles.overlay}>
@@ -254,10 +240,6 @@ const styles = StyleSheet.create({
   mainView : {
     height: '100%',
   },
-  headerView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   searchView: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -266,20 +248,9 @@ const styles = StyleSheet.create({
     height: 190,
     width: '100%',
   },
-  logoIcon: {
-    width: 200,
-    height: 50,
-    marginTop: 5,
-    marginBottom: 20,
-  },
   searchIcon: {
     width: 40,
     height: 40,
-  },
-  profileIcon: {
-    width: 40,
-    height: 40,
-    margin: 15,
   },
   textInput: {
     fontFamily: 'Monserrat-Regular',
