@@ -1,13 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView, Alert} from "react-native";
-
+import { firebaseDB, firebaseAuth } from "../../firebase/FirebaseConfig";
 
 const StorePageScreen = ( {navigation, route} ) => {
-    const {storeName, storeAddress, storePhoneNum, 
-            coverImage, itemNameFirst, itemPriceFirst,itemCoverImageFirst,
-             itemNameSecond, itemPriceSecond, itemCoverImageSecond} = route.params;
-    console.log(coverImage.image);
     
+   const userID = route.params;
+    const currentUserID = JSON.stringify(userID.userID).slice(1, -1);
+  
+    console.log("User ID: " + currentUserID);
+ 
+    const [storeData, setStoreData] = useState([{
+        storeName: "",
+        storeAddress: "",
+        storePhoneNum: "",
+        coverImage: "",
+        itemNameFirst: "",
+        itemPriceFirst: "",
+        itemCoverImageFirst: "",
+        itemNameSecond: "",
+        itemPriceSecond: "",
+        itemCoverImageSecond: "",
+    }]);
+
+     
+    useEffect(() => {
+        firebaseDB.ref(`storepage/` + currentUserID).on('value', (snapshot) => {
+            if(snapshot.exists()) {
+                let storeDetailsList = [];
+                    var coverImage = snapshot.val().coverImage.image;
+                    var itemCoverImageFirst = snapshot.val().itemCoverImageFirst.itemImageFirst;
+                    var itemCoverImageSecond = snapshot.val().itemCoverImageSecond.itemImageSecond;
+                    var storeName = snapshot.val().storeName;
+                    var storeAddress = snapshot.val().storeAddress;
+                    var storePhoneNum = snapshot.val().storePhoneNum;
+                    var itemNameFirst= snapshot.val().itemNameFirst;
+                    var itemNameSecond = snapshot.val().itemNameSecond;
+                    var itemPriceFirst = snapshot.val().itemPriceFirst;
+                    var itemPriceSecond = snapshot.val().itemPriceSecond;
+                 
+                    storeDetailsList.push({coverImage, itemCoverImageFirst, itemCoverImageSecond,
+                         storeName, storeAddress, storePhoneNum, itemNameFirst, 
+                         itemNameSecond, itemPriceFirst, itemPriceSecond});
+                         
+                   // console.log(storeDetailsList);
+                    setStoreData(storeDetailsList);    
+            } else {
+               alert("Store page data does not exist");
+           }
+         })
+    }, []);
+ 
+
     return (
         <ScrollView>
             <View style={styles.header}>
@@ -21,14 +64,14 @@ const StorePageScreen = ( {navigation, route} ) => {
                 />
             </View>
             <View styles={styles.storeDetails}>
-                <Text style={[styles.storeText, {fontSize: 35}]}>{storeName}</Text>
-                <Text style={[styles.storeText, {fontSize: 25}]}>{storeAddress}</Text>
-                <Text style={[styles.storeText, {fontSize: 20}]}>{storePhoneNum}</Text>
+                <Text style={[styles.storeText, {fontSize: 35}]}>{storeData[0].storeName}</Text>
+                <Text style={[styles.storeText, {fontSize: 25}]}>{storeData[0].storeAddress}</Text>
+                <Text style={[styles.storeText, {fontSize: 20}]}>{storeData[0].storePhoneNum}</Text>
             </View>
             <View style={styles.storeImageContainer}>
                 <Image 
                     style={styles.storeCoverImage}
-                    source={coverImage.image && {uri: coverImage.image}}
+                    source={storeData[0].coverImage && {uri: storeData[0].coverImage}}
                 />  
             </View>
             <TouchableOpacity style={[styles.button, {marginLeft: 70, marginTop: 15}]}>
@@ -44,22 +87,22 @@ const StorePageScreen = ( {navigation, route} ) => {
             <View style={[styles.itemImageContainer, {marginLeft: 30, marginTop: 20}]}>
                 <Image
                     style={styles.storeItemImage}
-                    source={itemCoverImageFirst.image && {uri: itemCoverImageFirst.image}}
+                    source={storeData[0].itemCoverImageFirst && {uri: storeData[0].itemCoverImageFirst}}
                 />
             </View>
             <View styles={styles.itemContainer}>
-                <Text style={[styles.itemNameText, {marginLeft: 35}]} placeholder={"Name"}>{itemNameFirst}</Text>
-                <Text style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"}>{itemPriceFirst}</Text>
+                <Text style={[styles.itemNameText, {marginLeft: 35}]} placeholder={"Name"}>{storeData[0].itemNameFirst}</Text>
+                <Text style={[styles.itemPriceText, {marginLeft: 130}]} placeholder={"Price"}>{storeData[0].itemPriceFirst}</Text>
             </View>
             <View style={[styles.itemImageContainer, {marginLeft: 210, marginTop: -190}]}>
                 <Image
                     style={styles.storeItemImage}
-                    source={itemCoverImageSecond.image && {uri: itemCoverImageSecond.image}}
+                    source={storeData[0].itemCoverImageSecond && {uri: storeData[0].itemCoverImageSecond}}
                 />
             </View>
             <View styles={styles.itemContainer}>
-                <Text style={[styles.itemNameText, {marginLeft: 220}]} placeholder={"Name"}>{itemNameSecond}</Text>
-                <Text style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"}>{itemPriceSecond}</Text>
+                <Text style={[styles.itemNameText, {marginLeft: 220}]} placeholder={"Name"}>{storeData[0].itemNameSecond}</Text>
+                <Text style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"}>{storeData[0].itemPriceSecond}</Text>
             </View>
         </ScrollView>
     );

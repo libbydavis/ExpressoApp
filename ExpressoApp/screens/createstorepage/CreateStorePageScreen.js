@@ -7,8 +7,7 @@ import {firebase, firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig'
 
 const CreateStorePageScreen = ( {navigation} ) => {
 
-    const user = firebaseAuth.currentUser;
-    const userID = user.uid;
+    const userID = firebaseAuth.currentUser.uid;
 
     const [storeData, setStoreData] = useState([{
         id: 1,
@@ -40,7 +39,6 @@ const CreateStorePageScreen = ( {navigation} ) => {
 
     const [changeStoreData, setChangeStoreData] = useState();
 
-
     const onPressEditStoreButton = (item) => {
         setOpenEditStoreModal(true);
         setInputStoreName(item.storeName);
@@ -49,9 +47,10 @@ const CreateStorePageScreen = ( {navigation} ) => {
      
         setChangeStoreData(item.id);
     }
-
+    
     const onPressSubmitPageButton = () => {
         handleChangeStoreData(changeStoreData);
+
         firebaseDB.ref('storepage/' + userID)
         .set({
             storeName: storeData[0].storeName,
@@ -60,12 +59,13 @@ const CreateStorePageScreen = ( {navigation} ) => {
             coverImage: storeData[0].coverImage,
             itemNameFirst: storeData[0].itemNameFirst,
             itemPriceFirst: storeData[0].itemPriceFirst,
-            itemCoverImageFirst : storeData[0].itemCoverImageFirst,
+            itemCoverImageFirst: storeData[0].itemCoverImageFirst,
             itemNameSecond: storeData[0].itemNameSecond,
             itemPriceSecond: storeData[0].itemPriceSecond,
             itemCoverImageSecond : storeData[0].itemCoverImageSecond,
         })
         .then(() => {
+
             console.log("Store details successfully stored");
             Alert.alert(
                 "Success:",
@@ -76,13 +76,15 @@ const CreateStorePageScreen = ( {navigation} ) => {
                     },
                 ]
             )
+        
+            navigation.navigate('StorePageScreen', {userID: userID});
         })
         .catch((error) => {
             console.error(error);
         });
-        navigation.navigate('StorePageScreen', storeData[0]);
     }
     
+
 
     const renderItem = ({ item }) => {
         return (
@@ -138,11 +140,11 @@ const CreateStorePageScreen = ( {navigation} ) => {
     }
 
     const receiveItemImageFirst = (image) => {
-        setInputItemCoverImageFirst({...inputItemCoverImageFirst, ['image'] : image});
+        setInputItemCoverImageFirst({...inputItemCoverImageFirst, ['itemImageFirst'] : image});
     }
 
     const receiveItemImageSecond= (image) => {
-        setInputItemCoverImageSecond({...inputItemCoverImageSecond, ['image'] : image});
+        setInputItemCoverImageSecond({...inputItemCoverImageSecond, ['itemImageSecond'] : image});
     }
 
     const handleChangeStoreData = (changeStoreData) => {
