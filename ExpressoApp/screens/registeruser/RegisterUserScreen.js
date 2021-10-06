@@ -141,6 +141,28 @@ function RegisterUserScreen({navigation}) {
                 address: businessAddress,
                 latitude: latitude,
                 longitude: longitude,
+                averagePrice: 0,
+            })
+            .then(() => {
+                // Data saved successfully!
+                console.log(`Business for ${userId} added to businesses` +
+                    ` collection successfully!`);
+            })
+            .catch((error) => {
+                // The write failed...
+                console.log(`Business for ${userId} could not be added to` +
+                    ` businesses collection.` + error.message());
+            });
+
+        firebaseDB.ref('businesses/' + userId + '/openingHours')
+            .set({
+                Monday: '',
+                Tuesday: '',
+                Wednesday: '',
+                Thursday: '',
+                Friday: '',
+                Saturday: '',
+                Sunday: '',
             })
             .then(() => {
                 // Data saved successfully!
