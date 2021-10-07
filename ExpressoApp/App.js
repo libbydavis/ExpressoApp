@@ -21,21 +21,11 @@ import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
 import MenuScreen from "./screens/menu/MenuScreen";
 import messaging from '@react-native-firebase/messaging';
-import {Alert} from "react-native";
+import {Alert, View} from "react-native";
+import SubscribeMessaging from "./components/SubscribeMessaging";
 
 
 const Stack = createStackNavigator();
-
-async function onAppBootstrap() {
-  // Register the device with FCM
-  await messaging().registerDeviceForRemoteMessages();
-
-  // Get the token
-  const token = await messaging().getToken();
-
-  // Save the token
-  await postToApi('/users/1234/tokens', { token });
-}
 
 /**
  *
@@ -66,35 +56,25 @@ export default class App extends Component {
     } else {
       firebase.app(); // if already initialized, use that one
     }
-    onAppBootstrap().then(r => console.log(r));
-
-    useEffect(() => {
-      const unsubscribe = messaging().onMessage(async remoteMessage => {
-        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-        //trigger local notification here
-      });
-
-      return unsubscribe;
-    }, []);
   }
 
   render() {
     return (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
-          <Stack.Screen name="LoginScreen" component={LoginScreen}/>
-          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
-          <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
-          <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
-          <Stack.Screen name="OwnerOrdersScreen" component={OrdersScreen}/>
-          <Stack.Screen name='SearchScreen' component={SearchScreen}/>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
+              <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+              <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
+              <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
+              <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
+              <Stack.Screen name="OwnerOrdersScreen" component={OrdersScreen}/>
+              <Stack.Screen name='SearchScreen' component={SearchScreen}/>
 
-          <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
-          <Stack.Screen name="Cart" component={CartScreen} />
-          <Stack.Screen name="MenuScreen" component={MenuScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+              <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
+              <Stack.Screen name="Cart" component={CartScreen} />
+              <Stack.Screen name="MenuScreen" component={MenuScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
     );
   }
 }

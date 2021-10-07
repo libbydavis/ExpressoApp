@@ -1,7 +1,6 @@
 import React from 'react';
 import {View} from "react-native";
 import Button from "./Button";
-import notifee from '@notifee/react-native';
 
 
 class NotifyOrderReadyButton extends React.Component {
