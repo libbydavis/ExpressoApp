@@ -18,6 +18,8 @@ import {firebaseDB} from "../../firebase/FirebaseConfig";
 import CreateOptionListModal from "./CreateOptionListModal";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
+import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
+import NotifyOrderButton from "../../components/NotifyOrderButton";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -77,9 +79,19 @@ const AddMenuItemScreen = ({route, navigation}) => {
         navigation.navigate('MenuScreen', {menuID: menuID});
     }
 
+    const returnInfo = () => {
+        const [info, setInfo] = useState({
+            orderName: 'Bobby',
+            orderNo: 10,
+            token: 'fSnZ0xl2TsW9oO_gvDaLga:APA91bHuqngVZquDTa_Vt62yfxLNCZi-So__IzhP4NT-LtoFvaZx3iYxzDaWC-sx072KHh_dwgxhc7M20zkDb8W5xC1wJO16vJvNWtx__CZw1Pn_n0pBv2FdwEJL7RJevR0n76X6xTqK'
+        })
+        return info;
+    }
+
   return (
     <View>
         <Header></Header>
+        <NotifyOrderReadyButton onClick={returnInfo}></NotifyOrderReadyButton>
         <Button title={"click"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price:10, optionLists: [{title: 'meat', options:['lamb', 'beef', 'pork']}, {title: 'bread', options:['gluten-free', 'white']}]})}></Button>
       <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>

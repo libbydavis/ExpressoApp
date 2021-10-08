@@ -1,65 +1,58 @@
-import React from 'react';
-import {View} from "react-native";
-import Button from "./Button";
+import React, {Component, useState} from 'react';
+import {Text, TouchableOpacity, View} from "react-native";
+import messaging from "@react-native-firebase/messaging";
+import Config from "react-native-config";
 
 
-class NotifyOrderReadyButton extends React.Component {
+class NotifyOrderReadyButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orderNo: 0
+            registration_ids: [
+                "fSnZ0xl2TsW9oO_gvDaLga:APA91bHuqngVZquDTa_Vt62yfxLNCZi-So__IzhP4NT-LtoFvaZx3iYxzDaWC-sx072KHh_dwgxhc7M20zkDb8W5xC1wJO16vJvNWtx__CZw1Pn_n0pBv2FdwEJL7RJevR0n76X6xTqK",
+            ],
+            notification: {
+                title: "Order Ready",
+                body: "Bobby your order is ready for pickup",
+                vibrate: 1,
+                sound: 1,
+                show_in_foreground: true,
+                priority: "high",
+                content_available: true,
+            },
         }
-
     }
 
-    initialise() {
-        // Node.js
-        var admin = require('firebase-admin');
-
-        // Initialize Firebase
-        admin.initializeApp({
-            credential: admin.credential.applicationDefault(),
-            databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
-        });
-
-        async function sendMessage() {
-            // Fetch the tokens from an external datastore (e.g. database)
-            const tokens = await getTokensFromDatastore();
-
-            // Send a message to devices with the registered tokens
-            await admin.messaging().sendMulticast({
-                tokens, // ['token_1', 'token_2', ...]
-                data: { hello: 'world!' },
-            });
-        }
-
-        // Send messages to our users
-        sendMessage();
+    updateItem() {
+        console.log("dog")
+        let updatedItem = this.props.onClick();
+        this.setState({...this.state, ['orderName']: updatedItem.orderName, ['orderNo']: updatedItem.orderNo, ['token']: updatedItem.token});
     }
 
     async notifyCustomer() {
-        // Create a channel
-        const channelId = await notifee.createChannel({
-            id: 'default',
-            name: 'Default Channel',
-        });
+        messaging().requestPermission().then(r => console.log("permitted to send"))
+        //this.updateItem()
+        //messaging().sendMessage(this.state).then(r => console.log("done"));
 
-        // Display a notification
-        await notifee.displayNotification({
-            title: 'Order #' + this.state.orderNo,
-            body: 'Main body content of the notification',
-            android: {
-                channelId,
-                smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
-            },
-        });
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            Authorization: "key=" + Config.FIREBASE_API,
+        })
+
+        let response = await fetch("https://fcm.googleapis.com/fcm/send", {
+            method: "POST",
+            headers,
+            body: JSON.stringify(this.state),
+        })
+        response = await response.json()
+        console.log(response)
     }
 
     render() {
         return (
-            <View>
-                <Button title={"order ready"} onPress={this.notifyCustomer}></Button>
-            </View>
+            <TouchableOpacity onPress={() => this.notifyCustomer()}>
+                <Text>Order Ready</Text>
+            </TouchableOpacity>
         );
     }
 }

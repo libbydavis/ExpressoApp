@@ -20,9 +20,6 @@ import SearchScreen from './screens/search/SearchScreen';
 import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
 import MenuScreen from "./screens/menu/MenuScreen";
-import messaging from '@react-native-firebase/messaging';
-import {Alert, View} from "react-native";
-import SubscribeMessaging from "./components/SubscribeMessaging";
 
 
 const Stack = createStackNavigator();
