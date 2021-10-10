@@ -83,7 +83,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
             console.error(error);
         });
     }
-    
+
 
 
     const renderItem = ({ item }) => {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {TOKEN_KEY} from '@env';
-import {firebaseAuth} from "../../firebase/FirebaseConfig";
+import {firebaseAuth} from "../firebase/FirebaseConfig";
 import {requestOneTimePayment} from "react-native-paypal";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
