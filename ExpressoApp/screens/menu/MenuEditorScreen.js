@@ -2,11 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     View,
-    TextInput,
     TouchableOpacity,
     Text,
     Image,
-    ToastAndroid, FlatList, TouchableOpacityComponent,
+    FlatList,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native-gesture-handler";
@@ -95,6 +94,11 @@ export const MenuEditorScreen = ({navigation, route}) => {
                     {menuTitle}
                 </Text>
             </View>
+            <MenuCategories
+                categories={allCategories}
+                activeCategory={activeCategory}
+                filterItems={filterItems}
+            />
             <ScrollView style={styles.menuItems}>
                 <FlatList
                     data={displayedItems}
@@ -112,11 +116,6 @@ export const MenuEditorScreen = ({navigation, route}) => {
 };
 
 
-// Iterate through selected menu
-
-// Display items in menu
-
-// "Add New Item to Menu" button, push menu id to that
 
 const styles = StyleSheet.create({
     mainView: {
