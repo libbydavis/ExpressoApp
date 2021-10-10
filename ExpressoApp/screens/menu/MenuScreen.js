@@ -11,7 +11,7 @@ import {
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import MenuCategories from "./MenuCategories";
 
-export const MenuScreen = ({navigation, route}) => {
+export const MenuScreen = ({ navigation, route }) => {
     // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
@@ -25,11 +25,9 @@ export const MenuScreen = ({navigation, route}) => {
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
             setMenuTitle(snapshot.val().title);
         });
-    });
-    useEffect(() => {
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             let itemList = [];
-            snapshot.forEach((child) => {
+            snapshot.forEach(( child ) => {
                 itemList.push({
                     title: child.val().title,
                     image: child.val().image,
@@ -41,10 +39,9 @@ export const MenuScreen = ({navigation, route}) => {
                 });
             });
             setMenuItemList(itemList);
-            setDisplayedItems(menuItemList);
             setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
+            setDisplayedItems(menuItemList);
         });
-
     }, []);
 
     const filterItems = ( category ) => {
@@ -57,7 +54,7 @@ export const MenuScreen = ({navigation, route}) => {
         setDisplayedItems(itemsToDisplay);
     }
 
-    const ItemView = ({item}) => {
+    const ItemView = ({ item }) => {
         // View specification for menu items
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
@@ -67,7 +64,7 @@ export const MenuScreen = ({navigation, route}) => {
         );
     };
 
-    const getItem = (item) => {
+    const getItem = ( item ) => {
         // Function to click on a menu item in the FlatList
         alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
@@ -105,7 +102,7 @@ export const MenuScreen = ({navigation, route}) => {
                 />
             <View style={styles.menuItems}>
                 <FlatList
-                    data={menuItemList}
+                    data={displayedItems}
                     ItemSeparatorComponent={ItemSeparatorView}
                     renderItem={ItemView}
                 />
