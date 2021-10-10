@@ -19,7 +19,7 @@ const test = () => {
       .signInWithEmailAndPassword(email, password)
         .then(() => {
           console.log("User has successfully signed in!");
-          navigation.navigate('MenuScreen', { menuID: `-MjmBfn9YP-wguwurLH1` });
+          navigation.navigate('SearchScreen');
         })
         .catch(error => {
             Alert.alert(

@@ -56,7 +56,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
         setMenuItemObject({...menuItemObject, ['price']: parseFloat(priceText)});
     }
 
-    const setCategory = (category) => { // TODO Implement this below
+    const setItemCategory = (category) => {
         setMenuItemObject({... menuItemObject, ['itemCategory']: category});
     }
 
@@ -139,6 +139,11 @@ const AddMenuItemScreen = ({route, navigation}) => {
               keyboardType='decimal-pad'
               onChangeText={(text) => setPrice(text)}
             />
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="category"
+                  onChangeText={(text) => setItemCategory(text)}
+              />
           </View>
           <View style={styles.columnView}>
             <View style={styles.quantityElements}>
