@@ -12,7 +12,6 @@ import {firebaseDB} from '../../firebase/FirebaseConfig';
 import '../../assets/orderTick.png';
 import '../../assets/orderTickFilled.png';
 
-// eslint-disable-next-line react/prop-types
 function Order(props) {
     const menuItemList = [];
     const menuItems = props.order.menuItems;
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
         margin: 7,
         flexGrow: 2,
         backgroundColor: '#29b79c',
-        width: '100%',
+        alignSelf: 'stretch',
         flexDirection: 'row',
     },
     title: {
