@@ -32,6 +32,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
         price: 0.0,
         quantity: 5,
         optionLists: [],
+        itemCategory: []
     });
 
     const receiveQuantity = (value) => {
@@ -53,6 +54,10 @@ const AddMenuItemScreen = ({route, navigation}) => {
 
     const setPrice = (priceText) => {
         setMenuItemObject({...menuItemObject, ['price']: parseFloat(priceText)});
+    }
+
+    const setItemCategory = (category) => {
+        setMenuItemObject({... menuItemObject, ['itemCategory']: category});
     }
 
     const handleChecklistTaskAdd = () => {
@@ -134,6 +139,11 @@ const AddMenuItemScreen = ({route, navigation}) => {
               keyboardType='decimal-pad'
               onChangeText={(text) => setPrice(text)}
             />
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="category"
+                  onChangeText={(text) => setItemCategory(text)}
+              />
           </View>
           <View style={styles.columnView}>
             <View style={styles.quantityElements}>
