@@ -12,6 +12,7 @@ import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
 import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
 import LoginScreen from './screens/login/LoginScreen';
 import CreateStorePageScreen from './screens/createstorepage/CreateStorePageScreen';
+import StorePageScreen from './screens/storepage/StorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
 import firebase from 'firebase';
 import SplashScreen from 'react-native-splash-screen';
@@ -20,6 +21,7 @@ import SearchScreen from './screens/search/SearchScreen';
 import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
 import MenuScreen from "./screens/menu/MenuScreen";
+import MenuEditorScreen from "./screens/menu/MenuEditorScreen";
 
 
 const Stack = createStackNavigator();
@@ -57,21 +59,22 @@ export default class App extends Component {
 
   render() {
     return (
-          <NavigationContainer>
-            <Stack.Navigator screenOptions={{headerShown: false}}>
-              <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
-              <Stack.Screen name="LoginScreen" component={LoginScreen}/>
-              <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
-              <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
-              <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
-              <Stack.Screen name="OwnerOrdersScreen" component={OrdersScreen}/>
-              <Stack.Screen name='SearchScreen' component={SearchScreen}/>
-
-              <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
-              <Stack.Screen name="Cart" component={CartScreen} />
-              <Stack.Screen name="MenuScreen" component={MenuScreen} />
-            </Stack.Navigator>
-          </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
+            <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
+          <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
+          <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
+          <Stack.Screen name="OwnerOrdersScreen" component={OrdersScreen}/>
+          <Stack.Screen name='SearchScreen' component={SearchScreen}/>
+          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
+          <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
+          <Stack.Screen name="Cart" component={CartScreen} />
+          <Stack.Screen name="MenuScreen" component={MenuScreen} />
+          <Stack.Screen name="MenuEditor" component={MenuEditorScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
