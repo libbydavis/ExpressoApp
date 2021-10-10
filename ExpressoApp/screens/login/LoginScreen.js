@@ -27,9 +27,6 @@ const test = () => {
               "Invalid input. Please try again.",
               [
                   {
-                      text: "Cancel",
-                  },
-                  {
                       text: "OK",
                   },
               ]
