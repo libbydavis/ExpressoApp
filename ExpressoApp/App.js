@@ -16,7 +16,7 @@ import StorePageScreen from './screens/storepage/StorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
 import firebase from 'firebase';
 import SplashScreen from 'react-native-splash-screen';
-import OrdersScreen from './screens/ownerorders/OrdersScreen';
+import OrdersScreen from './screens/ownerorders/OwnerOrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
 import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
@@ -60,12 +60,12 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="LoginScreen" component={LoginScreen}/> 
+          <Stack.Screen name="LoginScreen" component={LoginScreen}/>
           <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
-          <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
-          <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />   
+            <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
+          <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
-          <Stack.Screen name="OrdersScreen" component={OrdersScreen}/>
+          <Stack.Screen name="OwnerOrdersScreen" component={OrdersScreen}/>
           <Stack.Screen name='SearchScreen' component={SearchScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
           <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />

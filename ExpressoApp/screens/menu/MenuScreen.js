@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 
-export const MenuScreen = ({route, navigation}) => { // pass menuID to ensure this accesses the correct menu
+export const MenuScreen = ({navigation, route}) => { // pass menuID to ensure this accesses the correct menu
     const menuID = route.params;
     const currentMenuID = menuID["menuID"];
     const dbRef = firebaseDB.ref("Menus/");

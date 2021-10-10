@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "max-len": "off",
+    "require-jsdoc": "off"
+  },
+  "parser": "babel-eslint"
+}

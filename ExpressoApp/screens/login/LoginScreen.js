@@ -4,19 +4,22 @@ import {useState} from "react";
 import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard, Alert} from 'react-native';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import {keyboard} from "yarn/lib/cli";
+import ExpressoButton from '../../components/Button';
 // import '@react-navigation/native';
 
 
 const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+const test = () => {
+    console.log('test');
+}
   const userLogin = () => {
     firebaseAuth
       .signInWithEmailAndPassword(email, password)
         .then(() => {
           console.log("User has successfully signed in!");
-          navigation.navigate('CreateStorePageScreen');
+          navigation.navigate('SearchScreen');
         })
         .catch(error => {
             Alert.alert(
@@ -28,7 +31,7 @@ const LoginScreen = ({navigation}) => {
                   },
               ]
           );
-          if (error.code === 'auth/email-already-exists') 
+          if (error.code === 'auth/email-already-exists')
           {
             console.log('This email address already exists!');
           }
@@ -75,6 +78,8 @@ const LoginScreen = ({navigation}) => {
           onPress={() => navigation.navigate('RegisterUser')}>
         Sign up here</Text>
       </View>
+
+        <ExpressoButton title={'Cool!'} onPress={test}/>
     </View>
   );
 };
