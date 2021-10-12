@@ -16,7 +16,7 @@ import StorePageScreen from './screens/storepage/StorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
 import firebase from 'firebase';
 import SplashScreen from 'react-native-splash-screen';
-import OrdersScreen from '/screens/ownerorders/OrdersScreen';
+import OrdersScreen from './screens/ownerorders/OrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
 import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
 import CreateMenuScreen from "./screens/createmenu/CreateMenuScreen";
