@@ -22,11 +22,11 @@ export const MenuScreen = ({navigation, route}) => {
     const [displayedItems, setDisplayedItems] = useState([]);
 
     useEffect(() => {
+        let itemList = [];
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
             setMenuTitle(snapshot.val().title);
         });
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
-            let itemList = [];
             snapshot.forEach((child) => {
                 itemList.push({
                     title: child.val().title,
@@ -42,7 +42,7 @@ export const MenuScreen = ({navigation, route}) => {
         setMenuItemList(itemList);
         setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
         setDisplayedItems(menuItemList);
-    }, []);
+    }, [allCategories, menuItemList]);
 
     const filterItems = (category) => {
         setActiveCategory(category);
@@ -100,13 +100,12 @@ export const MenuScreen = ({navigation, route}) => {
                 activeCategory={activeCategory}
                 filterItems={filterItems}
             />
-            <ScrollView style={styles.menuItems}>
-                <FlatList
-                    data={displayedItems}
-                    ItemSeparatorComponent={ItemSeparatorView}
-                    renderItem={ItemView}
-                />
-            </ScrollView>
+            <FlatList
+                data={displayedItems}
+                ItemSeparatorComponent={ItemSeparatorView}
+                renderItem={ItemView}
+                numColumns={2}
+            />
         </View>
     )
 };

@@ -41,7 +41,7 @@ export const MenuEditorScreen = ({navigation, route}) => {
             setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
             setDisplayedItems(menuItemList);
         });
-    }, []);
+    }, [allCategories, menuItemList]);
 
     const filterItems = ( category ) => {
         setActiveCategory(category);
