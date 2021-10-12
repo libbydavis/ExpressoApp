@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native-gesture-handler";
-import MenuCategories from "./MenuCategories";
+import MenuCategories from "../../components/Menu/MenuCategories";
 
 export const MenuEditorScreen = ({navigation, route}) => {
     const menuID = route.params["menuID"];
