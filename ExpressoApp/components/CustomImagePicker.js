@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button, Image, View, StyleSheet, TouchableOpacity } from "react-native";
 import * as ImagePicker from 'react-native-image-picker';
-import uploadImage from '../../assets/uploadImage.jpg';
+import uploadImage from '../assets/uploadImage.jpg';
 
 
 class CustomImagePicker extends Component {
