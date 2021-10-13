@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native-gesture-handler";
-import MenuCategories from "../../components/Menu/MenuCategories";
+import MenuCategories from "../../components/MenuCategories";
 
 export const MenuEditorScreen = ({navigation, route}) => {
     const menuID = route.params["menuID"];
@@ -51,14 +51,14 @@ export const MenuEditorScreen = ({navigation, route}) => {
         }
         const itemsToDisplay = menuItemList.filter((item) => item.itemCategory === category);
         setDisplayedItems(itemsToDisplay);
-    }
+    };
 
     const ItemView = ({ item }) => {
         // View specification for menu items
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
                 <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')}/>
-                <Text style={styles.itemText}>{item.title}</Text>
+                <Text style={styles.itemText}> { item.title } </Text>
             </TouchableOpacity>
         );
     };

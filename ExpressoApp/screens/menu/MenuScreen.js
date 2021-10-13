@@ -8,7 +8,7 @@ import {
     FlatList,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
-import MenuCategories from "../../components/Menu/MenuCategories";
+import MenuCategories from "../../components/MenuCategories";
 import {ScrollView} from "react-native-gesture-handler";
 
 export const MenuScreen = ({navigation, route}) => {
