@@ -8,11 +8,10 @@ import {
     FlatList,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
-import MenuCategories from "./MenuCategories";
 import {ScrollView} from "react-native-gesture-handler";
+import MenuCategories from "./MenuCategories";
 
-export const MenuScreen = ({navigation, route}) => {
-    // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
+export const MenuEditorScreen = ({navigation, route}) => {
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [allCategories, setAllCategories] = useState([]);
@@ -27,7 +26,7 @@ export const MenuScreen = ({navigation, route}) => {
         });
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             let itemList = [];
-            snapshot.forEach((child) => {
+            snapshot.forEach(( child ) => {
                 itemList.push({
                     title: child.val().title,
                     image: child.val().image,
@@ -38,13 +37,13 @@ export const MenuScreen = ({navigation, route}) => {
                     itemCategory: child.val().itemCategory
                 });
             });
+            setMenuItemList(itemList);
+            setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
+            setDisplayedItems(menuItemList);
         });
-        setMenuItemList(itemList);
-        setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
-        setDisplayedItems(menuItemList);
     }, []);
 
-    const filterItems = (category) => {
+    const filterItems = ( category ) => {
         setActiveCategory(category);
         if (category === "all") {
             setDisplayedItems(menuItemList);
@@ -54,7 +53,7 @@ export const MenuScreen = ({navigation, route}) => {
         setDisplayedItems(itemsToDisplay);
     }
 
-    const ItemView = ({item}) => {
+    const ItemView = ({ item }) => {
         // View specification for menu items
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
@@ -64,7 +63,7 @@ export const MenuScreen = ({navigation, route}) => {
         );
     };
 
-    const getItem = (item) => {
+    const getItem = ( item ) => {
         // Function to click on a menu item in the FlatList
         alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
@@ -107,9 +106,16 @@ export const MenuScreen = ({navigation, route}) => {
                     renderItem={ItemView}
                 />
             </ScrollView>
+            <TouchableOpacity
+                style={styles.expressoButton}
+                onPress={() => navigation.navigate("AddMenuItem", currentMenuID)}>
+                <Text style={styles.expressoButtonText}>Add new item</Text>
+            </TouchableOpacity>
         </View>
     )
 };
+
+
 
 const styles = StyleSheet.create({
     mainView: {
@@ -245,5 +251,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MenuScreen;
+export default MenuEditorScreen;
 

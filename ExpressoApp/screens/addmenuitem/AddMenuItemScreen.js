@@ -34,6 +34,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
         price: 0.0,
         quantity: 5,
         optionLists: [],
+        itemCategory: []
     });
 
     const toggleModal = () => {
@@ -64,6 +65,46 @@ const AddMenuItemScreen = ({route, navigation}) => {
     const setPrice = (priceText) => {
         setMenuItemObject({...menuItemObject, ['price']: parseFloat(priceText)});
     }
+
+    const setItemCategory = (category) => {
+        setMenuItemObject({... menuItemObject, ['itemCategory']: category});
+    }
+
+    const handleChecklistTaskAdd = () => {
+        if (checklistTask != undefined) {
+            setChecklistItems([...checklistItems, checklistTask]);
+            setChecklistTask(null);
+        } else {
+            ToastAndroid.show('Type an option to add to the list',
+                ToastAndroid.SHORT);
+        }
+    };
+
+    const handleNewChecklist = () => {
+        if (checklistTitle != undefined && checklistItems.length > 0) {
+            setModalVisible(!modalVisible);
+            menuItemObject.optionLists.push({title: checklistTitle, items: checklistItems});
+            setChecklistTitle(null);
+            setChecklistItems([]);
+        } else if (checklistTitle == undefined) {
+            Alert.alert('Enter a checklist title to continue');
+        } else if (checklistItems == 0) {
+            Alert.alert('Enter at least one option to continue');
+        }
+    };
+
+    const discardNewChecklist = () => {
+        setModalVisible(!modalVisible);
+        setChecklistTitle(null);
+        setChecklistItems([]);
+    };
+
+    const handleDeleteItem = (index) => {
+        const checklistItemsCopy = [...checklistItems];
+        checklistItemsCopy.splice(index, 1);
+        setChecklistItems(checklistItemsCopy);
+        console.log(checklistItems);
+    };
 
     const onClickAddItem = () => {
         let menuRef = dbRef.child(`Menus/${menuID}/menuItems`).push();
@@ -100,6 +141,11 @@ const AddMenuItemScreen = ({route, navigation}) => {
               keyboardType='decimal-pad'
               onChangeText={(text) => setPrice(text)}
             />
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="category"
+                  onChangeText={(text) => setItemCategory(text)}
+              />
           </View>
           <View style={styles.columnView}>
             <View style={styles.quantityElements}>
