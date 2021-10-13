@@ -8,18 +8,24 @@ import ExpressoButton from '../../components/Button';
 // import '@react-navigation/native';
 
 
-const LoginScreen = ({navigation}) => {
+const ResetPasswordScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-const test = () => {
-    console.log('test');
-}
-  const userLogin = () => {
+
+  const resetPassword = () => {
     firebaseAuth
-      .signInWithEmailAndPassword(email, password)
+      .sendPasswordResetEmail(email)
         .then(() => {
-          console.log("User has successfully signed in!");
-          navigation.navigate('SearchScreen');
+          console.log("Successfully sent password reset email!");
+          Alert.alert(
+            "Success! Please check your email:",
+            "A password reset link is sent to your email!",
+            [
+                {
+                    text: "OK",
+                },
+            ],
+          );
+          navigation.navigate('LoginScreen');
         })
         .catch(error => {
             Alert.alert(
@@ -60,31 +66,10 @@ const test = () => {
           placeholder="Email" />
       </View>
 
-      <View>
-        <TextInput
-          style={styles.inputContainer}
-          onChangeText={(password) => setPassword(password)}
-          placeholder="Password" secureTextEntry={true}
-        />
-      </View>
-
-      <View style={styles.forgotPasswordContainer}>
-        <Text style={styles.signUpText} onPress={() => navigation.navigate('ResetPasswordScreen')}
-        >Forgot password? </Text>
-      </View>
-
-      <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
+      <TouchableOpacity style={styles.resetPasswordButton}>
+        <Text style={styles.emailText} onPress={() => resetPassword()}>Reset Password</Text>
       </TouchableOpacity>
 
-      <View style={styles.signUpContainer}>
-        <Text style={styles.text}>Don&apos;t have an account? </Text>
-        <Text style={styles.signUpText}
-          onPress={() => navigation.navigate('RegisterUser')}>
-        Sign up here</Text>
-      </View>
-
-        <ExpressoButton title={'Cool!'} onPress={test}/>
     </View>
   );
 };
@@ -112,35 +97,27 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 250,
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 25,
     marginTop: 20,
   },
-  loginButton: {
+  resetPasswordButton: {
     borderColor: 'black',
     borderWidth: 1,
     width: 250,
     height: 50,
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 25,
     marginTop: 20,
     marginBottom: 20,
     backgroundColor: '#25a2af',
   },
-  loginText: {
+  emailText: {
     color: '#ffffff',
     textAlign: 'center',
     fontSize: 15,
   },
   text: {
     fontSize: 15,
-  },
-  signUpText: {
-    color: '#6495ed',
-    fontSize: 15,
-    fontWeight: '800',
-  },
-  signUpContainer: {
-    flexDirection: 'row',
   },
   forgotPasswordContainer: {
     flexDirection: 'row',
@@ -150,4 +127,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default LoginScreen;
+export default ResetPasswordScreen;
