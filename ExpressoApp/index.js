@@ -14,6 +14,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     console.log('Message handled in the background!', remoteMessage);
 });
 
+//TODO: add token to async storage, then push this to firebase when the user logs in
 
 PushNotification.configure({
     // (optional) Called when Token is generated (iOS and Android)
