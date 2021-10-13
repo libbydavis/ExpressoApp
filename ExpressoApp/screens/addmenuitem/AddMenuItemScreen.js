@@ -19,7 +19,7 @@ import CreateOptionListModal from "./CreateOptionListModal";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
-import NotifyOrderButton from "../../components/NotifyOrderButton";
+// import NotifyOrderButton from "../../components/NotifyOrderButton";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);

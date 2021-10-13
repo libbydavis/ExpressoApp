@@ -5,15 +5,23 @@ import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard, Al
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import {keyboard} from "yarn/lib/cli";
 import ExpressoButton from '../../components/Button';
+import PickupTimePicker from '../../components/PickupTime';
 // import '@react-navigation/native';
 
 
 const LoginScreen = ({navigation}) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-const test = () => {
-    console.log('test');
-}
+  //Temporary Demos
+  const [orderTime, setOrderTime] = useState(() => new Date().toLocaleString());
+  const [showTimePicker, setShowTimePicker] = useState(() => false);
+  const hidePickerVisibility = () => setShowTimePicker(false);
+  const handleOrderTime = (time) => setOrderTime(time);
+  //End of Temp
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const test = () => {
+      console.log('test');
+  }
+
   const userLogin = () => {
     firebaseAuth
       .signInWithEmailAndPassword(email, password)
@@ -79,7 +87,13 @@ const test = () => {
         Sign up here</Text>
       </View>
 
-        <ExpressoButton title={'Cool!'} onPress={test}/>
+      <ExpressoButton
+          onPress={() => setShowTimePicker(true)}
+          title={'Choose Pickup Time'}
+        />
+      {showTimePicker && (
+          <PickupTimePicker hidePickerVisibility={hidePickerVisibility} handleOrderTime={handleOrderTime} />
+        )}
     </View>
   );
 };
