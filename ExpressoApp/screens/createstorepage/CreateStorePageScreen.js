@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, 
+import { View, Image, StyleSheet, TouchableOpacity,
            FlatList, Text, Modal, TextInput, Alert} from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import CustomImagePicker from '../addmenuitem/CustomImagePicker';
+import CustomImagePicker from '../components/CustomImagePicker';
 import {firebase, firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 
 const CreateStorePageScreen = ( {navigation} ) => {
@@ -32,7 +32,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
     const [inputItemNameFirst, setInputItemNameFirst] = useState();
     const [inputItemPriceFirst, setInputItemPriceFirst] = useState();
     const [inputItemCoverImageFirst, setInputItemCoverImageFirst] = useState();
-    
+
     const [inputItemNameSecond, setInputItemNameSecond] = useState();
     const [inputItemPriceSecond, setInputItemPriceSecond] = useState();
     const [inputItemCoverImageSecond, setInputItemCoverImageSecond] = useState();
@@ -44,10 +44,10 @@ const CreateStorePageScreen = ( {navigation} ) => {
         setInputStoreName(item.storeName);
         setInputStoreAddress(item.storeAddress);
         setInputStorePhoneNum(item.storePhoneNum);
-     
+
         setChangeStoreData(item.id);
     }
-    
+
     const onPressSubmitPageButton = () => {
         handleChangeStoreData(changeStoreData);
 
@@ -76,7 +76,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
                     },
                 ]
             )
-        
+
             navigation.navigate('StorePageScreen', {userID: userID});
         })
         .catch((error) => {
@@ -92,12 +92,12 @@ const CreateStorePageScreen = ( {navigation} ) => {
                 <TouchableOpacity style={[styles.storeButton, {marginLeft: 70, marginTop: 5}]}>
                     <Text style={styles.buttonText} onPress={() => onPressEditStoreButton(item)}>
                         Edit Store
-                    </Text> 
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.storeButton, {marginLeft: 225, marginTop: -35}]}>
                     <Text style={styles.buttonText} onPress={() => onPressSubmitPageButton(item)}>
                         Submit
-                    </Text> 
+                    </Text>
                 </TouchableOpacity>
                 <View styles={styles.storeDetails}>
                     <Text style={[styles.storeText, {fontSize: 35}]}>{item.storeName}</Text>
@@ -110,12 +110,12 @@ const CreateStorePageScreen = ( {navigation} ) => {
                 <TouchableOpacity style={[styles.storeButton, {marginLeft: 70, marginTop: 5}]}>
                     <Text style={styles.buttonText}>
                         Contact
-                    </Text> 
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.storeButton, {marginLeft: 225, marginTop: -35}]}>
                     <Text style={styles.buttonText}>
                         Menu
-                    </Text> 
+                    </Text>
                 </TouchableOpacity>
                 <View style={[styles.itemImageContainer, {marginLeft: 60, marginTop: 15}]}>
                     <CustomImagePicker receiveImage={receiveItemImageFirst} width={200} height={150}>{item.itemCoverImage}</CustomImagePicker>
@@ -131,7 +131,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
                     <TextInput style={[styles.itemNameText, {marginLeft: 205}]} placeholder={"Name"} onChangeText={(item) => setInputItemNameSecond(item)}/>
                     <TextInput style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"} onChangeText={(item) => setInputItemPriceSecond(item)}/>
                 </View>
-            </KeyboardAwareScrollView> 
+            </KeyboardAwareScrollView>
         )
     }
 
@@ -167,7 +167,7 @@ const CreateStorePageScreen = ( {navigation} ) => {
         setStoreData(newData);
         setisRender(!isRender);
         console.log(newData);
-    }   
+    }
 
     const onPressSaveChanges = () => {
         handleChangeStoreData(changeStoreData);
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginRight: 10,
         marginTop: 5,
-    }, 
+    },
     itemContainer: {
         borderColor: '#ffffff',
         borderWidth: 1,
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         textAlign: 'center',
         flexDirection: 'row',
-        marginTop: -53, 
+        marginTop: -53,
         width: 45,
     },
     text: {

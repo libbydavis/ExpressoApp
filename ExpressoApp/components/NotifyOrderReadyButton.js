@@ -43,7 +43,7 @@ class NotifyOrderReadyButton extends Component {
             method: "POST",
             headers,
             body: JSON.stringify(this.state),
-        })
+        });
         response = await response.json()
         console.log(response)
     }

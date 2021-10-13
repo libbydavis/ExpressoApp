@@ -10,6 +10,7 @@ import {
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native-gesture-handler";
 import MenuCategories from "../../components/MenuCategories";
+import Header from "../../components/Header";
 
 export const MenuEditorScreen = ({navigation, route}) => {
     const menuID = route.params["menuID"];
@@ -83,12 +84,7 @@ export const MenuEditorScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <View style={styles.navBar}>
-                <Image
-                    source={require('../../assets/ExpressoLogo.png')}
-                    style={styles.headerIcon}
-                />
-            </View>
+            <Header/>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
