@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import MenuCategories from "../../components/MenuCategories";
-import {ScrollView} from "react-native-gesture-handler";
 import Header from "../../components/Header";
 
 export const MenuScreen = ({navigation, route}) => {
@@ -24,9 +23,6 @@ export const MenuScreen = ({navigation, route}) => {
 
     useEffect(() => {
         let itemList = [];
-        dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title);
-        });
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             snapshot.forEach((child) => {
                 itemList.push({
@@ -44,6 +40,12 @@ export const MenuScreen = ({navigation, route}) => {
         setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
         setDisplayedItems(menuItemList);
     }, [allCategories, menuItemList]);
+
+    useEffect(() => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title);
+        });
+    }, [])
 
     const filterItems = (category) => {
         setActiveCategory(category);
