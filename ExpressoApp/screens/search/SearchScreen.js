@@ -157,7 +157,7 @@ const SearchScreen = () => {
   }
 
   return (
-    <View style={styles.mainView}>
+    <View style={styles.mainView} testID={'Search_Screen'}>
       <Header/>
       <View style={styles.searchView}>
         <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
