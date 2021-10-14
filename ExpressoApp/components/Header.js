@@ -66,7 +66,7 @@ class ExpressoHeader extends React.Component {
     render() {
         return (
             <View style={this.styles.headerView}>
-                <TouchableOpacity style={this.styles.expressoLogoButton} onPress={this.OnLogoPressHandler}>
+                <TouchableOpacity style={this.styles.expressoLogoButton} onPress={this.OnLogoPressHandler} testID={'expressoButton'}>
                     <Image source={require('../assets/ExpressoLogo.png')} style={this.styles.expressoLogo}/>
                 </TouchableOpacity>
                 { /*Options like cart or profile */
@@ -75,7 +75,7 @@ class ExpressoHeader extends React.Component {
                             <Image source={require('../assets/carticon.png')} style={this.styles.cart}/>
                         </TouchableOpacity> :
                         this.rightOption === 'profile' ?
-                            <TouchableOpacity style={this.styles.rightOption} onPress={this.OnRightOptionPressHandler}>
+                            <TouchableOpacity style={this.styles.rightOption} onPress={this.OnRightOptionPressHandler} testID={'profileButton'}>
                                 <Image source={require('../assets/profileIcon.png')} style={this.styles.profile}/>
                             </TouchableOpacity> :
                             null
