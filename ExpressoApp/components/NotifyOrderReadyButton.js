@@ -7,24 +7,19 @@ class NotifyOrderReadyButton extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            recipient: '',
-            message: '',
         }
     }
 
     updateItem() {
-        console.log("dog")
         let updatedItem = this.props.onClick();
-        let message = 'Your order is ready: ' + updatedItem.orderNumber;
-        this.setState({...this.state, ['recipient']: updatedItem.recipient, ['message']: message});
+        this.setState({recipient: updatedItem.recipient, orderNum: updatedItem.orderNumber});
     }
 
     async notifyCustomer() {
         this.updateItem();
-        let messageRef = firebaseDB.ref().child(`users/${this.state.recipient}/message`).push();
-        messageRef.set({
-            'message': this.state.message
-        }).then(r => console.log("pushed message"));
+        console.log(this.state.recipient);
+        let messageRef = firebaseDB.ref('users/' + this.state.recipient).child('orderNum').set(this.state.orderNum)
+            .then(r => console.log(messageRef));
     }
 
     render() {

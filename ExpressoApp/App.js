@@ -62,15 +62,18 @@ export default class App extends Component {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+          <Stack.Screen name="Cart" component={CartScreen} />
+          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
+
           <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
             <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
           <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="OwnerOrdersScreen" component={OrdersScreen}/>
           <Stack.Screen name='SearchScreen' component={SearchScreen}/>
-          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
+
           <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
-          <Stack.Screen name="Cart" component={CartScreen} />
+
           <Stack.Screen name="MenuScreen" component={MenuScreen} />
           <Stack.Screen name="MenuEditor" component={MenuEditorScreen} />
         </Stack.Navigator>

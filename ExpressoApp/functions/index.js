@@ -2,7 +2,9 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 
-exports.sendFollowerNotification = functions.database.ref('users/{userUid}/orderNum').onUpdate(async (change, context) => {
+exports.orderNotify = functions.database.ref('users/{userUid}/orderNum').onUpdate(async (change, context) => {
+    console.log("orderNum changed")
+
     const userUid = context.params.userUid;
     const user =  admin.database()
         .ref(`/users/${userUid}`).once('value');
@@ -21,13 +23,15 @@ exports.sendFollowerNotification = functions.database.ref('users/{userUid}/order
     };
 
     const response = await admin.messaging().sendToDevice(token, payload);
+
+
     return Promise('done');
 });
 
 
 //google code below
 
-
+/*
 exports.sendFollowerNotification = functions.database.ref('/followers/{followedUid}/{followerUid}')
     .onWrite(async (change, context) => {
         const followerUid = context.params.followerUid;
@@ -109,4 +113,6 @@ exports.sendFollowerNotification = functions.database.ref('/followers/{followedU
             }
         });
         return Promise.all(tokensToRemove);
-    });
+
+ */
+   // })

@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flexDirection": "row",
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/minusButton.png",
+        }
+      }
+      style={
+        Object {
+          "height": 25,
+          "width": 25,
+        }
+      }
+    />
+  </View>
+  <TextInput
+    allowFontScaling={true}
+    keyboardType="numeric"
+    onChangeText={[Function]}
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "marginLeft": 10,
+        "textAlignVertical": "top",
+      }
+    }
+    underlineColorAndroid="transparent"
+    value="undefined"
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../assets/addButton.png",
+        }
+      }
+      style={
+        Object {
+          "height": 25,
+          "width": 25,
+        }
+      }
+    />
+  </View>
+</View>
+`;

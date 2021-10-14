@@ -15,6 +15,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { RadioButton } from 'react-native-paper';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '../../components/Header';
+import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
 
 /**
  *
@@ -156,8 +157,17 @@ const SearchScreen = () => {
     searchFilterFunction(search)
   }
 
+  const [orderNotifInfo, setOrderNotifInfo] = useState({
+    recipient: 'qIYOZMFLFESqwI9nHeQ7g1Tf5Gg1',
+    orderNumber: 'ABC124'
+  });
+  const returnOrderNotifInfo = () => {
+    return orderNotifInfo;
+  }
+
   return (
     <View style={styles.mainView}>
+      <NotifyOrderReadyButton onClick={returnOrderNotifInfo}></NotifyOrderReadyButton>
       <Header/>
       <View style={styles.searchView}>
         <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
