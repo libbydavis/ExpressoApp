@@ -69,10 +69,15 @@ export const MenuScreen = ({navigation, route}) => {
 
     const getItem = (item) => {
         // Function to click on a menu item in the FlatList
-        // if (item.optionLists == undefined) {
-        //     console.log(item)
-        //     item.optionLists = [];
-        // };
+
+        if (item.optionLists) {
+            navigation.navigate("ReviewMenuItem", {
+                title:item.title,
+                price: item.price,
+                description: item.description,
+                optionLists: item.optionLists
+            });
+        };
         console.log(item);
         navigation.navigate("ReviewMenuItem", {
             title:item.title,
@@ -80,6 +85,7 @@ export const MenuScreen = ({navigation, route}) => {
             description: item.description,
             optionLists: []
         });
+
 //        alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
 
