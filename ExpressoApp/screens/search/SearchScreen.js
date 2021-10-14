@@ -15,6 +15,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { RadioButton } from 'react-native-paper';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '../../components/Header';
+import { useNavigation} from '@react-navigation/native';
 
 /**
  *
@@ -22,6 +23,7 @@ import Header from '../../components/Header';
  * @constructor
  */
 const SearchScreen  = () => {
+  const navigate = useNavigation();
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('A-Z');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -159,7 +161,7 @@ const SearchScreen  = () => {
 
   return (
     <View style={styles.mainView} testID={'Search_Screen'}>
-      <Header/>
+      <Header navigation={navigate} rightOption={'profile'}/>
       <View style={styles.searchView}>
         <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
           <View style={styles.overlay}>
