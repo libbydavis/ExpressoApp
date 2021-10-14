@@ -21,7 +21,7 @@ import Header from '../../components/Header';
  * @return {JSX.Element}
  * @constructor
  */
-const SearchScreen = () => {
+const SearchScreen  = () => {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('A-Z');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -34,7 +34,8 @@ const SearchScreen = () => {
   ]);
 
   useEffect(() => {
-    firebaseDB.ref('businesses/').on('value', (snapshot)=>{
+    firebaseDB.ref('businesses/').once('value', (snapshot)=>{
+      console.log('test')
       var business = [];
       const options = {
         enableHighAccuracy: true,
@@ -224,14 +225,14 @@ const SearchScreen = () => {
         />
         <Text style={styles.sortText} >Nearest </Text>
       </View>
-    <ScrollView>
+
       <FlatList
           data={filteredDataSource}
           renderItem={ItemView}
           numColumns={2}
           keyExtractor={(item, index) => index}
       />
-    </ScrollView>
+
     </View>
   );
 };
