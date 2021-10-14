@@ -33,14 +33,16 @@ const ProfileScreen = () => {
         })
 
         firebaseDB.ref('businesses/'+uid+'/').once('value').then(snapshot=>{
-            setIsBusiness(true)
             setBusinessTitle(snapshot.val().title)
+            if (snapshot.val().title != null) {
+                setIsBusiness(true)
+            }
         })
 
     }, []);
 
     return (
-        <View style={styles.mainView}>
+        <View style={styles.mainView} testID={'Profile_Screen'}>
             <Header navigation={navigate} rightOption={'profile'}/>
             <View style={styles.titleView}>
                 <Text style={styles.title}>Profile</Text>
@@ -68,13 +70,13 @@ const ProfileScreen = () => {
                     <Text style={styles.expressoButtonText}>Change Password</Text>
                 </TouchableOpacity>
                 { isBusiness === true ?
-                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('EditOpeningHours')}>
+                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('EditOpeningHours')} testID={'openingHoursEditorButton'}>
                         <Text style={styles.expressoButtonText}>Edit Opening Hours</Text>
                     </TouchableOpacity> :
                     null
                 }
                 { isBusiness === true ?
-                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('DeleteMenuItemScreen')}>
+                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('DeleteMenuItemScreen')} testID={'deleteMenuItemsButton'}>
                         <Text style={styles.expressoButtonText}>Delete Menu Items</Text>
                     </TouchableOpacity> :
                     null
