@@ -62,7 +62,7 @@ export const DeleteMenuItemScreen = (props) => {
             ])};
 
     return (
-        <View height={'100%'}>
+        <View height={'100%'} testID={'Delete_Menu_Item_Screen'}>
             <Header navigation={navigate} rightOption={'profile'}/>
             <View style={styles.titleView}>
                 <Text style={styles.title}>Select Item to Delete:</Text>
