@@ -17,9 +17,7 @@ import Header from '../../components/Header';
  */
 
 export const DeleteMenuItemScreen = (props) => {
-    const menuID =undefined;
-    const [menuItemList, setMenuItemList] = useState([]);
-    const [menuTitle, setMenuTitle] = useState('Menu');
+    const menuID = props.menuID;
     const [displayedItems, setDisplayedItems] = useState([]);
 
     useEffect(() => {
@@ -33,7 +31,6 @@ export const DeleteMenuItemScreen = (props) => {
                     key: child.key,
                 });
             });
-            setMenuItemList(itemList);
             setDisplayedItems(itemList);
         });
         console.log('exit')
