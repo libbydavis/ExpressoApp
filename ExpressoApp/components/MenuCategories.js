@@ -33,8 +33,12 @@ const styles = StyleSheet.create({
         flex: 1,
         fontFamily: 'Monserrat-Regular',
         backgroundColor: '#ffffff',
+    },
+    itemText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: 'Monserrat-Regular',
     }
-
 })
 
 // Old return statement below - more geared toward React rather than React Native (will use FlatList instead)

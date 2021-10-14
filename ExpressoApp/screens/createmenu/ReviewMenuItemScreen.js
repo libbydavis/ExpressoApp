@@ -24,10 +24,6 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     }
 
 
-    const setNotes = (notes) => {
-        setCartItem({...cartItem, ['notes']: notes});
-    }
-
     const toggleOptions = (item, title, isChecked) => {
         let optionsCopy = [...cartItem.options];
         if (isChecked) {
@@ -45,11 +41,10 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
         return cartItem;
     }
 
-
     return (
         <View>
             <Header></Header>
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('AddMenuItem')}>
+            <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                 <Text style={styles.backButtonText}>Back To Menu</Text>
             </TouchableWithoutFeedback>
             <View style={styles.pageView}>
@@ -90,8 +85,9 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
             </View>
         </View>
     )
-}
 
+
+}
 const styles = StyleSheet.create({
     pageView: {
         alignItems: 'center',
@@ -152,3 +148,7 @@ const styles = StyleSheet.create({
 })
 
 export default ReviewMenuItemScreen;
+
+const setNotes = (notes) => {
+    setCartItem({...cartItem, ['notes']: notes});
+}

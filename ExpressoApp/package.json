@@ -66,10 +66,11 @@
     "@babel/runtime": "^7.15.4",
     "@react-native-community/eslint-config": "^3.0.0",
     "babel-jest": "^27.2.4",
+    "detox": "^18.22.2",
     "eslint": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "firebase-admin": "^9.12.0",
-    "jest": "^27.2.4",
+    "jest": "^27.2.5",
     "metro-react-native-babel-preset": "^0.66.2"
   },
   "jest": {
@@ -79,5 +80,18 @@
       "node_modules",
       "src"
     ]
+  },
+  "detox": {
+    "configurations": {
+      "android.emu.debug": {
+        "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+        "build": "cd android && gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..",
+        "type": "android.emulator",
+        "name": "Pixel_XL_API_29"
+      }
+    },
+    "test-runner": "jest",
+    "testMatch": ["<roots>/**/*.spec.js"]
+
   }
 }
