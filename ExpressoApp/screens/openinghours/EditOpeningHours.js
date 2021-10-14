@@ -115,7 +115,7 @@ const editOpeningHours = () => {
     }
 
     return (
-        <View style={styles.mainView}>
+        <View style={styles.mainView} testID={'Opening_Hours_Editor_Screen'}>
             <Header navigation={navigate} rightOption={'profile'}/>
             <View style={styles.titleView}>
                 <Text style={styles.title}>Edit Opening Hours</Text>
