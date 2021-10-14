@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {firebaseDB} from "../../firebase/FirebaseConfig";
 import Header from '../../components/Header';
+import { useNavigation} from '@react-navigation/native';
 
 /**
  *
@@ -19,6 +20,7 @@ import Header from '../../components/Header';
 export const DeleteMenuItemScreen = (props) => {
     const menuID = props.menuID;
     const [displayedItems, setDisplayedItems] = useState([]);
+    const navigate = useNavigation();
 
     useEffect(() => {
         console.log('Menus/'+menuID+'/menuItems/')
@@ -61,7 +63,7 @@ export const DeleteMenuItemScreen = (props) => {
 
     return (
         <View height={'100%'}>
-            <Header/>
+            <Header navigation={navigate} rightOption={'profile'}/>
             <View style={styles.titleView}>
                 <Text style={styles.title}>Select Item to Delete:</Text>
             </View>
