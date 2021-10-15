@@ -10,13 +10,16 @@ import {
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import MenuCategories from "../../components/MenuCategories";
 import Header from "../../components/Header";
+// import Category from "react-native-category"; this package is shit do not use
+
+//TODO: Remove unnecessary styles, fix loading of categories
 
 export const MenuScreen = ({navigation, route}) => {
     // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [allCategories, setAllCategories] = useState([]);
-    const [activeCategory, setActiveCategory] = useState('');
+    const [activeCategory, setActiveCategory] = useState("all");
     const [menuItemList, setMenuItemList] = useState([]);
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
@@ -37,7 +40,6 @@ export const MenuScreen = ({navigation, route}) => {
             });
         });
         setMenuItemList(itemList);
-        setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
         setDisplayedItems(menuItemList);
     }, []);
 
@@ -45,7 +47,11 @@ export const MenuScreen = ({navigation, route}) => {
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
             setMenuTitle(snapshot.val().title);
         });
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
+    }, [menuItemList]);
 
     const filterItems = (category) => {
         setActiveCategory(category);
@@ -62,7 +68,8 @@ export const MenuScreen = ({navigation, route}) => {
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
                 <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')}/>
-                <Text style={styles.itemText}>{item.title}</Text>
+                <Text style={styles.itemText}>{item.title}   </Text>
+                <Text style={styles.itemText}>${item.price}</Text>
             </TouchableOpacity>
         );
     };
@@ -86,7 +93,6 @@ export const MenuScreen = ({navigation, route}) => {
             optionLists: []
         });
 
-//        alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
 
     const ItemSeparatorView = () => {
@@ -115,6 +121,10 @@ export const MenuScreen = ({navigation, route}) => {
                 activeCategory={activeCategory}
                 filterItems={filterItems}
             />
+            {/*<Category data={menuItemList}*/}
+            {/*          itemSelected={(category) => filterItems(category)}*/}
+            {/*          itemText={'itemCategory'}*/}
+            {/*          />*/}
             <FlatList
                 data={displayedItems}
                 ItemSeparatorComponent={ItemSeparatorView}
@@ -135,13 +145,6 @@ const styles = StyleSheet.create({
         color: '#25a2af',
         fontSize: 35,
     },
-    scrollView: {
-        marginHorizontal: 20,
-        // backgroundColor: '#ffffff',
-        marginBottom: 30,
-        paddingBottom: 100,
-        alignItems: 'center',
-    },
     menuItems: {
         justifyContent: 'center',
         flexDirection: 'row',
@@ -155,34 +158,6 @@ const styles = StyleSheet.create({
     headerIcon: {
         width: 200,
         height: 50,
-    },
-    modalView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-    },
-    textInput: {
-        fontFamily: 'Monserrat-Regular',
-        borderBottomWidth: 1,
-        borderStartWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderTopWidth: 1,
-        paddingRight: 50,
-        marginBottom: 20,
-    },
-    itemText: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: 'Monserrat-Regular',
-    },
-
-    title: {
-        fontFamily: 'Monserrat-Bold',
-        color: '#25a2af',
-        fontSize: 35,
-        margin: 10,
     },
     rowView: {
         flexDirection: 'row',

@@ -1,23 +1,34 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Text, View} from "react-native-animatable";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FlatList, Image, StyleSheet} from "react-native";
 
 const MenuCategories = ({categories, filterItems, activeCategory}) => {
+
+    const ItemView = ({item}) => {
+        return (
+            <TouchableOpacity
+                style={styles.itemStyle}
+                onPress={filterItems(item)}
+            >
+                <Text style={styles.itemText}>{item}</Text>
+            </TouchableOpacity>
+        )
+    }
     return (
-        <View className="btn-container">
+        <View>
             {categories.map((category, index) => {
                 return (
                     <FlatList
                         data={categories}
-                        renderItem={() => {
-                            return (
-                                <TouchableOpacity style={styles.itemStyle} onPress={() => filterItems(category)}>
-                                    <Text style={styles.itemText}>{category}</Text>
-                                </TouchableOpacity>
-                            )
-                        }}
-                        horizontal={true}
+                        horizontal
+                        renderItem={ItemView
+                            // return (
+                            //     <TouchableOpacity style={styles.itemStyle} onPress={() => filterItems(category)}>
+                            //         <Text style={styles.itemText}>{category}</Text>
+                            //     </TouchableOpacity>
+                            // )
+                        }
                     />
                 );
             })}
@@ -38,6 +49,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontFamily: 'Monserrat-Regular',
+        color: '#000000'
     }
 })
 
