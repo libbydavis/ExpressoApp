@@ -13,7 +13,8 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
         currentPrice: route.params.price,
         quantity: 1,
         notes: '',
-        options: ''
+        options: '',
+        businessID: route.params.businessID
     })
 
     const receiveQuantity = (value) => {
@@ -83,7 +84,7 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
                     <Text style={styles.price}>$ {cartItem.currentPrice}</Text>
                     <TextInput onChangeText={(text) => setNotes(text)} placeholder={"additional notes"} style={styles.notesBox} multiline={true}/>
 
-                    <AddToCartButton onClick={getCartItem} title={cartItem.title} price={cartItem.price}></AddToCartButton>
+                    <AddToCartButton onClick={getCartItem} title={cartItem.title} price={cartItem.price} businessID={cartItem.businessID}></AddToCartButton>
                 </View>
             </View>
         </View>

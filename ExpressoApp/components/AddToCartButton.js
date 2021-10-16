@@ -10,6 +10,7 @@ class AddToCartButton extends Component {
         this.state = {
             title: props.title,
             price: props.price,
+            businessID: props.businessID
         }
     }
 
@@ -20,6 +21,7 @@ class AddToCartButton extends Component {
     }
 
     async handleAddToCart() {
+        //TODO: check business ID before adding
         this.updateItem()
 
         let item = false;
