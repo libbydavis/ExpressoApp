@@ -1,0 +1,260 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View>
+  <View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignSelf": "flex-start",
+          "marginBottom": 15,
+          "marginTop": 8,
+          "opacity": 1,
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../assets/ExpressoLogo.png",
+          }
+        }
+        style={
+          Object {
+            "height": 50,
+            "width": 200,
+          }
+        }
+      />
+    </View>
+  </View>
+  <Text
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "fontFamily": "Monserrat-ExtraBold",
+        "fontSize": 15,
+        "marginLeft": 22,
+      }
+    }
+  >
+    Back To Menu
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "marginTop": 15,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "justifyContent": "flex-start",
+        }
+      }
+    >
+      <Image
+        source={
+          Object {
+            "uri": undefined,
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "fontFamily": "Monserrat-Bold",
+            "fontSize": 25,
+            "marginBottom": 10,
+            "marginTop": 15,
+          }
+        }
+      >
+        hotdog
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontFamily": "Monserrat-Regular",
+            "marginBottom": 30,
+          }
+        }
+      >
+        tasty hotdog
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../assets/minusButton.png",
+              }
+            }
+            style={
+              Object {
+                "height": 25,
+                "width": 25,
+              }
+            }
+          />
+        </View>
+        <TextInput
+          allowFontScaling={true}
+          keyboardType="numeric"
+          onChangeText={[Function]}
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "marginLeft": 10,
+              "textAlignVertical": "top",
+            }
+          }
+          underlineColorAndroid="transparent"
+          value="1"
+        />
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "testUri": "../../../assets/addButton.png",
+              }
+            }
+            style={
+              Object {
+                "height": 25,
+                "width": 25,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "marginBottom": 20,
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "fontFamily": "Monserrat-Bold",
+            "fontSize": 16,
+            "marginBottom": 20,
+          }
+        }
+      >
+        $ 
+        10
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        multiline={true}
+        onChangeText={[Function]}
+        placeholder="additional notes"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "borderBottomWidth": 1,
+            "borderLeftWidth": 1,
+            "borderRightWidth": 1,
+            "borderStartWidth": 1,
+            "borderTopWidth": 1,
+            "marginBottom": 15,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#25a2af",
+              "borderRadius": 10,
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#ffffff",
+                "padding": 10,
+              }
+            }
+          >
+            Add To Cart
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

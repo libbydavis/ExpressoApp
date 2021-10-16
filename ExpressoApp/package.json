@@ -77,13 +77,14 @@
   },
   "jest": {
     "preset": "react-native",
+    "setupFiles": ["./jestSetupFile.js"],
     "verbose": true,
     "moduleDirectories": [
       "node_modules",
       "src"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|@react-native-community|@react-native-firebase|@react-navigation|react-navigation|react-native-image-picker)/)"
+      "node_modules/(?!(@react-native|react-native|@react-native-community|@react-native-firebase|@react-navigation|react-navigation|react-native-image-picker|react-native-bouncy-checkbox)/)"
     ]
   },
   "resolutions": {
