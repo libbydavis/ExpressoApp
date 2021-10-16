@@ -5,11 +5,12 @@ import {
     TouchableOpacity,
     Text,
     Image,
-    FlatList,
+    FlatList, SectionList,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import MenuCategories from "../../components/MenuCategories";
 import Header from "../../components/Header";
+import {cat} from "yarn/lib/cli";
 // import Category from "react-native-category"; this package is shit do not use
 
 //TODO: Remove unnecessary styles, fix loading of categories
@@ -18,11 +19,13 @@ export const MenuScreen = ({navigation, route}) => {
     // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
+    const [businessID, setBusinessID] = useState("");
     const [allCategories, setAllCategories] = useState([]);
     const [activeCategory, setActiveCategory] = useState("all");
     const [menuItemList, setMenuItemList] = useState([]);
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
+    const [categoryItems, setCategoryItems] = useState([]);
 
     useEffect(() => {
         let itemList = [];
@@ -39,13 +42,38 @@ export const MenuScreen = ({navigation, route}) => {
                 });
             });
         });
+
+        let category = [];
+
+        for (let i = 0; i < itemList.length; i++) {
+            let item = itemList[i];
+            let cat = item.itemCategory
+            console.log(item)
+            console.log(cat)
+            if (cat) {
+                console.log("into first if ")
+                if (category.includes({title: cat})) {
+                    console.log("into second if")
+                    category[{title:cat}].data.push(item);
+                    console.log(category);
+                } else {
+                    console.log("into else")
+                    category.push({title: cat, data: [item]});
+                    console.log(category)
+                    console.log(category[{title:cat}].data);
+                }
+                console.log(category)
+            }
+        }
+        setCategoryItems(category);
         setMenuItemList(itemList);
-        setDisplayedItems(menuItemList);
+        // setDisplayedItems(menuItemList);
     }, []);
 
     useEffect(() => {
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
             setMenuTitle(snapshot.val().title);
+            setBusinessID(snapshot.val().business);
         });
     }, []);
 
@@ -68,7 +96,7 @@ export const MenuScreen = ({navigation, route}) => {
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
                 <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')}/>
-                <Text style={styles.itemText}>{item.title}   </Text>
+                <Text style={styles.itemText}>{item.title}</Text>
                 <Text style={styles.itemText}>${item.price}</Text>
             </TouchableOpacity>
         );
@@ -79,18 +107,21 @@ export const MenuScreen = ({navigation, route}) => {
 
         if (item.optionLists) {
             navigation.navigate("ReviewMenuItem", {
-                title:item.title,
+                title: item.title,
                 price: item.price,
                 description: item.description,
-                optionLists: item.optionLists
+                optionLists: item.optionLists,
+                businessID: businessID
             });
-        };
+        }
+
         console.log(item);
         navigation.navigate("ReviewMenuItem", {
-            title:item.title,
+            title: item.title,
             price: item.price,
             description: item.description,
-            optionLists: []
+            optionLists: [],
+            businessID: businessID
         });
 
     };
@@ -116,21 +147,22 @@ export const MenuScreen = ({navigation, route}) => {
                     {menuTitle}
                 </Text>
             </View>
-            <MenuCategories
-                categories={allCategories}
-                activeCategory={activeCategory}
-                filterItems={filterItems}
-            />
-            {/*<Category data={menuItemList}*/}
-            {/*          itemSelected={(category) => filterItems(category)}*/}
-            {/*          itemText={'itemCategory'}*/}
-            {/*          />*/}
-            <FlatList
-                data={displayedItems}
-                ItemSeparatorComponent={ItemSeparatorView}
+            <SectionList
+                sections={categoryItems}
+                keyExtractor={(item, index) => item + index}
                 renderItem={ItemView}
-                numColumns={2}
+                itemSeparator={ItemSeparatorView}
             />
+            {/*<MenuCategories*/}
+            {/*    categories={allCategories}*/}
+            {/*    filterItems={filterItems}*/}
+            {/*!/>*/}
+            {/*<FlatList*/}
+            {/*    data={displayedItems}*/}
+            {/*    ItemSeparatorComponent={ItemSeparatorView}*/}
+            {/*    renderItem={ItemView}*/}
+            {/*    numColumns={2}*/}
+            {/*!/>*/}
         </View>
     )
 };

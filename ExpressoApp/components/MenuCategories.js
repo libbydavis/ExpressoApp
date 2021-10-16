@@ -3,35 +3,25 @@ import {Text, View} from "react-native-animatable";
 import {TouchableOpacity} from "react-native-gesture-handler";
 import {FlatList, Image, StyleSheet} from "react-native";
 
-const MenuCategories = ({categories, filterItems, activeCategory}) => {
+const MenuCategories = ({ categories, filterItems }) => {
 
-    const ItemView = ({item}) => {
+    const ItemView = ({category}) => {
         return (
             <TouchableOpacity
                 style={styles.itemStyle}
-                onPress={filterItems(item)}
+                onPress={filterItems(category)}
             >
-                <Text style={styles.itemText}>{item}</Text>
+                <Text style={styles.itemText}>{category}</Text>
             </TouchableOpacity>
         )
     }
     return (
         <View>
-            {categories.map((category, index) => {
-                return (
-                    <FlatList
-                        data={categories}
-                        horizontal
-                        renderItem={ItemView
-                            // return (
-                            //     <TouchableOpacity style={styles.itemStyle} onPress={() => filterItems(category)}>
-                            //         <Text style={styles.itemText}>{category}</Text>
-                            //     </TouchableOpacity>
-                            // )
-                        }
-                    />
-                );
-            })}
+            <FlatList
+                data={categories}
+                renderItem={ItemView}
+                horizontal
+            />
         </View>
     )
 }
@@ -54,6 +44,8 @@ const styles = StyleSheet.create({
 })
 
 // Old return statement below - more geared toward React rather than React Native (will use FlatList instead)
+
+// fuck this shit
 
 // <TouchableOpacity
 //     type="button"
