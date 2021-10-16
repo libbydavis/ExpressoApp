@@ -4,6 +4,8 @@ import AddToCartButton from "../../components/AddToCartButton";
 import QuantityInput from "../../components/QuantityInput";
 import Header from "../../components/Header";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+//remove
+import ExpressoButton from '../../components/Button';
 
 //TODO: options lists
 
@@ -48,7 +50,7 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <Header></Header>
+            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></Header>
             <TouchableWithoutFeedback onPress={() => navigation.navigate('AddMenuItem')}>
                 <Text style={styles.backButtonText}>Back To Menu</Text>
             </TouchableWithoutFeedback>
@@ -86,6 +88,8 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
                     <TextInput onChangeText={(text) => setNotes(text)} placeholder={"additional notes"} style={styles.notesBox} multiline={true}/>
 
                     <AddToCartButton onClick={getCartItem} title={cartItem.title} price={cartItem.price}></AddToCartButton>
+                    <ExpressoButton title={"press"} onPress={() => navigation.navigate('Cart', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton>
+
                 </View>
             </View>
         </View>

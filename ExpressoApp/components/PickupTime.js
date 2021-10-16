@@ -3,15 +3,31 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {ToastAndroid} from 'react-native';
 import PropTypes from 'prop-types';
 
+export const getTwelveHourString = time => {
+    let pm = time.getHours() > 12;
+    let hours = pm ? time.getHours() - 12 : time.getHours();
+    console.log(
+        'minutes length for ' +
+        time.toLocaleTimeString('en-US') +
+        ' : ' +
+        time.getMinutes().toString().length ===
+        1,
+    );
+    let mins =
+        time.getMinutes().toString().length === 1
+        ? '0' + time.getMinutes().toString()
+        : time.getMinutes();
+    let half = pm ? 'pm' : 'am';
+
+    return hours + ':' + mins + half;
+};
+
 export default function PickupTimePicker({
     handleOrderTime,
     hidePickerVisibility,
     openingHours,
     closingHours,
-}) {
-    const [currentTime, setCurrentTime] = useState(
-        new Date('October 13, 2021 19:25:30'),
-    );
+    }) {
 
     const openingTime = openingHours
         ? openingHours
@@ -19,25 +35,6 @@ export default function PickupTimePicker({
     const closingTime = closingHours
         ? closingHours
         : new Date().setHours(21, 0, 0);
-
-    const getTwelveHourString = time => {
-        let pm = time.getHours() > 12;
-        let hours = pm ? time.getHours() - 12 : time.getHours();
-        console.log(
-        'minutes length for ' +
-            time.toLocaleTimeString('en-US') +
-            ' : ' +
-            time.getMinutes().toString().length ===
-            1,
-        );
-        let mins =
-        time.getMinutes().toString().length === 1
-            ? '0' + time.getMinutes().toString()
-            : time.getMinutes();
-        let half = pm ? 'pm' : 'am';
-
-        return hours + ':' + mins + half;
-    };
 
     return (
         <DateTimePicker
@@ -49,7 +46,7 @@ export default function PickupTimePicker({
             if (selectedTime >= openingTime && selectedTime < closingTime) {
             ToastAndroid.show(
                 `Pickup set for ${getTwelveHourString(new Date(selectedTime))}`,
-                ToastAndroid.SHORT,
+                ToastAndroid.LONG,
             );
             console.log(
                 'selected: ' + new Date(selectedTime).toLocaleTimeString('en-US'),
@@ -62,10 +59,10 @@ export default function PickupTimePicker({
             } else {
             ToastAndroid.show(
                 `Please select a pickup time within hours
-                    ${getTwelveHourString(
-                    new Date(openingTime),
-                    )} and ${getTwelveHourString(new Date(closingTime))}`,
-                ToastAndroid.SHORT,
+                        ${getTwelveHourString(
+                        new Date(openingTime),
+                        )} and ${getTwelveHourString(new Date(closingTime))}`,
+                ToastAndroid.LONG,
             );
             handleOrderTime(new Date());
             hidePickerVisibility();

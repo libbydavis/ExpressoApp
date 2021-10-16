@@ -10,12 +10,7 @@ import PickupTimePicker from '../../components/PickupTime';
 
 
 const LoginScreen = ({navigation}) => {
-  //Temporary Demos
-  const [orderTime, setOrderTime] = useState(() => new Date().toLocaleString());
-  const [showTimePicker, setShowTimePicker] = useState(() => false);
-  const hidePickerVisibility = () => setShowTimePicker(false);
-  const handleOrderTime = (time) => setOrderTime(time);
-  //End of Temp
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const test = () => {
@@ -87,13 +82,6 @@ const LoginScreen = ({navigation}) => {
         Sign up here</Text>
       </View>
 
-      <ExpressoButton
-          onPress={() => setShowTimePicker(true)}
-          title={'Choose Pickup Time'}
-        />
-      {showTimePicker && (
-          <PickupTimePicker hidePickerVisibility={hidePickerVisibility} handleOrderTime={handleOrderTime} />
-        )}
     </View>
   );
 };
