@@ -7,8 +7,6 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 //remove
 import ExpressoButton from '../../components/Button';
 
-//TODO: options lists
-
 const ReviewMenuItemScreen = ({navigation, route}) => {
     const UNIT_PRICE = route.params.price;
     const [cartItem, setCartItem] = useState({
