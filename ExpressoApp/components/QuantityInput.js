@@ -22,7 +22,7 @@ const QuantityInput = (props) => {
 
   const handleButtonQuantity = (buttonType) => {
     let newQuantity;
-    if (buttonType == true) {
+    if (buttonType == 'plus') {
       newQuantity = quantity + 1;
       setQuantity(newQuantity);
     } else if (quantity - 1 < 0) {
@@ -35,11 +35,11 @@ const QuantityInput = (props) => {
   };
 
   const handlePlus = () => {
-    handleButtonQuantity(true);
+    handleButtonQuantity('plus');
   };
 
   const handleMinus = () => {
-    handleButtonQuantity(false);
+    handleButtonQuantity('minus');
   };
 
   const handleTextQuantity = (text) => {
