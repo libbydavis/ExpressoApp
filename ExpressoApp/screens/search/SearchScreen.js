@@ -16,6 +16,7 @@ import { RadioButton } from 'react-native-paper';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '../../components/Header';
 import { useNavigation} from '@react-navigation/native';
+import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
 
 /**
  *
@@ -159,9 +160,19 @@ const SearchScreen  = () => {
     searchFilterFunction(search)
   }
 
+  const [orderNotifInfo, setOrderNotifInfo] = useState({
+    recipient: 'qIYOZMFLFESqwI9nHeQ7g1Tf5Gg1',
+    orderNumber: 'ABC126'
+  });
+  const returnOrderNotifInfo = () => {
+    return orderNotifInfo;
+  }
+
   return (
     <View style={styles.mainView} testID={'Search_Screen'}>
       <Header navigation={navigate} rightOption={'profile'}/>
+
+      <NotifyOrderReadyButton onClick={returnOrderNotifInfo}></NotifyOrderReadyButton>
       <View style={styles.searchView}>
         <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
           <View style={styles.overlay}>
@@ -226,6 +237,7 @@ const SearchScreen  = () => {
             onPress={() => updateSort('Nearest')}
         />
         <Text style={styles.sortText} >Nearest </Text>
+        <ExpressoButton title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton>
       </View>
 
       <FlatList

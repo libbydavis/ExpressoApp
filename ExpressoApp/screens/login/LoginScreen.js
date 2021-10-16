@@ -5,21 +5,29 @@ import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard, Al
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import {keyboard} from "yarn/lib/cli";
 import ExpressoButton from '../../components/Button';
+import PickupTimePicker from '../../components/PickupTime';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import '@react-navigation/native';
 
 
 const LoginScreen = ({navigation}) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-const test = () => {
-    console.log('test');
-}
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const test = () => {
+      console.log('test');
+  }
+
   const userLogin = () => {
     firebaseAuth
       .signInWithEmailAndPassword(email, password)
-        .then(() => {
-          console.log("User has successfully signed in!");
-          navigation.navigate('SearchScreen');
+        .then(async (user) => {
+            console.log("User has successfully signed in!");
+            let token = await AsyncStorage.getItem('@token');
+            token = JSON.parse(token);
+            console.log(token);
+            let messageRef = firebaseDB.ref('users/' + user.user.uid).child('token').set(token)
+                .then(r => navigation.navigate('SearchScreen'));
         })
         .catch(error => {
             Alert.alert(
@@ -82,7 +90,6 @@ const test = () => {
         Sign up here</Text>
       </View>
 
-        <ExpressoButton title={'Cool!'} onPress={test}/>
     </View>
   );
 };

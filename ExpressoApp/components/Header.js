@@ -5,9 +5,10 @@ import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
 class ExpressoHeader extends React.Component {
     constructor(props) {
         super(props);
-        const {navigation,rightOption} = this.props;
+        const {navigation, rightOption, onPress} = this.props;
         this.navigation = navigation;
         this.rightOption = rightOption; //Cart or Profile
+        this.onPress = onPress;
         this.styles = StyleSheet.create({
             headerView: {
                 flexDirection: 'row',
@@ -47,21 +48,22 @@ class ExpressoHeader extends React.Component {
         try {
             this.navigation.navigate('SearchScreen');
         } catch (error) {
-            console.warn('Caught an error in ExpressoButton');
+            console.warn('Caught an error in header');
             console.error(error.message);
         }
-    }
+    };
 
     OnRightOptionPressHandler = () => {
+        console.log('Right option handler');
         try {
-            this.rightOption === 'cart' ?
-                this.navigation.navigate('CartScreen') :
-                this.navigation.navigate('ProfileScreen');
+            this.onPress
+                ? this.onPress()?.()
+                : console.warn('Implement onPress prop');
         } catch (error) {
             console.warn('Caught an error in ExpressoButton');
             console.error(error.message);
         }
-    }
+    };
 
     render() {
         return (

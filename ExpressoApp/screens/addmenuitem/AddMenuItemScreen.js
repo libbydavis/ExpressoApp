@@ -19,7 +19,6 @@ import CreateOptionListModal from "./CreateOptionListModal";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
-import NotifyOrderButton from "../../components/NotifyOrderButton";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -70,42 +69,6 @@ const AddMenuItemScreen = ({route, navigation}) => {
         setMenuItemObject({... menuItemObject, ['itemCategory']: category});
     }
 
-    const handleChecklistTaskAdd = () => {
-        if (checklistTask != undefined) {
-            setChecklistItems([...checklistItems, checklistTask]);
-            setChecklistTask(null);
-        } else {
-            ToastAndroid.show('Type an option to add to the list',
-                ToastAndroid.SHORT);
-        }
-    };
-
-    const handleNewChecklist = () => {
-        if (checklistTitle != undefined && checklistItems.length > 0) {
-            setModalVisible(!modalVisible);
-            menuItemObject.optionLists.push({title: checklistTitle, items: checklistItems});
-            setChecklistTitle(null);
-            setChecklistItems([]);
-        } else if (checklistTitle == undefined) {
-            Alert.alert('Enter a checklist title to continue');
-        } else if (checklistItems == 0) {
-            Alert.alert('Enter at least one option to continue');
-        }
-    };
-
-    const discardNewChecklist = () => {
-        setModalVisible(!modalVisible);
-        setChecklistTitle(null);
-        setChecklistItems([]);
-    };
-
-    const handleDeleteItem = (index) => {
-        const checklistItemsCopy = [...checklistItems];
-        checklistItemsCopy.splice(index, 1);
-        setChecklistItems(checklistItemsCopy);
-        console.log(checklistItems);
-    };
-
     const onClickAddItem = () => {
         let menuRef = dbRef.child(`Menus/${menuID}/menuItems`).push();
         menuRef.set({
@@ -123,7 +86,9 @@ const AddMenuItemScreen = ({route, navigation}) => {
   return (
     <View>
         <Header></Header>
-      <View style={styles.mainView}>
+        <Button title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></Button>
+
+        <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
         <CustomImagePicker receiveImage={receiveImage} width={200} height={180}/>
         <View style={styles.rowView}>

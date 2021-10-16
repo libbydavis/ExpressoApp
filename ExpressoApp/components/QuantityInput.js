@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   TextInput,
@@ -8,38 +8,42 @@ import {
   Alert,
 } from 'react-native';
 
+function setInitial(props) {
+  if (props != undefined) {
+    let quan = props.initialQuantity ? props.initialQuantity : 1;
+    return quan;
+  }
+  return 1;
+}
 
 const QuantityInput = (props) => {
-  const [quantity, setQuantity] = useState('' + props.initialQuantity);
-  const [quantityNumber, setQuantityNumber] = useState(props.initialQuantity);
+  const [quantity, setQuantity] = useState(setInitial(props));
+
 
   const handleButtonQuantity = (buttonType) => {
     let newQuantity;
-    if (buttonType == true) {
-      newQuantity = quantityNumber + 1;
-      setQuantityNumber(newQuantity);
-      setQuantity(newQuantity.toString());
-    } else if (quantityNumber - 1 < 0) {
+    if (buttonType == 'plus') {
+      newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+    } else if (quantity - 1 < 0) {
       Alert.alert('You can\'t have a value smaller than 0!');
-    } else if (quantityNumber - 1 >= 0) {
-      newQuantity = quantityNumber - 1;
-      setQuantityNumber(newQuantity);
-      setQuantity(newQuantity.toString());
+    } else if (quantity - 1 >= 0) {
+      newQuantity = quantity - 1;
+      setQuantity(newQuantity);
     }
     props.receiveValue(newQuantity);
   };
 
   const handlePlus = () => {
-    handleButtonQuantity(true);
+    handleButtonQuantity('plus');
   };
 
   const handleMinus = () => {
-    handleButtonQuantity(false);
+    handleButtonQuantity('minus');
   };
 
   const handleTextQuantity = (text) => {
-    setQuantity(text);
-    setQuantityNumber(Number(text));
+    setQuantity(Number(text));
     props.receiveValue(Number(text));
   };
 
@@ -52,7 +56,7 @@ const QuantityInput = (props) => {
         />
       </TouchableOpacity>
       <TextInput
-        style={styles.quantityInputBox} value={quantity}
+        style={styles.quantityInputBox} value={quantity.toString()}
         onChangeText={(text) => handleTextQuantity(text)}
         keyboardType={'numeric'}
       />

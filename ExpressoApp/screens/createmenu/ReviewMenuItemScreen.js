@@ -4,8 +4,8 @@ import AddToCartButton from "../../components/AddToCartButton";
 import QuantityInput from "../../components/QuantityInput";
 import Header from "../../components/Header";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-
-//TODO: options lists
+//remove
+import ExpressoButton from '../../components/Button';
 
 const ReviewMenuItemScreen = ({navigation, route}) => {
     const UNIT_PRICE = route.params.price;
@@ -24,10 +24,6 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     }
 
 
-    const setNotes = (notes) => {
-        setCartItem({...cartItem, ['notes']: notes});
-    }
-
     const toggleOptions = (item, title, isChecked) => {
         let optionsCopy = [...cartItem.options];
         if (isChecked) {
@@ -45,11 +41,10 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
         return cartItem;
     }
 
-
     return (
         <View>
-            <Header></Header>
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('AddMenuItem')}>
+            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></Header>
+            <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                 <Text style={styles.backButtonText}>Back To Menu</Text>
             </TouchableWithoutFeedback>
             <View style={styles.pageView}>
@@ -86,12 +81,15 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
                     <TextInput onChangeText={(text) => setNotes(text)} placeholder={"additional notes"} style={styles.notesBox} multiline={true}/>
 
                     <AddToCartButton onClick={getCartItem} title={cartItem.title} price={cartItem.price}></AddToCartButton>
+                    <ExpressoButton title={"press"} onPress={() => navigation.navigate('Cart', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton>
+
                 </View>
             </View>
         </View>
     )
-}
 
+
+}
 const styles = StyleSheet.create({
     pageView: {
         alignItems: 'center',
@@ -152,3 +150,7 @@ const styles = StyleSheet.create({
 })
 
 export default ReviewMenuItemScreen;
+
+const setNotes = (notes) => {
+    setCartItem({...cartItem, ['notes']: notes});
+}
