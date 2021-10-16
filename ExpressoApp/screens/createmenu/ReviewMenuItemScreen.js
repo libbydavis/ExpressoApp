@@ -51,7 +51,7 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     return (
         <View>
             <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></Header>
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('AddMenuItem')}>
+            <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
                 <Text style={styles.backButtonText}>Back To Menu</Text>
             </TouchableWithoutFeedback>
             <View style={styles.pageView}>

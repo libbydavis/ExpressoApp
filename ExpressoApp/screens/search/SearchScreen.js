@@ -16,7 +16,7 @@ import { RadioButton } from 'react-native-paper';
 import Geolocation from '@react-native-community/geolocation';
 import Header from '../../components/Header';
 // //Remove 
-// import ExpressoButton from '../../components/Button';
+import ExpressoButton from '../../components/Button';
 
 /**
  *
@@ -225,7 +225,7 @@ const SearchScreen = ({navigation}) => {
             onPress={() => updateSort('Nearest')}
         />
         <Text style={styles.sortText} >Nearest </Text>
-        {/* <ExpressoButton title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton> */}
+        <ExpressoButton title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton>
       </View>
     <ScrollView>
       <FlatList
