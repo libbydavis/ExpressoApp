@@ -2,6 +2,7 @@ import React from 'react';
 import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
 
 
+
 class ExpressoHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -59,6 +60,10 @@ class ExpressoHeader extends React.Component {
             this.onPress
                 ? this.onPress()?.()
                 : console.warn('Implement onPress prop');
+            if(this.rightOption === 'profile'){
+                this.navigation.navigate('ProfileScreen');
+            }
+
         } catch (error) {
             console.warn('Caught an error in ExpressoButton');
             console.error(error.message);

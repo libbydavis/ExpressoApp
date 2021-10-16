@@ -5,7 +5,7 @@ import {
     Text,
     TouchableOpacity
 } from 'react-native';
-import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
 import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
 import { Divider} from 'react-native-paper';
@@ -16,7 +16,7 @@ import { Divider} from 'react-native-paper';
  * @constructor
  */
 const ProfileScreen = () => {
-    const user = firebase.auth().currentUser;
+    const user = firebaseAuth.currentUser;
     const uid = user.uid;
     const navigate = useNavigation();
     const [firstName, setFirstName] =  useState('');

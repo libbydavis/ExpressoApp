@@ -8,7 +8,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import EditDayHours from "./EditDayHours";
-import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
 import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
 
@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
  * @constructor
  */
 const editOpeningHours = () => {
-    const user = firebase.auth().currentUser;
+    const user = firebaseAuth.currentUser;
     const uid = user.uid;
     const navigate = useNavigation();
 
