@@ -24,10 +24,6 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     }
 
 
-    const setNotes = (notes) => {
-        setCartItem({...cartItem, ['notes']: notes});
-    }
-
     const toggleOptions = (item, title, isChecked) => {
         let optionsCopy = [...cartItem.options];
         if (isChecked) {
@@ -44,7 +40,6 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     const getCartItem = () => {
         return cartItem;
     }
-
 
     return (
         <View>
@@ -92,8 +87,9 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
             </View>
         </View>
     )
-}
 
+
+}
 const styles = StyleSheet.create({
     pageView: {
         alignItems: 'center',
@@ -154,3 +150,7 @@ const styles = StyleSheet.create({
 })
 
 export default ReviewMenuItemScreen;
+
+const setNotes = (notes) => {
+    setCartItem({...cartItem, ['notes']: notes});
+}

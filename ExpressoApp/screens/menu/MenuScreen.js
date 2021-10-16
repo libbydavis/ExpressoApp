@@ -5,28 +5,31 @@ import {
     TouchableOpacity,
     Text,
     Image,
-    FlatList,
+    FlatList, SectionList,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
-import MenuCategories from "./MenuCategories";
-import {ScrollView} from "react-native-gesture-handler";
+import MenuCategories from "../../components/MenuCategories";
+import Header from "../../components/Header";
+import {cat} from "yarn/lib/cli";
+// import Category from "react-native-category"; this package is shit do not use
+
+//TODO: Remove unnecessary styles, fix loading of categories
 
 export const MenuScreen = ({navigation, route}) => {
     // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
+    const [businessID, setBusinessID] = useState("");
     const [allCategories, setAllCategories] = useState([]);
-    const [activeCategory, setActiveCategory] = useState('');
+    const [activeCategory, setActiveCategory] = useState("all");
     const [menuItemList, setMenuItemList] = useState([]);
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
+    const [categoryItems, setCategoryItems] = useState([]);
 
     useEffect(() => {
-        dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title);
-        });
+        let itemList = [];
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
-            let itemList = [];
             snapshot.forEach((child) => {
                 itemList.push({
                     title: child.val().title,
@@ -39,10 +42,43 @@ export const MenuScreen = ({navigation, route}) => {
                 });
             });
         });
+
+        let category = [];
+
+        for (let i = 0; i < itemList.length; i++) {
+            let item = itemList[i];
+            let cat = item.itemCategory
+            console.log(item)
+            console.log(cat)
+            if (cat) {
+                console.log("into first if ")
+                if (category.includes({title: cat})) {
+                    console.log("into second if")
+                    category[{title:cat}].data.push(item);
+                    console.log(category);
+                } else {
+                    console.log("into else")
+                    category.push({title: cat, data: [item]});
+                    console.log(category)
+                }
+                console.log(category)
+            }
+        }
+        setCategoryItems(category);
         setMenuItemList(itemList);
-        setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
-        setDisplayedItems(menuItemList);
+        // setDisplayedItems(menuItemList);
     }, []);
+
+    useEffect(() => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title);
+            setBusinessID(snapshot.val().business);
+        });
+    }, []);
+
+    useEffect(() => {
+        setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
+    }, [menuItemList]);
 
     const filterItems = (category) => {
         setActiveCategory(category);
@@ -60,13 +96,33 @@ export const MenuScreen = ({navigation, route}) => {
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
                 <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')}/>
                 <Text style={styles.itemText}>{item.title}</Text>
+                <Text style={styles.itemText}>${item.price}</Text>
             </TouchableOpacity>
         );
     };
 
     const getItem = (item) => {
         // Function to click on a menu item in the FlatList
-        alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
+
+        if (item.optionLists) {
+            navigation.navigate("ReviewMenuItem", {
+                title: item.title,
+                price: item.price,
+                description: item.description,
+                optionLists: item.optionLists,
+                businessID: businessID
+            });
+        }
+
+        console.log(item);
+        navigation.navigate("ReviewMenuItem", {
+            title: item.title,
+            price: item.price,
+            description: item.description,
+            optionLists: [],
+            businessID: businessID
+        });
+
     };
 
     const ItemSeparatorView = () => {
@@ -84,29 +140,28 @@ export const MenuScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <View style={styles.navBar}>
-                <Image
-                    source={require('../../assets/ExpressoLogo.png')}
-                    style={styles.headerIcon}
-                />
-            </View>
+            <Header/>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
                 </Text>
             </View>
-            <MenuCategories
-                categories={allCategories}
-                activeCategory={activeCategory}
-                filterItems={filterItems}
+            <SectionList
+                sections={categoryItems}
+                keyExtractor={(item, index) => item + index}
+                renderItem={ItemView}
+                itemSeparator={ItemSeparatorView}
             />
-            <ScrollView style={styles.menuItems}>
-                <FlatList
-                    data={displayedItems}
-                    ItemSeparatorComponent={ItemSeparatorView}
-                    renderItem={ItemView}
-                />
-            </ScrollView>
+            {/*<MenuCategories*/}
+            {/*    categories={allCategories}*/}
+            {/*    filterItems={filterItems}*/}
+            {/*!/>*/}
+            {/*<FlatList*/}
+            {/*    data={displayedItems}*/}
+            {/*    ItemSeparatorComponent={ItemSeparatorView}*/}
+            {/*    renderItem={ItemView}*/}
+            {/*    numColumns={2}*/}
+            {/*!/>*/}
         </View>
     )
 };
@@ -121,13 +176,6 @@ const styles = StyleSheet.create({
         color: '#25a2af',
         fontSize: 35,
     },
-    scrollView: {
-        marginHorizontal: 20,
-        // backgroundColor: '#ffffff',
-        marginBottom: 30,
-        paddingBottom: 100,
-        alignItems: 'center',
-    },
     menuItems: {
         justifyContent: 'center',
         flexDirection: 'row',
@@ -141,28 +189,6 @@ const styles = StyleSheet.create({
     headerIcon: {
         width: 200,
         height: 50,
-    },
-    modalView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-    },
-    textInput: {
-        fontFamily: 'Monserrat-Regular',
-        borderBottomWidth: 1,
-        borderStartWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderTopWidth: 1,
-        paddingRight: 50,
-        marginBottom: 20,
-    },
-    title: {
-        fontFamily: 'Monserrat-Bold',
-        color: '#25a2af',
-        fontSize: 35,
-        margin: 10,
     },
     rowView: {
         flexDirection: 'row',

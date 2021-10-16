@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
 import {ScrollView} from "react-native-gesture-handler";
-import MenuCategories from "./MenuCategories";
+import MenuCategories from "../../components/MenuCategories";
+import Header from "../../components/Header";
 
 export const MenuEditorScreen = ({navigation, route}) => {
     const menuID = route.params["menuID"];
@@ -21,12 +22,9 @@ export const MenuEditorScreen = ({navigation, route}) => {
     const [displayedItems, setDisplayedItems] = useState([]);
 
     useEffect(() => {
-        dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title);
-        });
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             let itemList = [];
-            snapshot.forEach(( child ) => {
+            snapshot.forEach((child) => {
                 itemList.push({
                     title: child.val().title,
                     image: child.val().image,
@@ -41,9 +39,15 @@ export const MenuEditorScreen = ({navigation, route}) => {
             setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
             setDisplayedItems(menuItemList);
         });
-    }, []);
+    }, [allCategories, menuItemList]);
 
-    const filterItems = ( category ) => {
+    useEffect(() => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title);
+        });
+    }, [])
+
+    const filterItems = (category) => {
         setActiveCategory(category);
         if (category === "all") {
             setDisplayedItems(menuItemList);
@@ -51,19 +55,19 @@ export const MenuEditorScreen = ({navigation, route}) => {
         }
         const itemsToDisplay = menuItemList.filter((item) => item.itemCategory === category);
         setDisplayedItems(itemsToDisplay);
-    }
+    };
 
-    const ItemView = ({ item }) => {
+    const ItemView = ({item}) => {
         // View specification for menu items
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
                 <Image style={styles.imageThumbnail} source={require('../../assets/menuItemDefault.jpg')}/>
-                <Text style={styles.itemText}>{item.title}</Text>
+                <Text style={styles.itemText}> {item.title} </Text>
             </TouchableOpacity>
         );
     };
 
-    const getItem = ( item ) => {
+    const getItem = (item) => {
         // Function to click on a menu item in the FlatList
         alert('\nTitle : ' + item.title + '\nQuantity : ' + item.quantity + '\nPrice : ' + item.price);
     };
@@ -83,12 +87,7 @@ export const MenuEditorScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <View style={styles.navBar}>
-                <Image
-                    source={require('../../assets/ExpressoLogo.png')}
-                    style={styles.headerIcon}
-                />
-            </View>
+            <Header/>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
@@ -99,13 +98,11 @@ export const MenuEditorScreen = ({navigation, route}) => {
                 activeCategory={activeCategory}
                 filterItems={filterItems}
             />
-            <ScrollView style={styles.menuItems}>
-                <FlatList
-                    data={displayedItems}
-                    ItemSeparatorComponent={ItemSeparatorView}
-                    renderItem={ItemView}
-                />
-            </ScrollView>
+            <FlatList
+                data={displayedItems}
+                ItemSeparatorComponent={ItemSeparatorView}
+                renderItem={ItemView}
+            />
             <TouchableOpacity
                 style={styles.expressoButton}
                 onPress={() => navigation.navigate("AddMenuItem", currentMenuID)}>
@@ -114,7 +111,6 @@ export const MenuEditorScreen = ({navigation, route}) => {
         </View>
     )
 };
-
 
 
 const styles = StyleSheet.create({

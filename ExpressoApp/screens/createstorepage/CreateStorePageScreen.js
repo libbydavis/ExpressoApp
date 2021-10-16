@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, 
+import { View, Image, StyleSheet, TouchableOpacity,
            FlatList, Text, Modal, TextInput, Alert} from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomImagePicker from '../../components/CustomImagePicker';

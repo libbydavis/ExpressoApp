@@ -16,10 +16,22 @@ class NotifyOrderReadyButton extends Component {
     }
 
     async notifyCustomer() {
-        this.updateItem();
-        console.log(this.state.recipient);
-        let messageRef = firebaseDB.ref('users/' + this.state.recipient).child('orderNum').set(this.state.orderNum)
-            .then(r => console.log(messageRef));
+        messaging().requestPermission().then(r => console.log("permitted to send"))
+        //this.updateItem()
+        //messaging().sendMessage(this.state).then(r => console.log("done"));
+
+        let headers = new Headers({
+            "Content-Type": "application/json",
+            Authorization: "key=" + Config.FIREBASE_API,
+        })
+
+        let response = await fetch("https://fcm.googleapis.com/fcm/send", {
+            method: "POST",
+            headers,
+            body: JSON.stringify(this.state),
+        });
+        response = await response.json()
+        console.log(response)
     }
 
     render() {
