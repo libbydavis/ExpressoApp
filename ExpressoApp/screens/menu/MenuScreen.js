@@ -60,7 +60,6 @@ export const MenuScreen = ({navigation, route}) => {
                     console.log("into else")
                     category.push({title: cat, data: [item]});
                     console.log(category)
-                    console.log(category[{title:cat}].data);
                 }
                 console.log(category)
             }
