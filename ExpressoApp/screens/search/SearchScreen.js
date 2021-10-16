@@ -22,7 +22,7 @@ import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
  * @return {JSX.Element}
  * @constructor
  */
-const SearchScreen = () => {
+const SearchScreen = ({navigation}) => {
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('A-Z');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -233,6 +233,7 @@ const SearchScreen = () => {
             onPress={() => updateSort('Nearest')}
         />
         <Text style={styles.sortText} >Nearest </Text>
+        <ExpressoButton title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton>
       </View>
     <ScrollView>
       <FlatList

@@ -70,7 +70,7 @@ export default class App extends Component {
             <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
           <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
-          <Stack.Screen name="OwnerOrdersScreen" component={OrdersScreen}/>
+          <Stack.Screen name="OrdersScreen" component={OrdersScreen}/>
           <Stack.Screen name='SearchScreen' component={SearchScreen}/>
 
           <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />

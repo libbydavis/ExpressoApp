@@ -5,16 +5,19 @@ import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard, Al
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import {keyboard} from "yarn/lib/cli";
 import ExpressoButton from '../../components/Button';
+import PickupTimePicker from '../../components/PickupTime';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import '@react-navigation/native';
 
 
 const LoginScreen = ({navigation}) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-const test = () => {
-    console.log('test');
-}
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const test = () => {
+      console.log('test');
+  }
+
   const userLogin = () => {
     firebaseAuth
       .signInWithEmailAndPassword(email, password)
@@ -84,7 +87,6 @@ const test = () => {
         Sign up here</Text>
       </View>
 
-        <ExpressoButton title={'Cool!'} onPress={test}/>
     </View>
   );
 };
