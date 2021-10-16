@@ -27,6 +27,7 @@
     "expo-status-bar": "~1.0.4",
     "expo-updates": "~0.8.2",
     "firebase": "^8.10.0",
+    "firebase-functions": "^3.15.7",
     "jest-resolve-dependencies": "^27.2.4",
     "react": "17.0.2",
     "react-dom": "16.13.1",
@@ -65,12 +66,14 @@
     "@babel/preset-react": "^7.14.5",
     "@babel/runtime": "^7.15.4",
     "@react-native-community/eslint-config": "^3.0.0",
-    "babel-jest": "^27.2.4",
+    "babel-jest": "^26.5.6",
+    "detox": "^18.22.2",
     "eslint": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "firebase-admin": "^9.12.0",
-    "jest": "^27.2.4",
-    "metro-react-native-babel-preset": "^0.66.2"
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "ts-jest": "^26.5.6"
   },
   "jest": {
     "preset": "react-native",
@@ -78,6 +81,12 @@
     "moduleDirectories": [
       "node_modules",
       "src"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@react-native|react-native|@react-native-community|@react-native-firebase|@react-navigation|react-navigation|react-native-image-picker)/)"
     ]
+  },
+  "resolutions": {
+    "react-native/@jest/create-cache-key-function": "^27.0.2"
   }
 }

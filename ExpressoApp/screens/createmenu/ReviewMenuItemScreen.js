@@ -5,8 +5,6 @@ import QuantityInput from "../../components/QuantityInput";
 import Header from "../../components/Header";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-//TODO: options lists
-
 const ReviewMenuItemScreen = ({navigation, route}) => {
     const UNIT_PRICE = route.params.price;
     const [cartItem, setCartItem] = useState({
