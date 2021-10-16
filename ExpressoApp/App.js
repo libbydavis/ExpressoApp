@@ -15,7 +15,7 @@ import CreateStorePageScreen from './screens/createstorepage/CreateStorePageScre
 import StorePageScreen from './screens/storepage/StorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
 import firebase from 'firebase';
-import SplashScreen from 'react-native-splash-screen';
+import RNBootSplash from "react-native-bootsplash";
 import OrdersScreen from './screens/ownerorders/OrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
 import ReviewMenuItemScreen from "./screens/createmenu/ReviewMenuItemScreen";
@@ -38,7 +38,7 @@ export default class App extends Component {
     super();
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    SplashScreen.hide();
+    RNBootSplash.hide({ fade: true })
     const firebaseConfig = {
       apiKey: 'AIzaSyDFDrnM-_MnV2Zg-wgY3Vgn5J9LmwdMvZc',
       authDomain: 'expresso-418d1.firebaseapp.com',
@@ -63,18 +63,15 @@ export default class App extends Component {
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
           <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+          <Stack.Screen name='SearchScreen' component={SearchScreen}/>
           <Stack.Screen name="Cart" component={CartScreen} />
-
-
           <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
-            <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
+          <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
           <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="OrdersScreen" component={OrdersScreen}/>
-          <Stack.Screen name='SearchScreen' component={SearchScreen}/>
-
+          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
           <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
-
           <Stack.Screen name="MenuScreen" component={MenuScreen} />
           <Stack.Screen name="MenuEditor" component={MenuEditorScreen} />
         </Stack.Navigator>

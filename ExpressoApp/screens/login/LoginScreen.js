@@ -55,7 +55,7 @@ const LoginScreen = ({navigation}) => {
 
 
   return (
-    <View style={styles.mainContainer}>
+    <View style={styles.mainContainer} testID={'Login_Screen'}>
       <Image
         source={require('../../assets/ExpressoLogo.png')}
         style={styles.headerIcon}
@@ -65,7 +65,9 @@ const LoginScreen = ({navigation}) => {
         <TextInput
           style={styles.inputContainer}
           onChangeText={(email) => setEmail(email)}
-          placeholder="Email" />
+          placeholder="Email"
+          testID={'usernameInput'}
+        />
       </View>
 
       <View>
@@ -73,16 +75,17 @@ const LoginScreen = ({navigation}) => {
           style={styles.inputContainer}
           onChangeText={(password) => setPassword(password)}
           placeholder="Password" secureTextEntry={true}
+          testID={'passwordInput'}
         />
       </View>
 
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} testID={'loginButton'}>
         <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
       </TouchableOpacity>
 
       <View style={styles.signUpContainer}>
         <Text style={styles.text}>Don&apos;t have an account? </Text>
-        <Text style={styles.signUpText}
+        <Text style={styles.signUpText} testID={'signUp'}
           onPress={() => navigation.navigate('RegisterUser')}>
         Sign up here</Text>
       </View>
