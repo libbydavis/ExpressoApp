@@ -3,7 +3,6 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 exports.orderNotify = functions.database.ref('users/{userUid}/orderNum').onUpdate(async (change, context) => {
-    console.log("orderNum changed")
 
     const userUid = context.params.userUid;
     const user =  admin.database()
@@ -13,8 +12,17 @@ exports.orderNotify = functions.database.ref('users/{userUid}/orderNum').onUpdat
         firstName: user.firstName,
         orderNumber: user.orderNum,
     }
-    const token = user.deviceToken;
+    const token = 'fake token';
 
+
+    // Check if there are any device tokens.
+    if (token == undefined) {
+        return functions.logger.log(
+            'There is no notification token to send to.'
+        );
+    }
+
+    // Notification details
     const payload = {
         notification: {
             title: 'Your order is ready!',
@@ -22,16 +30,27 @@ exports.orderNotify = functions.database.ref('users/{userUid}/orderNum').onUpdat
         }
     };
 
+    // Send notifications to all tokens.
     const response = await admin.messaging().sendToDevice(token, payload);
 
-
-    return Promise('done');
+    // For each message check if there was an error.
+    response.results.forEach((result, index) => {
+        const error = result.error;
+        if (error) {
+            functions.logger.error(
+                'Failure sending notification to',
+                token,
+                error
+            );
+        }
+    });
 });
 
 
 //google code below
 
 /*
+
 exports.sendFollowerNotification = functions.database.ref('/followers/{followedUid}/{followerUid}')
     .onWrite(async (change, context) => {
         const followerUid = context.params.followerUid;
