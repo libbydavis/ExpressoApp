@@ -15,7 +15,7 @@ import ResetPasswordScreen from './screens/resetpassword/ResetPasswordScreen';
 import CreateStorePageScreen from './screens/createstorepage/CreateStorePageScreen';
 import StorePageScreen from './screens/storepage/StorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
-import firebase from 'firebase';
+import firebase from 'firebase'; 
 import RNBootSplash from "react-native-bootsplash";
 import OrdersScreen from './screens/ownerorders/OrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
@@ -72,7 +72,6 @@ export default class App extends Component {
           <Stack.Screen name="Cart" component={CartScreen} />
           <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>          
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen}/>
-          <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
           <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="OrdersScreen" component={OrdersScreen}/>

@@ -83,10 +83,6 @@ const LoginScreen = ({navigation}) => {
         <Text style={styles.signUpText} onPress={() => navigation.navigate('ResetPasswordScreen')}
         >Forgot password? </Text>
       </View>
-      <View style={styles.forgotPasswordContainer}>
-        <Text style={styles.signUpText} onPress={() => navigation.navigate('ResetPasswordScreen')}
-        >Forgot password? </Text>
-      </View>
 
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
@@ -147,12 +143,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
+  },
   forgotPasswordContainer: {
     flexDirection: 'row',
     marginLeft: 130,
     marginTop: 10,
-  },
-  },
+  },  
   signUpText: {
     color: '#6495ed',
     fontSize: 15,
@@ -160,11 +156,6 @@ const styles = StyleSheet.create({
   },
   signUpContainer: {
     flexDirection: 'row',
-  },
-  forgotPasswordContainer: {
-    flexDirection: 'row',
-    marginLeft: 130,
-    marginTop: 10,
   },
 });
 
