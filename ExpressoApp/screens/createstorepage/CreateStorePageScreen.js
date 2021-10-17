@@ -3,8 +3,7 @@ import { View, Image, StyleSheet, TouchableOpacity,
            FlatList, Text, Modal, TextInput, Alert} from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomImagePicker from '../../components/CustomImagePicker';
-import {firebase, firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
-import CustomImagePicker from "../../components/CustomImagePicker";
+import { firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 
 const CreateStorePageScreen = ( {navigation} ) => {
 
