@@ -8,7 +8,7 @@ import {
     Image,
     ScrollView,
     StatusBar,
-    LogBox, ToastAndroid,
+    LogBox, ToastAndroid, Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
@@ -106,6 +106,7 @@ function RegisterUserScreen({navigation}) {
                 console.error(error + ' ' + email + ' ' + firstName + ' ' + lastName);
             });
     }
+
 
     /**
      *
@@ -221,7 +222,7 @@ function RegisterUserScreen({navigation}) {
     }
 
     return (
-        <View style={styles.mainView}>
+        <View style={styles.mainView} testID={'Register_Screen'}>
             <Image source={require('../../assets/ExpressoLogo.png')}
                    style={styles.headerIcon}></Image>
             <ScrollView contentContainerStyle={styles.scrollView} nestedScrollEnabled={true}
@@ -236,24 +237,24 @@ function RegisterUserScreen({navigation}) {
                         }
                         <TextInput style={styles.textInput} placeholder="First name"
                                    placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handleFirstName(text)}/>
-
+                                   onChangeText={text => handleFirstName(text)}
+                                   testID={'registerFirstName'}/>
                         {!isLastName ?
                             <Animatable.Text style={styles.errorText} animation="fadeInLeft" duration={500}>
                                 Last name must be only letters.</Animatable.Text> : null
                         }
                         <TextInput style={styles.textInput} placeholder="Last name"
                                    placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handleLastName(text)}/>
-
+                                   onChangeText={text => handleLastName(text)}
+                                   testID={'registerLastName'}/>
                         {!isEmail ?
                             <Animatable.Text style={styles.errorText} animation="fadeInLeft" duration={500}>
                                 Must use a valid email!</Animatable.Text> : null
                         }
                         <TextInput style={styles.textInput} placeholder="Email"
                                    placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handleEmail(text)}/>
-
+                                   onChangeText={text => handleEmail(text)}
+                                   testID={'registerEmail'}/>
                         {!isPassword ?
                             <Animatable.Text style={styles.errorText} animation="fadeInLeft" duration={500}>
                                 Password must be min six characters long!</Animatable.Text> : null
@@ -261,7 +262,8 @@ function RegisterUserScreen({navigation}) {
                         <TextInput style={styles.textInput} placeholder="Password"
                                    secureTextEntry={true}
                                    placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handlePassword(text)}/>
+                                   onChangeText={text => handlePassword(text)}
+                                   testID={'registerPassword'}/>
 
                         <BouncyCheckbox iconStyle={{borderColor: '#25a2af'}}
                                         fillColor={'#25a2af'}
@@ -334,11 +336,13 @@ function RegisterUserScreen({navigation}) {
                     }
                     <TouchableOpacity
                         style={styles.expressoButton}
+                        testID={'registerButton'}
                         onPress={() => {
                             if (validateInput()) {
                                 try {
                                     signUpNewUser();
                                     ToastAndroid.show('Registered!', ToastAndroid.SHORT);
+                                    navigation.navigate('SearchScreen');
                                 } catch (error) {
                                     switch (error.code) {
                                         case 'auth/email-already-in-use':

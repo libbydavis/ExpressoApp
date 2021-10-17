@@ -2,4 +2,5 @@
 <resources>
     <color name="background">#ffffff</color> ← Use a background color of your preferences
     <color name="primary_dark">#000</color>
+    <color name="primary_blue">#25a2af</color>
 </resources>

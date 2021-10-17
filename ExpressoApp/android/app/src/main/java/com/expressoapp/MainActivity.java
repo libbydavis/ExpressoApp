@@ -1,6 +1,6 @@
 package com.expressoapp;
 
-import org.devio.rn.splashscreen.SplashScreen;
+import com.zoontek.rnbootsplash.RNBootSplash;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 
@@ -8,8 +8,8 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.show(this, R.style.SplashStatusBarTheme);
         super.onCreate(savedInstanceState);
+        RNBootSplash.init(R.drawable.background_splash, MainActivity.this);
     }
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
