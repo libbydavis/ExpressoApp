@@ -86,7 +86,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
   return (
     <View>
         <Header></Header>
-        <Button title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></Button>
+        <Button title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: [], businessID: 'fake ID'})}></Button>
 
         <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>

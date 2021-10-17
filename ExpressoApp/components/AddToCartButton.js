@@ -20,41 +20,58 @@ class AddToCartButton extends Component {
         this.setState({...this.state, ['quantity']: updatedItem.quantity, ['totalPrice']: updatedItem.currentPrice, ['notes']: updatedItem.notes, ['options']: updatedItem.options});
     }
 
+    async checkBusinessID() {
+        let bID = await AsyncStorage.getItem('@businessID');
+        bID = JSON.parse(bID);
+        if (bID == null) {
+            await AsyncStorage.setItem('@businessID', JSON.stringify(this.state.businessID));
+        }
+        else if (bID != this.state.businessID) {
+            return false;
+        }
+        return true;
+    }
+
     async handleAddToCart() {
-        //TODO: check business ID before adding
         this.updateItem()
+        let matchingID = await this.checkBusinessID()
 
-        let item = false;
-        let tryItems = false;
+        if (matchingID) {
+            let item = false;
+            let tryItems = false;
 
-        while (item === false) {
-            try {
-                let itemsArray = [this.state];
-                let total = this.state.totalPrice;
-                if (tryItems === false) {
-                    let storedItems = await AsyncStorage.getItem('@items');
-                    if (storedItems != null) {
-                        const currentValue = JSON.parse(storedItems)
-                        itemsArray = [...currentValue, this.state];
+            while (item === false) {
+                try {
+                    let itemsArray = [this.state];
+                    let total = this.state.totalPrice;
+                    if (tryItems === false) {
+                        let storedItems = await AsyncStorage.getItem('@items');
+                        if (storedItems != null) {
+                            const currentValue = JSON.parse(storedItems)
+                            itemsArray = [...currentValue, this.state];
+                        }
+                        total = await AsyncStorage.getItem('@total');
+                        if (total != null) {
+                            total = parseFloat(total);
+                            total += this.state.totalPrice;
+                        }
                     }
-                    total = await AsyncStorage.getItem('@total');
-                    if (total != null) {
-                        total = parseFloat(total);
-                        total += this.state.totalPrice;
-                    }
+                    item = true;
+                    const jsonValue = JSON.stringify(itemsArray);
+                    await AsyncStorage.setItem('@items', jsonValue);
+                    const jsonTotal = JSON.stringify(total);
+                    await AsyncStorage.setItem('@total', jsonTotal);
+
+                    this.notifyAdd()
+                } catch (e) {
+                    // saving error
+                    tryItems = true;
+                    console.log(e)
                 }
-                item = true;
-                const jsonValue = JSON.stringify(itemsArray);
-                await AsyncStorage.setItem('@items', jsonValue);
-                const jsonTotal = JSON.stringify(total);
-                await AsyncStorage.setItem('@total', jsonTotal);
-
-                this.notifyAdd()
-            } catch (e) {
-                // saving error
-                tryItems = true;
-                console.log(e)
             }
+        }
+        else {
+            Alert.alert("You can only add items from the same business to your cart")
         }
     }
 

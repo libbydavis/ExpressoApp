@@ -7,7 +7,6 @@ import {
   TouchableOpacity, Image,
 } from 'react-native';
 import Cart from "./Cart";
-import AddToCartButton from "../../components/AddToCartButton";
 import PaymentButton from "../../components/PaymentButton";
 import Header from "../../components/Header";
 /**
