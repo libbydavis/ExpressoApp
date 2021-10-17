@@ -8,7 +8,9 @@ import {
     TouchableOpacity
 } from 'react-native';
 import EditDayHours from "./EditDayHours";
-import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
+import Header from '../../components/Header';
+import {useNavigation} from '@react-navigation/native';
 
 /**
  *
@@ -16,8 +18,10 @@ import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
  * @constructor
  */
 const editOpeningHours = () => {
-    const user = firebase.auth().currentUser;
+    const user = firebaseAuth.currentUser;
     const uid = user.uid;
+    const navigate = useNavigation();
+
     const [monday, setMonday] = useState({
         day: 'Monday',
         open: '',
@@ -111,17 +115,8 @@ const editOpeningHours = () => {
     }
 
     return (
-        <View style={styles.mainView}>
-            <View style={styles.headerView}>
-                <Image
-                    source={require('../../assets/ExpressoLogo.png')}
-                    style={styles.logoIcon}
-                />
-                <Image
-                    source={require('../../assets/profileIcon.png')}
-                    style={styles.profileIcon}
-                />
-            </View>
+        <View style={styles.mainView} testID={'Opening_Hours_Editor_Screen'}>
+            <Header navigation={navigate} rightOption={'profile'}/>
             <View style={styles.titleView}>
                 <Text style={styles.title}>Edit Opening Hours</Text>
             </View>
@@ -172,21 +167,6 @@ const editOpeningHours = () => {
 const styles = StyleSheet.create({
     mainView : {
         height: '100%',
-    },
-    headerView: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    logoIcon: {
-        width: 200,
-        height: 50,
-        marginTop: 5,
-        marginBottom: 20,
-    },
-    profileIcon: {
-        width: 40,
-        height: 40,
-        margin: 15,
     },
     titleView: {
         width: '100%',

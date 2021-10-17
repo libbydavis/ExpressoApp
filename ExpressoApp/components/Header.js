@@ -5,9 +5,10 @@ import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
 class ExpressoHeader extends React.Component {
     constructor(props) {
         super(props);
-        const {navigation, rightOption} = this.props;
+        const {navigation, rightOption, onPress} = this.props;
         this.navigation = navigation;
         this.rightOption = rightOption; //Cart or Profile
+        this.onPress = onPress;
         this.styles = StyleSheet.create({
             headerView: {
                 flexDirection: 'row',
@@ -36,8 +37,8 @@ class ExpressoHeader extends React.Component {
             rightOption: {
                 width: 40,
                 height: 40,
-                marginTop: 8,
-                marginRight: 10,
+                padding: 5,
+                margin: 10,
             },
         });
     }
@@ -45,28 +46,33 @@ class ExpressoHeader extends React.Component {
     OnLogoPressHandler = () => {
         console.log('Logo Press Handler');
         try {
-            this.navigation.navigate('SearchScreen')?.();
+            this.navigation.navigate('SearchScreen');
         } catch (error) {
-            console.warn('Caught an error in ExpressoButton');
+            console.warn('Caught an error in header');
             console.error(error.message);
         }
-    }
+    };
 
     OnRightOptionPressHandler = () => {
+        console.log('Right option handler');
         try {
-            this.rightOption === 'cart' ?
-                this.navigation.navigate('CartScreen') :
+            this.onPress
+                ? this.onPress()?.()
+                : console.warn('Implement onPress prop');
+            if(this.rightOption === 'profile'){
                 this.navigation.navigate('ProfileScreen');
+            }
+
         } catch (error) {
             console.warn('Caught an error in ExpressoButton');
             console.error(error.message);
         }
-    }
+    };
 
     render() {
         return (
             <View style={this.styles.headerView}>
-                <TouchableOpacity style={this.styles.expressoLogoButton} onPress={this.OnLogoPressHandler}>
+                <TouchableOpacity style={this.styles.expressoLogoButton} onPress={this.OnLogoPressHandler} testID={'expressoButton'}>
                     <Image source={require('../assets/ExpressoLogo.png')} style={this.styles.expressoLogo}/>
                 </TouchableOpacity>
                 { /*Options like cart or profile */
@@ -75,7 +81,7 @@ class ExpressoHeader extends React.Component {
                             <Image source={require('../assets/carticon.png')} style={this.styles.cart}/>
                         </TouchableOpacity> :
                         this.rightOption === 'profile' ?
-                            <TouchableOpacity style={this.styles.rightOption} onPress={this.OnRightOptionPressHandler}>
+                            <TouchableOpacity style={this.styles.rightOption} onPress={this.OnRightOptionPressHandler} testID={'profileButton'}>
                                 <Image source={require('../assets/profileIcon.png')} style={this.styles.profile}/>
                             </TouchableOpacity> :
                             null

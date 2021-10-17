@@ -4,6 +4,8 @@ import AddToCartButton from "../../components/AddToCartButton";
 import QuantityInput from "../../components/QuantityInput";
 import Header from "../../components/Header";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+//remove
+import ExpressoButton from '../../components/Button';
 
 const ReviewMenuItemScreen = ({navigation, route}) => {
     const UNIT_PRICE = route.params.price;
@@ -23,10 +25,6 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     }
 
 
-    const setNotes = (notes) => {
-        setCartItem({...cartItem, ['notes']: notes});
-    }
-
     const toggleOptions = (item, title, isChecked) => {
         let optionsCopy = [...cartItem.options];
         if (isChecked) {
@@ -43,7 +41,6 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
     const getCartItem = () => {
         return cartItem;
     }
-
 
     return (
         <View>
@@ -89,8 +86,9 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
             </View>
         </View>
     )
-}
 
+
+}
 const styles = StyleSheet.create({
     pageView: {
         alignItems: 'center',
@@ -151,3 +149,7 @@ const styles = StyleSheet.create({
 })
 
 export default ReviewMenuItemScreen;
+
+const setNotes = (notes) => {
+    setCartItem({...cartItem, ['notes']: notes});
+}
