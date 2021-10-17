@@ -5,10 +5,11 @@ import {
     Text,
     TouchableOpacity
 } from 'react-native';
-import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import { firebaseDB } from "../../firebase/FirebaseConfig";
 import Header from '../../components/Header';
-import {useNavigation} from '@react-navigation/native';
-import { Divider} from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { Divider } from 'react-native-paper';
+import { firebase } from "@react-native-firebase/auth";
 
 /**
  *
