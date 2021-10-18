@@ -56,30 +56,3 @@ const styles = StyleSheet.create({
 // horizontal
 // />
 
-// const MenuCategories = ({ categories, filterItems }) => {
-//
-//     const ItemView = ({category}) => {
-//         return (
-//             <TouchableOpacity
-//                 style={styles.itemStyle}
-//                 onPress={filterItems(category)}
-//             >
-//                 <Text style={styles.itemText}>{category}</Text>
-//             </TouchableOpacity>
-//         )
-//     }
-//     return (
-//         <View>
-//             <TouchableOpacity
-//                 type="button"
-//                 className={"categories"}
-//                 key={index}
-//                 onPress={() => filterItems(category)}
-//             >
-//                 <Text>
-//                     {category}
-//                 </Text>
-//             </TouchableOpacity>
-//         </View>
-//     )
-// }
