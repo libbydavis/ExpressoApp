@@ -16,6 +16,9 @@ class ExpressoButton extends React.Component {
       },
       expressoButtonText: {
         color: '#ffffff',
+        fontWeight: 'bold',
+        fontSize: 18,
+        textAlign: 'center'
       },
     });
   }

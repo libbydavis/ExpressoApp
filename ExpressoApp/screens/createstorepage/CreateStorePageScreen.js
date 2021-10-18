@@ -20,7 +20,7 @@ import ExpressoButton from '../../components/Button';
 const CreateStorePageScreen = () => {
     const navigate = useNavigation();
     const userID = firebaseAuth.currentUser.uid;
-    const [storeData, setStoreData] = useState({});
+    const [itemData, setItemData] = useState({});
     const [openEditStoreModal, setOpenEditStoreModal] = useState(false);
     // const [isRender, setisRender] = useState(false);
     // const [storeName, setStoreName] = useState();
@@ -59,7 +59,7 @@ const CreateStorePageScreen = () => {
                             storeName: child.val().title,
                             storeAddress: child.val().address,
                             storePhoneNum: child.val().phone,
-                            coverImage: child.val().coverImage,
+                            image: child.val().image,
                         };
                     });
                 } else {
@@ -68,22 +68,22 @@ const CreateStorePageScreen = () => {
                         storeName: '',
                         storeAddress: '',
                         storePhoneNum: '',
-                        coverImage: '',
+                        image: '',
                     };
                 }
                 console.log(business);
-                setStoreData(business);
+                setItemData(business);
             });
     }, []);
 
     useEffect(() => {
-        console.log(storeData);
-    }, [storeData]);
+        console.log(itemData);
+    }, [itemData]);
 
     const saveToDatabase = () => {
         firebaseDB
             .ref('storepage/' + userID)
-            .set(storeData)
+            .set(itemData)
             .then(() => {
                 console.log('Store details successfully stored');
                 Alert.alert(
@@ -103,7 +103,7 @@ const CreateStorePageScreen = () => {
     };
 
     const receiveImage = image => {
-        
+        setItemData(image);
     };
 
     // const receiveImageFirst = image => {
@@ -126,50 +126,34 @@ const CreateStorePageScreen = () => {
             <KeyboardAwareScrollView>
                 <View styles={styles.storeDetails}>
                     <Text style={[styles.storeText, {fontSize: 35}]}>
-                        {storeData.storeName}
+                        {itemData.storeName}
                     </Text>
                     <Text style={[styles.storeText, {fontSize: 25}]}>
-                        {storeData.storeAddress}
+                        {itemData.storeAddress}
                     </Text>
                     <Text style={[styles.storeText, {fontSize: 20}]}>
-                        {storeData.storePhoneNum}
+                        {itemData.storePhoneNum}
                     </Text>
                 </View>
                 <View style={styles.storeImageContainer}>
                     <CustomImagePicker
-                        receiveImage={setStoreData}
-                        storeData={storeData}
+                        receiveImage={receiveImage}
+                        itemData={itemData}
                         width={450}
                         height={190}>
-                        {storeData.coverImage}
+                        {itemData.coverImage}
                     </CustomImagePicker>
                 </View>
-                <ExpressoButton
-                    title="Edit Store"                    
-                        onPress={() => setOpenEditStoreModal(true)}>
-                </ExpressoButton>
 
-                <ExpressoButton
-                    title="Submit"
-                    onPress={saveToDatabase}></ExpressoButton>
-
-                <ExpressoButton
-                    title="Contact"
-                    style={[
-                        styles.storeButton,
-                        {marginLeft: 70, marginTop: 5},
-                    ]}>
-                    <Text style={styles.buttonText}>Contact</Text>
-                </ExpressoButton>
-
-                <ExpressoButton
-                    title="Menu"
-                    style={[
-                        styles.storeButton,
-                        {marginLeft: 225, marginTop: -35},
-                    ]}>
-                    <Text style={styles.buttonText}>Menu</Text>
-                </ExpressoButton>
+                <View style={{flex: 1, margin: 20}}>
+                    <ExpressoButton
+                        title="Edit Store"
+                        onPress={() => setOpenEditStoreModal(true)}
+                    />
+                    <ExpressoButton title="Contact Details" />
+                    <ExpressoButton title="Create Your Menu" />
+                    <ExpressoButton title="Save Store Page" onPress={saveToDatabase} />
+                </View>
                 {/* 
                 <View
                     style={[
@@ -229,10 +213,10 @@ const CreateStorePageScreen = () => {
                     <Text style={styles.text}>Edit Store Details: </Text>
                     <TextInput
                         style={styles.modalTextInput}
-                        value={storeData.storeName}
+                        value={itemData.storeName}
                         onChangeText={text =>
-                            setStoreData({
-                                ...storeData,
+                            setItemData({
+                                ...itemData,
                                 ['storeName']: text,
                             })
                         }
@@ -241,10 +225,10 @@ const CreateStorePageScreen = () => {
                     />
                     <TextInput
                         style={styles.modalTextInput}
-                        value={storeData.storeAddress}
+                        value={itemData.storeAddress}
                         onChangeText={text =>
-                            setStoreData({
-                                ...storeData,
+                            setItemData({
+                                ...itemData,
                                 ['storeAddress']: text,
                             })
                         }
@@ -253,10 +237,10 @@ const CreateStorePageScreen = () => {
                     />
                     <TextInput
                         style={styles.modalTextInput}
-                        value={storeData.storePhoneNum}
+                        value={itemData.storePhoneNum}
                         onChangeText={text =>
-                            setStoreData({
-                                ...storeData,
+                            setItemData({
+                                ...itemData,
                                 ['storePhoneNum']: text,
                             })
                         }
