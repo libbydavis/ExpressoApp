@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Text, ScrollView, TouchableOpacity, KeyboardAvoidingView, Alert} from "react-native";
 import { firebaseDB, firebaseAuth } from "../../firebase/FirebaseConfig";
+import { useNavigation } from '@react-navigation/native';
+import Header from '../../components/Header';
 
-const StorePageScreen = ( {navigation, route} ) => {
-    
-   const userID = route.params;
-    const currentUserID = JSON.stringify(userID.userID).slice(1, -1);
-  
-    console.log("User ID: " + currentUserID);
- 
+const StorePageScreen = ( {route} ) => {
+    //Menus children objects have business as child
+    //StorePages children id is business
+
+    const navigate = useNavigation();
+    const business = route.params.business;
+   
     const [storeData, setStoreData] = useState([{
         storeName: "",
         storeAddress: "",
@@ -21,10 +23,9 @@ const StorePageScreen = ( {navigation, route} ) => {
         itemPriceSecond: "",
         itemCoverImageSecond: "",
     }]);
-
      
     useEffect(() => {
-        firebaseDB.ref(`storepage/` + currentUserID).on('value', (snapshot) => {
+        firebaseDB.ref(`storepage/` + business).on('value', (snapshot) => {
             if(snapshot.exists()) {
                 let storeDetailsList = [];
                     var coverImage = snapshot.val().coverImage.image;
@@ -52,18 +53,10 @@ const StorePageScreen = ( {navigation, route} ) => {
  
 
     return (
+        <>
+        <Header navigation={navigate} rightOption={'profile'} />
         <ScrollView>
-            <View style={styles.header}>
-                <Image
-                    source={require('../../assets/ExpressoLogo.png')}
-                    style={styles.headerIcon}
-                />
-                    <Image
-                    source={require('../../assets/profileIcon.png')}
-                    style={styles.profileIcon}
-                />
-            </View>
-            <View styles={styles.storeDetails}>
+                <View styles={styles.storeDetails}>
                 <Text style={[styles.storeText, {fontSize: 35}]}>{storeData[0].storeName}</Text>
                 <Text style={[styles.storeText, {fontSize: 25}]}>{storeData[0].storeAddress}</Text>
                 <Text style={[styles.storeText, {fontSize: 20}]}>{storeData[0].storePhoneNum}</Text>
@@ -105,6 +98,7 @@ const StorePageScreen = ( {navigation, route} ) => {
                 <Text style={[styles.itemPriceText, {marginLeft: 315}]} placeholder={"Price"}>{storeData[0].itemPriceSecond}</Text>
             </View>
         </ScrollView>
+        </>
     );
 }
 
