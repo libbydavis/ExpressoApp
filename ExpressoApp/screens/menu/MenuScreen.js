@@ -7,7 +7,7 @@ import {
     Image,
     FlatList, SectionList,
 } from 'react-native';
-import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import { firebaseDB } from "../../firebase/FirebaseConfig";
 import MenuCategories from "../../components/MenuCategories";
 import Header from "../../components/Header";
 import {cat} from "yarn/lib/cli";
@@ -17,17 +17,22 @@ import {cat} from "yarn/lib/cli";
 
 export const MenuScreen = ({navigation, route}) => {
     // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
+    // { menuID: '-MjmBfn9YP-wguwurLH1' } <- dinner menu test id
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [businessID, setBusinessID] = useState("");
     const [allCategories, setAllCategories] = useState([]);
-    const [activeCategory, setActiveCategory] = useState("all");
-    const [menuItemList, setMenuItemList] = useState([]);
+    const [activeCategory, setActiveCategory] = useState("all"); // intended to allow the active category
+    const [menuItemList, setMenuItemList] = useState([]);        // to display a different style to the rest
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
-    const [categoryItems, setCategoryItems] = useState([]);
 
     useEffect(() => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title);
+            setBusinessID(snapshot.val().business);
+        });
+
         let itemList = [];
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             snapshot.forEach((child) => {
@@ -44,7 +49,6 @@ export const MenuScreen = ({navigation, route}) => {
         });
 
         let category = [];
-
         for (let i = 0; i < itemList.length; i++) {
             let item = itemList[i];
             let cat = item.itemCategory
@@ -64,21 +68,15 @@ export const MenuScreen = ({navigation, route}) => {
                 console.log(category)
             }
         }
-        setCategoryItems(category);
+        // setCategoryItems(category);
         setMenuItemList(itemList);
-        // setDisplayedItems(menuItemList);
-    }, []);
-
-    useEffect(() => {
-        dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title);
-            setBusinessID(snapshot.val().business);
-        });
-    }, []);
-
-    useEffect(() => {
         setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
-    }, [menuItemList]);
+        setDisplayedItems(menuItemList);
+    }, []);
+
+    // useEffect(() => {
+    //     setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
+    // }, [menuItemList]);
 
     const filterItems = (category) => {
         setActiveCategory(category);
@@ -146,22 +144,17 @@ export const MenuScreen = ({navigation, route}) => {
                     {menuTitle}
                 </Text>
             </View>
-            <SectionList
-                sections={categoryItems}
-                keyExtractor={(item, index) => item + index}
-                renderItem={ItemView}
-                itemSeparator={ItemSeparatorView}
+            <MenuCategories
+                categories={allCategories}
+                activeCategory={activeCategory}
+                filterItems={filterItems}
             />
-            {/*<MenuCategories*/}
-            {/*    categories={allCategories}*/}
-            {/*    filterItems={filterItems}*/}
-            {/*!/>*/}
-            {/*<FlatList*/}
-            {/*    data={displayedItems}*/}
-            {/*    ItemSeparatorComponent={ItemSeparatorView}*/}
-            {/*    renderItem={ItemView}*/}
-            {/*    numColumns={2}*/}
-            {/*!/>*/}
+            <FlatList
+                data={displayedItems}
+                ItemSeparatorComponent={ItemSeparatorView}
+                renderItem={ItemView}
+                numColumns={2}
+            />
         </View>
     )
 };
