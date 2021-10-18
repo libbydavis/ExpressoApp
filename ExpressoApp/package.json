@@ -76,7 +76,9 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": ["./jestSetupFile.js"],
+    "setupFiles": [
+      "./jestSetupFile.js"
+    ],
     "verbose": true,
     "moduleDirectories": [
       "node_modules",

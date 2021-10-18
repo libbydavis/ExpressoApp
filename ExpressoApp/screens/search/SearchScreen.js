@@ -163,7 +163,7 @@ const SearchScreen  = () => {
 
   const [orderNotifInfo, setOrderNotifInfo] = useState({
     recipient: 'qIYOZMFLFESqwI9nHeQ7g1Tf5Gg1',
-    orderNumber: 'ABR8'
+    orderNumber: 'C03BTN'
   });
   const returnOrderNotifInfo = () => {
     return orderNotifInfo;
