@@ -8,22 +8,29 @@ import {
     FlatList,
 } from 'react-native';
 import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
-import {ScrollView} from "react-native-gesture-handler";
 import MenuCategories from "../../components/MenuCategories";
 import Header from "../../components/Header";
 
 export const MenuEditorScreen = ({navigation, route}) => {
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
-    const [allCategories, setAllCategories] = useState([]);
+    const [businessID, setBusinessID] = useState("");
     const [activeCategory, setActiveCategory] = useState('');
     const [menuItemList, setMenuItemList] = useState([]);
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
 
     useEffect(() => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title);
+            setBusinessID(snapshot.val().business);
+        });
+        createMenu();
+    }, []);
+
+    const createMenu = () => {
+        let itemList = [];
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
-            let itemList = [];
             snapshot.forEach((child) => {
                 itemList.push({
                     title: child.val().title,
@@ -35,17 +42,10 @@ export const MenuEditorScreen = ({navigation, route}) => {
                     itemCategory: child.val().itemCategory
                 });
             });
-            setMenuItemList(itemList);
-            setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
-            setDisplayedItems(menuItemList);
         });
-    }, [allCategories, menuItemList]);
-
-    useEffect(() => {
-        dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title);
-        });
-    }, [])
+        setMenuItemList(itemList);
+        setDisplayedItems(itemList);
+    }
 
     const filterItems = (category) => {
         setActiveCategory(category);
@@ -87,14 +87,14 @@ export const MenuEditorScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <Header/>
+            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart')}></Header>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
                 </Text>
             </View>
             <MenuCategories
-                categories={allCategories}
+                categories={["all", ...new Set(menuItemList.map((item) => item.itemCategory))]}
                 activeCategory={activeCategory}
                 filterItems={filterItems}
             />
@@ -102,10 +102,11 @@ export const MenuEditorScreen = ({navigation, route}) => {
                 data={displayedItems}
                 ItemSeparatorComponent={ItemSeparatorView}
                 renderItem={ItemView}
+                numColumns={2}
             />
             <TouchableOpacity
                 style={styles.expressoButton}
-                onPress={() => navigation.navigate("AddMenuItem", currentMenuID)}>
+                onPress={() => navigation.navigate("AddMenuItem", menuID)}>
                 <Text style={styles.expressoButtonText}>Add new item</Text>
             </TouchableOpacity>
         </View>

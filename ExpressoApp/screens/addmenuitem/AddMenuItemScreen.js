@@ -33,7 +33,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
         price: 0.0,
         quantity: 5,
         optionLists: [],
-        itemCategory: []
+        itemCategory: ''
     });
 
     const toggleModal = () => {
@@ -63,24 +63,39 @@ const AddMenuItemScreen = ({route, navigation}) => {
 
     const setPrice = (priceText) => {
         setMenuItemObject({...menuItemObject, ['price']: parseFloat(priceText)});
+        console.log(menuItemObject)
     }
 
-    const setItemCategory = (category) => {
-        setMenuItemObject({... menuItemObject, ['itemCategory']: category});
+    const setItemCategory = (categoryText) => {
+        setMenuItemObject({... menuItemObject, ['itemCategory']: categoryText});
+        console.log(menuItemObject)
     }
 
     const onClickAddItem = () => {
-        let menuRef = dbRef.child(`Menus/${menuID}/menuItems`).push();
-        menuRef.set({
-            'title': menuItemObject.title,
-            'image': menuItemObject.image,
-            'description': menuItemObject.description,
-            'price': menuItemObject.price,
-            'quantity': menuItemObject.quantity,
-            'optionLists': menuItemObject.optionLists
-        });
-        console.log(menuItemObject.title + ' pushed to the menu.');
-        navigation.navigate('MenuScreen', {menuID: menuID});
+        if (menuID) {
+            if (menuItemObject.title === '') {
+                console.error("You must input a title for the item!")
+            } else if (menuItemObject.price === 0.0) {
+                console.error("You must input a price for the item!")
+            } else if (menuItemObject.itemCategory === '') {
+                console.error("You must input a category for the item!")
+            } else {
+                dbRef.child(`Menus/${menuID}/menuItems`).push().set({
+                    'title': menuItemObject.title,
+                    'image': menuItemObject.image,
+                    'description': menuItemObject.description,
+                    'price': menuItemObject.price,
+                    'quantity': menuItemObject.quantity,
+                    'optionLists': menuItemObject.optionLists,
+                    'itemCategory': menuItemObject.itemCategory
+                })
+                console.log(menuItemObject)
+                console.log(menuItemObject.title + ' pushed to the menu.');
+                navigation.navigate('MenuEditor', { menuID: menuID });
+            }
+        } else {
+            console.error("You aren't in a menu!")
+        }
     }
 
   return (
@@ -94,18 +109,18 @@ const AddMenuItemScreen = ({route, navigation}) => {
         <View style={styles.rowView}>
           <View style={styles.columnView}>
             <TextInput style={styles.textInput} placeholder="title" onChangeText={(text) => setTitle(text)}/>
-            <TextInput
-              style={styles.textInput}
-              placeholder="description"
-              multiline={true}
-              onChangeText={(text) => setDescription(text)}
-            />
-            <TextInput
-              style={styles.textInput}
-              placeholder="price"
-              keyboardType='decimal-pad'
-              onChangeText={(text) => setPrice(text)}
-            />
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="description"
+                  multiline={true}
+                  onChangeText={(text) => setDescription(text)}
+              />
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="price"
+                  keyboardType='decimal-pad'
+                  onChangeText={(text) => setPrice(text)}
+              />
               <TextInput
                   style={styles.textInput}
                   placeholder="category"
