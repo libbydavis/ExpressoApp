@@ -41,6 +41,41 @@ const ProfileScreen = () => {
 
     }, []);
 
+    resetPassword = () => {
+        console.log(email);
+        firebaseAuth
+          .sendPasswordResetEmail(email)
+            .then(() => {
+              console.log("Successfully sent password reset email!");
+              Alert.alert(
+                "Success! Please check your email:",
+                "A password reset link is sent to your email!",
+                [
+                    {
+                        text: "OK",
+                        onPress: navigation.navigate('LoginScreen'),
+                    },
+                ],
+              );
+            })
+            .catch(error => {
+                Alert.alert(
+                  "Error:",
+                  "Invalid input. Please try again.",
+                  [
+                      {
+                          text: "OK",
+                      },
+                  ]
+              );
+              if (error.code === 'auth/email-already-exists')
+              {
+                console.log('This email address already exists!');
+              }
+              console.error(error);
+            });
+      }
+
     return (
         <View style={styles.mainView} testID={'Profile_Screen'}>
             <Header navigation={navigate} rightOption={'profile'}/>
@@ -66,9 +101,15 @@ const ProfileScreen = () => {
                 null
             }
             <View style={styles.functionView}>
-                <TouchableOpacity style={styles.expressoButton}>
+                <TouchableOpacity style={styles.expressoButton} onPress={()=>resetPassword()}>
                     <Text style={styles.expressoButtonText}>Change Password</Text>
                 </TouchableOpacity>
+                { isBusiness === true ?
+                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('CreateStorePageScreen', uid)}>
+                        <Text style={styles.expressoButtonText}>Edit Store Page</Text>
+                    </TouchableOpacity> :
+                     null
+                }
                 { isBusiness === true ?
                     <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('EditOpeningHours')} testID={'openingHoursEditorButton'}>
                         <Text style={styles.expressoButtonText}>Edit Opening Hours</Text>
@@ -81,6 +122,7 @@ const ProfileScreen = () => {
                     </TouchableOpacity> :
                     null
                 }
+                
             </View>
         </View>
     );
