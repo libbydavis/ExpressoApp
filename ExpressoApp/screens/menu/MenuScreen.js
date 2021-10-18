@@ -50,30 +50,8 @@ export const MenuScreen = ({navigation, route}) => {
             });
         });
         setMenuItemList(itemList);
-        setDisplayedItems(menuItemList);
+        setDisplayedItems(itemList);
     }
-
-    const createCategories = () => {
-        // let category = [];
-        // for (let i = 0; i < menuItemList.length; i++) {
-        //     let item = menuItemList[i];
-        //     let cat = item.itemCategory
-        //     if (cat) {
-        //         if (category.includes({title: cat})) {
-        //             category[{title:cat}].data.push(item);
-        //         } else {
-        //             category.push({title: cat, data: [item]});
-        //         }
-        //         console.log(category)
-        //     }
-        // }
-        // console.log("complete")
-
-    }
-
-    // useEffect(() => {
-    //     setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
-    // }, [menuItemList]);
 
     const filterItems = (category) => {
         setActiveCategory(category);
@@ -85,7 +63,7 @@ export const MenuScreen = ({navigation, route}) => {
         setDisplayedItems(itemsToDisplay);
     }
 
-    const ItemView = ({item}) => {
+    const ItemView = ({ item }) => {
         // View specification for menu items
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
@@ -135,7 +113,7 @@ export const MenuScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <Header/>
+            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart')}></Header>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
@@ -179,15 +157,6 @@ const styles = StyleSheet.create({
     headerIcon: {
         width: 200,
         height: 50,
-    },
-    rowView: {
-        flexDirection: 'row',
-        marginTop: 20,
-    },
-    columnView: {
-        flexDirection: 'column',
-        marginLeft: 10,
-        marginRight: 10,
     },
     itemStyle: {
         padding: 15,
