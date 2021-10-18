@@ -8,10 +8,9 @@ import {
     FlatList, SectionList,
 } from 'react-native';
 import { firebaseDB } from "../../firebase/FirebaseConfig";
+import { firebase } from "@react-native-firebase/auth";
 import MenuCategories from "../../components/MenuCategories";
 import Header from "../../components/Header";
-import {cat} from "yarn/lib/cli";
-// import Category from "react-native-category"; this package is shit do not use
 
 //TODO: Remove unnecessary styles, fix loading of categories
 
@@ -21,9 +20,8 @@ export const MenuScreen = ({navigation, route}) => {
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [businessID, setBusinessID] = useState("");
-    const [allCategories, setAllCategories] = useState([]);
     const [activeCategory, setActiveCategory] = useState("all"); // intended to allow the active category
-    const [menuItemList, setMenuItemList] = useState([]);        // to display a different style to the rest
+    const [menuItemList, setMenuItemList] = useState([]);        // to display a different style to others
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
 
@@ -33,6 +31,10 @@ export const MenuScreen = ({navigation, route}) => {
             setBusinessID(snapshot.val().business);
         });
 
+        createMenu();
+    }, []);
+
+    const createMenu = () => {
         let itemList = [];
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             snapshot.forEach((child) => {
@@ -47,32 +49,27 @@ export const MenuScreen = ({navigation, route}) => {
                 });
             });
         });
-
-        let category = [];
-        for (let i = 0; i < itemList.length; i++) {
-            let item = itemList[i];
-            let cat = item.itemCategory
-            console.log(item)
-            console.log(cat)
-            if (cat) {
-                console.log("into first if ")
-                if (category.includes({title: cat})) {
-                    console.log("into second if")
-                    category[{title:cat}].data.push(item);
-                    console.log(category);
-                } else {
-                    console.log("into else")
-                    category.push({title: cat, data: [item]});
-                    console.log(category)
-                }
-                console.log(category)
-            }
-        }
-        // setCategoryItems(category);
         setMenuItemList(itemList);
-        setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
         setDisplayedItems(menuItemList);
-    }, []);
+    }
+
+    const createCategories = () => {
+        // let category = [];
+        // for (let i = 0; i < menuItemList.length; i++) {
+        //     let item = menuItemList[i];
+        //     let cat = item.itemCategory
+        //     if (cat) {
+        //         if (category.includes({title: cat})) {
+        //             category[{title:cat}].data.push(item);
+        //         } else {
+        //             category.push({title: cat, data: [item]});
+        //         }
+        //         console.log(category)
+        //     }
+        // }
+        // console.log("complete")
+
+    }
 
     // useEffect(() => {
     //     setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
@@ -145,7 +142,7 @@ export const MenuScreen = ({navigation, route}) => {
                 </Text>
             </View>
             <MenuCategories
-                categories={allCategories}
+                categories={["all", ...new Set(menuItemList.map((item) => item.itemCategory))]}
                 activeCategory={activeCategory}
                 filterItems={filterItems}
             />

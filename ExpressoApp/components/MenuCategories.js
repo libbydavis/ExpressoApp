@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     catText: {
         fontSize: 18,
         fontFamily: "Monserrat-Regular",
-        color: '#000000'
+        color: '#000000',
+        padding: 3
     }
 })
 
