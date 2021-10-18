@@ -26,6 +26,9 @@ LogBox.ignoreLogs([
     'VirtualizedLists should never be nested', // TODO: Remove when fixed
 ]);
 
+const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
 /**
  *
  * @return {JSX.Element}
@@ -99,13 +102,13 @@ function RegisterUserScreen({navigation}) {
                 if (owner) {
                     writeBusinessData(user.user.uid);
                 }
-                resolve(true);
+                return user;
             })
-            .then(() => {
+            .then(user =>{
                 //Signout user
-                firebaseAuth.signOut();
+                firebaseAuth.signOut();                
                 ToastAndroid.show('Registered!', ToastAndroid.LONG);
-                navigate.navigate('LoginScreen');
+                wait(500).then(navigation.navigate('LoginScreen'));
             })
             .catch(error => {
                 console.log('catch');
