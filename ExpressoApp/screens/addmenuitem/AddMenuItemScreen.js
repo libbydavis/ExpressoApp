@@ -26,7 +26,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
     const dbRef = firebaseDB.ref();
     const menuID = route.params;
 
-    const [menuItemObject, setMenuItemObject] = useState({
+    const [itemData, setItemData] = useState({
         title: '',
         image: '',
         description: '',
@@ -41,45 +41,44 @@ const AddMenuItemScreen = ({route, navigation}) => {
     }
 
     const saveChecklist = (checklist) => {
-        menuItemObject.optionLists.push({title: checklist.title, items: checklist.items});
+        itemData.optionLists.push({title: checklist.title, items: checklist.items});
     }
 
     const receiveQuantity = (value) => {
-        setMenuItemObject({...menuItemObject, ['quantity']: value});
+        setItemData({...itemData, ['quantity']: value});
     };
 
-    const receiveImage = (image) => {
-        setMenuItemObject({...menuItemObject, ['image']: image});
+    const receiveImage = (itemDataWithImage) => {
+        setItemData(itemDataWithImage);
     }
 
     const setTitle = (titleText) => {
-        setMenuItemObject({...menuItemObject, ['title']: titleText});
-        console.log(menuItemObject)
+        setItemData({...itemData, ['title']: titleText});
     }
 
     const setDescription = (descriptionText) => {
-        setMenuItemObject({...menuItemObject, ['description']: descriptionText});
+        setItemData({...itemData, ['description']: descriptionText});
     }
 
     const setPrice = (priceText) => {
-        setMenuItemObject({...menuItemObject, ['price']: parseFloat(priceText)});
+        setItemData({...itemData, ['price']: parseFloat(priceText)});
     }
 
     const setItemCategory = (category) => {
-        setMenuItemObject({... menuItemObject, ['itemCategory']: category});
+        setItemData({... itemData, ['itemCategory']: category});
     }
 
     const onClickAddItem = () => {
         let menuRef = dbRef.child(`Menus/${menuID}/menuItems`).push();
         menuRef.set({
-            'title': menuItemObject.title,
-            'image': menuItemObject.image,
-            'description': menuItemObject.description,
-            'price': menuItemObject.price,
-            'quantity': menuItemObject.quantity,
-            'optionLists': menuItemObject.optionLists
+            'title': itemData.title,
+            'image': itemData.image,
+            'description': itemData.description,
+            'price': itemData.price,
+            'quantity': itemData.quantity,
+            'optionLists': itemData.optionLists
         });
-        console.log(menuItemObject.title + ' pushed to the menu.');
+        console.log(itemData.title + ' pushed to the menu.');
         navigation.navigate('MenuScreen', {menuID: menuID});
     }
 
@@ -90,7 +89,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
 
         <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
-        <CustomImagePicker receiveImage={receiveImage} width={200} height={180}/>
+        <CustomImagePicker receiveImage={receiveImage} itemData={itemData} width={200} height={180}/>
         <View style={styles.rowView}>
           <View style={styles.columnView}>
             <TextInput style={styles.textInput} placeholder="title" onChangeText={(text) => setTitle(text)}/>
@@ -123,7 +122,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
             <View>
               <Text style={styles.expressoLabel}>Option Lists</Text>
               {
-                menuItemObject.optionLists.map((item, index) => {
+                itemData.optionLists.map((item, index) => {
                   console.log(item);
                   return <Text key={index}>- {item.title}</Text>;
                 })

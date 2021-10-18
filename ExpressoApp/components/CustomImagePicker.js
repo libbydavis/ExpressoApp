@@ -24,7 +24,7 @@ class CustomImagePicker extends Component {
         if (!response.didCancel) {
           if (response.assets[0].uri) {
             this.setState({photo: response.assets[0].uri});
-            props.receiveImage(response.assets[0].uri);
+            props.receiveImage({...this.props.itemData, ['image']: response.assets[0].uri});
           }
         }
       });
