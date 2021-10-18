@@ -8,7 +8,9 @@ import {
     Image,
     ScrollView,
     StatusBar,
-    LogBox, ToastAndroid, Alert,
+    LogBox,
+    ToastAndroid,
+    Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
@@ -17,13 +19,16 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 import validator from 'validator';
 import {PLACES_API_KEY, GEOCODING_API_KEY} from '@env';
 import Geocoder from 'react-native-geocoding';
-
+import Header from '../../components/Header';
 Geocoder.init(GEOCODING_API_KEY);
 
 LogBox.ignoreLogs([
     'VirtualizedLists should never be nested', // TODO: Remove when fixed
 ]);
 
+const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+};
 /**
  *
  * @return {JSX.Element}
@@ -43,43 +48,46 @@ function RegisterUserScreen({navigation}) {
     const [isLastName, setIsLastName] = useState(true);
     const [isPassword, setIsPassword] = useState(true);
     const [isEmail, setIsEmail] = useState(true);
-
-
-    // const [initializing, setInitializing] = useState(true);
-    // /**
-    //  *
-    //  * @param user
-    //  * */
-    // function onAuthStateChanged(user) {
-    //   setUser(user);
-    //   if (initializing) setInitializing(false);
-    // }
-    // useEffect(() => {
-    //   const subscriber = firebaseAuth.onAuthStateChanged(onAuthStateChanged);
-    //   return subscriber; // unsubscribe on unmount
-    // }, []);
+    const scrollViewRef = useRef();
 
     /**
      *
      * @return {boolean}
      */
     function validateInput() {
-        if (validator.isEmail(email) && password.length >= 6 && validator.isAlpha(firstName) && validator.isAlpha(lastName)) {
+        if (
+            validator.isEmail(email) &&
+            password.length >= 6 &&
+            validator.isAlpha(firstName) &&
+            validator.isAlpha(lastName)
+        ) {
             return true;
         } else if (!isEmail) {
             ToastAndroid.show('Must use a valid email.', ToastAndroid.LONG);
             return false;
         } else if (!isFirstName) {
-            ToastAndroid.show('First name must be only letters.', ToastAndroid.LONG);
+            ToastAndroid.show(
+                'First name must be only letters.',
+                ToastAndroid.LONG,
+            );
             return false;
         } else if (!isLastName) {
-            ToastAndroid.show('Last name must be only letters.', ToastAndroid.LONG);
+            ToastAndroid.show(
+                'Last name must be only letters.',
+                ToastAndroid.LONG,
+            );
             return false;
         } else if (!isPassword) {
-            ToastAndroid.show('Password must be six characters long.', ToastAndroid.LONG);
+            ToastAndroid.show(
+                'Password must be six characters long.',
+                ToastAndroid.LONG,
+            );
             return false;
         } else {
-            ToastAndroid.show('Make sure to fix your details.', ToastAndroid.LONG);
+            ToastAndroid.show(
+                'Make sure to fix your details.',
+                ToastAndroid.LONG,
+            );
         }
     }
 
@@ -89,31 +97,65 @@ function RegisterUserScreen({navigation}) {
     function signUpNewUser() {
         firebaseAuth
             .createUserWithEmailAndPassword(email, password)
-            .then((user) => {
+            .then(user => {
                 console.log('User account created & signed in!');
                 writeUserData(user.user.uid);
                 if (owner) {
                     writeBusinessData(user.user.uid);
                 }
+                return user;
             })
-            .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') {
-                    console.log('That email address is already in use!');
+            .then(user =>{
+                //Signout user
+                firebaseAuth.signOut();
+                ToastAndroid.show('Registered!', ToastAndroid.LONG);
+                wait(500).then(navigation.navigate('LoginScreen'));
+            })
+            .catch(error => {
+                console.log('catch');
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        ToastAndroid.show(
+                            `Email address ${email} already in use.`,
+                            ToastAndroid.LONG,
+                        );
+                        break;
+                    case 'auth/invalid-email':
+                        ToastAndroid.show(
+                            `Email address ${email} is invalid.`,
+                            ToastAndroid.LONG,
+                        );
+                        break;
+                    case 'auth/operation-not-allowed':
+                        ToastAndroid.show(
+                            `Error during sign up.`,
+                            ToastAndroid.LONG,
+                        );
+                        break;
+                    case 'auth/weak-password':
+                        ToastAndroid.show(
+                            'Password is not strong enough. Add additional characters including special characters and numbers.',
+                            ToastAndroid.LONG,
+                        );
+                        break;
+                    default:
+                        ToastAndroid.show(
+                            'Please try registration at another time',
+                            ToastAndroid.LONG,
+                        );
+                        break;
                 }
-                if (error.code === 'auth/invalid-email') {
-                    console.log('That email address is invalid!');
-                }
-                console.error(error + ' ' + email + ' ' + firstName + ' ' + lastName);
+                console.log(error.message);
             });
     }
-
 
     /**
      *
      * @param {string}userId
      */
     function writeUserData(userId) {
-        firebaseDB.ref('users/' + userId)
+        firebaseDB
+            .ref('users/' + userId)
             .set({
                 firstName: firstName,
                 lastName: lastName,
@@ -121,12 +163,16 @@ function RegisterUserScreen({navigation}) {
             })
             .then(() => {
                 // Data saved successfully!
-                console.log(`User ${userId} added to users collection successfully!`);
+                console.log(
+                    `User ${userId} added to users collection successfully!`,
+                );
             })
-            .catch((error) => {
+            .catch(error => {
                 // The write failed...
-                console.log(`User ${userId} could not be added to users collection.` +
-                    error.message());
+                console.log(
+                    `User ${userId} could not be added to users collection.` +
+                    error.message(),
+                );
             });
     }
 
@@ -135,7 +181,8 @@ function RegisterUserScreen({navigation}) {
      * @param {string}userId
      */
     function writeBusinessData(userId) {
-        firebaseDB.ref('businesses/' + userId)
+        firebaseDB
+            .ref('businesses/' + userId)
             .set({
                 owner: userId,
                 title: businessTitle,
@@ -146,16 +193,22 @@ function RegisterUserScreen({navigation}) {
             })
             .then(() => {
                 // Data saved successfully!
-                console.log(`Business for ${userId} added to businesses` +
-                    ` collection successfully!`);
+                console.log(
+                    `Business for ${userId} added to businesses` +
+                    ` collection successfully!`,
+                );
             })
-            .catch((error) => {
+            .catch(error => {
                 // The write failed...
-                console.log(`Business for ${userId} could not be added to` +
-                    ` businesses collection.` + error.message());
+                console.log(
+                    `Business for ${userId} could not be added to` +
+                    ` businesses collection.` +
+                    error.message(),
+                );
             });
 
-        firebaseDB.ref('businesses/' + userId + '/openingHours')
+        firebaseDB
+            .ref('businesses/' + userId + '/openingHours')
             .set({
                 Monday: '',
                 Tuesday: '',
@@ -167,17 +220,22 @@ function RegisterUserScreen({navigation}) {
             })
             .then(() => {
                 // Data saved successfully!
-                console.log(`Business for ${userId} added to businesses` +
-                    ` collection successfully!`);
+                console.log(
+                    `Business for ${userId} added to businesses` +
+                    ` collection successfully!`,
+                );
             })
-            .catch((error) => {
+            .catch(error => {
                 // The write failed...
-                console.log(`Business for ${userId} could not be added to` +
-                    ` businesses collection.` + error.message());
+                console.log(
+                    `Business for ${userId} could not be added to` +
+                    ` businesses collection.` +
+                    error.message(),
+                );
             });
     }
 
-    const handleFirstName = (text) => {
+    const handleFirstName = text => {
         if (validator.isAlpha(text)) {
             setFirstName(text);
             setIsFirstName(true);
@@ -186,7 +244,7 @@ function RegisterUserScreen({navigation}) {
         }
     };
 
-    const handleLastName = (text) => {
+    const handleLastName = text => {
         if (validator.isAlpha(text)) {
             setLastName(text);
             setIsLastName(true);
@@ -195,7 +253,7 @@ function RegisterUserScreen({navigation}) {
         }
     };
 
-    const handleEmail = (text) => {
+    const handleEmail = text => {
         if (validator.isEmail(text)) {
             setEmail(text);
             setIsEmail(true);
@@ -204,7 +262,7 @@ function RegisterUserScreen({navigation}) {
         }
     };
 
-    const handlePassword = (text) => {
+    const handlePassword = text => {
         if (text.length >= 6) {
             setPassword(text);
             setIsPassword(true);
@@ -213,88 +271,132 @@ function RegisterUserScreen({navigation}) {
         }
     };
 
-    const handleOwner = (bool) => {
+    const handleOwner = bool => {
         setOwner(bool);
     };
 
-    const handleBusinessTitle = (text) => {
+    const handleBusinessTitle = text => {
         setBusinessTitle(text);
-    }
+    };
 
     return (
-        <View style={styles.mainView} testID={'Register_Screen'}>
-            <Image source={require('../../assets/ExpressoLogo.png')}
-                   style={styles.headerIcon}></Image>
-            <ScrollView contentContainerStyle={styles.scrollView} nestedScrollEnabled={true}
-                        keyboardShouldPersistTaps={'handled'}>
-                <Text style={styles.title}>Register</Text>
-                <View style={styles.rowView}>
-                    <View style={styles.columnView}>
+        <>
+            <Header rightOption="login" />
+            <View style={styles.mainView} testID={'Register_Screen'}>
+                <ScrollView
+                    contentContainerStyle={styles.scrollView}
+                    nestedScrollEnabled={true}
+                    keyboardShouldPersistTaps={'handled'}
+                    ref={scrollViewRef}
+                    onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: false})}
+                    >
+                    <Text style={styles.title}>Register</Text>
+                    <View style={styles.rowView}>
+                        <View style={styles.columnView}>
+                            {!isFirstName ? (
+                                <Animatable.Text
+                                    style={styles.errorText}
+                                    animation="fadeInLeft"
+                                    duration={500}>
+                                    First name must be only letters.
+                                </Animatable.Text>
+                            ) : null}
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="First name"
+                                placeholderTextColor={'#40404040'}
+                                onChangeText={text => handleFirstName(text)}
+                                testID={'registerFirstName'}
+                            />
+                            {!isLastName ? (
+                                <Animatable.Text
+                                    style={styles.errorText}
+                                    animation="fadeInLeft"
+                                    duration={500}>
+                                    Last name must be only letters.
+                                </Animatable.Text>
+                            ) : null}
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Last name"
+                                placeholderTextColor={'#40404040'}
+                                onChangeText={text => handleLastName(text)}
+                                testID={'registerLastName'}
+                            />
+                            {!isEmail ? (
+                                <Animatable.Text
+                                    style={styles.errorText}
+                                    animation="fadeInLeft"
+                                    duration={500}>
+                                    Must use a valid email!
+                                </Animatable.Text>
+                            ) : null}
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Email"
+                                placeholderTextColor={'#40404040'}
+                                onChangeText={text => handleEmail(text)}
+                                testID={'registerEmail'}
+                            />
+                            {!isPassword ? (
+                                <Animatable.Text
+                                    style={styles.errorText}
+                                    animation="fadeInLeft"
+                                    duration={500}>
+                                    Password must be min six characters long!
+                                </Animatable.Text>
+                            ) : null}
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Password"
+                                secureTextEntry={true}
+                                placeholderTextColor={'#40404040'}
+                                onChangeText={text => handlePassword(text)}
+                                testID={'registerPassword'}
+                            />
 
-                        {!isFirstName ?
-                            <Animatable.Text style={styles.errorText} animation="fadeInLeft" duration={500}>
-                                First name must be only letters.</Animatable.Text> : null
-                        }
-                        <TextInput style={styles.textInput} placeholder="First name"
-                                   placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handleFirstName(text)}
-                                   testID={'registerFirstName'}/>
-                        {!isLastName ?
-                            <Animatable.Text style={styles.errorText} animation="fadeInLeft" duration={500}>
-                                Last name must be only letters.</Animatable.Text> : null
-                        }
-                        <TextInput style={styles.textInput} placeholder="Last name"
-                                   placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handleLastName(text)}
-                                   testID={'registerLastName'}/>
-                        {!isEmail ?
-                            <Animatable.Text style={styles.errorText} animation="fadeInLeft" duration={500}>
-                                Must use a valid email!</Animatable.Text> : null
-                        }
-                        <TextInput style={styles.textInput} placeholder="Email"
-                                   placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handleEmail(text)}
-                                   testID={'registerEmail'}/>
-                        {!isPassword ?
-                            <Animatable.Text style={styles.errorText} animation="fadeInLeft" duration={500}>
-                                Password must be min six characters long!</Animatable.Text> : null
-                        }
-                        <TextInput style={styles.textInput} placeholder="Password"
-                                   secureTextEntry={true}
-                                   placeholderTextColor={'#40404040'}
-                                   onChangeText={text => handlePassword(text)}
-                                   testID={'registerPassword'}/>
+                            <BouncyCheckbox
+                                iconStyle={{borderColor: '#25a2af'}}
+                                fillColor={'#25a2af'}
+                                text={'Are you an owner?'}
+                                style={styles.checkbox}
+                                onPress={isChecked => handleOwner(isChecked)}
+                            />
 
-                        <BouncyCheckbox iconStyle={{borderColor: '#25a2af'}}
-                                        fillColor={'#25a2af'}
-                                        text={'Are you an owner?'}
-                                        style={styles.checkbox}
-                                        onPress={isChecked => handleOwner(isChecked)}/>
-
-                        {
-                            !owner ? null : (
-                                <Animatable.View animation="fadeInLeft" duration={500}>
-                                    <Text>{}</Text>
-                                    <TextInput style={styles.textInput}
-                                               placeholder="Business Title"
-                                               placeholderTextColor={'#40404040'}
-                                               onChangeText={text => handleBusinessTitle(text)}/>
+                            {!owner ? null : (
+                                <Animatable.View
+                                    animation="fadeInUp"
+                                    duration={500}>
+                                    <TextInput
+                                        style={styles.textInput}
+                                        placeholder="Business Title"
+                                        placeholderTextColor={'#40404040'}
+                                        onChangeText={text =>
+                                            handleBusinessTitle(text)
+                                        }
+                                    />
                                     <GooglePlacesAutocomplete
-                                        placeholder='Business Address'
+                                        placeholder="Business Address"
                                         placeholderTextColor={'#40404040'}
                                         onPress={(data, details) => {
-                                            console.log(details)
+                                            console.log(details);
                                             Geocoder.from(details.description)
                                                 .then(json => {
-                                                    var location = json.results[0].geometry.location;
-                                                    setLatitude(location.lat)
-                                                    setLongitude(location.lng)
+                                                    var location =
+                                                        json.results[0].geometry
+                                                            .location;
+                                                    setLatitude(location.lat);
+                                                    setLongitude(location.lng);
                                                     console.log(location);
                                                 })
-                                                .catch(error => console.warn(error));
+                                                .catch(error =>
+                                                    console.warn(error),
+                                                );
 
-                                            setBusinessAddress(details.description)
-                                            console.log(businessAddress)
+                                            setBusinessAddress(
+                                                details.description,
+                                            );
+                                            console.log(businessAddress);
                                         }}
                                         query={{
                                             key: PLACES_API_KEY,
@@ -305,100 +407,58 @@ function RegisterUserScreen({navigation}) {
                                             fontFamily: 'Monserrat-Regular',
                                             foregroundColor: 'black',
                                             borderWidth: 1,
-                                            borderRadius: 25,
-                                            paddingRight: 20,
+                                            borderRadius: 10,
                                             marginBottom: 20,
-                                            width: 250,
+                                        }}
+                                        styles={{
+                                            container: {
+                                                margin: 10,
+                                                width: 250,
+                                            },
                                         }}
                                     />
                                 </Animatable.View>
-                            )
-                        }
+                            )}
+                        </View>
                     </View>
-                </View>
-                <View>
-                    {
-                        //   !owner ? null : (
-                        //     <Animatable.View animation="fadeInLeft" duration={500}>
-                        //       <Text></Text>
-                        //       <TextInput style={styles.textInput}
-                        //         placeholder="Business Title"
-                        //         onEndEditing={(e) => {
-                        //           setBusinessTitle(e.nativeEvent.text);
-                        //         }}/>
-                        //       <TextInput style={styles.textInput}
-                        //         placeholder="Business Address"
-                        //         onEndEditing={(e) => {
-                        //           setBusinessAddress(e.nativeEvent.text);
-                        //         }}/>
-                        //     </Animatable.View>
-                        // )
-                    }
-                    <TouchableOpacity
-                        style={styles.expressoButton}
-                        testID={'registerButton'}
-                        onPress={() => {
-                            if (validateInput()) {
-                                try {
-                                    signUpNewUser();
-                                    ToastAndroid.show('Registered!', ToastAndroid.SHORT);
-                                    navigation.navigate('SearchScreen');
-                                } catch (error) {
-                                    switch (error.code) {
-                                        case 'auth/email-already-in-use':
-                                            ToastAndroid.show(`Email address ${email} already in use.`, ToastAndroid.SHORT);
-                                            break;
-                                        case 'auth/invalid-email':
-                                            ToastAndroid.show(`Email address ${email} is invalid.`, ToastAndroid.SHORT);
-                                            break;
-                                        case 'auth/operation-not-allowed':
-                                            ToastAndroid.show(`Error during sign up.`, ToastAndroid.SHORT);
-                                            break;
-                                        case 'auth/weak-password':
-                                            ToastAndroid.show('Password is not strong enough. Add additional characters including special characters and numbers.', ToastAndroid.SHORT);
-                                            break;
-                                        default:
-                                            ToastAndroid.show('Please try registration at another time', ToastAndroid.SHORT);
-                                            console.log(error.message);
-                                            break;
-                                    }
+                    <View>
+                        <TouchableOpacity
+                            style={styles.expressoButton}
+                            testID={'registerButton'}
+                            onPress={() => {
+                                if (validateInput()) {
+                                    try {
+                                        signUpNewUser();
+                                    } catch (error) {}
                                 }
-                            }
-                        }}>
-                        <Text style={styles.expressoButtonText}>Sign Up</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        </View>
-    )
-        ;
+                            }}>
+                            <Text style={styles.expressoButtonText}>
+                                Sign Up
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </View>
+        </>
+    );
 }
-
 
 const styles = StyleSheet.create({
     mainView: {
         flex: 1,
-        paddingTop: StatusBar.currentHeight,
-        // backgroundColor: '#35a2af',
-    },
-    headerIcon: {
-        width: 200,
-        height: 50,
     },
     textInput: {
         borderColor: 'black',
         borderWidth: 1,
         width: 250,
         padding: 10,
-        borderRadius: 25,
+        borderRadius: 10,
         margin: 10,
-        color: '#000',
     },
     title: {
         fontFamily: 'Monserrat-Bold',
         color: '#25a2af',
         fontSize: 35,
-        margin: 10,
     },
     rowView: {
         flexDirection: 'row',
@@ -442,4 +502,3 @@ const styles = StyleSheet.create({
 });
 
 export default RegisterUserScreen;
-
