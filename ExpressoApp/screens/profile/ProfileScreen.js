@@ -26,6 +26,7 @@ const ProfileScreen = () => {
     const [email, setEmail] =  useState('');
     const [isBusiness, setIsBusiness] = useState(false)
     const [businessTitle, setBusinessTitle] = useState('');
+    const [menuIDs, setMenuIDs] = useState([]);
 
     useEffect(() => {
         firebaseDB.ref('users/'+uid+'/').once('value').then(snapshot=>{
@@ -40,6 +41,17 @@ const ProfileScreen = () => {
                 setIsBusiness(true)
             }
         })
+        firebaseDB.ref().child("Menus").orderByChild('business').equalTo(uid).get().then((snapshot) => {
+            if (snapshot.exists()) {
+                snapshot.forEach(e =>
+                    setMenuIDs([...menuIDs, e])
+                )
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
 
     }, []);
 
@@ -77,6 +89,11 @@ const ProfileScreen = () => {
               console.error(error);
             });
       }
+
+    const handleDeleteNav = () => {
+        navigate.navigate('DeleteMenuItemScreen', {menuID: menuIDs[0]})
+    }
+
 
     return (
         <View style={styles.mainView} testID={'Profile_Screen'}>
@@ -119,7 +136,7 @@ const ProfileScreen = () => {
                     null
                 }
                 { isBusiness === true ?
-                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('DeleteMenuItemScreen')} testID={'deleteMenuItemsButton'}>
+                    <TouchableOpacity style={styles.expressoButton} onPress={handleDeleteNav} testID={'deleteMenuItemsButton'}>
                         <Text style={styles.expressoButtonText}>Delete Menu Items</Text>
                     </TouchableOpacity> :
                     null
