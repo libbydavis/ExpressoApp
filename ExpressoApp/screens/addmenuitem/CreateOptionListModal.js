@@ -2,7 +2,6 @@ import {KeyboardAvoidingView, Modal, Text, TextInput, TouchableOpacity, View, St
 import CheckListTask from "../../components/ChecklistTask";
 import React, {useState} from "react";
 import ToastAndroid from "react-native/Libraries/Components/ToastAndroid/ToastAndroid";
-import Button from "../../components/Button";
 
 const CreateOptionListModal = (props) => {
     const [checklistTitle, setChecklistTitle] = useState();
@@ -81,12 +80,16 @@ const CreateOptionListModal = (props) => {
                                 onChangeText={(text) => setChecklistTask(text)}
                                 style={styles.enterOptionText}
                             />
-                            <Button title={"add"} onPress={handleChecklistTaskAdd}></Button>
+                            <TouchableOpacity style={styles.expressoButton} onPress={handleChecklistTaskAdd}>
+                                <Text style={styles.expressoButtonText}>add</Text>
+                            </TouchableOpacity>
                         </View>
                     </KeyboardAvoidingView>
                 </View>
                 <View style={styles.optionBottomButtons}>
-                    <Button title={"add option list"} onPress={handleNewChecklist}></Button>
+                    <TouchableOpacity style={styles.expressoButton} onPress={handleNewChecklist}>
+                        <Text style={styles.expressoButtonText}>add option list</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.discardButton}
                         onPress={() => discardNewChecklist()}
@@ -145,6 +148,12 @@ const styles = StyleSheet.create({
     expressoButtonText: {
         color: '#ffffff',
     },
+    expressoButton: {
+        backgroundColor: '#25a2af',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 10,
+    }
 })
 
 export default CreateOptionListModal;
