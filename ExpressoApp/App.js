@@ -72,7 +72,6 @@ export default class App extends Component {
           <Stack.Screen name="Cart" component={CartScreen} />
           <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>          
           <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen}/>
-          <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="OrdersScreen" component={OrdersScreen}/>
           <Stack.Screen name="ReviewMenuItem" component={ReviewMenuItemScreen} />
