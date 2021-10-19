@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Alert, Image} from 'react-native';
+import {StyleSheet, View, Text, Alert, Image, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import Header from '../../components/Header';
@@ -15,6 +15,7 @@ function StorePageScreen({navigation, route}) {
     const address = route.params['address'];
     const [itemData, setItemData] = useState({});
     const [coverImage, setCoverImage] = useState('');
+    const [menuID, setMenuID] = useState();
 
     useEffect(() => {
         firebaseDB.ref('storepage/' + business).on('value', snapshot => {
@@ -37,12 +38,17 @@ function StorePageScreen({navigation, route}) {
                 navigate.navigate('SearchScreen');
             }
         });
+        //get menus
+
     }, []);
 
     return (
         <View>
             <Header rightOption="profile" />
             <KeyboardAwareScrollView>
+                <View style={styles.storeImageContainer}>
+                    <Image source={{uri: coverImage}} style={{height:200, width:200}} />
+                </View>
                 <View styles={styles.storeDetails}>
                     <Text style={[styles.storeText, {fontSize: 35}]}>
                         {itemData.storeName}
@@ -54,10 +60,9 @@ function StorePageScreen({navigation, route}) {
                         {itemData.storePhoneNum}
                     </Text>
                 </View>
-
-                <View style={styles.storeImageContainer}>
-                    <Image source={{uri: coverImage}} style={{height:200, width:200}} />
-                </View>
+                <TouchableOpacity onPress={() => navigate.navigate('MenuScreen', menuID)}>
+                    <Text>Go to Menu</Text>
+                </TouchableOpacity>
 
                 <View style={{flex: 1, margin: 20}}></View>
             </KeyboardAwareScrollView>

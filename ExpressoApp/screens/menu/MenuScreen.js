@@ -11,6 +11,7 @@ import { firebaseDB } from "../../firebase/FirebaseConfig";
 import { firebase } from "@react-native-firebase/auth";
 import MenuCategories from "../../components/MenuCategories";
 import Header from "../../components/Header";
+import retrieveImage from "../../constants/RetrieveImage";
 
 //TODO: Remove unnecessary styles, fix loading of categories
 
@@ -24,6 +25,7 @@ export const MenuScreen = ({navigation, route}) => {
     const [menuItemList, setMenuItemList] = useState([]);        // to display a different style to others
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
+    const [currentImage, setCurrentImage] = useState();
 
     useEffect(() => {
         dbRef.child(menuID + `/`).on("value", (snapshot) => {
@@ -39,31 +41,25 @@ export const MenuScreen = ({navigation, route}) => {
         itemList = [];
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             snapshot.forEach((child) => {
+                retrieveImage(child.val().image, setImage)
                 itemList.push({
                     title: child.val().title,
-                    image: retrieveImage(child.val().image),
+                    image: currentImage,
                     description: child.val().description,
                     price: child.val().price,
                     quantity: child.val().quantity,
                     optionLists: child.val().optionLists,
                     itemCategory: child.val().itemCategory
                 });
+
             });
         });
         setMenuItemList(itemList);
         setDisplayedItems(itemList);
     }
 
-    function retrieveImage (imageURI) {
-        const imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
-        let imageRef = firebase.storage().ref('/' + imageName);
-        imageRef
-            .getDownloadURL()
-            .then((url) => {
-                //from url you can fetched the uploaded image easily
-                return url;
-            })
-            .catch((e) => console.log('getting downloadURL of image error => ', e));
+    const setImage = (url) => {
+        setCurrentImage(url);
     }
 
     const filterItems = (category) => {
