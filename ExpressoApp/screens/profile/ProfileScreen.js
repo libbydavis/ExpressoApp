@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
 import Header from '../../components/Header';
@@ -49,12 +50,12 @@ const ProfileScreen = () => {
             .then(() => {
               console.log("Successfully sent password reset email!");
               Alert.alert(
-                "Success! Please check your email:",
-                "A password reset link is sent to your email!",
+                "Success!",
+                "A password reset link has been sent to your email.",
                 [
                     {
                         text: "OK",
-                        onPress: navigation.navigate('LoginScreen'),
+                        onPress: ()=>{firebaseAuth.signOut().then(()=>{navigate.navigate('LoginScreen')}).catch(()=>{console.log('could not sign out')})},
                     },
                 ],
               );
@@ -62,7 +63,7 @@ const ProfileScreen = () => {
             .catch(error => {
                 Alert.alert(
                   "Error:",
-                  "Invalid input. Please try again.",
+                  "Please try again at another time.",
                   [
                       {
                           text: "OK",

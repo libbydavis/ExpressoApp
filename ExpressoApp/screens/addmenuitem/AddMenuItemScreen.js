@@ -11,7 +11,6 @@ import {
     Alert
 } from 'react-native';
 import storage from '@react-native-firebase/storage';
-
 import QuantityInput from '../../components/QuantityInput';
 import CustomImagePicker from '../../components/CustomImagePicker';
 import {firebaseDB} from "../../firebase/FirebaseConfig";
@@ -153,6 +152,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
                 </TouchableOpacity>
             </View>
         </View>
+      </View>
     );
 };
 
