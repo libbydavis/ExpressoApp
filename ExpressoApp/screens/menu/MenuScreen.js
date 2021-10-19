@@ -15,7 +15,7 @@ import Header from "../../components/Header";
 //TODO: Remove unnecessary styles, fix loading of categories
 
 export const MenuScreen = ({navigation, route}) => {
-    // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
+    // pass menuID in the form ('MenuScreen', { menuID: id_here }) to ensure this accesses the correct menu
     // { menuID: '-MjmBfn9YP-wguwurLH1' } <- dinner menu test id
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
@@ -114,7 +114,7 @@ export const MenuScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart')}></Header>
+            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart')}/>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
