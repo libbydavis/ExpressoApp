@@ -136,7 +136,8 @@ const SearchScreen  = () => {
   const getItem = (item) => {
     // Function for click on an item
     // alert('Title : ' + item.title + '\nAddress : ' + item.address + '\nAverage Price: ' + item.averagePrice + '\nDistance: ' + item.distance + ' km' + '\nBusinessID: ' + item.business);
-    navigate.navigate('StorePageScreen', item.business);
+    console.log('Pressed Business: ' + item.title);
+    navigate.navigate('StorePageScreen', {business: item.business});
   };
 
   const setSortedFilteredData = (data, sortInput) => {

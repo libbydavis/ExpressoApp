@@ -6,163 +6,95 @@ import {
     Text,
     ScrollView,
     TouchableOpacity,
-    KeyboardAvoidingView,
+    KeyboardAwareScrollView,
     Alert,
 } from 'react-native';
 import {firebaseDB, firebaseAuth} from '../../firebase/FirebaseConfig';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Header';
 
-const StorePageScreen = ({route}) => {
+const StorePageScreen = ({navigation, route}) => {
     //Menus children objects have business as child
     //StorePages children id is business
 
     const navigate = useNavigation();
-    const business = route.params;
-
-    const [storeData, setStoreData] = useState([
-        {
-            storeName: '',
-            storeAddress: '',
-            storePhoneNum: '',
-            coverImage: '',
-            itemNameFirst: '',
-            itemPriceFirst: '',
-            itemCoverImageFirst: '',
-            itemNameSecond: '',
-            itemPriceSecond: '',
-            itemCoverImageSecond: '',
-        },
-    ]);
+    const business = route.params["business"];
+    const [itemData, setItemData] = useState({});
 
     useEffect(() => {
-        firebaseDB.ref(`storepage/` + business).on('value', snapshot => {
+        firebaseDB.ref('storepage/' + business).on('value', snapshot => {
             if (snapshot.exists()) {
-                let storeDetailsList = [];
-                let coverImage = snapshot.val().coverImage.image;
-                let itemCoverImageFirst =
-                    snapshot.val().itemCoverImageFirst.itemImageFirst;
-                let itemCoverImageSecond =
-                    snapshot.val().itemCoverImageSecond.itemImageSecond;
-                let storeName = snapshot.val().storeName;
-                let storeAddress = snapshot.val().storeAddress;
-                let storePhoneNum = snapshot.val().storePhoneNum;
-                let itemNameFirst = snapshot.val().itemNameFirst;
-                let itemNameSecond = snapshot.val().itemNameSecond;
-                let itemPriceFirst = snapshot.val().itemPriceFirst;
-                let itemPriceSecond = snapshot.val().itemPriceSecond;
-
-                storeDetailsList.push({
-                    coverImage,
-                    itemCoverImageFirst,
-                    itemCoverImageSecond,
-                    storeName,
-                    storeAddress,
-                    storePhoneNum,
-                    itemNameFirst,
-                    itemNameSecond,
-                    itemPriceFirst,
-                    itemPriceSecond,
-                });
-
-                // console.log(storeDetailsList);
-                setStoreData(storeDetailsList);
+                let store = {
+                    business : business ?? '',
+                    storeName: snapshot.val().storeName ?? '',
+                    storeAddress: snapshot.val().storeAddress ?? '',
+                    storePhoneNum: snapshot.val().storePhoneNum ?? '',
+                    image: snapshot.val().image ?? '',
+                };
+                setItemData(store);
             } else {
-                alert('Store page data does not exist');
+                alert('Store page data does not exist, please check back another time.');
             }
         });
     }, []);
 
+    useEffect(()=>{console.log(itemData)}, [itemData]);
+
     return (
-        <>
-            <Header navigation={navigate} rightOption={'profile'} />
-            <ScrollView>
+        <View>
+            <Header rightOption="profile" />
+            <KeyboardAwareScrollView>
                 <View styles={styles.storeDetails}>
                     <Text style={[styles.storeText, {fontSize: 35}]}>
-                        {storeData[0].storeName}
+                        {itemData.storeName}
                     </Text>
                     <Text style={[styles.storeText, {fontSize: 25}]}>
-                        {storeData[0].storeAddress}
+                        {itemData.storeAddress}
                     </Text>
                     <Text style={[styles.storeText, {fontSize: 20}]}>
-                        {storeData[0].storePhoneNum}
+                        {itemData.storePhoneNum}
                     </Text>
                 </View>
-                <View style={styles.storeImageContainer}>
-                    <Image
-                        style={styles.storeCoverImage}
-                        source={
-                            storeData[0].coverImage && {
-                                uri: storeData[0].coverImage,
-                            }
-                        }
-                    />
+                
+                <View style={styles.storeImageContainer}>                    
                 </View>
-                <TouchableOpacity
-                    style={[styles.button, {marginLeft: 70, marginTop: 15}]}>
-                    <Text style={styles.buttonText}>Contact</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.button, {marginLeft: 225, marginTop: -35}]}>
-                    <Text style={styles.buttonText}>Menu</Text>
-                </TouchableOpacity>
-                <View
-                    style={[
-                        styles.itemImageContainer,
-                        {marginLeft: 30, marginTop: 20},
-                    ]}>
-                    <Image
-                        style={styles.storeItemImage}
-                        source={
-                            storeData[0].itemCoverImageFirst && {
-                                uri: storeData[0].itemCoverImageFirst,
-                            }
-                        }
-                    />
+
+                <View style={{flex: 1, margin: 20}}>                    
                 </View>
-                <View styles={styles.itemContainer}>
-                    <Text
-                        style={[styles.itemNameText, {marginLeft: 35}]}
-                        placeholder={'Name'}>
-                        {storeData[0].itemNameFirst}
-                    </Text>
-                    <Text
-                        style={[styles.itemPriceText, {marginLeft: 130}]}
-                        placeholder={'Price'}>
-                        {storeData[0].itemPriceFirst}
-                    </Text>
-                </View>
-                <View
-                    style={[
-                        styles.itemImageContainer,
-                        {marginLeft: 210, marginTop: -190},
-                    ]}>
-                    <Image
-                        style={styles.storeItemImage}
-                        source={
-                            storeData[0].itemCoverImageSecond && {
-                                uri: storeData[0].itemCoverImageSecond,
-                            }
-                        }
-                    />
-                </View>
-                <View styles={styles.itemContainer}>
-                    <Text
-                        style={[styles.itemNameText, {marginLeft: 220}]}
-                        placeholder={'Name'}>
-                        {storeData[0].itemNameSecond}
-                    </Text>
-                    <Text
-                        style={[styles.itemPriceText, {marginLeft: 315}]}
-                        placeholder={'Price'}>
-                        {storeData[0].itemPriceSecond}
-                    </Text>
-                </View>
-            </ScrollView>
-        </>
+            </KeyboardAwareScrollView>
+        </View>
     );
 };
 
+/*
+                    {/*
+                    Image
+                     <CustomImagePicker
+                        receiveImage={receiveImage}
+                        itemData={itemData}
+                        width={450}
+                        height={190}>
+                        {itemData.coverImage}
+                    </CustomImagePicker>
+                    Buttons <ExpressoButton
+                        title="Edit Store"
+                        onPress={() => setOpenEditStoreModal(true)}
+                    />
+                    <ExpressoButton title="Contact Details" />
+                    <TouchableOpacity
+                        onPress={() => navigate.navigate('MenuEditor')}
+                        style={styles.expressoButtonContainer}>
+                        <Text style={styles.expressoButtonText}>
+                            Create Menu Screen
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => saveToDatabase()}
+                        style={styles.expressoButtonContainer}>
+                        <Text style={styles.expressoButtonText}>
+                            Save Store Page
+                        </Text>
+                    </TouchableOpacity> */
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',

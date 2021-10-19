@@ -102,7 +102,7 @@ const CreateStorePageScreen = () => {
                         itemData={itemData}
                         width={450}
                         height={190}>
-                        {itemData.coverImage}
+                        {itemData.image}
                     </CustomImagePicker>
                 </View>
 
