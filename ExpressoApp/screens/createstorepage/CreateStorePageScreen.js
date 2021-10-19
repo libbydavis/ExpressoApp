@@ -135,10 +135,9 @@ const CreateStorePageScreen = () => {
 
                 <View style={{flex: 1, margin: 20}}>
                     <ExpressoButton
-                        title="Edit Store"
+                        title="Edit Store Details"
                         onPress={() => setOpenEditStoreModal(true)}
                     />
-                    <ExpressoButton title="Contact Details" />
                     <TouchableOpacity
                         onPress={() => navigate.navigate('CreateMenu')}
                         style={styles.expressoButtonContainer}>
