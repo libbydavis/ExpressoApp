@@ -1,15 +1,19 @@
 import React from 'react';
 import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 function ExpressoHeader(props) {
     const {rightOption, onPress} = props;
-    const navigation = useNavigation();    
+    const navigation = useNavigation();
 
     const OnLogoPressHandler = () => {
         console.log('Logo Press Handler');
         try {
-            navigation.navigate('SearchScreen');
+            if (rightOption == 'login') {
+                navigation.navigate('LoginScreen');
+            } else {
+                navigation.navigate('SearchScreen');
+            }
         } catch (error) {
             console.warn('Caught an error in header');
             console.error(error.message);
@@ -19,9 +23,11 @@ function ExpressoHeader(props) {
     const OnRightOptionPressHandler = () => {
         console.log('Right option handler');
         try {
-            rightOption === 'profile' ? 
-                navigation.navigate('ProfileScreen') :
-                onPress();     
+            rightOption === 'profile'
+                ? navigation.navigate('ProfileScreen')
+                : rightOption === 'login'
+                ? navigation.navigate('LoginScreen')
+                : onPress();
         } catch (error) {
             console.warn('Caught an error in ExpressoButton');
             console.error(error.message);
@@ -55,6 +61,16 @@ function ExpressoHeader(props) {
                         style={styles.rightOption}
                         onPress={OnRightOptionPressHandler}
                         testID={'profileButton'}>
+                        <Image
+                            source={require('../assets/profileIcon.png')}
+                            style={styles.profile}
+                        />
+                    </TouchableOpacity>
+                ) : rightOption === 'login' ? (
+                    <TouchableOpacity
+                        style={styles.rightOption}
+                        onPress={OnRightOptionPressHandler}
+                        testID={'loginButton'}>
                         <Image
                             source={require('../assets/profileIcon.png')}
                             style={styles.profile}

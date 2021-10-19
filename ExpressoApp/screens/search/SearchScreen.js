@@ -52,6 +52,7 @@ const SearchScreen  = () => {
 
       snapshot.forEach((child)=>{
         business.push({
+              business: child.val().owner,
               title: child.val().title,
               address: child.val().address,
               averagePrice: child.val().averagePrice,
@@ -134,7 +135,8 @@ const SearchScreen  = () => {
 
   const getItem = (item) => {
     // Function for click on an item
-    alert('Title : ' + item.title + '\nAddress : ' + item.address + '\nAverage Price: ' + item.averagePrice + '\nDistance: ' + item.distance + ' km');
+    // alert('Title : ' + item.title + '\nAddress : ' + item.address + '\nAverage Price: ' + item.averagePrice + '\nDistance: ' + item.distance + ' km' + '\nBusinessID: ' + item.business);
+    navigate.navigate('StorePageScreen', item.business);
   };
 
   const setSortedFilteredData = (data, sortInput) => {

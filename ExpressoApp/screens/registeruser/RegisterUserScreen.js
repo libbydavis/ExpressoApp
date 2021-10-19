@@ -28,7 +28,7 @@ LogBox.ignoreLogs([
 
 const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
-};
+  };
 /**
  *
  * @return {JSX.Element}
@@ -48,7 +48,6 @@ function RegisterUserScreen({navigation}) {
     const [isLastName, setIsLastName] = useState(true);
     const [isPassword, setIsPassword] = useState(true);
     const [isEmail, setIsEmail] = useState(true);
-    const scrollViewRef = useRef();
 
     /**
      *
@@ -107,7 +106,7 @@ function RegisterUserScreen({navigation}) {
             })
             .then(user =>{
                 //Signout user
-                firebaseAuth.signOut();
+                firebaseAuth.signOut();                
                 ToastAndroid.show('Registered!', ToastAndroid.LONG);
                 wait(500).then(navigation.navigate('LoginScreen'));
             })
@@ -171,7 +170,7 @@ function RegisterUserScreen({navigation}) {
                 // The write failed...
                 console.log(
                     `User ${userId} could not be added to users collection.` +
-                    error.message(),
+                        error.message(),
                 );
             });
     }
@@ -195,15 +194,15 @@ function RegisterUserScreen({navigation}) {
                 // Data saved successfully!
                 console.log(
                     `Business for ${userId} added to businesses` +
-                    ` collection successfully!`,
+                        ` collection successfully!`,
                 );
             })
             .catch(error => {
                 // The write failed...
                 console.log(
                     `Business for ${userId} could not be added to` +
-                    ` businesses collection.` +
-                    error.message(),
+                        ` businesses collection.` +
+                        error.message(),
                 );
             });
 
@@ -222,15 +221,15 @@ function RegisterUserScreen({navigation}) {
                 // Data saved successfully!
                 console.log(
                     `Business for ${userId} added to businesses` +
-                    ` collection successfully!`,
+                        ` collection successfully!`,
                 );
             })
             .catch(error => {
                 // The write failed...
                 console.log(
                     `Business for ${userId} could not be added to` +
-                    ` businesses collection.` +
-                    error.message(),
+                        ` businesses collection.` +
+                        error.message(),
                 );
             });
     }
@@ -286,10 +285,7 @@ function RegisterUserScreen({navigation}) {
                 <ScrollView
                     contentContainerStyle={styles.scrollView}
                     nestedScrollEnabled={true}
-                    keyboardShouldPersistTaps={'handled'}
-                    ref={scrollViewRef}
-                    onContentSizeChange={() => scrollViewRef.current.scrollToEnd({animated: false})}
-                    >
+                    keyboardShouldPersistTaps={'handled'}>
                     <Text style={styles.title}>Register</Text>
                     <View style={styles.rowView}>
                         <View style={styles.columnView}>
@@ -409,12 +405,7 @@ function RegisterUserScreen({navigation}) {
                                             borderWidth: 1,
                                             borderRadius: 10,
                                             marginBottom: 20,
-                                        }}
-                                        styles={{
-                                            container: {
-                                                margin: 10,
-                                                width: 250,
-                                            },
+                                            width: 200,
                                         }}
                                     />
                                 </Animatable.View>
