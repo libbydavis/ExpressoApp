@@ -43,7 +43,7 @@ const ProfileScreen = () => {
 
     }, []);
 
-    resetPassword = () => {
+    const resetPassword = () => {
         console.log(email);
         firebaseAuth
           .sendPasswordResetEmail(email)
@@ -107,7 +107,7 @@ const ProfileScreen = () => {
                     <Text style={styles.expressoButtonText}>Change Password</Text>
                 </TouchableOpacity>
                 { isBusiness === true ?
-                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('CreateStorePageScreen', uid)}>
+                    <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('CreateStorePageScreen')}>
                         <Text style={styles.expressoButtonText}>Edit Store Page</Text>
                     </TouchableOpacity> :
                      null
@@ -124,7 +124,14 @@ const ProfileScreen = () => {
                     </TouchableOpacity> :
                     null
                 }
-                
+                {
+                    isBusiness === true ?
+                        <TouchableOpacity style={styles.expressoButton} onPress={()=>navigate.navigate('OrdersScreen')} >
+                            <Text style={styles.expressoButtonText}>My Orders</Text>
+                        </TouchableOpacity> :
+                        null
+                }
+
             </View>
         </View>
     );
