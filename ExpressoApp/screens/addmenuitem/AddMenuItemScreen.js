@@ -128,7 +128,9 @@ const AddMenuItemScreen = ({route, navigation}) => {
                 })
               }
             </View>
-              <Button title={"add option list"} onPress={toggleModal}></Button>
+              <TouchableOpacity style={styles.expressoButton} onPress={toggleModal}>
+                  <Text style={styles.expressoButtonText}>add option list</Text>
+              </TouchableOpacity>
           </View>
         </View>
         <View>
@@ -137,7 +139,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
                     title = {"Add Item"}
                     onPress={onClickAddItem}
                     >
-                    <Text>Add Item to Menu</Text>
+                    <Text style={styles.expressoButtonText}>Add Item to Menu</Text>
                 </TouchableOpacity>
             </View>
         </View>

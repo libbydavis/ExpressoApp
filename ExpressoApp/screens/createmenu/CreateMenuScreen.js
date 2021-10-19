@@ -67,6 +67,7 @@ export const CreateMenuScreen = ({ navigation }) => {
                         onPress={() => onClickSubmitMenu()}>
                         Add Menu</Text>
                 </TouchableOpacity>
+
             </View>
         </View>
     );

@@ -26,7 +26,8 @@ function StorePageScreen({navigation, route}) {
                     storePhoneNum: snapshot.val().storePhoneNum ?? '',
                     image: snapshot.val().image ?? '',
                 };
-                setCoverImage(retrieveImage(store.image));
+                retrieveImage(store.image, setCoverImage)
+                console.log("cover image: " + coverImage)
                 setItemData(store);
             } else {
                 Alert.alert(
@@ -36,7 +37,7 @@ function StorePageScreen({navigation, route}) {
                 navigate.navigate('SearchScreen');
             }
         });
-    }, []);    
+    }, []);
 
     return (
         <View>
@@ -55,7 +56,7 @@ function StorePageScreen({navigation, route}) {
                 </View>
 
                 <View style={styles.storeImageContainer}>
-                    <Image source={coverImage} style={{height:50, width:50}} />
+                    <Image source={{uri: coverImage}} style={{height:200, width:200}} />
                 </View>
 
                 <View style={{flex: 1, margin: 20}}></View>
