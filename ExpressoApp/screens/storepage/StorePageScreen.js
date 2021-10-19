@@ -88,7 +88,7 @@ function StorePageScreen({navigation, route}) {
     };
 
     return (
-        <View>
+        <View style={styles.view}>
             <Header rightOption="profile" />
             <KeyboardAwareScrollView>
                 <View style={styles.storeImageContainer}>
@@ -101,10 +101,10 @@ function StorePageScreen({navigation, route}) {
                     <Text style={[styles.storeText, {fontSize: 35}]}>
                         {itemData.storeName}
                     </Text>
-                    <Text style={[styles.storeText, {fontSize: 25}]}>
+                    <Text style={[styles.storeTextAddress, {fontSize: 25}]}>
                         {itemData.storeAddress}
                     </Text>
-                    <Text style={[styles.storeText, {fontSize: 20}]}>
+                    <Text style={[styles.storeTextAddress, {fontSize: 20}]}>
                         {itemData.storePhoneNum}
                     </Text>
                 </View>
@@ -118,6 +118,7 @@ function StorePageScreen({navigation, route}) {
                     <Text style={styles.expressoButtonText}>Menu</Text>
                 </TouchableOpacity> */}
             </KeyboardAwareScrollView>
+            <Text style={styles.menu}>Menus</Text>
             <FlatList
                 data={menuButtons}
                 renderItem={renderMenuButton}
@@ -131,11 +132,24 @@ function StorePageScreen({navigation, route}) {
 export default StorePageScreen;
 
 const styles = StyleSheet.create({
+    view: {
+        alignItems: 'center'
+    },
+    menu: {
+        color: '#25a2af',
+        fontFamily: 'Monserrat-Bold',
+        fontWeight: 'bold',
+        fontSize: 25,
+        marginBottom: 5,
+        marginTop: 10
+    },
     expressoButtonContainer: {
-        backgroundColor: '#25d2af',
+        backgroundColor: '#25a2af',
         borderRadius: 10,
         padding: 10,
         marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5
     },
     expressoButtonText: {
         color: '#ffffff',
@@ -182,8 +196,13 @@ const styles = StyleSheet.create({
         width: '25%',
     },
     storeText: {
-        fontSize: 35,
         fontWeight: 'bold',
+        fontFamily: 'Monserrat-Bold',
+        color: '#25a2af',
+        marginVertical: 5,
+        textAlign: 'center',
+    },
+    storeTextAddress: {
         fontFamily: 'Monserrat-Bold',
         color: '#25a2af',
         marginVertical: 5,
