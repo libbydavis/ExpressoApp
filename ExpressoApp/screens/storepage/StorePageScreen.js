@@ -4,6 +4,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import Header from '../../components/Header';
 import {useNavigation} from '@react-navigation/native';
+import retrieveImage from '../../constants/RetrieveImage';
 
 function StorePageScreen({navigation, route}) {
     //Menus children objects have business as child
@@ -13,6 +14,7 @@ function StorePageScreen({navigation, route}) {
     const title = route.params['title'];
     const address = route.params['address'];
     const [itemData, setItemData] = useState({});
+    const [coverImage, setCoverImage] = useState('');
 
     useEffect(() => {
         firebaseDB.ref('storepage/' + business).on('value', snapshot => {
@@ -24,6 +26,7 @@ function StorePageScreen({navigation, route}) {
                     storePhoneNum: snapshot.val().storePhoneNum ?? '',
                     image: snapshot.val().image ?? '',
                 };
+                setCoverImage(retrieveImage(store.image));
                 setItemData(store);
             } else {
                 Alert.alert(
@@ -33,21 +36,7 @@ function StorePageScreen({navigation, route}) {
                 navigate.navigate('SearchScreen');
             }
         });
-    }, []);
-
-    function retrieveImage(imageURI) {
-        const imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
-        let imageRef = firebase.storage().ref('/' + imageName);
-        imageRef
-            .getDownloadURL()
-            .then(url => {
-                //from url you can fetched the uploaded image easily
-                return url;
-            })
-            .catch(e =>
-                console.log('getting downloadURL of image error => ', e),
-            );
-    }
+    }, []);    
 
     return (
         <View>
@@ -66,7 +55,7 @@ function StorePageScreen({navigation, route}) {
                 </View>
 
                 <View style={styles.storeImageContainer}>
-                    <Image source={itemData.image} />
+                    <Image source={coverImage} style={{height:50, width:50}} />
                 </View>
 
                 <View style={{flex: 1, margin: 20}}></View>

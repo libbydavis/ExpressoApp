@@ -1,3 +1,4 @@
+import {firebase} from '../firebase/FirebaseConfig';
 import storage from '@react-native-firebase/storage';
 
 function retrieveImage(imageURI) {
