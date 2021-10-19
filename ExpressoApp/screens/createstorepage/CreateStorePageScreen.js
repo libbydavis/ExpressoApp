@@ -25,15 +25,15 @@ const CreateStorePageScreen = () => {
     const [openEditStoreModal, setOpenEditStoreModal] = useState(false);
 
     useEffect(() => {
-        let business;
-        let foundData = true;
+        let business = {};
+
         firebaseDB
             .ref()
             .child('storepage')
             .orderByChild('business')
             .equalTo(userID)
             .once('value', snapshot => {
-                if (snapshot.exists() && snapshot.numChildren() === 1) {
+                if (snapshot.exists()) {
                     snapshot.forEach(child => {
                         console.log('storepage search');
                         console.log(child);
@@ -44,40 +44,36 @@ const CreateStorePageScreen = () => {
                             storePhoneNum: child.val().storePhoneNum ?? '',
                             image: child.val().image ?? '',
                         };
-                    });
-                    setItemData(business);
-                } else {
-                    foundData = false;
-                }
-                console.log(business);
-                setItemData(business);
-            });
-
-        if (!foundData) {
-            firebaseDB
-                .ref()
-                .child('business')
-                .orderByChild('owner')
-                .equalTo(userID)
-                .once('value', snapshot => {
-                    if (snapshot.exists() && snapshot.numChildren() === 1) {
-                        snapshot.forEach(child => {
-                            console.log('business search');
-                            console.log(child);
-                            business = {
-                                business: child.val().owner ?? '',
-                                storeName: child.val().business ?? '',
-                                storeAddress: child.val().address ?? '',
-                                storePhoneNum: '',
-                                image: '',
-                            };
-                        });
                         setItemData(business);
-                    } else {
-                        setItemData({});
-                    }
-                });
-        }
+                    });
+                } else {
+                    firebaseDB
+                        .ref()
+                        .child('businesses')
+                        .orderByChild('owner')
+                        .equalTo(userID)
+                        .once('value', snapshot => {
+                            if (
+                                snapshot.exists() &&
+                                snapshot.numChildren() === 1
+                            ) {
+                                snapshot.forEach(child => {
+                                    console.log('business search');
+
+                                    business = {
+                                        business: child.val().owner ?? '',
+                                        storeName: child.val().title ?? '',
+                                        storeAddress: child.val().address ?? '',
+                                        storePhoneNum: '',
+                                        image: '',
+                                    };
+                                    console.log(business);
+                                });
+                                setItemData(business);
+                            }
+                        });
+                }
+            });
     }, []);
 
     useEffect(() => {
