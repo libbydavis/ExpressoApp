@@ -8,8 +8,8 @@ import {
     Image,
     ToastAndroid,
 } from 'react-native';
-import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
-import MenuScreen from "../menu/MenuScreen";
+import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
+
 
 /**
  *
@@ -18,7 +18,7 @@ import MenuScreen from "../menu/MenuScreen";
  */
 
 export const CreateMenuScreen = ({route, navigation}) => {
-    const user = firebase.auth().currentUser;
+    const user = firebaseAuth.currentUser;
     const uid = user.uid;
     const dbRef = firebaseDB.ref();
     const [menuObject, setMenuObject] = useState({
@@ -46,9 +46,7 @@ export const CreateMenuScreen = ({route, navigation}) => {
             } catch (error) {
                 console.error(error)
             }*/
-            navigation.navigate('MenuScreen', {
-                menuID: menuID,
-            });
+            navigation.navigate('MenuEditor', { menuID: menuID });
         } else {
             ToastAndroid("You must input a title!");
         }

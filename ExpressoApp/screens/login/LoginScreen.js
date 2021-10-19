@@ -28,7 +28,7 @@ const LoginScreen = ({navigation}) => {
             token = JSON.parse(token);
             console.log(token);
             let messageRef = firebaseDB.ref('users/' + user.user.uid).child('token').set(token)
-                .then(r => navigation.navigate('SearchScreen'));
+                .then(r => navigation.navigate('CreateMenu'));
         })
         .catch(error => {
             Alert.alert(
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 130,
     marginTop: 10,
-  },  
+  },
   signUpText: {
     color: '#6495ed',
     fontSize: 15,
