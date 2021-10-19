@@ -1,11 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    Alert,
-    Image
-} from 'react-native';
+import {StyleSheet, View, Text, Alert, Image} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import Header from '../../components/Header';
@@ -41,11 +35,25 @@ function StorePageScreen({navigation, route}) {
         });
     }, []);
 
+    function retrieveImage(imageURI) {
+        const imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
+        let imageRef = firebase.storage().ref('/' + imageName);
+        imageRef
+            .getDownloadURL()
+            .then(url => {
+                //from url you can fetched the uploaded image easily
+                return url;
+            })
+            .catch(e =>
+                console.log('getting downloadURL of image error => ', e),
+            );
+    }
+
     return (
         <View>
             <Header rightOption="profile" />
-             <KeyboardAwareScrollView>
-               <View styles={styles.storeDetails}>
+            <KeyboardAwareScrollView>
+                <View styles={styles.storeDetails}>
                     <Text style={[styles.storeText, {fontSize: 35}]}>
                         {itemData.storeName}
                     </Text>
@@ -58,19 +66,16 @@ function StorePageScreen({navigation, route}) {
                 </View>
 
                 <View style={styles.storeImageContainer}>
-                    <Image source={itemData.image}/>
+                    <Image source={itemData.image} />
                 </View>
 
                 <View style={{flex: 1, margin: 20}}></View>
-            </KeyboardAwareScrollView> 
+            </KeyboardAwareScrollView>
         </View>
-       
     );
 }
 
 export default StorePageScreen;
-
-                    
 
 const styles = StyleSheet.create({
     expressoButtonContainer: {

@@ -16,7 +16,7 @@ import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import CustomImagePicker from '../../components/CustomImagePicker';
 import Header from '../../components/Header';
 import ExpressoButton from '../../components/Button';
-import uploadImage from "../../constants/UploadImage";
+import uploadImage from '../../constants/UploadImage';
 
 const CreateStorePageScreen = () => {
     const navigate = useNavigation();
@@ -147,7 +147,12 @@ const CreateStorePageScreen = () => {
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => saveToDatabase()}
+                        onPress={() => {
+                            saveToDatabase();
+                            uploadImage(itemData).then(r =>
+                                console.log('uploaded image'),
+                            );
+                        }}
                         style={styles.expressoButtonContainer}>
                         <Text style={styles.expressoButtonText}>
                             Save Store Page
@@ -212,7 +217,6 @@ const CreateStorePageScreen = () => {
                                 style={styles.buttonText}
                                 onPress={() => {
                                     setOpenEditStoreModal(false);
-                                    uploadImage(itemData).then(r => console.log("uploaded image"));
                                 }}>
                                 Save Changes
                             </Text>

@@ -1,4 +1,3 @@
-import React from 'react';
 import storage from "@react-native-firebase/storage";
 
 const uploadImage = async (itemData) => {
