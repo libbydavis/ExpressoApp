@@ -24,16 +24,17 @@ const CreateStorePageScreen = () => {
     const [openEditStoreModal, setOpenEditStoreModal] = useState(false);
 
     useEffect(() => {
+        let business;
+        let foundData = true;
         firebaseDB
             .ref()
             .child('storepage')
             .orderByChild('business')
             .equalTo(userID)
             .once('value', snapshot => {
-                let business;
-                console.log(snapshot.numChildren());
                 if (snapshot.exists() && snapshot.numChildren() === 1) {
                     snapshot.forEach(child => {
+                        console.log('storepage search');
                         console.log(child);
                         business = {
                             business: child.val().business ?? '',
@@ -43,10 +44,37 @@ const CreateStorePageScreen = () => {
                             image: child.val().image ?? '',
                         };
                     });
+                    setItemData(business);
+                } else {
+                    foundData = false;
                 }
-                console.log(business);
-                setItemData(business);
             });
+
+        if (!foundData) {
+            firebaseDB
+                .ref()
+                .child('business')
+                .orderByChild('owner')
+                .equalTo(userID)
+                .once('value', snapshot => {
+                    if (snapshot.exists() && snapshot.numChildren() === 1) {
+                        snapshot.forEach(child => {
+                            console.log('business search');
+                            console.log(child);
+                            business = {
+                                business: child.val().owner ?? '',
+                                storeName: child.val().business ?? '',
+                                storeAddress: child.val().address ?? '',
+                                storePhoneNum: '',
+                                image: '',
+                            };
+                        });
+                        setItemData(business);
+                    } else {
+                        setItemData({});
+                    }
+                });
+        }
     }, []);
 
     useEffect(() => {
@@ -227,7 +255,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         marginTop: 20,
-      },
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
