@@ -10,7 +10,7 @@ import {
     TextInput,
     Alert,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/core';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import CustomImagePicker from '../../components/CustomImagePicker';
@@ -22,111 +22,32 @@ const CreateStorePageScreen = () => {
     const userID = firebaseAuth.currentUser.uid;
     const [itemData, setItemData] = useState({});
     const [openEditStoreModal, setOpenEditStoreModal] = useState(false);
-    // const [isRender, setisRender] = useState(false);
-    // const [storeName, setStoreName] = useState();
-    // const [storeAddress, setStoreAddress] = useState();
-    // const [storePhoneNum, setStorePhoneNum] = useState();
-    // const [coverImage, setCoverImage] = useState();
-    // const [itemNameFirst, setItemNameFirst] = useState();
-    // const [itemPriceFirst, setItemPriceFirst] = useState();
-    // const [itemCoverImageFirst, setItemCoverImageFirst] = useState();
-    // const [itemNameSecond, setItemNameSecond] = useState();
-    // const [itemPriceSecond, setItemPriceSecond] = useState();
-    // const [itemCoverImageSecond, setItemCoverImageSecond] = useState();
-    // const [changeStoreData, setChangeStoreData] = useState();
-
-    // itemNameFirst: '',
-    // itemPriceFirst: '',
-    // itemCoverImageFirst: '',
-    // itemNameSecond: '',
-    // itemPriceSecond: '',
-    // itemCoverImageSecond: '',
 
     useEffect(() => {
-        // let data = readFromStorePage();
-        // data = typeof data === undefined ? readFromBusiness() : data;
-        // if(typeof data === undefined){
-        //     data = {
-        //         business: userID,
-        //         storeName: '',
-        //         storeAddress: '',
-        //         storePhoneNum: '',
-        //         image: '',
-        //     };
-        // }
-        // setItemData(data);let business = {};
-        firebaseDB
-        .ref('storepage')
-        .child(userID)
-        .get()
-        .once('value', snapshot => {
-            if (snapshot.exists() && snapshot.numChildren() === 1) {
-                snapshot.forEach(child => {
-                    business = {
-                        business: child.val().business,
-                        storeName: child.val().storeName,
-                        storeAddress: child.val().storeAddress,
-                        storePhoneNum: child.val().storePhoneNum,
-                        image: child.val().image,
-                    };
-                });
-            }
-        });
-        console.log('read from store page');
-        console.log(business);
-        setItemData(business);
-    }, []);
-
-    const readFromStorePage = () => {
-        let business = {};
-        firebaseDB
-            .ref('storepage')
-            .child(userID)
-            .get()
-            .once('value', snapshot => {
-                if (snapshot.exists() && snapshot.numChildren() === 1) {
-                    snapshot.forEach(child => {
-                        business = {
-                            business: child.val().business,
-                            storeName: child.val().storeName,
-                            storeAddress: child.val().storeAddress,
-                            storePhoneNum: child.val().storePhoneNum,
-                            image: child.val().image,
-                        };
-                    });
-                }
-            });
-            console.log('read from store page');
-            console.log(business);
-        return business;
-    };
-
-    const readFromBusiness = () => {
-        let business = {};
         firebaseDB
             .ref()
-            .child('businesses')
-            .orderByChild('owner')
+            .child('storepage')
+            .orderByChild('business')
             .equalTo(userID)
             .once('value', snapshot => {
                 let business;
+                console.log(snapshot.numChildren());
                 if (snapshot.exists() && snapshot.numChildren() === 1) {
                     snapshot.forEach(child => {
-                        console.log(child.val().title);
+                        console.log(child);
                         business = {
-                            business: child.val().owner,
-                            storeName: child.val().title,
-                            storeAddress: child.val().address,
-                            storePhoneNum: child.val().phone,
-                            image: child.val().image,
+                            business: child.val().business ?? '',
+                            storeName: child.val().storeName ?? '',
+                            storeAddress: child.val().storeAddress ?? '',
+                            storePhoneNum: child.val().storePhoneNum ?? '',
+                            image: child.val().image ?? '',
                         };
                     });
                 }
+                console.log(business);
+                setItemData(business);
             });
-            console.log('read from business');
-            console.log(business);
-            return business;
-    };
+    }, []);
 
     useEffect(() => {
         console.log(itemData);
@@ -150,31 +71,15 @@ const CreateStorePageScreen = () => {
                         },
                     ],
                 );
-                // navigate.navigate('StorePageScreen', {userID: userID});
             })
             .catch(error => {
                 console.log(error);
             });
-        // firebaseDB.ref('storepage'+userID).set(itemData).then(()=>{Alert.alert('Success:', 'Your store details has been successfully added!', [ {text: 'OK,'},],)}).catch(e=>{console.log(e)})
     };
 
     const receiveImage = image => {
         setItemData(image);
     };
-
-    // const receiveImageFirst = image => {
-    //     setCoverImageFirst({
-    //         ...coverImageFirst,
-    //         ['itemImageFirst']: image,
-    //     });
-    // };
-
-    // const receiveImageSecond = image => {
-    //     setCoverImageSecond({
-    //         ...coverImageSecond,
-    //         ['itemImageSecond']: image,
-    //     });
-    // };
 
     return (
         <View>
@@ -207,7 +112,13 @@ const CreateStorePageScreen = () => {
                         onPress={() => setOpenEditStoreModal(true)}
                     />
                     <ExpressoButton title="Contact Details" />
-                    <ExpressoButton title="Create Your Menu" />
+                    <TouchableOpacity
+                        onPress={() => navigate.navigate('MenuEditor')}
+                        style={styles.expressoButtonContainer}>
+                        <Text style={styles.expressoButtonText}>
+                            Create Menu Screen
+                        </Text>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => saveToDatabase()}
                         style={styles.expressoButtonContainer}>
@@ -216,55 +127,6 @@ const CreateStorePageScreen = () => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                {/* 
-                <View
-                    style={[
-                        styles.itemImageContainer,
-                        {marginLeft: 60, marginTop: 15},
-                    ]}>
-                    <CustomImagePicker
-                        receiveImage={receiveImageFirst}
-                        width={200}
-                        height={150}>
-                        {CoverImage}
-                    </CustomImagePicker>
-                </View>
-                <View styles={styles.itemContainer}>
-                    <TextInput
-                        style={[styles.itemNameText, {marginLeft: 25}]}
-                        placeholder={'Name'}
-                        onChangeText={text => setItemNameFirst(text)}
-                    />
-                    <TextInput
-                        style={[styles.itemPriceText, {marginLeft: 130}]}
-                        placeholder={'Price'}
-                        onChangeText={text => setItemPriceFirst(text)}
-                    />
-                </View>
-                <View
-                    style={[
-                        styles.itemImageContainer,
-                        {marginLeft: 240, marginTop: -195},
-                    ]}>
-                    <CustomImagePicker
-                        receiveImage={receiveImageSecond}
-                        width={200}
-                        height={150}>
-                        {coverImageSecond}
-                    </CustomImagePicker>
-                </View>
-                <View styles={styles.itemContainer}>
-                    <TextInput
-                        style={[styles.itemNameText, {marginLeft: 205}]}
-                        placeholder={'Name'}
-                        onChangeText={item => setInputItemNameSecond(item)}
-                    />
-                    <TextInput
-                        style={[styles.itemPriceText, {marginLeft: 315}]}
-                        placeholder={'Price'}
-                        onChangeText={item => setInputItemPriceSecond(item)}
-                    />
-                </View> */}
             </KeyboardAwareScrollView>
 
             <Modal
@@ -276,6 +138,7 @@ const CreateStorePageScreen = () => {
                     <TextInput
                         style={styles.modalTextInput}
                         value={itemData.storeName}
+                        selectTextOnFocus={true}
                         onChangeText={text =>
                             setItemData({
                                 ...itemData,
@@ -288,6 +151,7 @@ const CreateStorePageScreen = () => {
                     <TextInput
                         style={styles.modalTextInput}
                         value={itemData.storeAddress}
+                        selectTextOnFocus={true}
                         onChangeText={text =>
                             setItemData({
                                 ...itemData,
@@ -300,6 +164,7 @@ const CreateStorePageScreen = () => {
                     <TextInput
                         style={styles.modalTextInput}
                         value={itemData.storePhoneNum}
+                        selectTextOnFocus={true}
                         onChangeText={text =>
                             setItemData({
                                 ...itemData,
@@ -344,7 +209,7 @@ const CreateStorePageScreen = () => {
 
 const styles = StyleSheet.create({
     expressoButtonContainer: {
-        backgroundColor: '#25a2af',
+        backgroundColor: '#25d2af',
         borderRadius: 10,
         padding: 10,
         marginTop: 10,
