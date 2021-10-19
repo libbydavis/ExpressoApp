@@ -19,7 +19,7 @@ import CreateOptionListModal from "./CreateOptionListModal";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
-import {TouchableOpacity} from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -161,65 +161,6 @@ const AddMenuItemScreen = ({route, navigation}) => {
         </View>
     );
 };
-
-//   return (
-//     <View>
-//         <Header></Header>
-//         <Button title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></Button>
-//
-//         <View style={styles.mainView}>
-//         <Text style={styles.title}>Add Item</Text>
-//         <CustomImagePicker receiveImage={receiveImage} width={200} height={180}/>
-//         <View style={styles.rowView}>
-//           <View style={styles.columnView}>
-//             <TextInput style={styles.textInput} placeholder="title" onChangeText={(text) => setTitle(text)}/>
-//               <TextInput
-//                   style={styles.textInput}
-//                   placeholder="description"
-//                   multiline={true}
-//                   onChangeText={(text) => setDescription(text)}
-//               />
-//               <TextInput
-//                   style={styles.textInput}
-//                   placeholder="price"
-//                   keyboardType='decimal-pad'
-//                   onChangeText={(text) => setPrice(text)}
-//               />
-//               <TextInput
-//                   style={styles.textInput}
-//                   placeholder="category"
-//                   onChangeText={(text) => setItemCategory(text)}
-//               />
-//           </View>
-//           <View style={styles.columnView}>
-//             <View style={styles.quantityElements}>
-//               <Text style={styles.expressoLabel}>quantity</Text>
-//               <View style={styles.rowView}>
-//                 <QuantityInput receiveValue={receiveQuantity} initialQuantity={5}></QuantityInput>
-//               </View>
-//             </View>
-//             <CreateOptionListModal saveChecklist={saveChecklist} seeModal={modalVisible} toggle={toggleModal}></CreateOptionListModal>
-//             <View>
-//               <Text style={styles.expressoLabel}>Option Lists</Text>
-//               {
-//                 menuItemObject.optionLists.map((item, index) => {
-//                   console.log(item);
-//                   return <Text key={index}>- {item.title}</Text>;
-//                 })
-//               }
-//             </View>
-//               <Button title={"add option list"} onPress={toggleModal}></Button>
-//           </View>
-//         </View>
-//         <View>
-//             <Button title={"Add Item"} onPress={onClickAddItem}></Button>
-//         </View>
-//       </View>
-//     </View>
-//     )
-// };
-
-
 
 const styles = StyleSheet.create({
     mainView: {
