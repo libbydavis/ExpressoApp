@@ -1,24 +1,18 @@
 import React, {useState} from 'react';
 import {
-  StyleSheet,
-  View,
-  TextInput,
-  Text,
-  Image,
-  Modal,
-  KeyboardAvoidingView,
-  Alert
+    StyleSheet,
+    View,
+    TextInput,
+    Text, TouchableOpacity
 } from 'react-native';
+import storage from '@react-native-firebase/storage';
 
 import QuantityInput from '../../components/QuantityInput';
 import CustomImagePicker from '../../components/CustomImagePicker';
-import CheckListTask from '../../components/ChecklistTask';
-import ToastAndroid from 'react-native/Libraries/Components/ToastAndroid/ToastAndroid';
 import {firebaseDB} from "../../firebase/FirebaseConfig";
 import CreateOptionListModal from "./CreateOptionListModal";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
-import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -78,15 +72,26 @@ const AddMenuItemScreen = ({route, navigation}) => {
             'quantity': itemData.quantity,
             'optionLists': itemData.optionLists
         });
+        uploadImage().then(r => console.log("image uploaded"));
         console.log(itemData.title + ' pushed to the menu.');
         navigation.navigate('MenuScreen', {menuID: menuID});
+    }
+
+    const uploadImage = async () => {
+        const fileName = itemData.image.substring(itemData.image.lastIndexOf('/') + 1);
+        console.log(fileName)
+        const task = storage().ref(fileName).putFile(itemData.image)
+
+        try {
+            await task
+        } catch (e) {
+            console.error(e)
+        }
     }
 
   return (
     <View>
         <Header navigation={navigation} rightOption='profile'></Header>
-        <Button title={"press"} onPress={() => navigation.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: [], businessID: 'fake ID'})}></Button>
-
         <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
         <CustomImagePicker receiveImage={receiveImage} itemData={itemData} width={200} height={180}/>
@@ -132,6 +137,9 @@ const AddMenuItemScreen = ({route, navigation}) => {
           </View>
         </View>
         <View>
+            <TouchableOpacity onPress={onClickAddItem}>
+                <Text>Add Item</Text>
+            </TouchableOpacity>
             <Button title={"Add Item"} onPress={onClickAddItem}></Button>
         </View>
       </View>
