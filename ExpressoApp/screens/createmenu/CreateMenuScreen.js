@@ -10,14 +10,13 @@ import {
 } from 'react-native';
 import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
 
-
 /**
  *
  * @return {JSX.Element}
  * @constructor
  */
 
-export const CreateMenuScreen = ({route, navigation}) => {
+export const CreateMenuScreen = ({ navigation }) => {
     const user = firebaseAuth.currentUser;
     const uid = user.uid;
     const dbRef = firebaseDB.ref();
@@ -36,16 +35,8 @@ export const CreateMenuScreen = ({route, navigation}) => {
                 'menuItems': menuObject.menuItems,
                 'business': menuObject.business
             });
+
             let menuID = menuRef.key.toString();
-            console.log(menuID);
-           /* try {
-                await AsyncStorage.setItem(
-                    'currentMenuID',
-                    menuID
-                );
-            } catch (error) {
-                console.error(error)
-            }*/
             navigation.navigate('MenuEditor', { menuID: menuID });
         } else {
             ToastAndroid("You must input a title!");
