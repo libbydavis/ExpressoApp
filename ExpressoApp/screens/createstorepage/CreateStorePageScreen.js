@@ -59,7 +59,6 @@ const CreateStorePageScreen = () => {
                             ) {
                                 snapshot.forEach(child => {
                                     console.log('business search');
-
                                     business = {
                                         business: child.val().owner ?? '',
                                         storeName: child.val().title ?? '',
