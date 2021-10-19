@@ -18,6 +18,7 @@ import CreateOptionListModal from "./CreateOptionListModal";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
+import uploadImage from "../../constants/UploadImage";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -77,21 +78,9 @@ const AddMenuItemScreen = ({route, navigation}) => {
             'quantity': itemData.quantity,
             'optionLists': itemData.optionLists
         });
-        uploadImage().then(r => console.log("image uploaded"));
+        uploadImage(itemData).then(r => console.log("image uploaded"));
         console.log(itemData.title + ' pushed to the menu.');
         navigation.navigate('MenuScreen', {menuID: menuID});
-    }
-
-    const uploadImage = async () => {
-        const fileName = itemData.image.substring(itemData.image.lastIndexOf('/') + 1);
-        console.log(fileName)
-        const task = storage().ref(fileName).putFile(itemData.image)
-
-        try {
-            await task
-        } catch (e) {
-            console.error(e)
-        }
     }
 
   return (

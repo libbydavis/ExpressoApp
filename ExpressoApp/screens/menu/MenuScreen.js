@@ -17,7 +17,7 @@ import Header from "../../components/Header";
 export const MenuScreen = ({navigation, route}) => {
     // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
     // { menuID: '-MjmBfn9YP-wguwurLH1' } <- dinner menu test id
-    const menuID = route.params["menuID"];
+    const menuID = route.params.menuID;
     const dbRef = firebaseDB.ref("Menus/");
     const [businessID, setBusinessID] = useState("");
     const [activeCategory, setActiveCategory] = useState("all"); // intended to allow the active category
@@ -41,7 +41,7 @@ export const MenuScreen = ({navigation, route}) => {
             snapshot.forEach((child) => {
                 itemList.push({
                     title: child.val().title,
-                    image: child.val().image,
+                    image: retrieveImage(child.val().image),
                     description: child.val().description,
                     price: child.val().price,
                     quantity: child.val().quantity,
@@ -52,6 +52,18 @@ export const MenuScreen = ({navigation, route}) => {
         });
         setMenuItemList(itemList);
         setDisplayedItems(itemList);
+    }
+
+    function retrieveImage (imageURI) {
+        const imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
+        let imageRef = firebase.storage().ref('/' + imageName);
+        imageRef
+            .getDownloadURL()
+            .then((url) => {
+                //from url you can fetched the uploaded image easily
+                return url;
+            })
+            .catch((e) => console.log('getting downloadURL of image error => ', e));
     }
 
     const filterItems = (category) => {
@@ -84,7 +96,8 @@ export const MenuScreen = ({navigation, route}) => {
                 price: item.price,
                 description: item.description,
                 optionLists: item.optionLists,
-                businessID: businessID
+                businessID: businessID,
+                menuID: menuID
             });
         }
 
@@ -94,7 +107,8 @@ export const MenuScreen = ({navigation, route}) => {
             price: item.price,
             description: item.description,
             optionLists: [],
-            businessID: businessID
+            businessID: businessID,
+            menuID: menuID
         });
 
     };

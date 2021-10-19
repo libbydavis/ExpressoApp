@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 function ExpressoHeader(props) {
     const {rightOption, onPress} = props;
     const navigation = useNavigation();
-  
+
     const OnLogoPressHandler = () => {
         console.log('Logo Press Handler');
         try {
@@ -27,7 +27,8 @@ function ExpressoHeader(props) {
                 ? navigation.navigate('ProfileScreen')
                 : rightOption === 'login'
                 ? navigation.navigate('LoginScreen')
-                : onPress();
+                : rightOption === 'cart'
+                ? navigation.navigate('Cart') : onPress();
         } catch (error) {
             console.warn('Caught an error in ExpressoButton');
             console.error(error.message);
