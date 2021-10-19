@@ -28,7 +28,7 @@ const LoginScreen = ({navigation}) => {
             token = JSON.parse(token);
             console.log(token);
             let messageRef = firebaseDB.ref('users/' + user.user.uid).child('token').set(token)
-                .then(r => navigation.navigate('SearchScreen'));
+                .then(r => navigation.navigate('MenuEditor', { menuID: '-MjmBfn9YP-wguwurLH1' }));
         })
         .catch(error => {
             Alert.alert(
