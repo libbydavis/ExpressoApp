@@ -15,7 +15,8 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
         currentPrice: route.params.price,
         quantity: 1,
         notes: '',
-        options: ''
+        options: '',
+        businessID: route.params.businessID
     })
 
     const receiveQuantity = (value) => {
@@ -43,8 +44,8 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></Header>
-            <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            <Header navigation={navigation} rightOption='cart'></Header>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('AddMenuItem')}>
                 <Text style={styles.backButtonText}>Back To Menu</Text>
             </TouchableWithoutFeedback>
             <View style={styles.pageView}>
@@ -80,9 +81,7 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
                     <Text style={styles.price}>$ {cartItem.currentPrice}</Text>
                     <TextInput onChangeText={(text) => setNotes(text)} placeholder={"additional notes"} style={styles.notesBox} multiline={true}/>
 
-                    <AddToCartButton onClick={getCartItem} title={cartItem.title} price={cartItem.price}></AddToCartButton>
-                    <ExpressoButton title={"press"} onPress={() => navigation.navigate('Cart', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton>
-
+                    <AddToCartButton onClick={getCartItem} title={cartItem.title} price={cartItem.price} businessID={cartItem.businessID}></AddToCartButton>
                 </View>
             </View>
         </View>

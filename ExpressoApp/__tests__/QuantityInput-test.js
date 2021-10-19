@@ -16,10 +16,11 @@ test('renders correctly', () => {
 
 describe('quantity add and minus', () => {
     it('test add and minus', () => {
+        const wrapper = shallow(<QuantityInput initialQuantity={5} />);
+        const handleClickPlus = jest.spyOn(React, "useState");
+        handleClickPlus.mockImplementation(quantity => [quantity, handlePlus]);
         handlePlus()
-        expect(quantity.toBe(2));
-        handleMinus()
-        expect(quantity.toBe(1));
+        expect(quantity).toBe(6);
     })
 })
 

@@ -1,25 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     StyleSheet,
-    TouchableOpacity,
     Text,
-    View,
-    Alert,
-    Image,
-    ToastAndroid
+    View
 } from 'react-native';
-import {firebaseDB} from '../../firebase/FirebaseConfig';
 import '../../assets/orderTick.png';
 import '../../assets/orderTickFilled.png';
+import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
 
 function Order(props) {
+
     const menuItemList = [];
     const menuItems = props.order.menuItems;
     const orderId = props.order.orderId;
     const orderTime = props.order.orderTime;
-    const objectId = props.order.objectId;
     const customer = props.order.customer;
-    const ref = firebaseDB.ref();
+
+    const [orderNotifInfo, setOrderNotifInfo] = useState({
+        recipient: props.order.customer,
+        orderNumber: props.order.orderId,
+        objectId: props.order.objectId
+    });
 
     if (menuItems.length > 0) {
         menuItems.map((menuItem, index) => {
@@ -33,33 +34,9 @@ function Order(props) {
         });
     }
 
-    const completeOrder = () =>
-        Alert.alert(
-            'Complete and Remove Order',
-            `Are you sure order ${orderId} is complete?`,
-            [{
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-            },
-                {
-                    text: 'Complete',
-                    onPress: () => {
-                        deleteOrder();
-                    },
-                },
-            ],
-        );
-
-    const deleteOrder = () => {
-        ref.child('orders/' + objectId).remove()
-            .then(() => {
-                ToastAndroid.show('Order completed!', ToastAndroid.SHORT);
-            }).catch((error) => {
-            console.log(error.message);
-            ToastAndroid.show('Order could not be completed', ToastAndroid.SHORT);
-        });
-    };
+    const returnOrderNotifInfo = () => {
+        return orderNotifInfo;
+    }
 
     return (
         <View style={styles.order}>
@@ -69,14 +46,7 @@ function Order(props) {
                 <Text style={styles.list}>Customer: {customer}</Text>
                 <Text style={styles.list}>Time: {orderTime}</Text>
             </View>
-            <TouchableOpacity style={styles.tickButton} onPress={() => {
-                completeOrder();
-            }}>
-                <Image
-                    source={require('../../assets/orderTick.png')}
-                    style={styles.tick}
-                />
-            </TouchableOpacity>
+            <NotifyOrderReadyButton onClick={returnOrderNotifInfo}></NotifyOrderReadyButton>
         </View>
     );
 }
@@ -102,15 +72,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 18,
     },
-    tickButton: {
-        flex: 1,
-        alignSelf: 'flex-end',
-    },
-    tick: {
-        width: 40,
-        height: 40,
-        alignSelf: 'flex-end',
-    },
+
     column: {
         flexDirection: 'column',
     },

@@ -34,15 +34,23 @@ PushNotification.configure({
     },
 
     // (required) Called when a remote or local notification is opened or received
-    onNotification: function(notification) {
+    onNotification: async function (notification) {
+
         console.log("NOTIFICATION:", notification);
 
         if (notification.foreground) {
+            let currentNotif = await AsyncStorage.getItem('@currentNotif');
+            if (currentNotif != undefined) {
+                currentNotif = JSON.parse(currentNotif);
+            }
+            if (currentNotif != notification.message) {
             PushNotification.localNotification({
                 channelId: "fcm_fallback_notification_channel",
                 title: notification.title,
                 message: notification.message
             })
+            await AsyncStorage.setItem('@currentNotif', JSON.stringify(notification.message));
+            }
         }
 
         // required on iOS only

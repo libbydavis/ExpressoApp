@@ -55,7 +55,16 @@ class Cart extends Component {
     const copyCartItems = [...this.state.items];
     copyCartItems.splice(index, 1);
     this.setState({...this.state.total, ['items'] : copyCartItems});
-    this.deleteFromStorage(index);
+    this.deleteFromStorage(index).then(r => {
+        if (this.state.items.length == 0) {
+            this.clearBusinessID().then(r => console.log("cleared business ID"));
+        }
+    });
+
+  }
+
+  clearBusinessID = async () => {
+      await AsyncStorage.removeItem('@businessID');
   }
 
   deleteFromStorage = async (index) => {

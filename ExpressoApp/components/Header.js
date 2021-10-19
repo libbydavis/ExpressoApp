@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 function ExpressoHeader(props) {
     const {rightOption, onPress} = props;
     const navigation = useNavigation();
-
+  
     const OnLogoPressHandler = () => {
         console.log('Logo Press Handler');
         try {

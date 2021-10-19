@@ -163,19 +163,9 @@ const SearchScreen  = () => {
     searchFilterFunction(search)
   }
 
-  const [orderNotifInfo, setOrderNotifInfo] = useState({
-    recipient: 'qIYOZMFLFESqwI9nHeQ7g1Tf5Gg1',
-    orderNumber: 'ABC126'
-  });
-  const returnOrderNotifInfo = () => {
-    return orderNotifInfo;
-  }
-
   return (
     <View style={styles.mainView} testID={'Search_Screen'}>
       <Header navigation={navigate} rightOption={'profile'}/>
-
-      <NotifyOrderReadyButton onClick={returnOrderNotifInfo}></NotifyOrderReadyButton>
       <View style={styles.searchView}>
         <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
           <View style={styles.overlay}>
