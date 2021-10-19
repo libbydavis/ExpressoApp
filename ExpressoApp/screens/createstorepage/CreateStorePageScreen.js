@@ -113,7 +113,7 @@ const CreateStorePageScreen = () => {
                     />
                     <ExpressoButton title="Contact Details" />
                     <TouchableOpacity
-                        onPress={() => navigate.navigate('MenuEditor')}
+                        onPress={() => navigate.navigate('CreateMenu')}
                         style={styles.expressoButtonContainer}>
                         <Text style={styles.expressoButtonText}>
                             Create Menu Screen
@@ -165,6 +165,7 @@ const CreateStorePageScreen = () => {
                         style={styles.modalTextInput}
                         value={itemData.storePhoneNum}
                         selectTextOnFocus={true}
+                        maxLength={12}
                         onChangeText={text =>
                             setItemData({
                                 ...itemData,
@@ -172,7 +173,6 @@ const CreateStorePageScreen = () => {
                             })
                         }
                         placeholder="Store phone number"
-                        maxLength={70}
                         keyboardType={'numeric'}
                     />
                     <View styles={styles.modalButton}>
@@ -220,6 +220,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
     },
+    inputContainer: {
+        borderColor: 'black',
+        borderWidth: 1,
+        width: 250,
+        padding: 10,
+        borderRadius: 10,
+        marginTop: 20,
+      },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -297,6 +305,7 @@ const styles = StyleSheet.create({
         height: 60,
         borderColor: 'black',
         borderWidth: 1,
+        borderRadius: 10,
         fontSize: 20,
         marginVertical: 15,
     },
