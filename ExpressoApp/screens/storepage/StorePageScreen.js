@@ -1,50 +1,51 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-    View,
-    Image,
     StyleSheet,
+    View,
     Text,
-    ScrollView,
-    TouchableOpacity,
-    KeyboardAwareScrollView,
     Alert,
+    Image
 } from 'react-native';
-import {firebaseDB, firebaseAuth} from '../../firebase/FirebaseConfig';
-import {useNavigation} from '@react-navigation/native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import Header from '../../components/Header';
+import {useNavigation} from '@react-navigation/native';
 
-const StorePageScreen = ({navigation, route}) => {
+function StorePageScreen({navigation, route}) {
     //Menus children objects have business as child
     //StorePages children id is business
-
     const navigate = useNavigation();
-    const business = route.params["business"];
+    const business = route.params['business'];
+    const title = route.params['title'];
+    const address = route.params['address'];
     const [itemData, setItemData] = useState({});
 
     useEffect(() => {
         firebaseDB.ref('storepage/' + business).on('value', snapshot => {
             if (snapshot.exists()) {
                 let store = {
-                    business : business ?? '',
-                    storeName: snapshot.val().storeName ?? '',
-                    storeAddress: snapshot.val().storeAddress ?? '',
+                    business: business ?? business,
+                    storeName: snapshot.val().storeName ?? title,
+                    storeAddress: snapshot.val().storeAddress ?? address,
                     storePhoneNum: snapshot.val().storePhoneNum ?? '',
                     image: snapshot.val().image ?? '',
                 };
                 setItemData(store);
             } else {
-                alert('Store page data does not exist, please check back another time.');
+                Alert.alert(
+                    'Store Page Not Found',
+                    `Unfortunately, ${title} is not ready to be ordered from.`,
+                );
+                navigate.navigate('SearchScreen');
             }
         });
     }, []);
 
-    useEffect(()=>{console.log(itemData)}, [itemData]);
-
     return (
         <View>
             <Header rightOption="profile" />
-            <KeyboardAwareScrollView>
-                <View styles={styles.storeDetails}>
+             <KeyboardAwareScrollView>
+               <View styles={styles.storeDetails}>
                     <Text style={[styles.storeText, {fontSize: 35}]}>
                         {itemData.storeName}
                     </Text>
@@ -55,47 +56,35 @@ const StorePageScreen = ({navigation, route}) => {
                         {itemData.storePhoneNum}
                     </Text>
                 </View>
-                
-                <View style={styles.storeImageContainer}>                    
+
+                <View style={styles.storeImageContainer}>
+                    <Image source={itemData.image}/>
                 </View>
 
-                <View style={{flex: 1, margin: 20}}>                    
-                </View>
-            </KeyboardAwareScrollView>
+                <View style={{flex: 1, margin: 20}}></View>
+            </KeyboardAwareScrollView> 
         </View>
+       
     );
-};
+}
 
-/*
-                    {/*
-                    Image
-                     <CustomImagePicker
-                        receiveImage={receiveImage}
-                        itemData={itemData}
-                        width={450}
-                        height={190}>
-                        {itemData.coverImage}
-                    </CustomImagePicker>
-                    Buttons <ExpressoButton
-                        title="Edit Store"
-                        onPress={() => setOpenEditStoreModal(true)}
-                    />
-                    <ExpressoButton title="Contact Details" />
-                    <TouchableOpacity
-                        onPress={() => navigate.navigate('MenuEditor')}
-                        style={styles.expressoButtonContainer}>
-                        <Text style={styles.expressoButtonText}>
-                            Create Menu Screen
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => saveToDatabase()}
-                        style={styles.expressoButtonContainer}>
-                        <Text style={styles.expressoButtonText}>
-                            Save Store Page
-                        </Text>
-                    </TouchableOpacity> */
+export default StorePageScreen;
+
+                    
+
 const styles = StyleSheet.create({
+    expressoButtonContainer: {
+        backgroundColor: '#25d2af',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 10,
+    },
+    expressoButtonText: {
+        color: '#ffffff',
+        fontWeight: 'bold',
+        fontSize: 18,
+        textAlign: 'center',
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -112,43 +101,19 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginTop: 5,
     },
-    storeCoverImage: {
-        width: 450,
-        height: 190,
-        marginTop: 12,
-    },
-    storeItemImage: {
-        width: 160,
-        height: 150,
-        marginTop: 10,
-    },
-    button: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: '#25a2af',
-        padding: 8,
-        borderRadius: 10,
-        width: '25%',
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: '#ffffff',
-        fontSize: 15,
-        textTransform: 'uppercase',
-    },
     itemContainer: {
         borderColor: '#ffffff',
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        margin: 10,
+        marginTop: 20,
         width: 100,
     },
     storeImageContainer: {
         flex: 1,
         resizeMode: 'contain',
         alignSelf: 'center',
-        height: '50%',
+        marginTop: 10,
     },
     itemImageContainer: {
         flex: 1,
@@ -173,8 +138,8 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         textAlign: 'center',
         flexDirection: 'row',
-        marginTop: 5,
-        width: 60,
+        marginTop: -10,
+        width: 90,
     },
     itemPriceText: {
         fontSize: 15,
@@ -183,7 +148,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         textAlign: 'center',
         flexDirection: 'row',
-        marginTop: -25,
+        marginTop: -53,
         width: 45,
     },
     text: {
@@ -200,11 +165,38 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginVertical: 15,
     },
+    modalView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    modalButton: {
+        width: '50%',
+        marginVertical: 30,
+        marginLeft: 50,
+    },
     storeDetails: {
         padding: 20,
         marginVertical: 5,
         marginHorizontal: 16,
     },
+    storeDetailsButton: {
+        padding: 12,
+        borderRadius: 10,
+        marginBottom: 20,
+    },
+    buttonText: {
+        color: '#ffffff',
+        fontSize: 15,
+        textAlign: 'center',
+        textTransform: 'uppercase',
+    },
+    storeButton: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: '#25a2af',
+        padding: 8,
+        borderRadius: 10,
+        width: '25%',
+    },
 });
-
-export default StorePageScreen;
