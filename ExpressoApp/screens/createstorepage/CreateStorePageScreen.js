@@ -43,6 +43,66 @@ const CreateStorePageScreen = () => {
     // itemCoverImageSecond: '',
 
     useEffect(() => {
+        // let data = readFromStorePage();
+        // data = typeof data === undefined ? readFromBusiness() : data;
+        // if(typeof data === undefined){
+        //     data = {
+        //         business: userID,
+        //         storeName: '',
+        //         storeAddress: '',
+        //         storePhoneNum: '',
+        //         image: '',
+        //     };
+        // }
+        // setItemData(data);let business = {};
+        firebaseDB
+        .ref('storepage')
+        .child(userID)
+        .get()
+        .once('value', snapshot => {
+            if (snapshot.exists() && snapshot.numChildren() === 1) {
+                snapshot.forEach(child => {
+                    business = {
+                        business: child.val().business,
+                        storeName: child.val().storeName,
+                        storeAddress: child.val().storeAddress,
+                        storePhoneNum: child.val().storePhoneNum,
+                        image: child.val().image,
+                    };
+                });
+            }
+        });
+        console.log('read from store page');
+        console.log(business);
+        setItemData(business);
+    }, []);
+
+    const readFromStorePage = () => {
+        let business = {};
+        firebaseDB
+            .ref('storepage')
+            .child(userID)
+            .get()
+            .once('value', snapshot => {
+                if (snapshot.exists() && snapshot.numChildren() === 1) {
+                    snapshot.forEach(child => {
+                        business = {
+                            business: child.val().business,
+                            storeName: child.val().storeName,
+                            storeAddress: child.val().storeAddress,
+                            storePhoneNum: child.val().storePhoneNum,
+                            image: child.val().image,
+                        };
+                    });
+                }
+            });
+            console.log('read from store page');
+            console.log(business);
+        return business;
+    };
+
+    const readFromBusiness = () => {
+        let business = {};
         firebaseDB
             .ref()
             .child('businesses')
@@ -50,7 +110,6 @@ const CreateStorePageScreen = () => {
             .equalTo(userID)
             .once('value', snapshot => {
                 let business;
-                console.log(snapshot.numChildren());
                 if (snapshot.exists() && snapshot.numChildren() === 1) {
                     snapshot.forEach(child => {
                         console.log(child.val().title);
@@ -62,25 +121,21 @@ const CreateStorePageScreen = () => {
                             image: child.val().image,
                         };
                     });
-                } else {
-                    console.log('default call');
-                    business = {
-                        storeName: '',
-                        storeAddress: '',
-                        storePhoneNum: '',
-                        image: '',
-                    };
                 }
-                console.log(business);
-                setItemData(business);
             });
-    }, []);
+            console.log('read from business');
+            console.log(business);
+            return business;
+    };
 
     useEffect(() => {
         console.log(itemData);
     }, [itemData]);
 
-    const saveToDatabase = () => {
+    const saveToDatabase = item => {
+        console.log('save to database');
+        console.log(item);
+        console.log(itemData);
         firebaseDB
             .ref('storepage/' + userID)
             .set(itemData)
@@ -98,8 +153,9 @@ const CreateStorePageScreen = () => {
                 // navigate.navigate('StorePageScreen', {userID: userID});
             })
             .catch(error => {
-                console.error(error);
+                console.log(error);
             });
+        // firebaseDB.ref('storepage'+userID).set(itemData).then(()=>{Alert.alert('Success:', 'Your store details has been successfully added!', [ {text: 'OK,'},],)}).catch(e=>{console.log(e)})
     };
 
     const receiveImage = image => {
@@ -152,7 +208,13 @@ const CreateStorePageScreen = () => {
                     />
                     <ExpressoButton title="Contact Details" />
                     <ExpressoButton title="Create Your Menu" />
-                    <ExpressoButton title="Save Store Page" onPress={saveToDatabase} />
+                    <TouchableOpacity
+                        onPress={() => saveToDatabase()}
+                        style={styles.expressoButtonContainer}>
+                        <Text style={styles.expressoButtonText}>
+                            Save Store Page
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 {/* 
                 <View
@@ -246,6 +308,7 @@ const CreateStorePageScreen = () => {
                         }
                         placeholder="Store phone number"
                         maxLength={70}
+                        keyboardType={'numeric'}
                     />
                     <View styles={styles.modalButton}>
                         <TouchableOpacity
@@ -280,6 +343,18 @@ const CreateStorePageScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    expressoButtonContainer: {
+        backgroundColor: '#25a2af',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 10,
+    },
+    expressoButtonText: {
+        color: '#ffffff',
+        fontWeight: 'bold',
+        fontSize: 18,
+        textAlign: 'center',
+    },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
