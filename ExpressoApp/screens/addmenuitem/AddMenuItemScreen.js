@@ -92,6 +92,8 @@ const AddMenuItemScreen = ({route, navigation}) => {
                 console.log(itemData.title + " pushed to the menu")
                 navigation.goBack();
             }
+        } else {
+            console.error("Invalid menuID!")
         }
 
     }

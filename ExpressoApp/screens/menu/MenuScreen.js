@@ -36,6 +36,7 @@ export const MenuScreen = ({navigation, route}) => {
 
     const createMenu = () => {
         let itemList = [];
+        itemList = [];
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             snapshot.forEach((child) => {
                 itemList.push({
