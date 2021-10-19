@@ -14,6 +14,7 @@ import ExpressoButton from '../../components/Button';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import Order from './Order';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Header from "../../components/Header";
 //Refreshing Timer
 const wait = timeout => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -219,14 +220,7 @@ const OrdersScreen = props => {
   //Return rendered OrdersScreen component
   return (
     <View>
-      <TouchableOpacity
-        style={styles.navBar}
-        onPress={() => navigation.navigate('SearchScreen')}>
-        <Image
-          source={require('../../assets/ExpressoLogo.png')}
-          style={styles.headerIcon}
-        />
-      </TouchableOpacity>
+      <Header></Header>
 
       <ScrollView
         contentContainerStyle={styles.scrollView}

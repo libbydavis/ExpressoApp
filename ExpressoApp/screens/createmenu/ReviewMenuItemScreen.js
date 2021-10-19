@@ -4,8 +4,6 @@ import AddToCartButton from "../../components/AddToCartButton";
 import QuantityInput from "../../components/QuantityInput";
 import Header from "../../components/Header";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-//remove
-import ExpressoButton from '../../components/Button';
 
 const ReviewMenuItemScreen = ({navigation, route}) => {
     const UNIT_PRICE = route.params.price;
@@ -16,7 +14,8 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
         quantity: 1,
         notes: '',
         options: '',
-        businessID: route.params.businessID
+        businessID: route.params.businessID,
+        menuID: route.params.menuID
     })
 
     const receiveQuantity = (value) => {
@@ -24,6 +23,9 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
         setCartItem({...cartItem, ['quantity']: value, ['currentPrice']: newPrice});
     }
 
+    const setNotes = (notes) => {
+        setCartItem({...cartItem, ['notes']: notes});
+    }
 
     const toggleOptions = (item, title, isChecked) => {
         let optionsCopy = [...cartItem.options];
@@ -44,8 +46,8 @@ const ReviewMenuItemScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <Header navigation={navigation} rightOption='cart'></Header>
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('AddMenuItem')}>
+            <Header rightOption='cart'></Header>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('MenuScreen', {menuID: cartItem.menuID})}>
                 <Text style={styles.backButtonText}>Back To Menu</Text>
             </TouchableWithoutFeedback>
             <View style={styles.pageView}>
@@ -150,6 +152,3 @@ const styles = StyleSheet.create({
 
 export default ReviewMenuItemScreen;
 
-const setNotes = (notes) => {
-    setCartItem({...cartItem, ['notes']: notes});
-}

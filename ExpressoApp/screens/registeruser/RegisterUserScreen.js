@@ -101,6 +101,7 @@ function RegisterUserScreen({navigation}) {
                 console.log('User account created & signed in!');
                 writeUserData(user.user.uid);
                 if (owner) {
+                    console.log("you are owner")
                     writeBusinessData(user.user.uid);
                 }
                 return user;
@@ -181,6 +182,7 @@ function RegisterUserScreen({navigation}) {
      * @param {string}userId
      */
     function writeBusinessData(userId) {
+        console.log("userID: " + userId)
         firebaseDB
             .ref('businesses/' + userId)
             .set({
@@ -272,6 +274,7 @@ function RegisterUserScreen({navigation}) {
     };
 
     const handleOwner = bool => {
+        console.log(bool)
         setOwner(bool);
     };
 

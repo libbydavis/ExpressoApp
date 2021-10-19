@@ -5,7 +5,7 @@ import {
     Image,
     Text,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity, Alert
 } from 'react-native';
 import EditDayHours from "./EditDayHours";
 import {firebaseAuth, firebaseDB} from "../../firebase/FirebaseConfig";
@@ -66,6 +66,10 @@ const editOpeningHours = () => {
         writeDayHours(friday)
         writeDayHours(saturday)
         writeDayHours(sunday)
+        Alert.alert("Saved", "Opening hours have been saved", [
+            {text: "ok", onPress: () => {navigate.navigate('ProfileScreen')}}
+        ]);
+
     }
 
     const writeDayHours = (day) => {

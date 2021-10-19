@@ -16,6 +16,7 @@ import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import CustomImagePicker from '../../components/CustomImagePicker';
 import Header from '../../components/Header';
 import ExpressoButton from '../../components/Button';
+import uploadImage from "../../constants/UploadImage";
 
 const CreateStorePageScreen = () => {
     const navigate = useNavigation();
@@ -48,6 +49,8 @@ const CreateStorePageScreen = () => {
                 } else {
                     foundData = false;
                 }
+                console.log(business);
+                setItemData(business);
             });
 
         if (!foundData) {
@@ -213,6 +216,7 @@ const CreateStorePageScreen = () => {
                                 style={styles.buttonText}
                                 onPress={() => {
                                     setOpenEditStoreModal(false);
+                                    uploadImage(itemData).then(r => console.log("uploaded image"));
                                 }}>
                                 Save Changes
                             </Text>

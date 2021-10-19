@@ -231,7 +231,6 @@ const SearchScreen  = () => {
             onPress={() => updateSort('Nearest')}
         />
         <Text style={styles.sortText} >Nearest </Text>
-        <ExpressoButton title={"press"} onPress={() => navigate.navigate('ReviewMenuItem', {title: 'hotdog', price: 10.5, description: 'tasty hotdog', optionLists: []})}></ExpressoButton>
       </View>
 
       <FlatList
