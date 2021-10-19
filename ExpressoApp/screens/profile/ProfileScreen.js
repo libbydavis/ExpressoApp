@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     detailsView: {
-        margin: 15,
+        margin: 10,
+        marginLeft: 15,
         borderBottomColor: 'black',
     },
     details: {
