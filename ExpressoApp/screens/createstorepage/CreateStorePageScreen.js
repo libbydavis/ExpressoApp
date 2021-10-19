@@ -152,7 +152,7 @@ const CreateStorePageScreen = () => {
                                 console.log('uploaded image'),
                             );
                         }}
-                        style={styles.expressoButtonContainer}>
+                        style={styles.saveButtonContainer}>
                         <Text style={styles.expressoButtonText}>
                             Save Store Page
                         </Text>
@@ -240,6 +240,11 @@ const CreateStorePageScreen = () => {
 
 const styles = StyleSheet.create({
     expressoButtonContainer: {
+        backgroundColor: '#25a2af',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 10,
+    }, saveButtonContainer: {
         backgroundColor: '#25d2af',
         borderRadius: 10,
         padding: 10,

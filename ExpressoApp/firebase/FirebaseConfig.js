@@ -28,7 +28,7 @@ if (!firebase.apps.length) {
 const firebaseDB = firebase.database();
 const firebaseAuth = firebase.auth();
 
-export {firebaseAuth, firebaseDB};
+export {firebase, firebaseAuth, firebaseDB};
 
 // const dbRef = firebase.database().ref();
 // dbRef.child('Users/Owner').child('Owner1').get().then((snapshot) => {
