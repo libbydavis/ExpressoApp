@@ -10,7 +10,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {firebaseDB} from '../../firebase/FirebaseConfig';
+import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { RadioButton } from 'react-native-paper';
 import Geolocation from '@react-native-community/geolocation';
@@ -36,8 +36,10 @@ const SearchScreen  = () => {
     {label: 'name', value: 'title'},
     {label: 'location', value: 'address'}
   ]);
+  const [icon, setIcon] = useState();
 
   useEffect(() => {
+    busOrCust()
     firebaseDB.ref('businesses/').once('value', (snapshot)=>{
       console.log('test')
       var business = [];
@@ -164,9 +166,25 @@ const SearchScreen  = () => {
     searchFilterFunction(search)
   }
 
+  const busOrCust = () => {
+    const user = firebaseAuth.currentUser;
+    const uid = user.uid;
+    firebaseDB.ref('businesses').child(uid).once('value').then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log("business exists");
+        setIcon('profile')
+      } else {
+        console.log("No data available");
+        setIcon('cart')
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
   return (
     <View style={styles.mainView} testID={'Search_Screen'}>
-      <Header navigation={navigate} rightOption={'profile'}/>
+      <Header navigation={navigate} rightOption={icon}/>
       <View style={styles.searchView}>
         <ImageBackground source={require('../../assets/restaurantImage.png')} style={styles.backgroundImage} >
           <View style={styles.overlay}>
