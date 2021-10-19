@@ -11,10 +11,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AddMenuItemScreen from './screens/addmenuitem/AddMenuItemScreen';
 import RegisterUserScreen from './screens/registeruser/RegisterUserScreen';
 import LoginScreen from './screens/login/LoginScreen';
+import ResetPasswordScreen from './screens/resetpassword/ResetPasswordScreen';
 import CreateStorePageScreen from './screens/createstorepage/CreateStorePageScreen';
 import StorePageScreen from './screens/storepage/StorePageScreen';
 import CartScreen from './screens/cart/CartScreen';
-import firebase from 'firebase';
+import firebase from 'firebase'; 
 import RNBootSplash from "react-native-bootsplash";
 import OrdersScreen from './screens/ownerorders/OrdersScreen';
 import SearchScreen from './screens/search/SearchScreen';
@@ -66,10 +67,11 @@ export default class App extends Component {
           <Stack.Screen name="LoginScreen" component={LoginScreen}/>
           <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen}/>
           <Stack.Screen name='SearchScreen' component={SearchScreen}/>
+          <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
           <Stack.Screen name='ProfileScreen' component={ProfileScreen}/>
           <Stack.Screen name="Cart" component={CartScreen} />
-          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>
-          <Stack.Screen name="StorePageScreen" component={StorePageScreen}/>
+          <Stack.Screen name="CreateStorePageScreen" component={CreateStorePageScreen}/>          
+          <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen}/>
           <Stack.Screen name="CreateMenuScreen" component={CreateMenuScreen} />
           <Stack.Screen name="RegisterUser" component={RegisterUserScreen}/>
           <Stack.Screen name="OrdersScreen" component={OrdersScreen}/>

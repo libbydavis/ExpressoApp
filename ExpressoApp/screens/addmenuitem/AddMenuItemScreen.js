@@ -3,7 +3,12 @@ import {
     StyleSheet,
     View,
     TextInput,
-    Text, TouchableOpacity
+    TouchableOpacity,
+    Text,
+    Image,
+    Modal,
+    KeyboardAvoidingView,
+    Alert
 } from 'react-native';
 import storage from '@react-native-firebase/storage';
 
@@ -13,6 +18,7 @@ import {firebaseDB} from "../../firebase/FirebaseConfig";
 import CreateOptionListModal from "./CreateOptionListModal";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
+import NotifyOrderReadyButton from "../../components/NotifyOrderReadyButton";
 
 const AddMenuItemScreen = ({route, navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -27,7 +33,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
         price: 0.0,
         quantity: 5,
         optionLists: [],
-        itemCategory: []
+        itemCategory: ''
     });
 
     const toggleModal = () => {
@@ -92,6 +98,7 @@ const AddMenuItemScreen = ({route, navigation}) => {
   return (
     <View>
         <Header navigation={navigation} rightOption='profile'></Header>
+
         <View style={styles.mainView}>
         <Text style={styles.title}>Add Item</Text>
         <CustomImagePicker receiveImage={receiveImage} itemData={itemData} width={200} height={180}/>
@@ -137,17 +144,17 @@ const AddMenuItemScreen = ({route, navigation}) => {
           </View>
         </View>
         <View>
-            <TouchableOpacity onPress={onClickAddItem}>
-                <Text>Add Item</Text>
-            </TouchableOpacity>
-            <Button title={"Add Item"} onPress={onClickAddItem}></Button>
+                <TouchableOpacity
+                    style = {styles.expressoButton}
+                    title = {"Add Item"}
+                    onPress={onClickAddItem}
+                    >
+                    <Text>Add Item to Menu</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-      </View>
-    </View>
     );
 };
-
-
 
 const styles = StyleSheet.create({
     mainView: {

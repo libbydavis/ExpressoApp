@@ -24,11 +24,10 @@ class CustomImagePicker extends Component {
         if (!response.didCancel) {
           if (response.assets[0].uri) {
             this.setState({photo: response.assets[0].uri});
-            props.receiveImage({...this.props.itemData, ['image']: response.assets[0].uri});
+            this.props.receiveImage({...this.props.itemData, ["image"]: response.assets[0].uri,});
           }
         }
       });
-
     };
   }
 
@@ -41,7 +40,6 @@ class CustomImagePicker extends Component {
     const {photo} = this.state;
     return (
 
-    // eslint-disable-next-line react/prop-types
       <View style={this.props.style}>
         {photo && (
           <TouchableOpacity onPress={this.handleChoosePhoto}>

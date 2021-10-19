@@ -7,28 +7,36 @@ import {
     Image,
     FlatList, SectionList,
 } from 'react-native';
-import {firebase, firebaseDB} from "../../firebase/FirebaseConfig";
+import { firebaseDB } from "../../firebase/FirebaseConfig";
+import { firebase } from "@react-native-firebase/auth";
 import MenuCategories from "../../components/MenuCategories";
 import Header from "../../components/Header";
-import {cat} from "yarn/lib/cli";
-// import Category from "react-native-category"; this package is shit do not use
 
 //TODO: Remove unnecessary styles, fix loading of categories
 
 export const MenuScreen = ({navigation, route}) => {
     // pass menuID in the form (MenuScreen, { menuID: id_here }) to ensure this accesses the correct menu
+    // { menuID: '-MjmBfn9YP-wguwurLH1' } <- dinner menu test id
     const menuID = route.params["menuID"];
     const dbRef = firebaseDB.ref("Menus/");
     const [businessID, setBusinessID] = useState("");
-    const [allCategories, setAllCategories] = useState([]);
-    const [activeCategory, setActiveCategory] = useState("all");
-    const [menuItemList, setMenuItemList] = useState([]);
+    const [activeCategory, setActiveCategory] = useState("all"); // intended to allow the active category
+    const [menuItemList, setMenuItemList] = useState([]);        // to display a different style to others
     const [menuTitle, setMenuTitle] = useState('Menu');
     const [displayedItems, setDisplayedItems] = useState([]);
-    const [categoryItems, setCategoryItems] = useState([]);
 
     useEffect(() => {
+        dbRef.child(menuID + `/`).on("value", (snapshot) => {
+            setMenuTitle(snapshot.val().title);
+            setBusinessID(snapshot.val().business);
+        });
+
+        createMenu();
+    }, []);
+
+    const createMenu = () => {
         let itemList = [];
+        itemList = [];
         dbRef.child(menuID + `/menuItems`).on('value', (snapshot) => {
             snapshot.forEach((child) => {
                 itemList.push({
@@ -42,43 +50,9 @@ export const MenuScreen = ({navigation, route}) => {
                 });
             });
         });
-
-        let category = [];
-
-        for (let i = 0; i < itemList.length; i++) {
-            let item = itemList[i];
-            let cat = item.itemCategory
-            console.log(item)
-            console.log(cat)
-            if (cat) {
-                console.log("into first if ")
-                if (category.includes({title: cat})) {
-                    console.log("into second if")
-                    category[{title:cat}].data.push(item);
-                    console.log(category);
-                } else {
-                    console.log("into else")
-                    category.push({title: cat, data: [item]});
-                    console.log(category)
-                }
-                console.log(category)
-            }
-        }
-        setCategoryItems(category);
         setMenuItemList(itemList);
-        // setDisplayedItems(menuItemList);
-    }, []);
-
-    useEffect(() => {
-        dbRef.child(menuID + `/`).on("value", (snapshot) => {
-            setMenuTitle(snapshot.val().title);
-            setBusinessID(snapshot.val().business);
-        });
-    }, []);
-
-    useEffect(() => {
-        setAllCategories(["all", ...new Set(menuItemList.map((item) => item.itemCategory))]);
-    }, [menuItemList]);
+        setDisplayedItems(itemList);
+    }
 
     const filterItems = (category) => {
         setActiveCategory(category);
@@ -90,7 +64,7 @@ export const MenuScreen = ({navigation, route}) => {
         setDisplayedItems(itemsToDisplay);
     }
 
-    const ItemView = ({item}) => {
+    const ItemView = ({ item }) => {
         // View specification for menu items
         return (
             <TouchableOpacity style={styles.itemStyle} onPress={() => getItem(item)}>
@@ -140,28 +114,23 @@ export const MenuScreen = ({navigation, route}) => {
 
     return (
         <View>
-            <Header/>
+            <Header rightOption={'cart'} navigation={navigation} onPress={() => navigation.navigate('Cart')}></Header>
             <View style={styles.mainView}>
                 <Text style={styles.mainTitle}>
                     {menuTitle}
                 </Text>
             </View>
-            <SectionList
-                sections={categoryItems}
-                keyExtractor={(item, index) => item + index}
-                renderItem={ItemView}
-                itemSeparator={ItemSeparatorView}
+            <MenuCategories
+                categories={["all", ...new Set(menuItemList.map((item) => item.itemCategory))]}
+                activeCategory={activeCategory}
+                filterItems={filterItems}
             />
-            {/*<MenuCategories*/}
-            {/*    categories={allCategories}*/}
-            {/*    filterItems={filterItems}*/}
-            {/*!/>*/}
-            {/*<FlatList*/}
-            {/*    data={displayedItems}*/}
-            {/*    ItemSeparatorComponent={ItemSeparatorView}*/}
-            {/*    renderItem={ItemView}*/}
-            {/*    numColumns={2}*/}
-            {/*!/>*/}
+            <FlatList
+                data={displayedItems}
+                ItemSeparatorComponent={ItemSeparatorView}
+                renderItem={ItemView}
+                numColumns={2}
+            />
         </View>
     )
 };
@@ -189,15 +158,6 @@ const styles = StyleSheet.create({
     headerIcon: {
         width: 200,
         height: 50,
-    },
-    rowView: {
-        flexDirection: 'row',
-        marginTop: 20,
-    },
-    columnView: {
-        flexDirection: 'column',
-        marginLeft: 10,
-        marginRight: 10,
     },
     itemStyle: {
         padding: 15,

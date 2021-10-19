@@ -9,6 +9,7 @@ import PickupTimePicker from '../../components/PickupTime';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import '@react-navigation/native';
 
+//TODO Change back to
 
 const LoginScreen = ({navigation}) => {
 
@@ -27,7 +28,7 @@ const LoginScreen = ({navigation}) => {
             token = JSON.parse(token);
             console.log(token);
             let messageRef = firebaseDB.ref('users/' + user.user.uid).child('token').set(token)
-                .then(r => navigation.navigate('SearchScreen'));
+                .then(r => navigation.navigate('MenuEditor', { menuID: '-MjmBfn9YP-wguwurLH1' }));
         })
         .catch(error => {
             Alert.alert(
@@ -79,7 +80,12 @@ const LoginScreen = ({navigation}) => {
         />
       </View>
 
-      <TouchableOpacity style={styles.loginButton} testID={'loginButton'}>
+      <View style={styles.forgotPasswordContainer}>
+        <Text style={styles.signUpText} onPress={() => navigation.navigate('ResetPasswordScreen')}
+        >Forgot password? </Text>
+      </View>
+
+      <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
       </TouchableOpacity>
 
@@ -139,6 +145,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
   },
+  forgotPasswordContainer: {
+    flexDirection: 'row',
+    marginLeft: 130,
+    marginTop: 10,
+  },  
   signUpText: {
     color: '#6495ed',
     fontSize: 15,
@@ -147,7 +158,6 @@ const styles = StyleSheet.create({
   signUpContainer: {
     flexDirection: 'row',
   },
-
 });
 
 export default LoginScreen;

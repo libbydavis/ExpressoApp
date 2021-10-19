@@ -1,94 +1,117 @@
 import React from 'react';
 import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-
-class ExpressoHeader extends React.Component {
-    constructor(props) {
-        super(props);
-        const {navigation, rightOption, onPress} = this.props;
-        this.navigation = navigation;
-        this.rightOption = rightOption; //Cart or Profile
-        this.onPress = onPress;
-        this.styles = StyleSheet.create({
-            headerView: {
-                flexDirection: 'row',
-                justifyContent: 'space-between'
-            },
-            expressoLogoButton: {
-                marginBottom: 15,
-                marginTop: 8,
-            },
-            expressoLogo: {
-                width: 200,
-                height: 50,
-            },
-            cart: {
-                width: 40,
-                height: 40,
-                marginTop: 5,
-                marginRight: 10,
-            },
-            profile: {
-                width: 40,
-                height: 40,
-                marginTop: 5,
-                marginRight: 10,
-            },
-            rightOption: {
-                width: 40,
-                height: 40,
-                padding: 5,
-                margin: 10,
-            },
-        });
-    }
-
-    OnLogoPressHandler = () => {
+function ExpressoHeader(props) {
+    const {rightOption, onPress} = props;
+    const navigation = useNavigation();
+  
+    const OnLogoPressHandler = () => {
         console.log('Logo Press Handler');
         try {
-            this.navigation.navigate('SearchScreen');
+            if (rightOption == 'login') {
+                navigation.navigate('LoginScreen');
+            } else {
+                navigation.navigate('SearchScreen');
+            }
         } catch (error) {
             console.warn('Caught an error in header');
             console.error(error.message);
         }
     };
 
-    OnRightOptionPressHandler = () => {
+    const OnRightOptionPressHandler = () => {
         console.log('Right option handler');
         try {
-            this.onPress
-                ? this.onPress()?.()
-                : console.warn('Implement onPress prop');
-            if(this.rightOption === 'profile'){
-                this.navigation.navigate('ProfileScreen');
-            }
-
+            rightOption === 'profile'
+                ? navigation.navigate('ProfileScreen')
+                : rightOption === 'login'
+                ? navigation.navigate('LoginScreen')
+                : onPress();
         } catch (error) {
             console.warn('Caught an error in ExpressoButton');
             console.error(error.message);
         }
     };
 
-    render() {
-        return (
-            <View style={this.styles.headerView}>
-                <TouchableOpacity style={this.styles.expressoLogoButton} onPress={this.OnLogoPressHandler} testID={'expressoButton'}>
-                    <Image source={require('../assets/ExpressoLogo.png')} style={this.styles.expressoLogo}/>
-                </TouchableOpacity>
-                { /*Options like cart or profile */
-                    this.rightOption === 'cart' ?
-                        <TouchableOpacity style={this.styles.rightOption} onPress={this.OnRightOptionPressHandler}>
-                            <Image source={require('../assets/carticon.png')} style={this.styles.cart}/>
-                        </TouchableOpacity> :
-                        this.rightOption === 'profile' ?
-                            <TouchableOpacity style={this.styles.rightOption} onPress={this.OnRightOptionPressHandler} testID={'profileButton'}>
-                                <Image source={require('../assets/profileIcon.png')} style={this.styles.profile}/>
-                            </TouchableOpacity> :
-                            null
-                }
-            </View>
-        );
-    }
+    return (
+        <View style={styles.headerView}>
+            <TouchableOpacity
+                style={styles.expressoLogoButton}
+                onPress={OnLogoPressHandler}
+                testID={'expressoButton'}>
+                <Image
+                    source={require('../assets/ExpressoLogo.png')}
+                    style={styles.expressoLogo}
+                />
+            </TouchableOpacity>
+            {
+                /* Options like cart or profile */
+                rightOption === 'cart' ? (
+                    <TouchableOpacity
+                        style={styles.rightOption}
+                        onPress={OnRightOptionPressHandler}>
+                        <Image
+                            source={require('../assets/carticon.png')}
+                            style={styles.cart}
+                        />
+                    </TouchableOpacity>
+                ) : rightOption === 'profile' ? (
+                    <TouchableOpacity
+                        style={styles.rightOption}
+                        onPress={OnRightOptionPressHandler}
+                        testID={'profileButton'}>
+                        <Image
+                            source={require('../assets/profileIcon.png')}
+                            style={styles.profile}
+                        />
+                    </TouchableOpacity>
+                ) : rightOption === 'login' ? (
+                    <TouchableOpacity
+                        style={styles.rightOption}
+                        onPress={OnRightOptionPressHandler}
+                        testID={'loginButton'}>
+                        <Image
+                            source={require('../assets/profileIcon.png')}
+                            style={styles.profile}
+                        />
+                    </TouchableOpacity>
+                ) : null
+            }
+        </View>
+    );
 }
 
+const styles = StyleSheet.create({
+    headerView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+    },
+    expressoLogoButton: {
+        marginBottom: 15,
+        marginTop: 8,
+        alignSelf: 'flex-start',
+    },
+    expressoLogo: {
+        width: 200,
+        height: 50,
+    },
+    cart: {
+        width: 40,
+        height: 40,
+        padding: 5,
+    },
+    profile: {
+        width: 40,
+        height: 40,
+        padding: 5,
+    },
+    rightOption: {
+        width: 40,
+        height: 40,
+        padding: 5,
+        margin: 10,
+    },
+});
 export default ExpressoHeader;
