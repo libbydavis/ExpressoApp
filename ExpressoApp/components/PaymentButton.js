@@ -1,32 +1,56 @@
 import React, {useEffect, useState} from 'react';
 import {TOKEN_KEY} from '@env';
-import {firebaseAuth} from "../firebase/FirebaseConfig";
+import {firebaseAuth, firebaseDB} from "../firebase/FirebaseConfig";
 import {requestOneTimePayment} from "react-native-paypal";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 
 const PaymentButton = (props) => {
-    /*
-    const braintree = require("braintree");
-    const [clientToken, setClientToken] = useState();
+    const [orderId, setOrderId] = useState(() => getInitialOrderId());
 
-    const gateway = new braintree.BraintreeGateway({
-        environment: braintree.Environment.Sandbox,
-        merchantId: {MERCHANT_ID},
-        publicKey: {PUBLIC_KEY},
-        privateKey: {PRIVATE_KEY}
-    });
+    //get
+    function getInitialOrderId() {
+        let initialId = 500;
+        /*
+        firebaseDB.ref('businesses/').once('value', (snapshot)=>{
 
-    gateway.clientToken.generate({
-        customerId: firebaseAuth.currentUser
-    }).then(response => {
-        // pass clientToken to your front-end
-        useEffect(() => {
-            setClientToken(response.clientToken);
         });
-    });
 
-     */
+         */
+        //get from firebase once
+        return initialId;
+    }
+
+    //Increment orderID
+    function setNextOrderId(orderID) {
+        if (orderID) {
+            setOrderId(orderID + 1);
+        } else {
+            setOrderId(prevOrderId => prevOrderId + 1);
+        }
+    }
+
+    function addOrderToDatabase() {
+        let menuItems = props.menuItems; //replace with the input order when using elsewhere
+        firebaseDB
+            .ref('orders/')
+            .push({
+                customer: firebaseAuth.currentUser.uid,
+                customerName: firebaseAuth.currentUser.displayName,
+                orderId: orderId,
+                menuItems,
+                business: props.businessID,
+                orderTime: props.orderTime.toString(),
+            })
+
+            .then(() => {
+                console.log('addOrderToDatabase resolve');
+                setNextOrderId();
+            })
+            .catch(error => {
+                console.log('Was not added' + error.message);
+            });
+    }
 
     const payNow = async () => {
         // For one time payments

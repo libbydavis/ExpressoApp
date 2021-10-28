@@ -3,21 +3,12 @@ import React from 'react';
 import {useState} from "react";
 import {StyleSheet, Image, TextInput, View, TouchableOpacity, Text, Keyboard, Alert} from 'react-native';
 import {firebaseAuth, firebaseDB} from '../../firebase/FirebaseConfig';
-import {keyboard} from "yarn/lib/cli";
-import ExpressoButton from '../../components/Button';
-import PickupTimePicker from '../../components/PickupTime';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import '@react-navigation/native';
-
-//TODO Change back to
 
 const LoginScreen = ({navigation}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const test = () => {
-      console.log('test');
-  }
 
   const userLogin = () => {
     firebaseAuth
@@ -86,7 +77,7 @@ const LoginScreen = ({navigation}) => {
       </View>
 
       <TouchableOpacity style={styles.loginButton}>
-        <Text style={styles.loginText} onPress={() => userLogin()}>LOGIN</Text>
+        <Text style={styles.loginText} onPress={() => userLogin()}>login</Text>
       </TouchableOpacity>
 
       <View style={styles.signUpContainer}>
@@ -112,11 +103,10 @@ const styles = StyleSheet.create({
 
     },
     headerIcon: {
-        width: 200,
-        height: 50,
+        width: 225,
+        height: 65,
         marginTop: 100,
-        marginBottom: 30,
-
+        marginBottom: 10,
   },
   inputContainer: {
     borderColor: 'black',
@@ -127,20 +117,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   loginButton: {
-    borderColor: 'black',
-    borderWidth: 1,
-    width: 250,
-    height: 50,
-    padding: 10,
-    borderRadius: 10,
-    marginTop: 20,
-    marginBottom: 20,
-    backgroundColor: '#25a2af',
+      width: 250,
+      height: 50,
+      padding: 10,
+      borderRadius: 10,
+      marginTop: 20,
+      marginBottom: 20,
+      backgroundColor: '#25a2af',
+      justifyContent: 'center'
   },
   loginText: {
-    color: '#ffffff',
-    textAlign: 'center',
-    fontSize: 15,
+      color: '#ffffff',
+      textAlign: 'center',
+      fontSize: 16,
+      fontWeight: '200',
   },
   text: {
     fontSize: 15,

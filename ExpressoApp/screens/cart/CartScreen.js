@@ -37,10 +37,9 @@ const CartScreen = ({navigation}) => {
             <View style={styles.cartView}>
                 <Text style={styles.cartTitle}>Cart</Text>
                 <Cart receiveValue={receiveAmount}></Cart>
-                <ExpressoButton
-                    onPress={() => setShowTimePicker(true)}
-                    title={'Choose Pickup Time'}
-                />
+                <TouchableOpacity onPress={() => setShowTimePicker(true)} style={styles.timeButton}>
+                    <Text style={styles.buttonText}>Choose Pickup Time</Text>
+                </TouchableOpacity>
                 {showTimePicker && (
                     <PickupTimePicker
                         hidePickerVisibility={hidePickerVisibility}
@@ -48,13 +47,24 @@ const CartScreen = ({navigation}) => {
                         openingHours={{openTime: '', closeTime: ''}}
                     />
                 )}
-                <PaymentButton amount={amount}></PaymentButton>
+                <PaymentButton amount={amount} orderTime={orderTime}></PaymentButton>
             </View>
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    timeButton: {
+        backgroundColor: '#25a2af',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 15,
+        width: 160,
+    },
+    buttonText: {
+        color: '#ffffff',
+        textAlign: 'center',
+    },
     cartView: {
         justifyContent: 'center',
         alignItems: 'center',

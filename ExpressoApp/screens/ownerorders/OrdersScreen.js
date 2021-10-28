@@ -28,27 +28,10 @@ const OrdersScreen = props => {
   const [orderList, setOrderList] = useState(() =>
     getInitialOrdersFromFirebase(),
   );
-  const [orderId, setOrderId] = useState(() => getInitialOrderId());
 
   useEffect(() => {
     setOrdersFromFirebase();
   }, []);
-
-  //get
-  function getInitialOrderId() {
-    let initialId = 500;
-    //get from firebase once
-    return initialId;
-  }
-
-  //Increment orderID
-  function setNextOrderId(orderID) {
-    if (orderID) {
-      setOrderId(orderID + 1);
-    } else {
-      setOrderId(prevOrderId => prevOrderId + 1);
-    }
-  }
 
   //get initial orders[] from Firebase
   function getInitialOrdersFromFirebase() {
@@ -195,27 +178,6 @@ const OrdersScreen = props => {
   //     if (shouldResetOrderList) setRefreshing(false);
   // }, [shouldResetOrderList]);
 
-  //TEST FUNCTION: Adds a generic order to firebase
-  function addOrderToDatabase() {
-    let menuItems = {burger: 2, Coke: 3}; //replace with the input order when using elsewhere
-    firebaseDB
-      .ref('orders/')
-      .push({
-        customer: 'Christian', //replace with current user's firstname when using elsewhere
-        orderId: orderId,
-        menuItems,
-        business: firebaseAuth.currentUser.uid,
-        orderTime: orderTime.toString(),
-      })
-
-      .then(() => {
-        console.log('addOrderToDatabase resolve');
-        setNextOrderId();
-      })
-      .catch(error => {
-        console.log('Was not added' + error.message);
-      });
-  }
 
   //Return rendered OrdersScreen component
   return (
@@ -259,7 +221,6 @@ const OrdersScreen = props => {
             }}
           />
         )}
-        <ExpressoButton onPress={addOrderToDatabase} title={'Add New Order'} />
       </ScrollView>
     </View>
   );
